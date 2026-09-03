@@ -1,6 +1,9 @@
 /**
  * Accelerationsfält — påfart med och utan.
  * Trafikförordningen 3 kap 21 § och 23 §.
+ *
+ * Vägmärkesbilden B1 i public/signs/ är ett svenskt officiellt vägmärke
+ * (allmän handling) och fri att återge.
  */
 
 export function AccelerationsfaltDiagram() {
@@ -15,7 +18,8 @@ export function AccelerationsfaltDiagram() {
       <desc id="accel-desc">
         Två scenarier visas. Överst: Påfart med accelerationsfält (markerat med lodräta ränder). Du
         anpassar farten och flätar in — ingen väjningsplikt enligt 3 kap 23 §. Underst: Påfart utan
-        accelerationsfält. Du har väjningsplikt mot trafiken på huvudleden enligt 3 kap 21 §.
+        accelerationsfält, markerad med vägmärket B1, väjningsplikt. Du har väjningsplikt mot
+        trafiken på huvudleden enligt 3 kap 21 §.
       </desc>
 
       {/* Scenario 1: MED accelerationsfält */}
@@ -130,12 +134,11 @@ export function AccelerationsfaltDiagram() {
           strokeWidth="1.5"
         />
 
-        {/* Väjningssymbol */}
-        <path
-          d="M 130 75 L 115 95 L 145 95 Z"
-          className="fill-safety-600 stroke-neutral-900"
-          strokeWidth="1.5"
-        />
+        {/* B1 — vägmärket för väjningsplikt */}
+        <image href="/signs/B1.svg" x="108" y="100" width="28" height="28" />
+        <text x="108" y="145" className="fill-text-secondary text-[13px]">
+          B1
+        </text>
 
         {/* Etikett */}
         <text x="190" y="120" className="fill-text-primary text-[14px] font-semibold">

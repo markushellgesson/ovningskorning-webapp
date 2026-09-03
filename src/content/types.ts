@@ -1,5 +1,13 @@
 // Typer för exporterat läroplansinnehåll
 // Exporteras från granskad databas, inte härlett från seed-filer (ADR 0013)
+//
+// Facit för enumvärden och fält: prisma/schema.prisma. Men vilka NYCKLAR
+// som faktiskt finns på varje objekt styrs av scripts/export-content.mts —
+// det skriptet utelämnar medvetet några fält som schemat har men som
+// content.json aldrig får (dokumenterat i skriptets egen kommentar). De
+// fälten ska därför INTE finnas i typerna nedan, även om motsvarande
+// Prisma-modell har dem. Se index.ts för hur typen faktiskt tillämpas på
+// den importerade JSON:en.
 
 export type SkillCategory =
   | 'VEHICLE_CONTROL'
@@ -38,27 +46,28 @@ export type TheoryCategory =
   | 'TRAFFIC_SAFETY'
   | 'HUMAN_FACTORS';
 
-export type DifficultyLevel = 'BASIC' | 'INTERMEDIATE' | 'ADVANCED';
+export type DifficultyLevel = 'INTRODUCTION' | 'BASIC' | 'INTERMEDIATE' | 'ADVANCED';
 
 export type EnvironmentType =
+  | 'CLOSED_AREA'
+  | 'PARKING_AREA'
   | 'RESIDENTIAL'
   | 'URBAN'
+  | 'MULTILANE_URBAN'
   | 'RURAL'
   | 'HIGHWAY'
-  | 'PARKING'
-  | 'PARKING_GARAGE'
-  | 'NARROW_STREET'
-  | 'CONSTRUCTION_ZONE'
-  | 'SCHOOL_ZONE';
+  | 'ROADWORK'
+  | 'OTHER';
 
-export type RegulatoryAuthority = 'TRANSPORTSTYRELSEN' | 'RIKSDAG' | 'KORKORTSPORTALEN';
+export type RegulatoryAuthority = 'TRANSPORTSTYRELSEN' | 'TRAFIKVERKET' | 'RIKSDAGEN' | 'IMY';
 
 export type PhraseType =
-  | 'QUESTION'
   | 'INSTRUCTION'
-  | 'OBSERVATION'
+  | 'QUESTION'
+  | 'CUE'
   | 'FEEDBACK'
-  | 'REFLECTION_PROMPT';
+  | 'REFLECTION'
+  | 'SAFETY_INTERVENTION';
 
 export interface SkillPrerequisite {
   prerequisiteSkillId: string;
@@ -98,42 +107,43 @@ export interface TheoryTopic {
   sourceVersion: string;
 }
 
+// Exercise.sourceVersion finns i schemat men skrivs inte ut av
+// export-content.mts — utelämnat här av samma skäl.
 export interface Exercise {
   id: string;
   skillId: string;
   title: string;
   description: string;
   difficulty: DifficultyLevel;
-  estimatedMinutes: number;
+  estimatedMinutes: number | null;
   requiredEnvironments: EnvironmentType[];
-  sourceVersion: string;
 }
 
+// TrafficEnvironment.difficulty finns i schemat men skrivs inte ut av
+// export-content.mts — utelämnat här av samma skäl. name/characteristics/
+// relevantSkills/sourceVersion finns varken i schemat eller i exporten.
 export interface TrafficEnvironment {
   id: string;
   type: EnvironmentType;
-  name: string;
-  description: string;
-  characteristics: string[];
-  relevantSkills: string[];
-  sourceVersion: string;
+  description: string | null;
 }
 
 export interface SupervisorPhrase {
   id: string;
-  skillId: string;
+  /** null = allmänt mönster, inte knutet till ett specifikt moment. */
+  skillId: string | null;
   type: PhraseType;
   text: string;
   context: string | null;
   sourceVersion: string;
 }
 
+// RegulatorySource.title/.relevantSections finns varken i schemat eller i
+// exporten — utelämnade här.
 export interface RegulatorySource {
   id: string;
   authority: RegulatoryAuthority;
-  title: string;
   url: string | null;
-  relevantSections: string[];
   sourceVersion: string;
 }
 

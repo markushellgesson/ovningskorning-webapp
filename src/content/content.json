@@ -101,13 +101,8 @@
         "Sätt på bältet och dra åt så det sitter tätt",
         "Kontrollera alla passagerare före start"
       ],
-      "commonErrors": [
-        "Startar utan att kontrollera passagerarna",
-        "Bältet sitter löst"
-      ],
-      "supervisorObservations": [
-        "Kontrollerar eleven bälten utan påminnelse?"
-      ],
+      "commonErrors": ["Startar utan att kontrollera passagerarna", "Bältet sitter löst"],
+      "supervisorObservations": ["Kontrollerar eleven bälten utan påminnelse?"],
       "continuous": false,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -134,9 +129,7 @@
         "Måste titta på reglaget när det används",
         "Blandar ihop blinkers och torkare"
       ],
-      "supervisorObservations": [
-        "Hittar eleven reglaget utan att titta?"
-      ],
+      "supervisorObservations": ["Hittar eleven reglaget utan att titta?"],
       "continuous": false,
       "safetyCritical": false,
       "applicableTransmissions": [],
@@ -151,21 +144,13 @@
       "category": "VEHICLE_CONTROL",
       "name": "Ljus och signaler",
       "description": "Använda rätt ljus och signaler för att synas och kommunicera.",
-      "goals": [
-        "Välja rätt ljus för ljusförhållanden och väder",
-        "Använda blinkers i god tid"
-      ],
+      "goals": ["Välja rätt ljus för ljusförhållanden och väder", "Använda blinkers i god tid"],
       "practiceSteps": [
         "Lär dig vilket ljusläge som gäller i vilka situationer",
         "Öva på att blinka i god tid"
       ],
-      "commonErrors": [
-        "Glömmer ljuset",
-        "Blinkar för sent"
-      ],
-      "supervisorObservations": [
-        "Använder eleven rätt ljus?"
-      ],
+      "commonErrors": ["Glömmer ljuset", "Blinkar för sent"],
+      "supervisorObservations": ["Använder eleven rätt ljus?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -270,27 +255,64 @@
       "category": "MANEUVERING",
       "name": "Koppling och växling",
       "description": "Smidig växling utan att blicken lämnar vägen. Endast manuell växellåda.",
-      "goals": [
-        "Växla mjukt utan ryck",
-        "Hitta rätt växel utan att titta"
-      ],
+      "goals": ["Växla mjukt utan ryck", "Hitta rätt växel utan att titta"],
       "practiceSteps": [
         "Öva växelmönstret när bilen står still",
         "Träna på att växla utan att titta"
       ],
-      "commonErrors": [
-        "Tittar på växelspaken",
-        "Släpper kopplingen för fort"
-      ],
-      "supervisorObservations": [
-        "Växlar eleven utan att titta?"
-      ],
+      "commonErrors": ["Tittar på växelspaken", "Släpper kopplingen för fort"],
+      "supervisorObservations": ["Växlar eleven utan att titta?"],
       "continuous": true,
       "safetyCritical": false,
-      "applicableTransmissions": [
-        "MANUAL"
-      ],
+      "applicableTransmissions": ["MANUAL"],
       "sortOrder": 115,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "MAN-01",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": []
+    },
+    {
+      "id": "MAN-04",
+      "parentId": "MAN-01",
+      "category": "MANEUVERING",
+      "name": "Krypkörning",
+      "description": "Hålla bilen i jämn, mycket låg fart och kunna styra oberoende av fotarbetet. Själva tekniken är inte författningsreglerad, men färdigheten finns i kursplanen — och utan krypkörning blir backning, vändning och parkering ryckiga.",
+      "goals": [
+        "Hålla jämn gångfart utan att bilen hackar eller rusar",
+        "Styra fritt medan farten hålls konstant — händer och fötter arbetar oberoende av varandra",
+        "Manuell: känna igen dragläget och kunna ligga kvar i det",
+        "Automat: dosera farten med bromsfoten medan bilen kryper på tomgång",
+        "Nå den rutinmässiga manövreringsförmåga som kursplanen beskriver (TSFS 2011:20 2 kap 2 § p.4)"
+      ],
+      "practiceSteps": [
+        "Välj en tom parkering eller avstängd plats utan trafik",
+        "Manuell: lägg i ettan och släpp kopplingen till dragläget — punkten där bilen börjar dra men ännu inte accelererar",
+        "Manuell: håll foten stilla där och låt bilen krypa helt utan gas",
+        "Automat: lägg i D och släpp bromsen bara delvis — farten doseras med bromsfoten",
+        "Kör mellan två utsatta punkter och håll farten exakt lika hela vägen",
+        "Lägg till styrning: sicksacka mellan punkterna utan att farten ändras"
+      ],
+      "commonErrors": [
+        "Släpper kopplingen helt — bilen rusar och krypfarten går förlorad",
+        "Trampar ur kopplingen helt i stället för att ligga kvar i dragläget — bilen tappar all fart",
+        "Doserar farten med gasen i stället för med kopplingen",
+        "Automat: släpper bromsen helt och får för hög fart för att hinna styra",
+        "Tittar ned på fötterna i stället för dit bilen ska"
+      ],
+      "supervisorObservations": [
+        "Är farten jämn eller hackig?",
+        "Kan eleven styra utan att farten ändras?",
+        "Manuell: hittar eleven dragläget utan att motorn dör?",
+        "Behöver eleven titta ned på pedalerna?"
+      ],
+      "continuous": false,
+      "safetyCritical": false,
+      "applicableTransmissions": [],
+      "sortOrder": 120,
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
@@ -306,23 +328,15 @@
       "category": "MANEUVERING",
       "name": "Start i motlut",
       "description": "Starta i lutning utan att rulla bakåt.",
-      "goals": [
-        "Starta i backe utan att rulla bakåt",
-        "Balansera gas, koppling och broms"
-      ],
+      "goals": ["Starta i backe utan att rulla bakåt", "Balansera gas, koppling och broms"],
       "practiceSteps": [
         "Hitta en lugn lutning",
         "Håll fotbromsen eller handbromsen",
         "Ge gas och släpp kopplingen till dragläget — punkten där bilen börjar vilja dra",
         "Släpp bromsen och fortsätt släppa kopplingen mjukt"
       ],
-      "commonErrors": [
-        "Rullar bakåt",
-        "Motorn dör"
-      ],
-      "supervisorObservations": [
-        "Rullar bilen bakåt?"
-      ],
+      "commonErrors": ["Rullar bakåt", "Motorn dör"],
+      "supervisorObservations": ["Rullar bilen bakåt?"],
       "continuous": false,
       "safetyCritical": false,
       "applicableTransmissions": [],
@@ -378,12 +392,12 @@
       ],
       "theoryRelations": [
         {
-          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
-          "relationType": "PREREQUISITE"
-        },
-        {
           "theoryTopicId": "THEORY-BROMSNING",
           "relationType": "INTEGRATED"
+        },
+        {
+          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
+          "relationType": "PREREQUISITE"
         }
       ]
     },
@@ -393,20 +407,10 @@
       "category": "MANEUVERING",
       "name": "Effektiv bromsning",
       "description": "Kraftig, kontrollerad inbromsning när situationen kräver det.",
-      "goals": [
-        "Bromsa med full kraft och behålla styrförmågan",
-        "Behålla kontrollen"
-      ],
-      "practiceSteps": [
-        "Välj en säker, avskild plats",
-        "Öva kraftig bromsning från låg hastighet"
-      ],
-      "commonErrors": [
-        "Tvekar i stället för att bromsa bestämt"
-      ],
-      "supervisorObservations": [
-        "Bromsar eleven kraftigt nog?"
-      ],
+      "goals": ["Bromsa med full kraft och behålla styrförmågan", "Behålla kontrollen"],
+      "practiceSteps": ["Välj en säker, avskild plats", "Öva kraftig bromsning från låg hastighet"],
+      "commonErrors": ["Tvekar i stället för att bromsa bestämt"],
+      "supervisorObservations": ["Bromsar eleven kraftigt nog?"],
       "continuous": false,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -420,11 +424,11 @@
       ],
       "theoryRelations": [
         {
-          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
+          "theoryTopicId": "THEORY-BROMSNING",
           "relationType": "INTEGRATED"
         },
         {
-          "theoryTopicId": "THEORY-BROMSNING",
+          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
           "relationType": "INTEGRATED"
         }
       ]
@@ -435,22 +439,14 @@
       "category": "MANEUVERING",
       "name": "Backning",
       "description": "Backa säkert med kontroll över omgivningen — inte bara kameran.",
-      "goals": [
-        "Backa med låg hastighet",
-        "Kontrollera omgivningen kontinuerligt"
-      ],
+      "goals": ["Backa med låg hastighet", "Kontrollera omgivningen kontinuerligt"],
       "practiceSteps": [
         "Innan backning: titta runt",
         "Backa långsamt",
         "Kolla i speglar, genom rutorna och med axelblick"
       ],
-      "commonErrors": [
-        "Använder bara kameran",
-        "Backar för fort"
-      ],
-      "supervisorObservations": [
-        "Kollar eleven runt?"
-      ],
+      "commonErrors": ["Använder bara kameran", "Backar för fort"],
+      "supervisorObservations": ["Kollar eleven runt?"],
       "continuous": false,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -470,30 +466,100 @@
       ]
     },
     {
+      "id": "MAN-09",
+      "parentId": "MAN-08",
+      "category": "MANEUVERING",
+      "name": "Vändning",
+      "description": "Vända bilen på begränsad yta med full kontroll över trafik och omgivning. Vändning är ett av de moment som kan ingå i särskild manövrering på körprovet (TSFS 2012:43 18 §). Själva tekniken står inte i någon författning — den beskrivs här som teknik.",
+      "goals": [
+        "Välja en plats där vändningen kan göras utan att skymma eller blockera för andra",
+        "Genomföra vändningen i krypfart med kontroll över hela omgivningen",
+        "Kunna avbryta och köra vidare när platsen visar sig olämplig",
+        "Veta att det är förbjudet att vända och backa på motorväg och motortrafikled (trafikförordningen 9 kap 1 § första stycket, tillämpligt på motortrafikled genom 9 kap 2 §)"
+      ],
+      "practiceSteps": [
+        "Leta upp en plats med fri sikt åt båda håll — inte vid backkrön, i kurva eller nära korsning",
+        "Stanna först och gör en plan: var ska bilen stå efter varje delmoment?",
+        "Titta runt hela bilen innan du börjar — speglar, genom rutorna och axelblick",
+        "Kör fram i krypfart med fullt rattutslag och stanna i god tid före kanten",
+        "Lägg i backen, vrid dig om och titta bakåt, och backa i krypfart med motsatt rattutslag",
+        "Ta hellre ett tag till än att skrapa kanten — antalet tag är inte poängen",
+        "Vänta med att köra ut tills körbanan är fri åt båda håll",
+        "Kör ut i krypfart och räta upp ratten när bilen pekar åt rätt håll"
+      ],
+      "commonErrors": [
+        "Väljer plats med skymd sikt — backkrön, kurva eller precis före en korsning",
+        "Kör för fort och hinner inte styra klart innan bilen är vid kanten",
+        "Tittar bara i backkameran under backdelen i stället för att vrida sig om",
+        "Stressar av att någon kommer bakom och lämnar manövern halvfärdig",
+        "Kör ut igen utan att kontrollera åt båda håll"
+      ],
+      "supervisorObservations": [
+        "Väljer eleven en plats med fri sikt?",
+        "Stannar eleven och planerar innan manövern börjar?",
+        "Är farten låg nog för att hinna avbryta?",
+        "Kollar eleven runt hela bilen, inte bara bakåt?",
+        "Kan eleven avbryta en påbörjad vändning när något dyker upp?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 160,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "MAN-04",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "MAN-08",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "OBS-02",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-BACKNING",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
       "id": "MAN-10",
       "parentId": "MAN-02",
       "category": "MANEUVERING",
       "name": "Parkering",
-      "description": "Säker parkering med kontroll över omgivningen — inte bara teknisk manöver.",
+      "description": "Säker parkering med kontroll över omgivningen — inte bara en teknisk manöver. Valet av plats är en del av momentet: en del platser är förbjudna att stanna eller parkera på.",
       "goals": [
         "Backa in eller parkera längs trottoarkant",
         "Kontrollera omgivningen under hela manövern",
-        "Stå still och ha en plan innan du börjar"
+        "Stå still och ha en plan innan du börjar",
+        "Veta var det är förbjudet att stanna och parkera: bland annat inom tio meter före ett övergångsställe, en cykelpassage eller en cykelöverfart, i en vägkorsning eller inom tio meter från den korsande körbanans närmaste ytterkant, i en vägport eller tunnel, på eller strax före ett backkrön eller i en kurva med skymd sikt, samt i en cirkulationsplats (trafikförordningen 3 kap 53 §)",
+        "Veta att fordon inte får parkeras inom trettio meter från en plankorsning eller på en utmärkt mötesplats (trafikförordningen 3 kap 55 § första stycket 1 och 5)",
+        "Veta att hållplatsförbudet gäller inom tjugo meter före och fem meter efter märke E22 när markering saknas (3 kap 54 §)",
+        "Veta att fordon på en gata med enkelriktad trafik får stannas eller parkeras även på vänstra sidan (3 kap 52 §)"
       ],
       "practiceSteps": [
+        "Innan du väljer plats: är det tillåtet att stanna och parkera här? Korsning, övergångsställe, backkrön, kurva med skymd sikt, hållplats och plankorsning har egna förbud",
         "Stanna, titta runt — finns det fotgängare, cyklister, fordon?",
         "Gör en plan: var ska bilen stå till slut, och hur styr du dit?",
-        "Kör/backa långsamt med full koll på omgivningen",
-        "Stanna om något oförutsett händer"
+        "Kör eller backa i krypfart med full koll på omgivningen",
+        "Stanna om något oförutsett händer",
+        "På enkelriktad gata: kom ihåg att vänstra sidan också är tillåten"
       ],
       "commonErrors": [
         "Fokuserar bara på parkeringstekniken — missar omgivningen",
         "Använder bara kameran — ser inte hela bilden",
         "Kör för fort — hinner inte reagera",
-        "Fortsätter även när något är oklart"
+        "Fortsätter även när något är oklart",
+        "Väljer en plats som är förbjuden: för nära korsning, övergångsställe eller hållplats"
       ],
       "supervisorObservations": [
         "Stannar eleven och gör en plan först?",
+        "Kontrollerar eleven att platsen är tillåten innan manövern börjar?",
         "Kollar eleven runt under hela manövern?",
         "Är hastigheten låg nog för att hinna reagera?",
         "Hur hanterar eleven oförutsedda händelser (fotgängare dyker upp)?"
@@ -507,12 +573,20 @@
         {
           "prerequisiteSkillId": "MAN-02",
           "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "MAN-04",
+          "minimumState": "PRACTICING"
         }
       ],
       "theoryRelations": [
         {
           "theoryTopicId": "THEORY-BACKNING",
           "relationType": "INTEGRATED"
+        },
+        {
+          "theoryTopicId": "THEORY-PARKERINGSREGLER",
+          "relationType": "PREREQUISITE"
         }
       ]
     },
@@ -607,21 +681,13 @@
       "category": "OBSERVATION",
       "name": "Döda vinkeln",
       "description": "Aktiv kontroll av området som inte syns i speglarna.",
-      "goals": [
-        "Veta var döda vinkeln finns",
-        "Alltid kolla döda vinkeln vid körfältsbyte"
-      ],
+      "goals": ["Veta var döda vinkeln finns", "Alltid kolla döda vinkeln vid körfältsbyte"],
       "practiceSteps": [
         "Visualisera var döda vinkeln finns",
         "Träna axelblick vid varje körfältsbyte"
       ],
-      "commonErrors": [
-        "Litar bara på speglarna",
-        "Glömmer axelblicken"
-      ],
-      "supervisorObservations": [
-        "Gör eleven axelblick?"
-      ],
+      "commonErrors": ["Litar bara på speglarna", "Glömmer axelblicken"],
+      "supervisorObservations": ["Gör eleven axelblick?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -646,21 +712,13 @@
       "category": "OBSERVATION",
       "name": "Aktiv risksökning",
       "description": "Söka efter möjliga faror innan de blir akuta.",
-      "goals": [
-        "Identifiera potentiella faror tidigt",
-        "Ställa frågan \"Vad kan hända här?\""
-      ],
+      "goals": ["Identifiera potentiella faror tidigt", "Ställa frågan \"Vad kan hända här?\""],
       "practiceSteps": [
         "Sök efter ledtrådar: parkerade bilar, cyklister, busshållplatser, barn",
         "Fråga dig \"Vad kan hända om…?\""
       ],
-      "commonErrors": [
-        "Reagerar bara på det som redan händer",
-        "Missar ledtrådar"
-      ],
-      "supervisorObservations": [
-        "Identifierar eleven risker tidigt?"
-      ],
+      "commonErrors": ["Reagerar bara på det som redan händer", "Missar ledtrådar"],
+      "supervisorObservations": ["Identifierar eleven risker tidigt?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -680,21 +738,13 @@
       "category": "OBSERVATION",
       "name": "Riskförutsägelse",
       "description": "Förutse hur en situation kan utvecklas.",
-      "goals": [
-        "Förutsäga troliga händelser",
-        "Planera flera steg framåt"
-      ],
+      "goals": ["Förutsäga troliga händelser", "Planera flera steg framåt"],
       "practiceSteps": [
         "Diskutera: \"Vad kunde ha hänt?\"",
         "Träna på att förutsäga andras beteende"
       ],
-      "commonErrors": [
-        "Beskriver bara nuläget",
-        "Överraskas av förutsägbara händelser"
-      ],
-      "supervisorObservations": [
-        "Kan eleven förutsäga vad som kan hända?"
-      ],
+      "commonErrors": ["Beskriver bara nuläget", "Överraskas av förutsägbara händelser"],
+      "supervisorObservations": ["Kan eleven förutsäga vad som kan hända?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -783,7 +833,7 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "SPD-01",
+          "prerequisiteSkillId": "MAN-06",
           "minimumState": "PRACTICING"
         },
         {
@@ -791,17 +841,17 @@
           "minimumState": "PRACTICING"
         },
         {
-          "prerequisiteSkillId": "MAN-06",
+          "prerequisiteSkillId": "SPD-01",
           "minimumState": "PRACTICING"
         }
       ],
       "theoryRelations": [
         {
-          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
+          "theoryTopicId": "THEORY-BROMSNING",
           "relationType": "INTEGRATED"
         },
         {
-          "theoryTopicId": "THEORY-BROMSNING",
+          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
           "relationType": "INTEGRATED"
         }
       ]
@@ -812,20 +862,12 @@
       "category": "SPEED_DISTANCE",
       "name": "Säkerhetsavstånd",
       "description": "Hålla tillräckligt avstånd till bilen framför.",
-      "goals": [
-        "Hålla avstånd som ger tid att reagera",
-        "Öka avståndet när hastigheten ökar"
-      ],
+      "goals": ["Hålla avstånd som ger tid att reagera", "Öka avståndet när hastigheten ökar"],
       "practiceSteps": [
         "Välj ett tidsavstånd som ger dig tid att reagera, och öka det vid regn, halka eller dålig sikt"
       ],
-      "commonErrors": [
-        "Följer för nära",
-        "Anpassar inte till förhållandena"
-      ],
-      "supervisorObservations": [
-        "Är avståndet tillräckligt?"
-      ],
+      "commonErrors": ["Följer för nära", "Anpassar inte till förhållandena"],
+      "supervisorObservations": ["Är avståndet tillräckligt?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -850,21 +892,13 @@
       "category": "POSITIONING",
       "name": "Grundplacering",
       "description": "Rätt placering i körfältet — höger men med marginal till kanten.",
-      "goals": [
-        "Hålla högerplacering",
-        "Ge marginal till vägkant, dike, cyklister"
-      ],
+      "goals": ["Hålla högerplacering", "Ge marginal till vägkant, dike, cyklister"],
       "practiceSteps": [
         "Träna på att hålla stabil placering",
         "Diskutera varför man inte håller helt till höger"
       ],
-      "commonErrors": [
-        "Håller för långt till höger",
-        "Håller för långt till vänster"
-      ],
-      "supervisorObservations": [
-        "Är placeringen stabil?"
-      ],
+      "commonErrors": ["Håller för långt till höger", "Håller för långt till vänster"],
+      "supervisorObservations": ["Är placeringen stabil?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -893,7 +927,8 @@
         "Känna igen vägmärkena för väjningsplikt och stopplikt",
         "Förstå att högerregeln gäller där ingen skylt eller signal anger annat — du har väjningsplikt mot fordon som närmar sig från höger (trafikförordningen 3 kap 18 §)",
         "Veta att väjningsplikten är en regel som åligger dig, inte en rättighet någon annan har",
-        "Känna till undantagen: du har alltid väjningsplikt när du kör in på en väg från parkeringsplats, fastighet, stig, ägoväg, cykelbana, gågata, gångfartsområde, cykelgata eller terräng, samt efter att ha korsat gång- eller cykelbana (3 kap 21 §)"
+        "Känna till undantagen: du har alltid väjningsplikt när du kör in på en väg från parkeringsplats, fastighet, stig, ägoväg, cykelbana, gågata, gångfartsområde, cykelgata eller terräng, samt efter att ha korsat gång- eller cykelbana (3 kap 21 §)",
+        "Veta att högerregeln gäller oförändrat även i korsningar med enkelriktade gator (3 kap 18 §) — det som är särskilt med enkelriktat är parkeringsregeln, att fordon får stannas eller parkeras även på vänstra sidan (3 kap 52 §)"
       ],
       "practiceSteps": [
         "Identifiera vägmärken för väjningsplikt och stopplikt vid korsningar",
@@ -905,7 +940,8 @@
       "commonErrors": [
         "Tror att högerregeln betyder \"jag har företräde när jag kommer från höger\"",
         "Blandar ihop väjningsplikt och stopplikt",
-        "Glömmer att söka efter vägmärken vid infart till korsning"
+        "Glömmer att söka efter vägmärken vid infart till korsning",
+        "Tror att högerregeln inte gäller i korsningar med enkelriktade gator"
       ],
       "supervisorObservations": [
         "Kan eleven förklara skillnaden mellan väjningsplikt och stopplikt?",
@@ -987,23 +1023,15 @@
       "category": "INTERSECTIONS",
       "name": "Stopplikt",
       "description": "Stanna helt vid stoppliktsskylt, sök trafik, fortsätt när det är säkert.",
-      "goals": [
-        "Stanna helt vid stoppliktslinjen",
-        "Söka efter trafik från alla håll"
-      ],
+      "goals": ["Stanna helt vid stoppliktslinjen", "Söka efter trafik från alla håll"],
       "practiceSteps": [
         "Närma dig korsningen med stopplikt med sänkt fart",
         "Stanna helt — inte rullande",
         "Sök trafik",
         "Fortsätt när det är säkert"
       ],
-      "commonErrors": [
-        "Gör rullande stopp",
-        "Stannar inte vid linjen"
-      ],
-      "supervisorObservations": [
-        "Stannar eleven helt?"
-      ],
+      "commonErrors": ["Gör rullande stopp", "Stannar inte vid linjen"],
+      "supervisorObservations": ["Stannar eleven helt?"],
       "continuous": false,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1136,6 +1164,136 @@
       ]
     },
     {
+      "id": "LANE-03",
+      "parentId": "LANE-02",
+      "category": "LANE_CHANGE",
+      "name": "Omkörning",
+      "description": "En omkörning ska vara färdigplanerad innan den påbörjas. Grundvillkoret är kort: en förare får köra om endast om det kan ske utan fara (trafikförordningen 3 kap 32 §).",
+      "goals": [
+        "Veta att du får köra om endast om det kan ske utan fara, och inte om någon bakom redan har påbörjat en omkörning eller om den framförvarande gett tecken om att köra om eller föra sitt fordon åt vänster (trafikförordningen 3 kap 32 §)",
+        "Köra om till vänster och lämna betryggande avstånd i sidled — till höger endast när den framförvarande svänger vänster eller tydligt förbereder det (3 kap 31 § och 33 §)",
+        "Kontrollera att körfältet är fritt på en tillräckligt lång sträcka och att du kan gå tillbaka till högra delen av körbanan utan fara (3 kap 36 §)",
+        "Hålla till höger igen så snart det kan ske utan fara eller olägenhet (3 kap 37 §), och veta att den som blir omkörd ska hålla så långt till höger som möjligt (3 kap 38 §)",
+        "Känna omkörningsförbuden: strax före eller i en vägkorsning (3 kap 39 § första stycket), strax före eller i en plankorsning (39 § andra stycket), vid backkrön eller i kurva med skymd sikt (39 § tredje–fjärde styckena), samt strax före eller på ett obevakat övergångsställe, en obevakad cykelpassage eller en cykelöverfart (3 kap 40 §)"
+      ],
+      "practiceSteps": [
+        "Börja på landsväg med god sikt och lite trafik — aldrig som första omkörning i kö eller i skymd sikt",
+        "Lägg dig så att du ser förbi fordonet framför i stället för att ligga tätt bakom — då upptäcker du mötande tidigare",
+        "Kontrollera bakåt först: har någon bakom redan börjat köra om dig? Då får du inte köra om (3 kap 32 §)",
+        "Spegel, axelblick, blinkers — och fatta beslutet innan du drar ut",
+        "Fråga dig: är körfältet fritt så långt att jag hinner ut, förbi och tillbaka? (3 kap 36 §)",
+        "Accelerera bestämt förbi och gå tillbaka till höger när du ser fordonet i innerspegeln — så snart det kan ske utan fara eller olägenhet",
+        "Blir det inte fritt: ligg kvar bakom. Att avstå eller avbryta är samma grundvillkor tillämpat — endast om det kan ske utan fara"
+      ],
+      "commonErrors": [
+        "Ligger tätt bakom fordonet framför före omkörningen och ser därför mötande för sent",
+        "Underskattar hur lång omkörningen blir — tunga fordon tappar fart uppför och tar igen den nedför, och sikten framför dem är ofta skymd",
+        "Kollar inte bakåt — någon har redan börjat köra om",
+        "Kör om strax före en korsning, en plankorsning eller ett övergångsställe",
+        "Går tillbaka till höger för tidigt och tränger den omkörde",
+        "Fortsätter en omkörning som inte längre är fri i stället för att lägga sig tillbaka"
+      ],
+      "supervisorObservations": [
+        "Kollar eleven bakåt innan omkörningen påbörjas?",
+        "Är sikten framåt verkligen fri när eleven fattar beslutet?",
+        "Hur lång blev omkörningen jämfört med vad eleven trodde?",
+        "Går eleven tillbaka till höger i god tid utan att tränga?",
+        "Kan eleven avstå eller avbryta när förutsättningarna ändras?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 610,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "LANE-02",
+          "minimumState": "INDEPENDENT"
+        },
+        {
+          "prerequisiteSkillId": "OBS-01",
+          "minimumState": "INDEPENDENT"
+        },
+        {
+          "prerequisiteSkillId": "RUR-02",
+          "minimumState": "INDEPENDENT"
+        },
+        {
+          "prerequisiteSkillId": "SPD-02",
+          "minimumState": "INDEPENDENT"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-OMKÖRNING",
+          "relationType": "PREREQUISITE"
+        },
+        {
+          "theoryTopicId": "THEORY-SIKT",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
+      "id": "URB-01",
+      "parentId": "OBS-04",
+      "category": "URBAN",
+      "name": "Spårvagn i blandtrafik",
+      "description": "Där spårvagn går i blandtrafik gäller egna regler för väg, möte och omkörning. Spåren själva påverkar dessutom greppet och styr hur cyklister rör sig.",
+      "goals": [
+        "Lämna fri väg för järnvägståg eller spårvagn, om inte spårvagnsföraren har väjningsplikt som är utmärkt genom vägmärke (trafikförordningen 2 kap 5 § p.2)",
+        "Hålla till höger vid möte med järnvägståg eller spårvagn på väg (3 kap 34 §)",
+        "Veta att omkörning av järnvägståg eller spårvagn på väg ska ske till höger (3 kap 35 §)",
+        "Veta att andra fordon inte får parkeras eller stannas på markerad hållplats för spårvagn, linjetrafik eller skolskjuts annat än för på- eller avstigning som kan ske utan hinder för trafiken (3 kap 54 §)"
+      ],
+      "practiceSteps": [
+        "Läs var spåren går innan du väljer körfält",
+        "Sök efter spårvagn åt båda håll i varje korsning — den kommer ofta från det håll du inte tittar åt",
+        "Vid möte med spårvagn på väg: håll till höger",
+        "Ska du passera en spårvagn som går på vägen: gör det till höger",
+        "Vid hållplats: räkna med passagerare som går över körbanan, och kom ihåg att hållplatsen inte får användas för att stanna eller parkera",
+        "Korsa spåren i så rät vinkel du kan och undvik att bromsa eller styra hårt på blöt räls — det är körteknik, inte en regel"
+      ],
+      "commonErrors": [
+        "Tänker på spårvagnen som en buss och glömmer att den inte kan väja åt sidan",
+        "Kör om spårvagnen till vänster",
+        "Stannar på den markerade hållplatsen",
+        "Bromsar eller styr hårt när hjulen står på blöt räls",
+        "Missar cyklist som lägger om sin bana för att komma över spåret i rät vinkel"
+      ],
+      "supervisorObservations": [
+        "Söker eleven efter spårvagn i korsningar?",
+        "Vet eleven åt vilket håll en spårvagn på väg körs om?",
+        "Var lägger eleven bilen i förhållande till spåren?",
+        "Uppmärksammar eleven passagerare vid hållplats?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 640,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "INT-01",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "POS-01",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-SPÅRVAGN",
+          "relationType": "PREREQUISITE"
+        }
+      ]
+    },
+    {
       "id": "RUR-01",
       "parentId": "SPD-02",
       "category": "RURAL",
@@ -1227,6 +1385,70 @@
       ]
     },
     {
+      "id": "RUR-03",
+      "parentId": "RUR-02",
+      "category": "RURAL",
+      "name": "Möte på smal väg",
+      "description": "På smal väg avgörs mötet av fart och placering långt innan fordonen är framme vid varandra. Vid möte ska fordon hållas till höger och förarna lämna betryggande avstånd i sidled (trafikförordningen 3 kap 30 § första stycket).",
+      "goals": [
+        "Hålla till höger vid möte och lämna betryggande avstånd i sidled (trafikförordningen 3 kap 30 § första stycket)",
+        "Veta att den förare som har ett hinder på sin sida ska stanna, om det är nödvändigt för att den mötande ska kunna passera (3 kap 30 § andra stycket) — lagen säger stanna vid behov, inte väja",
+        "Ta ned farten före mötet i stället för att lösa det med ratten i sista stund",
+        "Känna igen utmärkt mötesplats (märke E18) och veta att fordon inte får parkeras där (3 kap 55 § första stycket 5)"
+      ],
+      "practiceSteps": [
+        "Sök mötande tidigt — på smal väg avgörs mötet långt innan det sker",
+        "Sänk farten i god tid; på smal väg eller grusväg är det farten, inte styrningen, som ger marginal",
+        "Läs av vem som har hindret på sin sida: parkerad bil, arbetsfordon, snövall. Har du hindret på din sida ska du stanna om det behövs för att den mötande ska komma förbi (3 kap 30 § andra stycket)",
+        "Titta dit du vill att bilen ska åka, inte på det mötande fordonet",
+        "Vid möte med lastbil eller buss: håll ut åt höger — lufttryck och stänk märks tydligt. Det är körteknik, inte en regel",
+        "Behöver du stanna: välj en plats där den mötande ser dig, inte i en kurva eller strax bakom ett krön. Använd utmärkt mötesplats när den finns"
+      ],
+      "commonErrors": [
+        "Håller för hög fart och löser mötet med ratten i stället för med bromsen",
+        "Tror att den som har hindret på sin sida \"ska väja\" — lagen säger stanna, och bara om det behövs",
+        "Stirrar på det mötande fordonet och drar därmed bilen mot mitten",
+        "Kryper ut i det lösa gruset i högerkanten och tappar greppet",
+        "Stannar mitt i en kurva eller strax bakom ett krön där den mötande inte ser bilen"
+      ],
+      "supervisorObservations": [
+        "Upptäcker eleven det mötande fordonet tidigt?",
+        "Sänks farten före mötet eller under det?",
+        "Vart går blicken under mötet?",
+        "Läser eleven av vem som har hindret på sin sida?",
+        "Blir sidoavståndet betryggande eller nödlöst?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 720,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "MAN-06",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "POS-01",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "RUR-02",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-MÖTE",
+          "relationType": "PREREQUISITE"
+        },
+        {
+          "theoryTopicId": "THEORY-PLACERING",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
       "id": "HWY-01",
       "parentId": "RUR-01",
       "category": "HIGHWAY",
@@ -1262,15 +1484,138 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
+          "prerequisiteSkillId": "LANE-02",
+          "minimumState": "PRACTICING"
+        },
+        {
           "prerequisiteSkillId": "RUR-01",
           "minimumState": "INDEPENDENT"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-MOTORVÄG",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
+      "id": "HWY-02",
+      "parentId": "HWY-01",
+      "category": "HIGHWAY",
+      "name": "Avfart från motorväg",
+      "description": "Att lämna motorvägen kräver att beslutet är fattat i förväg och att farten tas ned i retardationsfältet. Infart på och avfart från motorväg eller motortrafikled är en av de trafiksituationer körprovet bedömer (TSFS 2012:43 19 § p.5).",
+      "goals": [
+        "Planera avfarten i god tid och ligga i höger körfält långt innan den kommer",
+        "Ta ned farten i retardationsfältet i stället för i det genomgående körfältet — det är körteknik, inte en regel",
+        "Läsa avfartens skyltade hastighet och ha farten nere innan kurvan börjar",
+        "Veta att det är förbjudet att vända och backa på motorväg och motortrafikled — missar du avfarten kör du till nästa (trafikförordningen 9 kap 1 § första stycket, tillämpligt på motortrafikled genom 9 kap 2 §)",
+        "Veta att du inte får stanna eller parkera annat än på utmärkt parkerings- eller rastplats (samma paragraf)"
+      ],
+      "practiceSteps": [
+        "Bestäm avfarten innan ni är framme — läs vägvisningen på avstånd",
+        "Lägg dig i höger körfält i god tid; byt inte fält sent och tvärt",
+        "Behåll motorvägshastigheten fram till retardationsfältet — trafiken bakom ligger tätt och räknar med det",
+        "Först när hela bilen är i retardationsfältet: släpp gasen och bromsa ned",
+        "Läs avfartens hastighetsskylt och ha farten nere innan kurvan börjar",
+        "Missar ni avfarten: fortsätt till nästa. Att vända eller backa är förbjudet",
+        "Titta på hastighetsmätaren efter avfarten — efter en stund på motorväg känns farten lägre än den är"
+      ],
+      "commonErrors": [
+        "Upptäcker avfarten sent och byter körfält tvärt",
+        "Börjar bromsa redan i det genomgående körfältet",
+        "Kommer in i avfartskurvan med för hög fart",
+        "Litar på fartkänslan i stället för på hastighetsmätaren",
+        "Försöker rätta till en missad avfart i stället för att köra till nästa"
+      ],
+      "supervisorObservations": [
+        "Vet eleven vilken avfart som gäller innan skylten syns?",
+        "När byter eleven till höger körfält?",
+        "Bromsas farten ned i retardationsfältet eller före det?",
+        "Är farten nere innan kurvan börjar?",
+        "Kontrollerar eleven hastighetsmätaren efter avfarten?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 810,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "HWY-01",
+          "minimumState": "PRACTICING"
         },
         {
           "prerequisiteSkillId": "LANE-02",
+          "minimumState": "INDEPENDENT"
+        },
+        {
+          "prerequisiteSkillId": "MAN-06",
           "minimumState": "PRACTICING"
         }
       ],
-      "theoryRelations": []
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-MOTORVÄG",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
+      "id": "HWY-03",
+      "parentId": "HWY-01",
+      "category": "HIGHWAY",
+      "name": "Motortrafikled",
+      "description": "Motortrafikled ser ut som motorväg och lyder under nästan samma regler — men saknar kravet på två åtskilda körbanor och den högre hastighetsgränsen. Det är en verklig skillnad, inte en detalj.",
+      "goals": [
+        "Veta att det mesta som gäller på motorväg gäller även på motortrafikled: endast motorfordon som är konstruerade för och får framföras med minst 40 km/h, moped klass I är undantagen, in- och utfart bara vid vägens början eller slut eller på på- och avfartsväg, förbud mot att vända och backa, och förbud mot att stanna eller parkera annat än på utmärkt parkerings- eller rastplats (trafikförordningen 9 kap 1 § första stycket, tillämpligt genom 9 kap 2 §)",
+        "Veta vad som skiljer: 110 km/h — och Trafikverkets möjlighet att föreskriva 120 km/h — gäller bara motorväg (9 kap 1 § första stycket 6 och tredje stycket). På motortrafikled gäller skyltad hastighet, annars bashastigheten",
+        "Veta att motorväg dessutom ska ha två körbanor, en för varje färdriktning, skilda genom skiljeremsa eller på annat sätt — det kravet gäller inte motortrafikled (10 kap 7 §)",
+        "Förstå vad skillnaden betyder i praktiken: på en motortrafikled utan mittseparering kan du möta trafik"
+      ],
+      "practiceSteps": [
+        "Läs skylten vid infarten — motorväg och motortrafikled har olika vägmärken",
+        "Kontrollera vilken hastighet som är skyltad. Anta aldrig 110 bara för att vägen ser ut som motorväg",
+        "Läs vägen: finns mitträcke, eller möter du trafiken?",
+        "Där körfälten växlar mellan ett och två: planera omkörningar efter var omkörningssträckan tar slut",
+        "Vid avfart gäller samma teknik som på motorväg — ta ned farten i retardationsfältet",
+        "Vid påfart utan accelerationsfält har du väjningsplikt mot trafiken på leden (trafikförordningen 3 kap 21 §)"
+      ],
+      "commonErrors": [
+        "Tror att motortrafikled är motorväg och kör 110 där annan hastighet är skyltad",
+        "Missar att trafik kan mötas där mittseparering saknas",
+        "Påbörjar en omkörning strax innan omkörningssträckan tar slut",
+        "Behandlar en påfart utan accelerationsfält som om accelerationsfält fanns",
+        "Tror att långsamma fordon och mopeder är tillåtna där — samma krav som på motorväg gäller"
+      ],
+      "supervisorObservations": [
+        "Ser eleven skillnaden på vägmärkena?",
+        "Kontrollerar eleven skyltad hastighet i stället för att anta?",
+        "Kommenterar eleven om vägen är mötesseparerad eller inte?",
+        "Anpassar eleven omkörningar efter var omkörningssträckan tar slut?",
+        "Hanterar eleven en påfart utan accelerationsfält som väjningspliktig?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 820,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "HWY-02",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "RUR-02",
+          "minimumState": "INDEPENDENT"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-MOTORVÄG",
+          "relationType": "PREREQUISITE"
+        }
+      ]
     },
     {
       "id": "VRU-01",
@@ -1308,12 +1653,12 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "OBS-04",
-          "minimumState": "PRACTICING"
-        },
-        {
           "prerequisiteSkillId": "OBS-01",
           "minimumState": "INTRODUCED"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
         }
       ],
       "theoryRelations": [
@@ -1435,14 +1780,8 @@
         "Sänk farten när buss står vid hållplats",
         "Sök efter passagerare som kan gå över vägen"
       ],
-      "commonErrors": [
-        "Kör förbi buss i hög fart",
-        "Missar passagerare som går över vägen"
-      ],
-      "supervisorObservations": [
-        "Upptäcker eleven busshållplatser?",
-        "Anpassar eleven farten?"
-      ],
+      "commonErrors": ["Kör förbi buss i hög fart", "Missar passagerare som går över vägen"],
+      "supervisorObservations": ["Upptäcker eleven busshållplatser?", "Anpassar eleven farten?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1450,12 +1789,12 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "OBS-04",
-          "minimumState": "PRACTICING"
-        },
-        {
           "prerequisiteSkillId": "OBS-01",
           "minimumState": "INTRODUCED"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
         }
       ],
       "theoryRelations": [
@@ -1469,27 +1808,37 @@
       "id": "SPEC-01",
       "parentId": "OBS-01",
       "category": "SPECIAL_CONDITIONS",
-      "name": "Vägarbete",
-      "description": "Tillfälliga skyltar och annan vägledning — läs situationen i stället för att köra på vana.",
+      "name": "Vägarbete och anvisningar",
+      "description": "Tillfällig skyltning, vakt och ändrad vägbild — läs situationen på plats i stället för att köra på vana. En anvisning som innebär en avvikelse från en trafikregel gäller framför regeln (trafikförordningen 2 kap 2 § första stycket).",
       "goals": [
-        "Identifiera vägarbete i tid",
-        "Läsa tillfälliga skyltar",
-        "Anpassa fart och placering"
+        "Identifiera vägarbete i tid och anpassa fart och placering",
+        "Veta att en trafikant ska följa anvisning som ges genom vägmärke, vägmarkering, trafiksignal, ljussignal eller tecken av vakt, och att en anvisning som innebär en avvikelse från en trafikregel gäller framför regeln (trafikförordningen 2 kap 2 § första stycket)",
+        "Veta att anvisningar för trafiken kan ges genom tecken av vakt vid vägarbete eller liknande arbete, och när en säkerhetsanordning vid plankorsning är ur funktion (vägmärkesförordningen 2007:90 1 kap 7 §)",
+        "Känna igen vaktens tecken (vägmärkesförordningen 5 kap 2 §): V1 Stopp betyder stopp för den trafikant vakten är vänd mot och ges i mörker med en lykta som visar rött ljus. V2 Kör fram ges med en vinkande rörelse i färdriktningen och betyder att trafikanten får fortsätta framåt. Vaktens kännetecken (V3) bärs både framtill och baktill",
+        "Veta att en polismans anvisning gäller framför trafikreglerna och framför anvisningar genom märken och signaler (trafikförordningen 2 kap 3 §)",
+        "Veta att fast sken i en trafiksignal gäller framför anvisning om stopp- eller väjningsplikt genom vägmärke (2 kap 2 § andra stycket)"
       ],
       "practiceSteps": [
-        "Sök efter varningsskyltar",
-        "Läs tillfälliga skyltar — de gäller före permanent skyltning",
-        "Sänk farten",
-        "Följ anvisningar"
+        "Sök efter varningsmärken och tecken på arbete: skyltvagn, koner, ljuspil, arbetsfordon",
+        "Kör efter den skyltning som faktiskt står på plats — anvisningen gäller framför trafikregeln (trafikförordningen 2 kap 2 § första stycket)",
+        "Sänk farten tidigt, innan passagen smalnar",
+        "Finns en vakt: sök ögonkontakt och läs tecknet. V1 Stopp gäller dig som vakten är vänd mot; V2 Kör fram är en vinkande rörelse i din färdriktning",
+        "Lita inte på gamla vägmarkeringar under arbetet — de kan vara överkörda, övertäckta eller borttagna",
+        "Räkna med människor som rör sig på och intill körbanan, och med fordon som backar ut"
       ],
       "commonErrors": [
-        "Missar tillfälliga skyltar",
-        "Kör för fort genom vägarbete",
-        "Litar på gamla vägmarkeringar"
+        "Missar skyltningen på plats och kör efter minnet av hur vägen brukar se ut",
+        "Kör för fort genom vägarbetet",
+        "Litar på gamla vägmarkeringar",
+        "Ser vakten men läser inte vilket tecken som ges",
+        "Glömmer att människor arbetar strax intill körbanan"
       ],
       "supervisorObservations": [
         "Upptäcker eleven vägarbetet i tid?",
-        "Följer eleven tillfälliga skyltar?"
+        "Kör eleven efter skyltningen på platsen?",
+        "Läser eleven vaktens tecken rätt?",
+        "Sänks farten före passagen eller i den?",
+        "Uppmärksammar eleven personerna som arbetar?"
       ],
       "continuous": false,
       "safetyCritical": true,
@@ -1546,22 +1895,22 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "SPD-02",
+          "prerequisiteSkillId": "OBS-04",
           "minimumState": "INDEPENDENT"
         },
         {
-          "prerequisiteSkillId": "OBS-04",
+          "prerequisiteSkillId": "SPD-02",
           "minimumState": "INDEPENDENT"
         }
       ],
       "theoryRelations": [
         {
-          "theoryTopicId": "THEORY-SIKT",
-          "relationType": "INTEGRATED"
-        },
-        {
           "theoryTopicId": "THEORY-MÖRKER",
           "relationType": "PREREQUISITE"
+        },
+        {
+          "theoryTopicId": "THEORY-SIKT",
+          "relationType": "INTEGRATED"
         }
       ]
     },
@@ -1571,24 +1920,14 @@
       "category": "SPECIAL_CONDITIONS",
       "name": "Regn och låg sikt",
       "description": "Regn försämrar både grepp och sikt — öka marginalerna.",
-      "goals": [
-        "Öka avståndet vid regn",
-        "Sänka farten",
-        "Förstå att greppet minskar"
-      ],
+      "goals": ["Öka avståndet vid regn", "Sänka farten", "Förstå att greppet minskar"],
       "practiceSteps": [
         "Diskutera hur regn påverkar bromssträcka och sikt",
         "Träna försiktigt i lätt regn",
         "Öka avståndet och sänk farten"
       ],
-      "commonErrors": [
-        "Kör som vanligt trots regn",
-        "Ökar inte avståndet",
-        "Bromsar för sent"
-      ],
-      "supervisorObservations": [
-        "Ökar eleven marginalerna vid regn?"
-      ],
+      "commonErrors": ["Kör som vanligt trots regn", "Ökar inte avståndet", "Bromsar för sent"],
+      "supervisorObservations": ["Ökar eleven marginalerna vid regn?"],
       "continuous": false,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1596,11 +1935,11 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "SPD-02",
+          "prerequisiteSkillId": "MAN-06",
           "minimumState": "INDEPENDENT"
         },
         {
-          "prerequisiteSkillId": "MAN-06",
+          "prerequisiteSkillId": "SPD-02",
           "minimumState": "INDEPENDENT"
         }
       ],
@@ -1615,26 +1954,39 @@
       "id": "SPEC-04",
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
-      "name": "Halt väglag",
+      "name": "Halt väglag och vinterförhållanden",
       "description": "Halt underlag kräver mjuka rörelser på ratt, gas och broms, längre avstånd och lägre fart. Ersätter aldrig riskutbildning del 2, där halkmomentet ingår.",
       "goals": [
-        "Identifiera halt väglag",
-        "Sänk farten rejält",
-        "Undvika plötsliga rörelser"
+        "Identifiera halt väglag — frosthalka kommer först på broar, i skugga och på morgonen efter en klar natt. Det är erfarenhet, inte en regel",
+        "Sänka farten rejält och undvika plötsliga rörelser på ratt, gas och broms",
+        "Förstå att bromssträckan på is blir avsevärt längre — hur mycket längre går inte att ange med en siffra som håller",
+        "Känna till vinterdäckskravet: 1 december–31 mars ska personbil klass I och II, lätt lastbil, lätt buss, traktor som utgörs av ombyggd bil samt släpvagn till dessa ha vinterdäck eller likvärdig utrustning när vinterväglag råder (trafikförordningen 4 kap 18 a §). Både datumen och vinterväglaget krävs",
+        "Veta att dubbdäck är tillåtna 1 oktober–15 april, och även utanför den perioden om det är eller befaras bli vinterväglag (Transportstyrelsen, med stöd av TSFS 2009:19)",
+        "Veta att minsta mönsterdjup för vinterdäck på personbil är 3 mm (Transportstyrelsen, TSFS 2009:19)",
+        "Veta att dubbdäcksförbud alltid är lokalt: en kommun kan meddela lokal trafikföreskrift om förbud mot fordon med dubbdäck på viss väg eller inom visst område (trafikförordningen 10 kap). Något nationellt dubbdäcksförbud finns inte"
       ],
       "practiceSteps": [
         "Endast när grundkompetens finns och förhållandena är lämpliga",
-        "Diskutera risker",
-        "Träna mjuka rörelser på ratt, gas och broms",
-        "Öva låg fart"
+        "Diskutera riskerna innan ni ger er ut",
+        "Kontrollera däcken före vintersäsongen: mönsterdjup och lufttryck",
+        "Gå igenom vinterrutinen: skrapa alla rutor och lyktor helt rena innan start, inte bara ett titthål",
+        "Känn efter på en tom, säker yta: bromsa bestämt från låg fart och märk hur långt bilen glider",
+        "Träna mjuka rörelser på ratt, gas och broms och håll låg fart"
       ],
       "commonErrors": [
         "Underskattar halt väglag",
         "Bromsar eller styr för hårt",
-        "Kör för fort"
+        "Kör för fort",
+        "Tror att vinterdäck räcker och kör som på sommarväglag",
+        "Tror att dubbdäcksförbud gäller nationellt",
+        "Kör med för lågt mönsterdjup",
+        "Skrapar bara ett titthål i rutan"
       ],
       "supervisorObservations": [
-        "Anpassar eleven körningen till halt underlag?"
+        "Anpassar eleven körningen till halt underlag?",
+        "Nämner eleven broar, skugga och morgonfrost som ställen där halkan kommer först?",
+        "Kan eleven redogöra för vinterdäckskravet — både datumen och vinterväglaget?",
+        "Kontrollerar eleven däck och rutor före körning?"
       ],
       "continuous": false,
       "safetyCritical": true,
@@ -1643,17 +1995,150 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "SPD-02",
+          "prerequisiteSkillId": "MAN-06",
           "minimumState": "INDEPENDENT"
         },
         {
-          "prerequisiteSkillId": "MAN-06",
+          "prerequisiteSkillId": "SPD-02",
           "minimumState": "INDEPENDENT"
         }
       ],
       "theoryRelations": [
         {
+          "theoryTopicId": "THEORY-VINTERDÄCK",
+          "relationType": "PREREQUISITE"
+        },
+        {
           "theoryTopicId": "THEORY-VÄGLAG",
+          "relationType": "PREREQUISITE"
+        }
+      ]
+    },
+    {
+      "id": "SPEC-05",
+      "parentId": "OBS-04",
+      "category": "SPECIAL_CONDITIONS",
+      "name": "Järnvägs- och spårvägskorsning",
+      "description": "Vid en plankorsning ska föraren vara särskilt försiktig och uppmärksam på om något tåg eller någon spårvagn närmar sig, anpassa hastigheten så att fordonet kan stannas före korsningen och passera utan onödigt dröjsmål (trafikförordningen 2 kap 7 § första stycket).",
+      "goals": [
+        "Anpassa hastigheten så att bilen kan stannas före korsningen, och passera utan onödigt dröjsmål (trafikförordningen 2 kap 7 § första stycket)",
+        "Veta att du inte får färdas in i korsningen om ett tåg eller en spårvagn närmar sig, när en ljussignal visar rött sken, en ljudsignal ljuder eller en bom fälls, är fälld eller reses, eller om det finns risk för att du måste stanna i korsningen (2 kap 7 § andra stycket)",
+        "Stanna på betryggande avstånd från korsningen och före signaler eller bommar (2 kap 7 § tredje stycket)",
+        "Veta vad en plankorsning är: en korsning i samma plan mellan en väg och en sådan järnväg eller spårväg som är anlagd på en särskild banvall (förordning 2001:651 om vägtrafikdefinitioner 2 §)",
+        "Veta vad som gäller om bilen blir stående i korsningen: föraren ska vidta de åtgärder som behövs för passagerarnas säkerhet och för att varna föraren av järnvägståget eller spårvagnen (trafikförordningen 3 kap 57 §)",
+        "Veta att fordon inte får parkeras inom trettio meter från en plankorsning (3 kap 55 § första stycket 1) — det gäller parkering, inte att stanna, och åt båda hållen"
+      ],
+      "practiceSteps": [
+        "Sök efter märken, kryssmärke, bommar och signaler i god tid",
+        "Släpp gasen och ta ned farten så mycket att bilen faktiskt kan stannas före korsningen",
+        "Titta åt båda håll längs spåret även när inga signaler lyser — tekniken kan fela, så läs korsningen själv",
+        "Kontrollera att det finns plats på andra sidan innan du kör in — du får inte köra in om du riskerar att bli stående i korsningen",
+        "Manuell: lägg i en växel du kan passera hela korsningen på; ett växlingsförsök mitt i korsningen kan sluta med motorstopp",
+        "Börjar en bom fällas eller en signal lysa när du närmar dig: stanna på betryggande avstånd, före signaler och bommar",
+        "Prata igenom i förväg vad ni gör om bilen blir stående: ut ur bilen, undan från spåret, larma"
+      ],
+      "commonErrors": [
+        "Kör in i korsningen trots att kön på andra sidan kan göra att bilen blir stående",
+        "Litar på att inga signaler lyser i stället för att själv titta längs spåret",
+        "Håller för hög fart fram till korsningen",
+        "Stannar för nära bommen eller med bilen kvar på spåret",
+        "Växlar mitt i korsningen och får motorstopp",
+        "Kör om strax före eller i korsningen — det är förbjudet utom när korsningen har bommar eller regleras med trafiksignaler av vägkorsningstyp (3 kap 39 § andra stycket)"
+      ],
+      "supervisorObservations": [
+        "Upptäcker eleven korsningen i tid?",
+        "Sänks farten så att bilen faktiskt kan stannas före korsningen?",
+        "Tittar eleven längs spåret åt båda håll?",
+        "Kontrollerar eleven att det finns plats på andra sidan?",
+        "Var stannar eleven när en signal börjar lysa?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 1040,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "RUR-02",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "SPD-02",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-PLANKORSNING",
+          "relationType": "PREREQUISITE"
+        },
+        {
+          "theoryTopicId": "THEORY-VÄGARBETE",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
+      "id": "SPEC-06",
+      "parentId": "OBS-04",
+      "category": "SPECIAL_CONDITIONS",
+      "name": "Vilt och djur på vägen",
+      "description": "Det finns ingen väjningsplikt mot djur — väjningsplikt riktar sig i trafikförordningen mot trafikanter och fordon. Det som gäller före olyckan är den allmänna aktsamhetsregeln (trafikförordningen 2 kap 1 §). Efter en sammanstötning finns däremot tydliga skyldigheter.",
+      "goals": [
+        "Anpassa körningen i viltrika områden med stöd av aktsamhetsregeln: en trafikant ska iaktta den omsorg och varsamhet som krävs med hänsyn till omständigheterna för att undvika trafikolyckor (trafikförordningen 2 kap 1 §)",
+        "Veta vad som gäller efter en sammanstötning med björn, varg, järv, lo, älg, hjort, rådjur, utter, vildsvin, mufflonfår eller örn: föraren är skyldig att snarast möjligt märka ut olycksplatsen och underrätta Polismyndigheten (jaktförordningen 1987:905 40 § första stycket). Två åtgärder, och de gäller även om djuret verkar oskadat",
+        "Veta att ren, hund, katt, får och nöt inte omfattas av den regeln — de är tamdjur. Då gäller att stanna kvar, hjälpa skadade, lämna uppgifter och underrätta den som lidit skada eller Polismyndigheten (trafikförordningen 2 kap 8 § och 5 § lagen 1951:649 om straff för vissa trafikbrott)",
+        "Kunna välja mellan att bromsa och att styra undan med hänsyn till vad som händer om bilen lämnar vägen"
+      ],
+      "practiceSteps": [
+        "Läs terrängen: skogsbryn, åkerkant, dike med öppen sikt in i skogen, och ställen där viltstängslet tar slut",
+        "Sänk farten i gryning och skymning och där sikten in mot vägkanten är kort — farten är den enda marginal du har",
+        "Ser du ett djur: räkna med fler. Rådjur och vildsvin rör sig ofta i flock, och en älgko har ofta kalv med sig",
+        "Träna svaret i förväg: att bromsa hårt och rakt ger oftast mest kontroll, medan en undanmanöver i hög fart kan sluta i diket eller i mötande körfält. Det är körteknik, inte en regel",
+        "Gå igenom efterspelet innan det händer: stanna säkert, varna trafiken, märk ut olycksplatsen och underrätta Polismyndigheten",
+        "Ha något i bilen att märka ut platsen med"
+      ],
+      "commonErrors": [
+        "Tror att det finns en väjningsplikt mot djur — det gör det inte",
+        "Styr undan i hög fart och tappar kontrollen",
+        "Kör vidare för att djuret sprang iväg — anmälningsplikten för de uppräknade arterna gäller ändå",
+        "Tror att ren omfattas av viltolycksreglerna",
+        "Tror att andra regler gäller för vildsvin, björn, lo och varg — alla fyra står i samma uppräkning och omfattas av samma plikt",
+        "Underrättar men glömmer att märka ut olycksplatsen — det är två åtgärder"
+      ],
+      "supervisorObservations": [
+        "Sänker eleven farten där sikten mot vägkanten är kort?",
+        "Kommenterar eleven viltstängsel och varningsmärken?",
+        "Kan eleven redogöra för båda åtgärderna efter en viltolycka?",
+        "Vet eleven att ren och andra tamdjur följer andra regler?",
+        "Är eleven beredd att bromsa i stället för att styra undan?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 1050,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "RUR-02",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "SPD-02",
+          "minimumState": "INDEPENDENT"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-VILT",
           "relationType": "PREREQUISITE"
         }
       ]
@@ -1710,17 +2195,12 @@
         "Kontrollera bipacksedel",
         "Avstå från körning vid tvivel"
       ],
-      "practiceSteps": [
-        "Diskutera vilka typer av läkemedel som kan påverka",
-        "Planera alternativ"
-      ],
+      "practiceSteps": ["Diskutera vilka typer av läkemedel som kan påverka", "Planera alternativ"],
       "commonErrors": [
         "Tror att receptbelagt betyder att det är säkert att köra",
         "Kontrollerar inte bipacksedeln"
       ],
-      "supervisorObservations": [
-        "Förstår eleven risken?"
-      ],
+      "supervisorObservations": ["Förstår eleven risken?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1750,14 +2230,8 @@
         "Planera pauser på längre resor",
         "Träna på att säga nej till körning"
       ],
-      "commonErrors": [
-        "Fortsätter \"lite till\"",
-        "Tror att kaffe hjälper långsiktigt"
-      ],
-      "supervisorObservations": [
-        "Kan eleven identifiera tecken?",
-        "Planerar eleven pauser?"
-      ],
+      "commonErrors": ["Fortsätter \"lite till\"", "Tror att kaffe hjälper långsiktigt"],
+      "supervisorObservations": ["Kan eleven identifiera tecken?", "Planerar eleven pauser?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1790,9 +2264,7 @@
         "Pressar sig att köra trots stress",
         "Tror att man \"kan hålla det ifrån sig\""
       ],
-      "supervisorObservations": [
-        "Kan eleven identifiera påverkan?"
-      ],
+      "supervisorObservations": ["Kan eleven identifiera påverkan?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1821,13 +2293,8 @@
         "Diskutera scenarion där grupptryck uppstår",
         "Träna på att formulera gränser"
       ],
-      "commonErrors": [
-        "Ändrar risknivån för att passa passagerarna",
-        "Kan inte säga nej"
-      ],
-      "supervisorObservations": [
-        "Kan eleven formulera egna gränser?"
-      ],
+      "commonErrors": ["Ändrar risknivån för att passa passagerarna", "Kan inte säga nej"],
+      "supervisorObservations": ["Kan eleven formulera egna gränser?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1856,13 +2323,8 @@
         "Diskutera mekanismen: \"Jag kan, därför vågar jag\"",
         "Identifiera situationer där impulsen är att öka risken"
       ],
-      "commonErrors": [
-        "Använder kompetens för att ta större risker",
-        "Söker spänning i körningen"
-      ],
-      "supervisorObservations": [
-        "Kan eleven identifiera mekanismen?"
-      ],
+      "commonErrors": ["Använder kompetens för att ta större risker", "Söker spänning i körningen"],
+      "supervisorObservations": ["Kan eleven identifiera mekanismen?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1870,6 +2332,61 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [],
       "theoryRelations": []
+    },
+    {
+      "id": "EMR-01",
+      "parentId": "OBS-02",
+      "category": "EMERGENCY",
+      "name": "Utryckningsfordon",
+      "description": "En trafikant ska lämna fri väg för utryckningsfordon som avger signal med föreskriven larmanordning (trafikförordningen 2 kap 5 § p.1). Plikten heter lämna fri väg — och den som ska lämna fri väg ska stanna om det är nödvändigt (samma paragraf, sista stycket).",
+      "goals": [
+        "Upptäcka utryckningsfordon tidigt — det hörs oftast innan det syns",
+        "Lämna fri väg för utryckningsfordon som avger signal med föreskriven larmanordning, och stanna om det är nödvändigt (trafikförordningen 2 kap 5 § p.1 och sista stycket)",
+        "Veta att ett utryckningsfordon är ett fordon som i vägtrafikregistret är upptaget som utryckningsfordon (förordning 2001:651 om vägtrafikdefinitioner 2 §) — registerstatus avgör, inte dekor",
+        "Lämna fri väg utan att skapa en ny fara: sänk farten och skapa plats där det finns plats, i stället för att tvärbromsa eller köra upp på gång- eller cykelbana"
+      ],
+      "practiceSteps": [
+        "Träna på att lyssna: sänk musiken och håll ljudbilden öppen — sirenen hörs långt innan blåljuset syns",
+        "Lokalisera fordonet innan du agerar: från vilket håll kommer det?",
+        "Sänk farten, lägg dig åt höger där det finns utrymme och låt fordonet passera",
+        "Behövs det: stanna. Plikten omfattar att stanna om det är nödvändigt",
+        "Står du i en korsning eller cirkulationsplats: kör ur den först och lämna plats på andra sidan",
+        "Räkna med att det kan komma fler fordon efter det första — vänta in innan du kör vidare"
+      ],
+      "commonErrors": [
+        "Tvärbromsar där man står i stället för att skapa plats",
+        "Kör upp på gång- eller cykelbana för att lämna plats",
+        "Stannar mitt i en korsning och blockerar den",
+        "Agerar innan man vet varifrån fordonet kommer",
+        "Kör vidare direkt efter första fordonet och missar nästa"
+      ],
+      "supervisorObservations": [
+        "Hör eleven sirenen innan handledaren gör det?",
+        "Lokaliserar eleven fordonet innan hen agerar?",
+        "Skapas plats utan att en ny fara uppstår?",
+        "Fortsätter eleven vara uppmärksam på att fler fordon kan komma?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 1160,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "OBS-02",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "SPD-02",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-UTRYCKNING",
+          "relationType": "PREREQUISITE"
+        }
+      ]
     },
     {
       "id": "SELF-01",
@@ -1890,9 +2407,7 @@
         "Blandar ihop självförtroende och skicklighet",
         "Kan inte ange varför bedömningen gjorts"
       ],
-      "supervisorObservations": [
-        "Kan eleven ange evidens för sin bedömning?"
-      ],
+      "supervisorObservations": ["Kan eleven ange evidens för sin bedömning?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1922,14 +2437,8 @@
         "Träna på att formulera konkret",
         "Utvärdera om målet nåddes"
       ],
-      "commonErrors": [
-        "För många mål samtidigt",
-        "Målet för vagt"
-      ],
-      "supervisorObservations": [
-        "Är målet konkret?",
-        "Är det rimligt?"
-      ],
+      "commonErrors": ["För många mål samtidigt", "Målet för vagt"],
+      "supervisorObservations": ["Är målet konkret?", "Är det rimligt?"],
       "continuous": true,
       "safetyCritical": false,
       "applicableTransmissions": [],
@@ -1949,23 +2458,14 @@
       "category": "SELF_ASSESSMENT",
       "name": "Självständig riskhantering",
       "description": "Planera och hantera risk utan att vänta på handledaren — ta eget ansvar.",
-      "goals": [
-        "Identifiera risk själv",
-        "Planera åtgärd själv",
-        "Inte vänta på handledaren"
-      ],
+      "goals": ["Identifiera risk själv", "Planera åtgärd själv", "Inte vänta på handledaren"],
       "practiceSteps": [
         "Träna på att identifiera risk utan påminnelse",
         "Planera egen åtgärd",
         "Diskutera efteråt"
       ],
-      "commonErrors": [
-        "Väntar på handledaren",
-        "Planerar inte själv"
-      ],
-      "supervisorObservations": [
-        "Planerar eleven utan påminnelse?"
-      ],
+      "commonErrors": ["Väntar på handledaren", "Planerar inte själv"],
+      "supervisorObservations": ["Planerar eleven utan påminnelse?"],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -2046,6 +2546,14 @@
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
+      "id": "THEORY-MOTORVÄG",
+      "category": "TRAFFIC_RULES",
+      "title": "Motorväg och motortrafikled",
+      "summary": "På motorväg gäller bland annat att endast motorfordon som är konstruerade för och får framföras med minst 40 km/h får färdas där, att moped klass I är undantagen, att in- och utfart bara får ske vid vägens början eller slut eller på på- och avfartsväg, att det är förbjudet att vända och backa, och att det är förbjudet att stanna eller parkera annat än på utmärkt parkerings- eller rastplats (trafikförordningen 9 kap 1 § första stycket). Allt detta gäller även motortrafikled genom 9 kap 2 §. Skillnaderna är två: 110 km/h, och Trafikverkets möjlighet att föreskriva 120 km/h, gäller bara motorväg (9 kap 1 § första stycket 6 och tredje stycket) — på motortrafikled gäller skyltad hastighet eller bashastigheten. Och motorväg ska ha två körbanor, en för varje färdriktning, skilda genom skiljeremsa eller på annat sätt, vilket motortrafikled inte behöver ha (10 kap 7 §). Vid infart där accelerationsfält saknas har du väjningsplikt mot trafiken på huvudled, motorväg eller motortrafikled (3 kap 21 §). Finns accelerationsfält gäller ingen väjningsplikt — då ska du anpassa farten och flytta över när det kan ske utan fara eller onödigt hinder (3 kap 23 §).",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
       "id": "THEORY-MÖRKER",
       "category": "TRAFFIC_SAFETY",
       "title": "Mörkerkörning",
@@ -2054,10 +2562,42 @@
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
+      "id": "THEORY-MÖTE",
+      "category": "TRAFFIC_RULES",
+      "title": "Möte",
+      "summary": "Vid möte ska fordon hållas till höger och förarna lämna betryggande avstånd i sidled (trafikförordningen 3 kap 30 § första stycket). Finns det ett hinder för mötet ska den förare stanna som har hindret på sin sida, om det är nödvändigt för att den mötande ska kunna passera (3 kap 30 § andra stycket). Lagen säger alltså stanna vid behov — inte väja. På utmärkt mötesplats (märke E18) får fordon inte parkeras (3 kap 55 § första stycket 5). Att hålla ut åt höger vid möte med tunga fordon på grund av lufttryck och stänk är körteknik, inte en regel.",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
+      "id": "THEORY-OMKÖRNING",
+      "category": "TRAFFIC_RULES",
+      "title": "Omkörning",
+      "summary": "En förare får köra om endast om det kan ske utan fara (trafikförordningen 3 kap 32 §). Du får inte köra om när någon bakom redan har påbörjat en omkörning, och inte heller om den framförvarande gett tecken om att köra om eller föra sitt fordon åt vänster. Omkörning sker till vänster med betryggande avstånd i sidled — till höger endast när den framförvarande svänger vänster eller tydligt förbereder det (3 kap 31 § och 33 §). Körfältet måste vara fritt på en tillräckligt lång sträcka och du måste kunna återgå till högra delen av körbanan utan fara (3 kap 36 §). Efteråt ska du hålla till höger så snart det kan ske utan fara eller olägenhet (3 kap 37 §); den som körs om ska hålla så långt till höger som möjligt (3 kap 38 §). Förbud gäller strax före eller i vägkorsning (3 kap 39 § första stycket), strax före eller i plankorsning (andra stycket), vid backkrön och i kurva med skymd sikt (tredje–fjärde styckena, där tvåhjuliga fordon utan sidvagn dock får köras om), samt strax före eller på obevakat övergångsställe, obevakad cykelpassage eller cykelöverfart (3 kap 40 §).",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
+      "id": "THEORY-PARKERINGSREGLER",
+      "category": "TRAFFIC_RULES",
+      "title": "Stannande och parkering",
+      "summary": "Trafikförordningen 3 kap 53 § räknar upp var det är förbjudet att stanna och parkera: bland annat inom tio meter före ett övergångsställe, en cykelpassage eller en cykelöverfart, i en vägkorsning eller inom tio meter från den korsande körbanans närmaste ytterkant, i en vägport eller tunnel, på eller strax före ett backkrön eller i en kurva med skymd sikt, och i en cirkulationsplats. Hållplatsförbudet gäller inom tjugo meter före och fem meter efter märke E22 när markering saknas (3 kap 54 §). Fordon får inte parkeras inom trettio meter från en plankorsning eller på en utmärkt mötesplats (3 kap 55 § första stycket 1 och 5). På gata med enkelriktad trafik får fordon stannas eller parkeras även på vänstra sidan (3 kap 52 §) — men högerregeln i 3 kap 18 § gäller oförändrat i korsningar med enkelriktade gator.",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
       "id": "THEORY-PLACERING",
       "category": "TRAFFIC_RULES",
       "title": "Placering och körfält",
       "summary": "Högerplacering gäller, men med marginal till vägkant och cyklister. På flerfiliga vägar väljs körfält efter skyltning och färdriktning.",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
+      "id": "THEORY-PLANKORSNING",
+      "category": "TRAFFIC_RULES",
+      "title": "Järnvägs- och spårvägskorsning",
+      "summary": "En plankorsning är en korsning i samma plan mellan en väg och en sådan järnväg eller spårväg som är anlagd på en särskild banvall (förordning 2001:651 om vägtrafikdefinitioner 2 §). Föraren ska vara särskilt försiktig, uppmärksam på om något tåg eller någon spårvagn närmar sig, anpassa hastigheten så att fordonet kan stannas före korsningen och passera utan onödigt dröjsmål (trafikförordningen 2 kap 7 § första stycket). Du får inte färdas in om ett tåg eller en spårvagn närmar sig, när en ljussignal visar rött sken, en ljudsignal ljuder eller en bom fälls, är fälld eller reses, eller om det finns risk för att du måste stanna i korsningen (andra stycket). Du ska stanna på betryggande avstånd från korsningen och före signaler eller bommar (tredje stycket). Blir fordonet stående i korsningen ska föraren vidta de åtgärder som behövs för passagerarnas säkerhet och för att varna föraren av tåget eller spårvagnen (3 kap 57 §). Fordon får inte parkeras inom trettio meter från en plankorsning (3 kap 55 § första stycket 1) — det gäller parkering, inte att stanna, och åt båda hållen.",
       "sourceId": null,
       "sourceVersion": "PRODUKT-2026.09"
     },
@@ -2086,6 +2626,14 @@
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
+      "id": "THEORY-SPÅRVAGN",
+      "category": "TRAFFIC_RULES",
+      "title": "Spårvagn i blandtrafik",
+      "summary": "En trafikant ska lämna fri väg för järnvägståg eller spårvagn, om inte spårvagnsföraren har väjningsplikt som är utmärkt genom vägmärke (trafikförordningen 2 kap 5 § p.2). Vid möte med järnvägståg eller spårvagn på väg ska fordon hållas till höger (3 kap 34 §), och omkörning av järnvägståg eller spårvagn på väg ska ske till höger (3 kap 35 §). På markerad hållplats för spårvagn, linjetrafik eller skolskjuts får andra fordon inte parkeras eller stannas annat än för på- eller avstigning som kan ske utan hinder för trafiken (3 kap 54 §).",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
       "id": "THEORY-STOPPSTRÄCKA",
       "category": "TRAFFIC_SAFETY",
       "title": "Stoppsträcka och reaktionstid",
@@ -2110,6 +2658,30 @@
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
+      "id": "THEORY-UTRYCKNING",
+      "category": "TRAFFIC_RULES",
+      "title": "Utryckningsfordon",
+      "summary": "En trafikant ska lämna fri väg för utryckningsfordon som avger signal med föreskriven larmanordning, och den som ska lämna fri väg ska stanna om det är nödvändigt (trafikförordningen 2 kap 5 § p.1 och sista stycket). Plikten heter lämna fri väg, inte väjningsplikt. Ett utryckningsfordon är ett fordon som i vägtrafikregistret är upptaget som utryckningsfordon (förordning 2001:651 om vägtrafikdefinitioner 2 §) — registerstatus avgör, inte dekor. Lämna fri väg på ett sätt som inte skapar en ny fara: sänk farten och skapa plats där det finns plats.",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
+      "id": "THEORY-VILT",
+      "category": "TRAFFIC_SAFETY",
+      "title": "Vilt och djur på vägen",
+      "summary": "Det finns ingen väjningsplikt mot djur — väjningsplikt riktar sig i trafikförordningen mot trafikanter och fordon. Det som gäller före olyckan är aktsamhetsregeln: en trafikant ska iaktta den omsorg och varsamhet som krävs med hänsyn till omständigheterna för att undvika trafikolyckor (trafikförordningen 2 kap 1 §). Har ett djur av arterna björn, varg, järv, lo, älg, hjort, rådjur, utter, vildsvin, mufflonfår eller örn varit inblandat i en sammanstötning med ett motorfordon är föraren skyldig att snarast möjligt märka ut olycksplatsen och underrätta Polismyndigheten (jaktförordningen 1987:905 40 § första stycket). Det är två åtgärder, och plikten gäller även om djuret verkar oskadat. Ren, hund, katt, får och nöt omfattas inte — de är tamdjur, och då gäller att stanna kvar, hjälpa skadade, lämna uppgifter och underrätta den som lidit skada eller Polismyndigheten (trafikförordningen 2 kap 8 § och 5 § lagen 1951:649 om straff för vissa trafikbrott).",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
+      "id": "THEORY-VINTERDÄCK",
+      "category": "VEHICLE_KNOWLEDGE",
+      "title": "Vinterdäck och dubbdäck",
+      "summary": "Under perioden 1 december–31 mars ska personbil klass I och II, lätt lastbil, lätt buss, traktor som utgörs av ombyggd bil samt släpvagn till dessa ha vinterdäck eller likvärdig utrustning när vinterväglag råder (trafikförordningen 4 kap 18 a §). Både datumen och vinterväglaget krävs. Dubbdäck är tillåtna 1 oktober–15 april, och även utanför den perioden om det är eller befaras bli vinterväglag. Minsta mönsterdjup för vinterdäck på personbil är 3 mm (Transportstyrelsen, med stöd av TSFS 2009:19). Förbud mot dubbdäck är alltid lokalt: en kommun kan meddela lokal trafikföreskrift om förbud på viss väg eller inom visst område (trafikförordningen 10 kap). Något nationellt dubbdäcksförbud finns inte.",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
       "id": "THEORY-VRU",
       "category": "TRAFFIC_SAFETY",
       "title": "Oskyddade trafikanter",
@@ -2120,8 +2692,8 @@
     {
       "id": "THEORY-VÄGARBETE",
       "category": "TRAFFIC_RULES",
-      "title": "Vägarbeten och tillfälliga skyltar",
-      "summary": "Vid vägarbeten gäller tillfälliga skyltar före permanent skyltning. Sänkt fart och ökad uppmärksamhet krävs.",
+      "title": "Vägarbeten, vakt och anvisningar",
+      "summary": "En trafikant ska följa anvisning som ges genom vägmärke, vägmarkering, trafiksignal, ljussignal eller tecken av vakt, och en anvisning som innebär en avvikelse från en trafikregel gäller framför regeln (trafikförordningen 2 kap 2 § första stycket). Vid vägarbete eller liknande arbete, och när en säkerhetsanordning vid plankorsning är ur funktion, kan anvisningar ges genom tecken av vakt (vägmärkesförordningen 2007:90 1 kap 7 §). Vaktens tecken: V1 Stopp gäller den trafikant vakten är vänd mot och ges i mörker med lykta med rött ljus, V2 Kör fram ges med vinkande rörelse i färdriktningen, och vaktens kännetecken bärs både framtill och baktill (vägmärkesförordningen 5 kap 2 §). Två uttryckliga rangordningar finns: polismans anvisning gäller framför trafikreglerna och framför märken och signaler (trafikförordningen 2 kap 3 §), och fast sken i trafiksignal gäller framför anvisning om stopp- eller väjningsplikt genom vägmärke (2 kap 2 § andra stycket). Kör efter den skyltning som står på plats, sänk farten och räkna med människor intill körbanan.",
       "sourceId": null,
       "sourceVersion": "PRODUKT-2026.09"
     },
@@ -2136,12 +2708,22 @@
   ],
   "exercises": [
     {
+      "id": "EX-HWY-02-01",
+      "skillId": "HWY-02",
+      "title": "Avfart och fartkänsla",
+      "description": "Träna planerad avfart och nedbromsning i retardationsfältet",
+      "difficulty": "ADVANCED",
+      "estimatedMinutes": 35,
+      "requiredEnvironments": ["HIGHWAY"]
+    },
+    {
       "id": "EX-INT-02-01",
       "skillId": "INT-02",
       "title": "Högerregeln i praktiken",
       "description": "Hitta oreglerade korsningar och öva högerregeln",
       "difficulty": "BASIC",
-      "estimatedMinutes": 30
+      "estimatedMinutes": 30,
+      "requiredEnvironments": ["RESIDENTIAL"]
     },
     {
       "id": "EX-INT-03-01",
@@ -2149,7 +2731,17 @@
       "title": "Stopplikt",
       "description": "Träna korrekt stopp vid stoppliktsskylt",
       "difficulty": "BASIC",
-      "estimatedMinutes": 20
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
+    },
+    {
+      "id": "EX-LANE-03-01",
+      "skillId": "LANE-03",
+      "title": "Första omkörningarna",
+      "description": "Planera, genomföra och avstå från omkörning på landsväg",
+      "difficulty": "ADVANCED",
+      "estimatedMinutes": 40,
+      "requiredEnvironments": ["RURAL"]
     },
     {
       "id": "EX-MAN-01-01",
@@ -2157,7 +2749,8 @@
       "title": "Mjuka starter och stopp",
       "description": "Träna start och stopp tills det går mjukt",
       "difficulty": "INTRODUCTION",
-      "estimatedMinutes": 20
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["CLOSED_AREA", "PARKING_AREA"]
     },
     {
       "id": "EX-MAN-02-01",
@@ -2165,7 +2758,17 @@
       "title": "Styrträning på raksträcka",
       "description": "Hålla bilen i filen med blicken långt fram",
       "difficulty": "INTRODUCTION",
-      "estimatedMinutes": 15
+      "estimatedMinutes": 15,
+      "requiredEnvironments": ["CLOSED_AREA", "PARKING_AREA", "RESIDENTIAL"]
+    },
+    {
+      "id": "EX-MAN-04-01",
+      "skillId": "MAN-04",
+      "title": "Krypfart mellan två punkter",
+      "description": "Hålla helt jämn låg fart och styra samtidigt",
+      "difficulty": "INTRODUCTION",
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["CLOSED_AREA", "PARKING_AREA"]
     },
     {
       "id": "EX-MAN-07-01",
@@ -2173,7 +2776,8 @@
       "title": "Effektiv bromsning",
       "description": "Träna kraftig bromsning på säker plats",
       "difficulty": "BASIC",
-      "estimatedMinutes": 20
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["CLOSED_AREA"]
     },
     {
       "id": "EX-MAN-08-01",
@@ -2181,7 +2785,17 @@
       "title": "Säker backning",
       "description": "Träna backning med full omgivningskontroll",
       "difficulty": "INTRODUCTION",
-      "estimatedMinutes": 15
+      "estimatedMinutes": 15,
+      "requiredEnvironments": ["CLOSED_AREA", "PARKING_AREA"]
+    },
+    {
+      "id": "EX-MAN-09-01",
+      "skillId": "MAN-09",
+      "title": "Vändning på smal väg",
+      "description": "Vända kontrollerat på begränsad yta med koll på trafiken",
+      "difficulty": "INTERMEDIATE",
+      "estimatedMinutes": 25,
+      "requiredEnvironments": ["PARKING_AREA", "RESIDENTIAL"]
     },
     {
       "id": "EX-OBS-04-01",
@@ -2189,7 +2803,8 @@
       "title": "Risksökning",
       "description": "Träna på att identifiera potentiella faror",
       "difficulty": "INTERMEDIATE",
-      "estimatedMinutes": 25
+      "estimatedMinutes": 25,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
     },
     {
       "id": "EX-POS-01-01",
@@ -2197,7 +2812,8 @@
       "title": "Stabil placering",
       "description": "Träna på att hålla rätt placering i körfältet",
       "difficulty": "INTRODUCTION",
-      "estimatedMinutes": 15
+      "estimatedMinutes": 15,
+      "requiredEnvironments": ["RESIDENTIAL"]
     },
     {
       "id": "EX-RAB-01-01",
@@ -2205,7 +2821,17 @@
       "title": "Planering i cirkulationsplats",
       "description": "Träna planering och utförande i en cirkulationsplats",
       "difficulty": "INTERMEDIATE",
-      "estimatedMinutes": 25
+      "estimatedMinutes": 25,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
+    },
+    {
+      "id": "EX-RUR-03-01",
+      "skillId": "RUR-03",
+      "title": "Möten på smal väg",
+      "description": "Träna fart, placering och blick vid möte på smal väg",
+      "difficulty": "INTERMEDIATE",
+      "estimatedMinutes": 30,
+      "requiredEnvironments": ["RURAL"]
     },
     {
       "id": "EX-SPD-03-01",
@@ -2213,7 +2839,8 @@
       "title": "Säkerhetsavstånd",
       "description": "Träna på att hålla korrekt avstånd",
       "difficulty": "BASIC",
-      "estimatedMinutes": 15
+      "estimatedMinutes": 15,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN", "RURAL"]
     },
     {
       "id": "EX-SPEC-02-01",
@@ -2221,7 +2848,8 @@
       "title": "Mörkerkörning",
       "description": "Träna anpassad körning i mörker (endast när grundkompetens finns)",
       "difficulty": "ADVANCED",
-      "estimatedMinutes": 30
+      "estimatedMinutes": 30,
+      "requiredEnvironments": ["RESIDENTIAL", "RURAL"]
     },
     {
       "id": "EX-SPEC-03-01",
@@ -2229,7 +2857,17 @@
       "title": "Körning i regn",
       "description": "Träna anpassad körning vid regn",
       "difficulty": "INTERMEDIATE",
-      "estimatedMinutes": 25
+      "estimatedMinutes": 25,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
+    },
+    {
+      "id": "EX-SPEC-05-01",
+      "skillId": "SPEC-05",
+      "title": "Passera plankorsning",
+      "description": "Träna fartanpassning och egen avläsning vid järnvägskorsning",
+      "difficulty": "INTERMEDIATE",
+      "estimatedMinutes": 25,
+      "requiredEnvironments": ["RURAL", "URBAN"]
     },
     {
       "id": "EX-VEH-01-01",
@@ -2237,7 +2875,8 @@
       "title": "Hitta rätt förarställning",
       "description": "Öva på att ställa in stolen själv utan hjälp",
       "difficulty": "INTRODUCTION",
-      "estimatedMinutes": 10
+      "estimatedMinutes": 10,
+      "requiredEnvironments": ["CLOSED_AREA", "PARKING_AREA"]
     },
     {
       "id": "EX-VRU-01-01",
@@ -2245,7 +2884,8 @@
       "title": "Fotgängare i stadstrafik",
       "description": "Träna på att upptäcka och ge marginal till fotgängare",
       "difficulty": "BASIC",
-      "estimatedMinutes": 20
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
     },
     {
       "id": "EX-VRU-02-01",
@@ -2253,7 +2893,8 @@
       "title": "Cyklister och döda vinkeln",
       "description": "Träna på att upptäcka cyklister i alla situationer",
       "difficulty": "BASIC",
-      "estimatedMinutes": 20
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
     }
   ],
   "trafficEnvironments": [
@@ -2302,254 +2943,400 @@
     {
       "id": "PHRASE-FEEDBACK-CONCRETE",
       "skillId": null,
+      "type": "FEEDBACK",
+      "text": "Jag håller med om att [det du nämnde] blev bättre. Jag såg det särskilt när [konkret tillfälle].",
+      "context": "Mönster för konkret feedback kopplad till målet. Konkret observation är mer användbar än allmänt beröm.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-FEEDBACK-HARDEST",
       "skillId": null,
+      "type": "REFLECTION",
+      "text": "Vilken situation var svårast?",
+      "context": "Elevens egen identifiering av utmaning ger bättre utgångspunkt än handledarens.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-FEEDBACK-IMPROVEMENT",
       "skillId": null,
+      "type": "QUESTION",
+      "text": "I [situationen] kom [det här] sent. Vad skulle du kunna göra tidigare nästa gång?",
+      "context": "Mönster för konkret observation med öppen fråga om lösning. Rikta feedback mot beteendet, inte personen.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-FEEDBACK-WHAT-BEST",
       "skillId": null,
+      "type": "REFLECTION",
+      "text": "Vad tycker du själv gick bäst idag?",
+      "context": "Transportstyrelsen rekommenderar att eleven först beskriver vad som fungerade. Öppna inte med fellistor — eleven ska få beskriva först.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGH-BRAKE",
       "skillId": null,
+      "type": "SAFETY_INTERVENTION",
+      "text": "Bromsa!",
+      "context": "Handledaren har ingen egen pedal — det sagda ordet är hela ingripandet och måste vara ett enda ord.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGH-KEEP-LANE",
       "skillId": null,
+      "type": "INSTRUCTION",
+      "text": "Ligg kvar i ditt körfält.",
+      "context": "Konkret korrigering utan diskussion.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGH-LATER",
       "skillId": null,
+      "type": "CUE",
+      "text": "Fortsätt köra. Vi tar det efter korsningen.",
+      "context": "Vid hög belastning ska feedback vänta till lugn situation — komplex återkoppling kräver mental kapacitet eleven inte har just då.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGH-PULL-OVER",
       "skillId": null,
+      "type": "SAFETY_INTERVENTION",
+      "text": "Stanna när det är säkert.",
+      "context": "Säkerhetsläge — handledaren måste avbryta.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGH-REDUCE-SPEED",
       "skillId": null,
+      "type": "INSTRUCTION",
+      "text": "Bromsa lugnt.",
+      "context": "Vid verklig fara krävs kraftig inbromsning — detta råd gäller planerad fartsänkning.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGH-TOO-DIFFICULT",
       "skillId": null,
+      "type": "FEEDBACK",
+      "text": "Det är inget prov. Vi tar oss till en säker plats och pausar.",
+      "context": "När miljön är för svår är belastningen per definition hög — budskapet måste vara kort.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-HIGHWAY-MERGE",
       "skillId": "HWY-01",
+      "type": "CUE",
+      "text": "Anpassa farten till trafiken.",
+      "context": "Kort påminnelse vid påfart — ingen tid för lång instruktion.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LANE-CHANGE-SAFE",
       "skillId": "LANE-02",
+      "type": "QUESTION",
+      "text": "Vad behöver du se innan du byter körfält?",
+      "context": "Öppen fråga som aktiverar elevens egen säkerhetsbedömning i stället för ett ja/nej-omdöme.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-AHEAD",
       "skillId": "OBS-01",
+      "type": "QUESTION",
+      "text": "Vad ser du längre fram som kan påverka oss?",
+      "context": "Öppen fråga som riktar blicken framåt utan att peka ut exakt vad. Informationsfattiga utrop ger ingen vägledning.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-ANTICIPATE",
       "skillId": "OBS-01",
+      "type": "QUESTION",
+      "text": "Vad skulle kunna förändras de närmaste fem sekunderna?",
+      "context": "Tränar prognos och framförhållning.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-MARGIN",
       "skillId": "SPD-03",
+      "type": "QUESTION",
+      "text": "Hur mycket marginal vill du ha här?",
+      "context": "Eleven formulerar eget beslut om marginal.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-NEXT-TIME",
       "skillId": null,
+      "type": "REFLECTION",
+      "text": "Vad gör du annorlunda i nästa liknande situation?",
+      "context": "Eleven formulerar egen lösning framåt.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-OBSERVATION",
       "skillId": "INT-01",
+      "type": "QUESTION",
+      "text": "Vad behöver du veta här?",
+      "context": "Öppen fråga som styr uppmärksamhet utan att ge svaret.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-RULE",
       "skillId": "INT-01",
+      "type": "QUESTION",
+      "text": "Vilken regel gäller här?",
+      "context": "Får eleven att tänka själv.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-SIGHT-QUESTION",
       "skillId": "RUR-02",
+      "type": "QUESTION",
+      "text": "Vad begränsar din sikt här?",
+      "context": "Tränar siktbedömning som grund för hastighetsval.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-SPEED-REASON",
       "skillId": "SPD-02",
+      "type": "QUESTION",
+      "text": "Hur vet du att farten är lämplig?",
+      "context": "Flyttar fokus från skylt till faktisk bedömning.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-WHAT-HAPPENED",
       "skillId": null,
+      "type": "REFLECTION",
+      "text": "Vad hände där?",
+      "context": "Elevens egen beskrivning ger utgångspunkt för feedback.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-WHAT-MISSED",
       "skillId": null,
+      "type": "REFLECTION",
+      "text": "Vad missade vi?",
+      "context": "Vi-formulering minskar press och främjar öppen diskussion. Formulera observation som vi-problem så att eleven inte går i försvarsställning.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-LOW-WHAT-SAW",
       "skillId": null,
+      "type": "REFLECTION",
+      "text": "Vad såg du innan du bestämde dig?",
+      "context": "Tar reda på vad eleven faktiskt såg.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-MED-PULL-OVER",
       "skillId": null,
+      "type": "INSTRUCTION",
+      "text": "Stanna på en lämplig plats till höger när det är säkert.",
+      "context": "Planerat stopp med tid att förklara detaljer.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-MIRROR-CHECK",
       "skillId": "OBS-03",
+      "type": "QUESTION",
+      "text": "Var kan det finnas något som inte syns i speglarna?",
+      "context": "Tränar medvetenhet om döda vinkeln utan att peka ut ett specifikt fordon.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-OBS-BLIND-SPOT",
       "skillId": "OBS-03",
+      "type": "CUE",
+      "text": "Axelblick.",
+      "context": "Kort påminnelse om döda vinkeln.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-OBS-HAZARD",
       "skillId": "OBS-04",
+      "type": "QUESTION",
+      "text": "Vad kan hända om fem sekunder?",
+      "context": "Tränar förutsägelse av risk.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-PARKING-OBSERVATION",
       "skillId": "MAN-08",
+      "type": "QUESTION",
+      "text": "Vad behöver du kontrollera innan du backar?",
+      "context": "Aktiverar säkerhetstänk före manövern.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-POS-PLACEMENT",
       "skillId": "POS-01",
+      "type": "CUE",
+      "text": "Placering.",
+      "context": "Ett ord räcker när eleven vet vad som menas.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-RISK-STRESS",
       "skillId": "RISK-04",
+      "type": "SAFETY_INTERVENTION",
+      "text": "Vi hittar en säker plats och pausar.",
+      "context": "Starka känslor påverkar körningen — pausa.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-RISK-TIRED",
       "skillId": "RISK-03",
+      "type": "SAFETY_INTERVENTION",
+      "text": "Vi stannar och pausar nu.",
+      "context": "Trötthet är säkerhetsrisk — ingen fortsatt körning.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-ROUNDABOUT-POSITION",
       "skillId": "RAB-01",
+      "type": "QUESTION",
+      "text": "Vilket körfält passar för utfarten du ska ta?",
+      "context": "Eleven bedömer körfält utifrån vart hen ska.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SELF-EVAL",
       "skillId": "SELF-01",
+      "type": "QUESTION",
+      "text": "Vad bygger du det på?",
+      "context": "Eleven tränar på att kunna säga vad självbedömningen bygger på.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SELF-GOAL",
       "skillId": "SELF-02",
+      "type": "QUESTION",
+      "text": "Vad är ett konkret mål för dagens pass?",
+      "context": "Eleven formulerar eget specifikt mål.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SPD-DISTANCE",
       "skillId": "SPD-03",
+      "type": "INSTRUCTION",
+      "text": "Öka avståndet.",
+      "context": "Kort instruktion när avståndet är för kort.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SPEC-DARK",
       "skillId": "SPEC-02",
+      "type": "QUESTION",
+      "text": "Vad upptäcker du senare nu än i dagsljus?",
+      "context": "Eleven reflekterar över förändrad sikt.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SPEC-RAIN",
       "skillId": "SPEC-03",
+      "type": "QUESTION",
+      "text": "Hur påverkar regnet din körning?",
+      "context": "Eleven identifierar behov av större marginaler.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SPEC-ROADWORK",
       "skillId": "SPEC-01",
+      "type": "QUESTION",
+      "text": "Vilka skyltar gäller här?",
+      "context": "Fokuserar uppmärksamheten på tillfälliga skyltar.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-SPEC-SLIP",
       "skillId": "SPEC-04",
+      "type": "INSTRUCTION",
+      "text": "Mjukt på ratt och broms — inga tvära rörelser.",
+      "context": "Påminnelse om teknik på halt underlag.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-VRU-BUS",
       "skillId": "VRU-04",
+      "type": "CUE",
+      "text": "Sänk farten — folk kan gå över.",
+      "context": "Kort varning när buss står vid hållplats.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-VRU-CYCLIST-BLIND",
       "skillId": "VRU-02",
+      "type": "CUE",
+      "text": "Axelblick innan sväng.",
+      "context": "Påminnelse om döda vinkeln när cyklist kan finnas.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-VRU-OBSERVATION",
       "skillId": null,
+      "type": "QUESTION",
+      "text": "Kan det finnas gående eller cyklister här?",
+      "context": "Riktar uppmärksamhet mot platser där gående och cyklister kan dyka upp.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-VRU-PEDESTRIAN",
       "skillId": "VRU-01",
+      "type": "QUESTION",
+      "text": "Vad kan komma ut i vägen här?",
+      "context": "Riktar uppmärksamhet mot fotgängare utan att ge svaret.",
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
       "id": "PHRASE-VRU-SCHOOL",
       "skillId": "VRU-03",
+      "type": "QUESTION",
+      "text": "Vad här gör att du vill vara extra försiktig?",
+      "context": "Eleven identifierar själv skolområdet och drar slutsats.",
       "sourceVersion": "PRODUKT-2026.09"
     }
   ],
   "regulatorySources": [
     {
       "id": "KKF-1998-980",
-      "authority": "RIKSDAGEN"
+      "authority": "RIKSDAGEN",
+      "url": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/korkortslag-1998980_sfs-1998-980/",
+      "sourceVersion": "2026.09.02"
     },
     {
       "id": "TBL-1951-649",
-      "authority": "RIKSDAGEN"
+      "authority": "RIKSDAGEN",
+      "url": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1951649-om-straff-for-vissa-trafikbrott_sfs-1951-649/",
+      "sourceVersion": "2026.09.03"
     },
     {
       "id": "TF-1998-1276",
-      "authority": "RIKSDAGEN"
+      "authority": "RIKSDAGEN",
+      "url": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/trafikforordning-19981276_sfs-1998-1276/",
+      "sourceVersion": "2026.09.02"
     },
     {
       "id": "TS-HANDLEDARE",
-      "authority": "TRANSPORTSTYRELSEN"
+      "authority": "TRANSPORTSTYRELSEN",
+      "url": "https://www.transportstyrelsen.se/sv/vagtrafik/korkort/ta-korkort/handledarskap-och-ovningskorning/handledare/",
+      "sourceVersion": "2026.09.02"
     },
     {
       "id": "TS-INTRO-SLOPAD-2026-08",
-      "authority": "TRANSPORTSTYRELSEN"
+      "authority": "TRANSPORTSTYRELSEN",
+      "url": "https://www.transportstyrelsen.se/sv/om-oss/pressrum/nyhetsarkiv/2026/introduktionsutbildningen-tas-bort--det-har-behover-du-ha-koll-pa/",
+      "sourceVersion": "2026.09.02"
     },
     {
       "id": "TS-KUNSKAPSPROV-1AR-2026-08",
-      "authority": "TRANSPORTSTYRELSEN"
+      "authority": "TRANSPORTSTYRELSEN",
+      "url": "https://www.transportstyrelsen.se/sv/vagtrafik/korkort/ta-korkort/valj-behorighet/personbil-och-latt-lastbil/b-personbil-och-latt-lastbil/ansoka-om-forlangd-giltighetstid-for-godkant-kunskapsprov/",
+      "sourceVersion": "2026.09.02"
     },
     {
       "id": "TSFS-2011-20",
-      "authority": "TRANSPORTSTYRELSEN"
+      "authority": "TRANSPORTSTYRELSEN",
+      "url": "https://www.transportstyrelsen.se/tsfs/TSFS%202011_20.pdf",
+      "sourceVersion": "2011.20"
     }
   ],
-  "exportedAt": "2026-09-03T16:58:35.613Z",
+  "exportedAt": "2026-09-03T19:35:27.677Z",
   "databaseVersion": "1.0"
 }

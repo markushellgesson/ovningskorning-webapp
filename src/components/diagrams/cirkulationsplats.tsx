@@ -2,12 +2,15 @@
  * Cirkulationsplats — väjningsplikt vid infart.
  * Trafikförordningen 3 kap 22 §.
  * Visar också cyklisters position.
+ *
+ * Vägmärkesbilden D3 i public/signs/ är ett svenskt officiellt vägmärke
+ * (allmän handling) och fri att återge.
  */
 
 export function CirkulationsplatsDiagram() {
   return (
     <svg
-      viewBox="0 0 400 400"
+      viewBox="0 0 400 420"
       className="w-full max-w-md mx-auto"
       role="img"
       aria-labelledby="roundabout-title roundabout-desc"
@@ -15,9 +18,10 @@ export function CirkulationsplatsDiagram() {
       <title id="roundabout-title">Cirkulationsplats sedd uppifrån</title>
       <desc id="roundabout-desc">
         Cirkulationsplats med fyra infarter. Din bil (markerad med prickmönster och orange ram)
-        närmar sig söderifrån. En bil i cirkulationen (markerad med diagonala ränder och blå ram) kör
-        moturs. Du har väjningsplikt mot fordon som redan befinner sig i cirkulationen. En cyklist
-        (markerad med en cirkel) visas också i cirkulationen.
+        närmar sig söderifrån, förbi vägmärket D3 som anger cirkulationsplats. En bil i
+        cirkulationen (markerad med diagonala ränder och blå ram) kör moturs. Du har väjningsplikt
+        mot fordon som redan befinner sig i cirkulationen — den plikten följer av lagen, inte av
+        skylten. En cyklist (markerad med en cirkel) visas också i cirkulationen.
       </desc>
 
       {/* Cirkulationsplats yttre ring */}
@@ -100,6 +104,12 @@ export function CirkulationsplatsDiagram() {
         Cyklist
       </text>
 
+      {/* D3 — anger cirkulationsplats, före din infart */}
+      <image href="/signs/D3.svg" x="225" y="255" width="34" height="34" />
+      <text x="262" y="277" className="fill-text-secondary text-[13px]">
+        D3
+      </text>
+
       {/* Din bil som närmar sig (prickmönster) */}
       <g>
         <rect
@@ -132,6 +142,9 @@ export function CirkulationsplatsDiagram() {
         />
         <text x="150" y="375" className="fill-text-secondary text-[13px] font-medium">
           Väjningsplikt vid infart
+        </text>
+        <text x="120" y="392" className="fill-text-tertiary text-[13px]">
+          (gäller enligt lagen, inte bara där D3 sitter uppe)
         </text>
       </g>
 

@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import content from '@/content/content.json';
+import content from '@/content';
 import type { Skill } from '@/content/types';
 import { CATEGORY_LABELS } from '@/content/category-labels';
 import { Card } from '@/components/ui/card';
 import { StatusBadge } from '@/components/ui/badge';
 import { buildProgressionMap } from '@/domain/progression-map/build-map';
 
-const skills = content.skills as Skill[];
+const skills = content.skills;
 const skillsById = new Map(skills.map((skill) => [skill.id, skill]));
 
 // Beräknas vid bygget — sidan är statiskt exporterad och har ingen server

@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import content from '@/content/content.json';
+import content from '@/content';
 import type { Skill } from '@/content/types';
 import { Card } from '@/components/ui/card';
 import { StatusBadge } from '@/components/ui/badge';
 
-const skills = content.skills as Skill[];
+const skills = content.skills;
 
 // Gruppera skills per kategori
 const skillsByCategory = skills.reduce(

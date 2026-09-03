@@ -28,6 +28,18 @@ const SW_PATH = join(OUT_DIR, 'sw.js');
 const EXCLUDE = new Set(['sw.js', '404.html']);
 const EXCLUDE_DIRS = new Set(['404']);
 
+// Kataloger som är avsiktligt UNDANTAGNA från precache, men fortfarande
+// cachas när de faktiskt används (`isStaticAsset` i sw.js matchar .jpg,
+// så en visad bild hamnar i runtime-cachen och funkar sedan offline).
+//
+// Skälet är att `install` använder cache.addAll(), som är ATOMISK: en enda
+// misslyckad förfrågan avbryter hela installationen och service workern
+// aktiveras aldrig — appen blir helt utan offline-stöd. Fotona väger flera
+// megabyte tillsammans, och att ladda dem över ett skakigt mobilnät innan
+// appen ens visats gör det utfallet sannolikt. De är dessutom illustrationer,
+// inte appskal: en bild som aldrig visas ska inte kosta något.
+const EXCLUDE_PREFIXES = ['photos/'];
+
 function walk(dir, base = dir) {
   const entries = readdirSync(dir);
   const files = [];
@@ -43,6 +55,7 @@ function walk(dir, base = dir) {
     }
 
     if (EXCLUDE.has(rel)) continue;
+    if (EXCLUDE_PREFIXES.some((prefix) => rel.startsWith(prefix))) continue;
     files.push(rel);
   }
 

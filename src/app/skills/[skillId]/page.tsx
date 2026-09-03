@@ -1,12 +1,43 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import content from '@/content/content.json';
-import type { Skill } from '@/content/types';
+import content from '@/content';
+import type { DifficultyLevel, PhraseType, Skill, TheoryRelationType } from '@/content/types';
 import { StatusBadge } from '@/components/ui/badge';
 import { getDiagramForSkill } from '@/components/diagrams/registry';
+import { getPhotosForSkill } from '@/content/photo-credits';
+import { SkillPhoto } from '@/components/skill-photo';
 
-const skills = content.skills as Skill[];
+const skills = content.skills;
+
+// Duplicerad avsiktligt i stället för delad med t.ex. category-labels.ts —
+// samma princip som där: sidorna hör till separata delar av appen och ska
+// kunna ändras oberoende av varandra (ADR 0013).
+const PHRASE_TYPE_LABELS: Record<PhraseType, string> = {
+  INSTRUCTION: 'Instruktion',
+  QUESTION: 'Fråga',
+  CUE: 'Påminnelse',
+  FEEDBACK: 'Återkoppling',
+  REFLECTION: 'Reflektion',
+  SAFETY_INTERVENTION: 'Säkerhetsingripande',
+};
+
+const DIFFICULTY_LABELS: Record<DifficultyLevel, string> = {
+  INTRODUCTION: 'Introduktion',
+  BASIC: 'Grundnivå',
+  INTERMEDIATE: 'Mellannivå',
+  ADVANCED: 'Avancerad',
+};
+
+const THEORY_RELATION_LABELS: Record<TheoryRelationType, string> = {
+  PREREQUISITE: 'Bra att kunna innan',
+  INTEGRATED: 'Hör ihop med momentet',
+  DEEP_DIVE: 'För den som vill fördjupa sig',
+};
+
+// Ordningen sektionerna grupperas i under "Teoriämnen" — förkunskap före
+// fördjupning, så läsordningen följer var man befinner sig i inlärningen.
+const THEORY_RELATION_ORDER: TheoryRelationType[] = ['PREREQUISITE', 'INTEGRATED', 'DEEP_DIVE'];
 
 export async function generateStaticParams() {
   return skills.map((skill) => ({
@@ -64,6 +95,21 @@ export default async function SkillPage({ params }: SkillPageProps) {
 
   const children = skills.filter((s) => s.parentId === skill.id);
   const diagram = getDiagramForSkill(skillId);
+  const photos = getPhotosForSkill(skillId);
+
+  // Fraser med skillId: null är allmänna mönster, inte knutna till just
+  // detta moment — de visas inte här (se content/types.ts).
+  const supervisorPhrases = content.supervisorPhrases.filter((p) => p.skillId === skill.id);
+  const exercises = content.exercises.filter((e) => e.skillId === skill.id);
+
+  const theoryTopicsById = new Map(content.theoryTopics.map((t) => [t.id, t]));
+  const theoryGroups = THEORY_RELATION_ORDER.map((relationType) => ({
+    relationType,
+    topics: skill.theoryRelations
+      .filter((r) => r.relationType === relationType)
+      .map((r) => theoryTopicsById.get(r.theoryTopicId))
+      .filter((t): t is (typeof content.theoryTopics)[number] => t !== undefined),
+  })).filter((group) => group.topics.length > 0);
 
   return (
     <main className="min-h-dvh bg-surface-overlay">
@@ -99,6 +145,16 @@ export default async function SkillPage({ params }: SkillPageProps) {
             <figure className="rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised px-4 py-6 sm:px-6">
               {diagram}
             </figure>
+          )}
+
+          {/* Foto av trafikmiljön, om ett finns för detta moment. Diagrammet
+              ovan är fortfarande huvudillustrationen — fotot kompletterar. */}
+          {photos.length > 0 && (
+            <div className="space-y-4">
+              {photos.map((photo) => (
+                <SkillPhoto key={photo.filename} photo={photo} />
+              ))}
+            </div>
           )}
 
           {prerequisites.length > 0 && (
@@ -188,6 +244,88 @@ export default async function SkillPage({ params }: SkillPageProps) {
                   </li>
                 ))}
               </ul>
+            </section>
+          )}
+
+          {supervisorPhrases.length > 0 && (
+            <section className={SECTION}>
+              <h2 className={SECTION_HEADING}>Handledarfraser</h2>
+              <ul className="mt-5 space-y-3 max-w-[var(--measure)]">
+                {supervisorPhrases.map((phrase) => (
+                  <li
+                    key={phrase.id}
+                    className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                  >
+                    <StatusBadge
+                      variant={phrase.type === 'SAFETY_INTERVENTION' ? 'safety' : 'neutral'}
+                      size="sm"
+                    >
+                      {PHRASE_TYPE_LABELS[phrase.type]}
+                    </StatusBadge>
+                    <p className="mt-2 text-lg text-text-primary">{phrase.text}</p>
+                    {phrase.context && (
+                      <p className="mt-2 text-sm text-text-tertiary">{phrase.context}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {exercises.length > 0 && (
+            <section className={SECTION}>
+              <h2 className={SECTION_HEADING}>Övningar</h2>
+              <ul className="mt-5 space-y-3 max-w-[var(--measure)]">
+                {exercises.map((exercise) => (
+                  <li
+                    key={exercise.id}
+                    className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h3 className="text-lg font-semibold text-text-primary">{exercise.title}</h3>
+                      <StatusBadge variant="neutral" size="sm">
+                        {DIFFICULTY_LABELS[exercise.difficulty]}
+                      </StatusBadge>
+                    </div>
+                    <p className="mt-1 text-base text-text-secondary">{exercise.description}</p>
+                    {exercise.estimatedMinutes !== null && (
+                      <p className="mt-2 text-sm text-text-tertiary">
+                        Cirka {exercise.estimatedMinutes} minuter
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {theoryGroups.length > 0 && (
+            <section className={SECTION}>
+              <h2 className={SECTION_HEADING}>Teori kopplad till momentet</h2>
+              <div className="mt-5 space-y-6">
+                {theoryGroups.map((group) => (
+                  <div key={group.relationType} className="space-y-3">
+                    <h3 className="text-sm font-semibold tracking-wide text-text-tertiary uppercase">
+                      {THEORY_RELATION_LABELS[group.relationType]}
+                    </h3>
+                    <ul className="space-y-3 max-w-[var(--measure)]">
+                      {group.topics.map((topic) => (
+                        <li
+                          key={topic.id}
+                          className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                        >
+                          <h4 className="text-base font-semibold text-text-primary">
+                            {topic.title}
+                          </h4>
+                          {topic.summary && (
+                            <p className="mt-1 text-sm text-text-secondary">{topic.summary}</p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </section>
           )}
 
