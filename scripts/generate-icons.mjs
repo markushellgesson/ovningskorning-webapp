@@ -39,6 +39,13 @@ for (const { file, size } of SIZES) {
 
 // Maskable: samma motiv nedskalat till 80 %, centrerat på full bakgrund.
 // Då överlever motivet varje beskärningsform plattformen väljer.
+//
+// Bakgrunden MÅSTE vara samma kulör som ikonens egen botten. Är den en
+// annan färg syns den som en ram runt ikonen, vilket ser ut som ett fel —
+// det hände när ikonen byttes från mörk till ljus botten och den här
+// konstanten låg kvar.
+const ICON_BACKGROUND = '#faf5f6';
+
 const inner = Math.round(512 * 0.8);
 const pad = Math.round((512 - inner) / 2);
 
@@ -47,7 +54,7 @@ await sharp({
     width: 512,
     height: 512,
     channels: 4,
-    background: '#1e293b',
+    background: ICON_BACKGROUND,
   },
 })
   .composite([

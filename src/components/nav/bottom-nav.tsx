@@ -5,8 +5,8 @@
  *
  * Huvudappens nav har fem flikar (Hem, Kör, Träning, Framsteg, Profil) och
  * ett inloggningsberoende. Den lokala varianten saknar konto och har bara
- * två sidor byggda — startsida och kompetensbibliotek — så navigationen
- * begränsas till det som faktiskt finns.
+ * tre sidor byggda — startsida, kompetensbibliotek och träningskarta — så
+ * navigationen begränsas till det som faktiskt finns.
  */
 
 import Link from 'next/link';
@@ -15,6 +15,7 @@ import { usePathname } from 'next/navigation';
 const TABS = [
   { href: '/', label: 'Hem' },
   { href: '/skills', label: 'Träningsmoment' },
+  { href: '/plan', label: 'Ordning' },
 ] as const;
 
 export function BottomNav() {

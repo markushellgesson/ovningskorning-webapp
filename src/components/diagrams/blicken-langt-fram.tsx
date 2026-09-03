@@ -26,23 +26,16 @@ export function BlickenLangtFramDiagram() {
         </text>
 
         {/* Väg perspektiv */}
-        <defs>
-          <linearGradient id="road-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" className="stop-color-neutral-400" />
-            <stop offset="100%" className="stop-color-neutral-300" />
-          </linearGradient>
-        </defs>
         <path
           d="M 150 260 L 100 80 L 300 80 L 250 260 Z"
-          fill="url(#road-grad)"
-          className="stroke-neutral-600"
+          className="fill-diagram-road stroke-diagram-edge"
           strokeWidth="2"
         />
 
         {/* Vägmarkeringar */}
         <path
           d="M 200 80 L 200 100 M 200 120 L 200 140 M 200 160 L 200 180 M 200 200 L 200 220 M 200 240 L 200 260"
-          className="stroke-neutral-50"
+          className="stroke-diagram-marking"
           strokeWidth="3"
         />
 
@@ -103,15 +96,14 @@ export function BlickenLangtFramDiagram() {
         {/* Väg perspektiv */}
         <path
           d="M 150 260 L 100 80 L 300 80 L 250 260 Z"
-          fill="url(#road-grad)"
-          className="stroke-neutral-600"
+          className="fill-diagram-road stroke-diagram-edge"
           strokeWidth="2"
         />
 
         {/* Vägmarkeringar */}
         <path
           d="M 200 80 L 200 100 M 200 120 L 200 140 M 200 160 L 200 180 M 200 200 L 200 220 M 200 240 L 200 260"
-          className="stroke-neutral-50"
+          className="stroke-diagram-marking"
           strokeWidth="3"
         />
 

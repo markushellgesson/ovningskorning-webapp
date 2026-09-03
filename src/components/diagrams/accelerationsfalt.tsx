@@ -21,24 +21,24 @@ export function AccelerationsfaltDiagram() {
       {/* Scenario 1: MED accelerationsfält */}
       <g>
         {/* Huvudled */}
-        <rect x="50" y="30" width="400" height="60" className="fill-neutral-300" />
-        <line x1="50" y1="60" x2="450" y2="60" className="stroke-neutral-50" strokeWidth="2" />
+        <rect x="50" y="30" width="400" height="60" className="fill-diagram-road" />
+        <line x1="50" y1="60" x2="450" y2="60" className="stroke-diagram-marking" strokeWidth="2" />
 
         {/* Accelerationsfält (lodräta ränder) */}
         <defs>
           <pattern id="accel-lane" patternUnits="userSpaceOnUse" width="8" height="20">
-            <line x1="4" y1="0" x2="4" y2="20" className="stroke-neutral-500" strokeWidth="1.5" />
+            <line x1="4" y1="0" x2="4" y2="20" className="stroke-diagram-edge" strokeWidth="1.5" />
           </pattern>
         </defs>
         <path
           d="M 100 90 L 300 90 L 350 60 L 100 60 Z"
           fill="url(#accel-lane)"
-          className="stroke-neutral-600"
+          className="stroke-diagram-edge"
           strokeWidth="2"
         />
 
         {/* Påfartsväg */}
-        <rect x="60" y="90" width="40" height="80" className="fill-neutral-300" />
+        <rect x="60" y="90" width="40" height="80" className="fill-diagram-road" />
 
         {/* Din bil */}
         <defs>
@@ -94,13 +94,13 @@ export function AccelerationsfaltDiagram() {
       {/* Scenario 2: UTAN accelerationsfält */}
       <g transform="translate(0, 200)">
         {/* Huvudled */}
-        <rect x="50" y="30" width="400" height="60" className="fill-neutral-300" />
-        <line x1="50" y1="60" x2="450" y2="60" className="stroke-neutral-50" strokeWidth="2" />
+        <rect x="50" y="30" width="400" height="60" className="fill-diagram-road" />
+        <line x1="50" y1="60" x2="450" y2="60" className="stroke-diagram-marking" strokeWidth="2" />
 
         {/* Påfartsväg utan accelerationsfält */}
-        <rect x="60" y="90" width="40" height="80" className="fill-neutral-300" />
+        <rect x="60" y="90" width="40" height="80" className="fill-diagram-road" />
         {/* Infart direkt till huvudled */}
-        <line x1="100" y1="90" x2="150" y2="60" className="stroke-neutral-600" strokeWidth="2" />
+        <line x1="100" y1="90" x2="150" y2="60" className="stroke-diagram-edge" strokeWidth="2" />
 
         {/* Din bil */}
         <rect

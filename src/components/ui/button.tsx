@@ -29,8 +29,8 @@ export function PrimaryButton({
         px-4
         border border-transparent
         text-base font-semibold
-        rounded-[--radius-sm]
-        bg-primary-600 text-white
+        rounded-[var(--radius-sm)]
+        bg-primary-600 text-on-primary
         hover:bg-primary-700
         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--focus-ring)]
         disabled:opacity-50 disabled:cursor-not-allowed
@@ -68,11 +68,11 @@ export function SecondaryButton({
         w-full min-h-12
         flex items-center justify-center
         px-4
-        border border-border-default
+        border border-border-control
         text-base font-medium
-        rounded-[--radius-sm]
+        rounded-[var(--radius-sm)]
         bg-surface-base text-text-primary
-        hover:bg-neutral-50
+        hover:bg-neutral-100
         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--focus-ring)]
         disabled:opacity-50 disabled:cursor-not-allowed
         transition-colors duration-150
@@ -110,9 +110,9 @@ export function TertiaryButton({
         flex items-center justify-center
         px-4
         text-base font-medium
-        rounded-[--radius-sm]
+        rounded-[var(--radius-sm)]
         text-primary-600
-        hover:bg-neutral-50
+        hover:bg-neutral-100
         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--focus-ring)]
         disabled:opacity-50 disabled:cursor-not-allowed
         transition-colors duration-150
@@ -151,8 +151,8 @@ export function DestructiveButton({
         px-4
         border border-transparent
         text-base font-semibold
-        rounded-[--radius-sm]
-        bg-safety-600 text-white
+        rounded-[var(--radius-sm)]
+        bg-safety-600 text-on-safety
         hover:bg-safety-700
         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--focus-ring)]
         disabled:opacity-50 disabled:cursor-not-allowed
@@ -194,9 +194,9 @@ export function IconButton({
         inline-flex items-center justify-center
         border border-transparent
         text-base
-        rounded-[--radius-sm]
+        rounded-[var(--radius-sm)]
         text-text-primary
-        hover:bg-neutral-100
+        hover:bg-neutral-200
         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--focus-ring)]
         disabled:opacity-50 disabled:cursor-not-allowed
         transition-colors duration-150
@@ -223,7 +223,7 @@ export function PrimaryLinkButton({ href, children }: { href: string; children: 
   return (
     <Link
       href={href}
-      className="relative flex min-h-12 w-full items-center justify-center rounded-[--radius-sm] border border-transparent bg-primary-600 px-4 text-base font-semibold text-white hover:bg-primary-700 focus:ring-2 focus:ring-[var(--focus-ring)] focus:ring-offset-2 focus:outline-none transition-colors duration-150"
+      className="relative flex min-h-12 w-full items-center justify-center rounded-[var(--radius-sm)] border border-transparent bg-primary-600 px-4 text-base font-semibold text-on-primary hover:bg-primary-700 focus:ring-2 focus:ring-[var(--focus-ring)] focus:ring-offset-2 focus:outline-none transition-colors duration-150"
     >
       {children}
     </Link>

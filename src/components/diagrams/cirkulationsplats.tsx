@@ -15,28 +15,42 @@ export function CirkulationsplatsDiagram() {
       <title id="roundabout-title">Cirkulationsplats sedd uppifrån</title>
       <desc id="roundabout-desc">
         Cirkulationsplats med fyra infarter. Din bil (markerad med prickmönster och orange ram)
-        närmar sig söderifrån. En bil i cirkulationen (markerad med diagonal ränder och blå ram) kör
+        närmar sig söderifrån. En bil i cirkulationen (markerad med diagonala ränder och blå ram) kör
         moturs. Du har väjningsplikt mot fordon som redan befinner sig i cirkulationen. En cyklist
         (markerad med en cirkel) visas också i cirkulationen.
       </desc>
 
       {/* Cirkulationsplats yttre ring */}
-      <circle cx="200" cy="200" r="100" className="fill-neutral-300" />
+      <circle cx="200" cy="200" r="100" className="fill-diagram-road" />
 
       {/* Cirkulationsplats inre ring (ö) */}
-      <circle cx="200" cy="200" r="60" className="fill-neutral-100" />
+      <circle cx="200" cy="200" r="60" className="fill-neutral-200" />
 
       {/* Infarter */}
-      <rect x="180" y="0" width="40" height="80" className="fill-neutral-300" />
-      <rect x="180" y="320" width="40" height="80" className="fill-neutral-300" />
-      <rect x="0" y="180" width="80" height="40" className="fill-neutral-300" />
-      <rect x="320" y="180" width="80" height="40" className="fill-neutral-300" />
+      <rect x="180" y="0" width="40" height="80" className="fill-diagram-road" />
+      <rect x="180" y="320" width="40" height="80" className="fill-diagram-road" />
+      <rect x="0" y="180" width="80" height="40" className="fill-diagram-road" />
+      <rect x="320" y="180" width="80" height="40" className="fill-diagram-road" />
 
       {/* Vägmarkeringar på infarter */}
-      <line x1="200" y1="0" x2="200" y2="80" className="stroke-neutral-50" strokeWidth="2" />
-      <line x1="200" y1="320" x2="200" y2="400" className="stroke-neutral-50" strokeWidth="2" />
-      <line x1="0" y1="200" x2="80" y2="200" className="stroke-neutral-50" strokeWidth="2" />
-      <line x1="320" y1="200" x2="400" y2="200" className="stroke-neutral-50" strokeWidth="2" />
+      <line x1="200" y1="0" x2="200" y2="80" className="stroke-diagram-marking" strokeWidth="2" />
+      <line
+        x1="200"
+        y1="320"
+        x2="200"
+        y2="400"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+      />
+      <line x1="0" y1="200" x2="80" y2="200" className="stroke-diagram-marking" strokeWidth="2" />
+      <line
+        x1="320"
+        y1="200"
+        x2="400"
+        y2="200"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+      />
 
       {/* Mönster */}
       <defs>

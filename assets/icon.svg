@@ -1,75 +1,86 @@
 <!--
-  Appikon: den svenska övningskörningsskylten.
+  Appikon: den svenska övningskörningsskylten, med "B-körkort" under, på en
+  bakgrund som anspelar på det svenska körkortets guillochemönster.
 
-  Skylten är reglerad i TSFS 2010:81 — vit text "ÖVNINGSKÖR" på grön botten,
-  i tre tillåtna format. Här används varianten 350×170 mm med kapade hörn,
-  eftersom dess proportioner (ungefär 2:1) är de som bäst ryms i en kvadrat.
-  Den långsmala 460×100-varianten blir en tunn strimma i ikonstorlek.
+  Skylten är reglerad i TSFS 2010:81: vit versaltext "ÖVNINGSKÖR" på grön
+  botten, standardformat 460×100 mm. Grönt är privat övningskörning —
+  trafikskolor använder röd botten, så kulören är inte utbytbar.
 
-  Ordet är avsiktligt återgivet på EN rad, som på den riktiga skylten. Att
-  bryta det över två rader hade gjort texten läsbar i mindre storlekar, men
-  skylten hade slutat vara skylten.
+  Bakgrunden är en STILISERAD tolkning av körkortets blekrosa guilloche, inte
+  en kopia. Det riktiga mönstret är avsiktligt intrikat eftersom det är ett
+  förfalskningsskydd, och intrikat är fel i en ikon som ska läsas i 48 px.
+  Här är linjerna få, mjuka och lågmälda — de ska ge en känsla av körkort på
+  nära håll och läsas som en varm off-white på avstånd, aldrig konkurrera med
+  skylten.
 
-  Vid 48 px läses ikonen som "grön skylt med vit text" snarare än som ordet
-  — vilket är precis så den riktiga skylten uppfattas på en bil framför dig.
-
-  Detta är en avbildning i en app om övningskörning, inte en skylt att sätta
-  på ett fordon. TSFS 2010:81 reglerar användningen på fordon, inte
-  avbildningen.
+  Medvetet uteslutet: EU-flagga, myndighetslogotyp, rubriker och allt annat
+  som skulle få ikonen att likna en handling snarare än en app.
 
   Genereras till PNG med: node scripts/generate-icons.mjs
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <title>Övningskörning</title>
-  <desc>Den svenska övningskörningsskylten: vit text ÖVNINGSKÖR på grön botten.</desc>
+  <title>Övningskörning B</title>
+  <desc>
+    Den svenska övningskörningsskylten — vit text ÖVNINGSKÖR på grön botten —
+    med texten B-körkort under, mot en blekrosa bakgrund i körkortets anda.
+  </desc>
 
-  <!-- Mörk bakgrund ur designsystemets primärskala, så att ikonen hör ihop
-       med appens övriga uttryck och skyltens gröna får kontrast att vila mot. -->
-  <rect width="512" height="512" rx="112" fill="#1e293b" />
+  <defs>
+    <!-- Guillochemönstret. Två uppsättningar vågor i lätt olika frekvens
+         ger den flätade karaktären utan att bli tätt brus. -->
+    <pattern id="guilloche" width="128" height="64" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#e0c4cd" stroke-width="1.1" opacity="0.75">
+        <path d="M -8 32 Q 24 6 56 32 T 120 32 T 184 32" />
+        <path d="M -8 46 Q 24 20 56 46 T 120 46 T 184 46" />
+        <path d="M -8 18 Q 24 -8 56 18 T 120 18 T 184 18" />
+      </g>
+      <g fill="none" stroke="#c8d8d4" stroke-width="0.9" opacity="0.6">
+        <path d="M -8 32 Q 32 58 72 32 T 152 32" />
+        <path d="M -8 8 Q 32 34 72 8 T 152 8" />
+        <path d="M -8 56 Q 32 82 72 56 T 152 56" />
+      </g>
+    </pattern>
+  </defs>
 
-  <!-- Skylten, 2:1, med kapade hörn enligt föreskriftens variant.
-       Grön enligt skyltens kulör. -->
-  <path
-    d="M 56 156
-       L 76 136
-       L 436 136
-       L 456 156
-       L 456 356
-       L 436 376
-       L 76 376
-       L 56 356
-       Z"
-    fill="#00843d"
-  />
+  <!-- Basen: nästan vit med varm rosa dragning, som kortets botten. -->
+  <rect width="512" height="512" rx="112" fill="#faf5f6" />
+  <rect width="512" height="512" rx="112" fill="url(#guilloche)" />
 
-  <!-- Tunn ljus kant. Utan den flyter grönt ihop med mörk bakgrund på
-       skärmar med låg ljusstyrka. -->
-  <path
-    d="M 56 156
-       L 76 136
-       L 436 136
-       L 456 156
-       L 456 356
-       L 436 376
-       L 76 376
-       L 56 356
-       Z"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="6"
-    stroke-linejoin="round"
-    opacity="0.9"
-  />
+  <!-- Skylten. Bred som den riktiga, med tunn vit bård innanför kanten. -->
+  <g>
+    <rect x="36" y="150" width="440" height="132" rx="10" fill="#00843d" />
+    <rect
+      x="50"
+      y="164"
+      width="412"
+      height="104"
+      rx="5"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="7"
+    />
+    <text
+      x="256"
+      y="217"
+      fill="#ffffff"
+      font-family="Arial Narrow, Arial, Helvetica, sans-serif"
+      font-size="60"
+      font-weight="700"
+      letter-spacing="1.5"
+      text-anchor="middle"
+      dominant-baseline="central"
+    >ÖVNINGSKÖR</text>
+  </g>
 
   <text
     x="256"
-    y="256"
-    fill="#ffffff"
+    y="360"
+    fill="#1e293b"
     font-family="Arial, Helvetica, sans-serif"
-    font-size="42"
+    font-size="76"
     font-weight="700"
-    letter-spacing="0.5"
+    letter-spacing="-1"
     text-anchor="middle"
     dominant-baseline="central"
-  >ÖVNINGSKÖR</text>
+  >B-körkort</text>
 </svg>

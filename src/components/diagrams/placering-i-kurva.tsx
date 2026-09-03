@@ -25,25 +25,17 @@ export function PlaceringIKurvaDiagram() {
           Bra: Placera dig till vänster i körfältet
         </text>
 
-        {/* Väg med högerkurva */}
-        <defs>
-          <linearGradient id="curve-road" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" className="stop-color-neutral-400" />
-            <stop offset="100%" className="stop-color-neutral-300" />
-          </linearGradient>
-        </defs>
-
         {/* Väg kurva höger */}
         <path
           d="M 50 260 L 50 180 Q 50 100 130 100 L 300 100 Q 380 100 380 180 L 380 260"
-          className="fill-none stroke-neutral-600"
+          className="fill-none stroke-diagram-road"
           strokeWidth="80"
         />
 
         {/* Mittlinje */}
         <path
           d="M 50 230 L 50 180 Q 50 130 90 130 L 300 130 Q 350 130 350 180 L 350 260"
-          className="stroke-neutral-50"
+          className="stroke-diagram-marking"
           strokeWidth="3"
           strokeDasharray="8 8"
         />
@@ -97,14 +89,14 @@ export function PlaceringIKurvaDiagram() {
         {/* Väg kurva höger */}
         <path
           d="M 50 260 L 50 180 Q 50 100 130 100 L 300 100 Q 380 100 380 180 L 380 260"
-          className="fill-none stroke-neutral-600"
+          className="fill-none stroke-diagram-road"
           strokeWidth="80"
         />
 
         {/* Mittlinje */}
         <path
           d="M 50 230 L 50 180 Q 50 130 90 130 L 300 130 Q 350 130 350 180 L 350 260"
-          className="stroke-neutral-50"
+          className="stroke-diagram-marking"
           strokeWidth="3"
           strokeDasharray="8 8"
         />

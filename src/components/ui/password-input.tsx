@@ -45,10 +45,10 @@ export function PasswordInput({
             appearance-none
             block w-full min-h-12
             px-3 py-3 pr-12
-            border ${errorMessage ? 'border-safety-600' : 'border-border-default'}
+            border ${errorMessage ? 'border-safety-600' : 'border-border-control'}
             placeholder-text-tertiary
             bg-surface-base text-text-primary text-base
-            rounded-[--radius-sm]
+            rounded-[var(--radius-sm)]
             focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
             transition-colors duration-150
             ${className}

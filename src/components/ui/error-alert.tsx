@@ -11,7 +11,7 @@ interface ErrorAlertProps {
 export function ErrorAlert({ children }: ErrorAlertProps) {
   return (
     <div
-      className="bg-safety-50 border border-safety-200 text-safety-800 px-4 py-3 rounded-[--radius-sm] flex items-start gap-3"
+      className="bg-safety-50 border border-safety-200 text-safety-800 px-4 py-3 rounded-[var(--radius-sm)] flex items-start gap-3"
       role="alert"
     >
       <svg

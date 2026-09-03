@@ -19,22 +19,22 @@ const skillsByCategory = skills.reduce(
 );
 
 const categoryNames: Record<string, string> = {
-  VEHICLE_CONTROL: 'Fordonshantering',
-  MANEUVERING: 'Manövrer',
-  OBSERVATION: 'Observation',
+  VEHICLE_CONTROL: 'Fordonskännedom',
+  MANEUVERING: 'Grundmanövrering',
+  OBSERVATION: 'Observation och blick',
   SPEED_DISTANCE: 'Hastighet och avstånd',
-  POSITIONING: 'Positionering',
+  POSITIONING: 'Placering',
   INTERSECTIONS: 'Korsningar',
-  ROUNDABOUTS: 'Rondeller',
+  ROUNDABOUTS: 'Cirkulationsplatser',
   LANE_CHANGE: 'Körfältsbyten',
   VULNERABLE_ROAD_USERS: 'Oskyddade trafikanter',
-  URBAN: 'Tätortskörning',
-  RURAL: 'Landsvägskörning',
-  HIGHWAY: 'Motorvägskörning',
+  URBAN: 'Stadstrafik',
+  RURAL: 'Landsväg',
+  HIGHWAY: 'Motorväg',
   SPECIAL_CONDITIONS: 'Särskilda förhållanden',
   ECO_DRIVING: 'Sparsam körning',
   NAVIGATION: 'Navigation',
-  TRIP_PLANNING: 'Reseplanering',
+  TRIP_PLANNING: 'Färdplanering',
   RISK_AWARENESS: 'Riskmedvetenhet',
   SELF_ASSESSMENT: 'Självbedömning',
   EMERGENCY: 'Nödsituationer',
@@ -46,19 +46,22 @@ export const metadata = {
 
 export default function SkillsPage() {
   return (
-    <main className="min-h-dvh bg-surface-overlay p-6 pb-24">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <header className="space-y-4">
-          <Link href="/" className="text-primary-600 hover:underline">
+    <main className="min-h-dvh bg-surface-overlay">
+      <div className="mx-auto w-full max-w-3xl px-5 pt-6 pb-28 sm:px-8 sm:pt-10">
+        <header className="space-y-3">
+          <Link
+            href="/"
+            className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+          >
             ← Tillbaka
           </Link>
-          <h1 className="text-4xl font-bold text-text-primary">Kompetensbibliotek</h1>
-          <p className="text-xl text-text-secondary">
+          <h1 className="text-3xl font-semibold text-text-primary">Kompetensbibliotek</h1>
+          <p className="max-w-[var(--measure)] text-xl text-text-secondary">
             {skills.length} moment strukturerade efter typ och sekvens
           </p>
         </header>
 
-        <div className="space-y-12">
+        <div className="mt-12 space-y-14">
           {Object.entries(skillsByCategory)
             .sort((a, b) => {
               const aFirst = a[1][0];
@@ -66,29 +69,32 @@ export default function SkillsPage() {
               return aFirst.sortOrder - bFirst.sortOrder;
             })
             .map(([category, categorySkills]) => (
-              <section key={category} className="space-y-4">
-                <h2 className="text-2xl font-semibold text-text-primary border-b border-border-default pb-2">
+              <section key={category}>
+                <h2 className="border-b border-border-default pb-3 text-2xl font-semibold text-text-primary">
                   {categoryNames[category] || category}
                 </h2>
-                <ul className="space-y-3">
+                <ul className="mt-5 space-y-3">
                   {categorySkills
                     .sort((a, b) => a.sortOrder - b.sortOrder)
                     .map((skill) => (
                       <li key={skill.id}>
-                        <Link href={`/skills/${skill.id}`}>
+                        <Link
+                          href={`/skills/${skill.id}`}
+                          className="block rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                        >
                           <Card
                             padding="md"
-                            className="hover:border-primary-500 transition-all duration-150 min-h-12 cursor-pointer"
+                            className="min-h-12 transition-colors duration-150 hover:border-primary-400"
                           >
                             <div className="flex items-start justify-between gap-4">
-                              <div className="flex-1 min-w-0">
+                              <div className="min-w-0 flex-1 space-y-1">
                                 <h3 className="text-lg font-semibold text-text-primary">
                                   {skill.name}
                                 </h3>
-                                <p className="text-text-secondary mt-1">{skill.description}</p>
+                                <p className="text-base text-text-secondary">{skill.description}</p>
                               </div>
                               {skill.safetyCritical && (
-                                <StatusBadge variant="safety">Säkerhetskritisk</StatusBadge>
+                                <StatusBadge variant="safety">Säkerhetskritiskt</StatusBadge>
                               )}
                             </div>
                           </Card>

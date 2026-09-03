@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { inter } from './fonts';
 import { BottomNav } from '@/components/nav/bottom-nav';
 import { ServiceWorkerRegister } from '@/components/pwa/service-worker-register';
 import { BASE_PATH } from '@/lib/base-path';
@@ -33,7 +34,7 @@ export const viewport: Viewport = {
     // systemfältet (statusbar/adressfält) smälter in i appen i stället för
     // att sticka ut som en egen färgad list.
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f1115' },
+    { media: '(prefers-color-scheme: dark)', color: '#111110' },
   ],
 };
 
@@ -43,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sv" className="antialiased">
+    <html lang="sv" className={`${inter.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <ServiceWorkerRegister />
         <div className="flex flex-1 flex-col">{children}</div>

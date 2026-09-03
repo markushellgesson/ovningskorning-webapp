@@ -127,7 +127,7 @@ export function DodaVinkelnDiagram() {
       <text
         x="200"
         y="30"
-        className="fill-text-primary text-[16px] font-semibold text-anchor-middle"
+        className="fill-text-primary text-[16px] font-semibold"
         textAnchor="middle"
       >
         Vy uppifrån
@@ -171,7 +171,7 @@ export function DodaVinkelnDiagram() {
         markerEnd="url(#arrow-dark)"
       />
       <text x="10" y="318" className="fill-text-secondary text-[13px]">
-        Dö da
+        Döda
       </text>
       <text x="5" y="330" className="fill-text-secondary text-[13px]">
         vinkeln
@@ -207,12 +207,7 @@ export function DodaVinkelnDiagram() {
         </marker>
       </defs>
 
-      <text
-        x="200"
-        y="470"
-        className="fill-text-secondary text-[13px] text-anchor-middle"
-        textAnchor="middle"
-      >
+      <text x="200" y="470" className="fill-text-secondary text-[13px]" textAnchor="middle">
         Titta över axeln innan filbyte
       </text>
     </svg>

@@ -15,19 +15,33 @@ export function HogerregelnDiagram() {
       <title id="hogerregeln-title">Högerregeln vid korsning</title>
       <desc id="hogerregeln-desc">
         Korsning sedd uppifrån. Din bil (markerad med rektangel och prickmönster) kommer från söder
-        och ska rakt fram. En annan bil (markerad med diagonal randmönster) närmar sig från höger,
-        österut. Du har väjningsplikt mot den bilen enligt högerregeln.
+        och ska rakt fram. En annan bil (markerad med diagonalt randmönster) närmar sig från höger,
+        alltså österifrån. Du har väjningsplikt mot den bilen enligt högerregeln.
       </desc>
 
       {/* Vägar */}
-      <rect x="180" y="0" width="40" height="400" className="fill-neutral-300" />
-      <rect x="0" y="180" width="400" height="40" className="fill-neutral-300" />
+      <rect x="180" y="0" width="40" height="400" className="fill-diagram-road" />
+      <rect x="0" y="180" width="400" height="40" className="fill-diagram-road" />
 
       {/* Vägmarkeringar */}
-      <line x1="200" y1="0" x2="200" y2="180" className="stroke-neutral-50" strokeWidth="2" />
-      <line x1="200" y1="220" x2="200" y2="400" className="stroke-neutral-50" strokeWidth="2" />
-      <line x1="0" y1="200" x2="180" y2="200" className="stroke-neutral-50" strokeWidth="2" />
-      <line x1="220" y1="200" x2="400" y2="200" className="stroke-neutral-50" strokeWidth="2" />
+      <line x1="200" y1="0" x2="200" y2="180" className="stroke-diagram-marking" strokeWidth="2" />
+      <line
+        x1="200"
+        y1="220"
+        x2="200"
+        y2="400"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+      />
+      <line x1="0" y1="200" x2="180" y2="200" className="stroke-diagram-marking" strokeWidth="2" />
+      <line
+        x1="220"
+        y1="200"
+        x2="400"
+        y2="200"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+      />
 
       {/* Bil från höger (diagonal ränder) */}
       <defs>

@@ -184,14 +184,14 @@
       "parentId": null,
       "category": "MANEUVERING",
       "name": "Start och stopp",
-      "description": "Mjuk start och kontrollerad stopp utan ryck eller motorstopp.",
+      "description": "Mjuk start och kontrollerat stopp utan ryck eller motorstopp.",
       "goals": [
         "Starta bilen mjukt utan ryck eller motor som dör",
         "Stanna kontrollerat utan ryck",
         "Hålla bilen stilla på plan mark"
       ],
       "practiceSteps": [
-        "Manuell, start: håll fotbromsen och handbromsen nedtryckt och kopplingen i botten, lägg i ettans växel",
+        "Manuell — start: håll fotbromsen nedtryckt och handbromsen åtdragen, kopplingen i botten, lägg i ettans växel",
         "Manuell: släpp kopplingen till den punkt där bilen börjar vilja dra — håll kvar där",
         "Manuell: släpp handbromsen, ge lite gas och släpp kopplingen mjukt vidare",
         "Automat, start: håll fotbromsen nedtryckt, växelväljaren till D, släpp handbromsen",
@@ -242,7 +242,7 @@
       ],
       "commonErrors": [
         "Blicken fastnar strax framför bilen — styrningen blir ryckig och bilen slingrar",
-        "Stora rattrörelse istället för små justeringar",
+        "Stora rattrörelser istället för små justeringar",
         "Håller för hårt i ratten — blir stel",
         "Glömmer att blicka framåt i kurvor"
       ],
@@ -521,7 +521,7 @@
       "parentId": null,
       "category": "OBSERVATION",
       "name": "Blick långt fram",
-      "description": "Titta långt fram ger tid att planera och reagera. Blick nära bilen skapar stress och sena reaktioner.",
+      "description": "Att titta långt fram ger tid att planera och reagera. Blick nära bilen skapar stress och sena reaktioner.",
       "goals": [
         "Titta så långt fram att du hinner planera, inte bara reagera",
         "Läsa av situationen tidigt",
@@ -569,7 +569,7 @@
       ],
       "practiceSteps": [
         "Innan fartändring: innerspegeln — hur nära är bilen bakom?",
-        "Innan filbyte: ytter + innerspegel → axelblick för död vinkel",
+        "Innan filbyte: ytter + innerspegel → axelblick för döda vinkeln",
         "Innan sväng: relevant spegel → finns det någon bredvid/bakom?"
       ],
       "commonErrors": [
@@ -605,7 +605,7 @@
       "id": "OBS-03",
       "parentId": "OBS-02",
       "category": "OBSERVATION",
-      "name": "Död vinkel",
+      "name": "Döda vinkeln",
       "description": "Aktiv kontroll av området som inte syns i speglarna.",
       "goals": [
         "Veta var döda vinkeln finns",
@@ -817,8 +817,7 @@
         "Öka avståndet när hastigheten ökar"
       ],
       "practiceSteps": [
-        "Välj ett tidsavstånd som ger dig tid att reagera, och öka det vid regn, halka eller dålig sikt",
-        "Öka tiden vid regn, halt, dålig sikt"
+        "Välj ett tidsavstånd som ger dig tid att reagera, och öka det vid regn, halka eller dålig sikt"
       ],
       "commonErrors": [
         "Följer för nära",
@@ -963,15 +962,15 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "INT-01",
-          "minimumState": "PRACTICING"
-        },
-        {
           "prerequisiteSkillId": "OBS-01",
           "minimumState": "PRACTICING"
         },
         {
           "prerequisiteSkillId": "SPD-02",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "INT-01",
           "minimumState": "PRACTICING"
         }
       ],
@@ -987,7 +986,7 @@
       "parentId": "INT-01",
       "category": "INTERSECTIONS",
       "name": "Stopplikt",
-      "description": "Stanna helt vid stoppliktskylt, sök trafik, fortsätt när det är säkert.",
+      "description": "Stanna helt vid stoppliktsskylt, sök trafik, fortsätt när det är säkert.",
       "goals": [
         "Stanna helt vid stoppliktslinjen",
         "Söka efter trafik från alla håll"
@@ -1049,7 +1048,7 @@
         "Missar cyklister i högerkant"
       ],
       "supervisorObservations": [
-        "Planerar eleven vilken utfart redan vid infart?",
+        "Vet eleven redan vid infarten vilken utfart som gäller?",
         "Är körfältsvalet rätt för den planerade utfarten?",
         "Blinkar eleven vid utfart?",
         "Uppmärksammar eleven cyklister?"
@@ -1105,7 +1104,7 @@
       "commonErrors": [
         "Glömmer axelblicken — missar cykel eller mc i döda vinkeln",
         "Blinkar för sent eller inte alls",
-        "Tvingas in i en för liten lucka",
+        "Tränger sig in i en för liten lucka",
         "Bromsar eller gasar under bytet — oförutsägbart"
       ],
       "supervisorObservations": [
@@ -1309,12 +1308,12 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "OBS-04",
-          "minimumState": "PRACTICING"
-        },
-        {
           "prerequisiteSkillId": "OBS-01",
           "minimumState": "INTRODUCED"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
         }
       ],
       "theoryRelations": [
@@ -1329,7 +1328,7 @@
       "parentId": "OBS-02",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Cyklister",
-      "description": "Cyklister är svåra att upptäcka och lätt hamnar i döda vinkeln.",
+      "description": "Cyklister är svåra att upptäcka och hamnar lätt i döda vinkeln.",
       "goals": [
         "Söka efter cyklister aktivt",
         "Ge god sidomarginal vid omkörning",
@@ -1451,12 +1450,12 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "OBS-04",
-          "minimumState": "PRACTICING"
-        },
-        {
           "prerequisiteSkillId": "OBS-01",
           "minimumState": "INTRODUCED"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
         }
       ],
       "theoryRelations": [
@@ -1617,16 +1616,16 @@
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
       "name": "Halt väglag",
-      "description": "Halt underlag kräver mjuka inputs, längre avstånd och lägre fart. Ersätter aldrig riskutbildning del 2, där halkmomentet ingår.",
+      "description": "Halt underlag kräver mjuka rörelser på ratt, gas och broms, längre avstånd och lägre fart. Ersätter aldrig riskutbildning del 2, där halkmomentet ingår.",
       "goals": [
         "Identifiera halt väglag",
         "Anpassa fart drastiskt",
         "Undvika plötsliga rörelser"
       ],
       "practiceSteps": [
-        "Endast när grundkompetens finns och lämpliga förhållanden",
+        "Endast när grundkompetens finns och förhållandena är lämpliga",
         "Diskutera risker",
-        "Träna mjuka inputs",
+        "Träna mjuka rörelser på ratt, gas och broms",
         "Öva låg fart"
       ],
       "commonErrors": [
@@ -1669,7 +1668,7 @@
         "Veta att alkohol och droger försämrar reaktion, omdöme och koordination",
         "Förstå att även små mängder påverkar",
         "Aldrig köra påverkad",
-        "Känna till att rattfylleri enligt lag inträffar vid minst 0,2 promille i blodet eller 0,10 mg/l i utandningsluften (lag 1951:649 om straff för vissa trafikbrott, 4 §), och att grovt rattfylleri bedöms med hänsyn till särskilt minst 1,0 promille eller 0,50 mg/l (4 a §)",
+        "Känna till att rattfylleri enligt lag inträffar vid minst 0,2 promille i blodet eller 0,10 mg/l i utandningsluften (lag 1951:649 om straff för vissa trafikbrott, 4 §). Vid bedömningen av om brottet är grovt beaktas särskilt om halten uppgått till minst 1,0 promille eller 0,50 mg/l (4 a §)",
         "Förstå att den juridiska gränsen inte anger vad som är säkert — den enda säkra hållningen är att inte dricka alls"
       ],
       "practiceSteps": [
@@ -1880,7 +1879,7 @@
       "description": "Bedöma sin egen förmåga realistiskt — inte för högt, inte för lågt.",
       "goals": [
         "Kunna bedöma egen förmåga",
-        "Ange evidens bakom bedömningen",
+        "Kunna säga vad bedömningen bygger på",
         "Förstå skillnaden mellan självförtroende och skicklighet"
       ],
       "practiceSteps": [
@@ -1956,7 +1955,7 @@
         "Inte vänta på handledaren"
       ],
       "practiceSteps": [
-        "Träna på att identifiera risk utan prompt",
+        "Träna på att identifiera risk utan påminnelse",
         "Planera egen åtgärd",
         "Diskutera efteråt"
       ],
@@ -1965,7 +1964,7 @@
         "Planerar inte själv"
       ],
       "supervisorObservations": [
-        "Planerar eleven utan prompt?"
+        "Planerar eleven utan påminnelse?"
       ],
       "continuous": true,
       "safetyCritical": true,
@@ -1986,7 +1985,7 @@
       "id": "THEORY-ALKOHOL",
       "category": "HUMAN_FACTORS",
       "title": "Alkohol och droger",
-      "summary": "Alkohol och droger försämrar reaktionsförmåga, omdöme och koordination kraftigt. Rattfylleri inträffar enligt lag vid minst 0,2 promille i blodet eller 0,10 mg/l i utandningsluften (lag 1951:649 om straff för vissa trafikbrott, 4 §). Grovt rattfylleri bedöms med hänsyn till särskilt minst 1,0 promille eller 0,50 mg/l (4 a §). Att gränsen är 0,2 promille är juridik. Att den enda säkra hållningen är att inte dricka alls är pedagogik. Båda är sanna — blanda dem inte.",
+      "summary": "Alkohol och droger försämrar reaktionsförmåga, omdöme och koordination kraftigt. Rattfylleri inträffar enligt lag vid minst 0,2 promille i blodet eller 0,10 mg/l i utandningsluften (lag 1951:649 om straff för vissa trafikbrott, 4 §). Vid bedömningen av om brottet är grovt beaktas särskilt om halten uppgått till minst 1,0 promille eller 0,50 mg/l (4 a §). Att gränsen är 0,2 promille är juridik. Att den enda säkra hållningen är att inte dricka alls är pedagogik. Båda är sanna — blanda dem inte.",
       "sourceId": null,
       "sourceVersion": "PRODUKT-2026.09"
     },
@@ -2130,7 +2129,7 @@
       "id": "THEORY-VÄGLAG",
       "category": "TRAFFIC_SAFETY",
       "title": "Väglag och friktion",
-      "summary": "Regn, snö och is minskar väggreppet. Bromssträckan ökar kraftigt. Mjuka inputs och lägre fart krävs.",
+      "summary": "Regn, snö och is minskar väggreppet. Bromssträckan ökar kraftigt. Mjuka rörelser på ratt, gas och broms och lägre fart krävs.",
       "sourceId": null,
       "sourceVersion": "PRODUKT-2026.09"
     }
@@ -2203,7 +2202,7 @@
     {
       "id": "EX-RAB-01-01",
       "skillId": "RAB-01",
-      "title": "Rondellplanering",
+      "title": "Planering i cirkulationsplats",
       "description": "Träna planering och utförande i cirkulationsplats",
       "difficulty": "INTERMEDIATE",
       "estimatedMinutes": 25
@@ -2261,7 +2260,7 @@
     {
       "id": "ENV-CLOSED",
       "type": "CLOSED_AREA",
-      "description": "Avstängd plats utan trafik — för de allra första manövrerna"
+      "description": "Avstängd plats utan trafik — för de allra första manövrarna"
     },
     {
       "id": "ENV-HIGHWAY",
@@ -2551,6 +2550,6 @@
       "authority": "TRANSPORTSTYRELSEN"
     }
   ],
-  "exportedAt": "2026-09-03T08:36:15.925Z",
+  "exportedAt": "2026-09-03T10:58:47.309Z",
   "databaseVersion": "1.0"
 }
