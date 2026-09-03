@@ -10,7 +10,7 @@ Ett verktyg för dig som handleder någon som övningskör för B-körkort. Komp
 
 ## Vad appen gör
 
-- **Kompetensbibliotek** — 47 körmoment med mål, övningssteg, vanliga misstag och vad du som handledare bör titta efter
+- **Kompetensbibliotek** — körmoment med mål, övningssteg, vanliga misstag och vad du som handledare bör titta efter
 - **Pedagogiska figurer** — högerregeln, cirkulationsplats, accelerationsfält, döda vinkeln, stoppsträckans delar
 - **Handledarstöd** — färdiga formuleringar knutna till respektive moment, märkta efter vad de är till för: instruktion, fråga, påminnelse, återkoppling, reflektion eller säkerhetsingripande
 - **Teori kopplad till praktik** — teoriämnen knutna till de moment de faktiskt hör ihop med, med skillnad på förkunskap och fördjupning

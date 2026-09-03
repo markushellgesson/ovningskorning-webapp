@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
+import content from '@/content';
 
 export const metadata = {
   title: 'Hem',
@@ -41,7 +42,8 @@ export default function HomePage() {
                 <div className="space-y-1">
                   <h3 className="text-xl font-semibold text-primary-800">Träningsmoment</h3>
                   <p className="text-base text-primary-700">
-                    De 47 momenten du ska träna, ordnade efter område och i den ordning ni bör ta dem
+                    {content.skills.length} moment att träna, ordnade efter område och i den ordning ni
+                    bör ta dem
                   </p>
                 </div>
                 <span aria-hidden="true" className="mt-0.5 shrink-0 text-xl text-primary-600">
