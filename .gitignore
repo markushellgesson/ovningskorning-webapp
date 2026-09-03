@@ -1,0 +1,29 @@
+# Utan inledande snedstreck — matchar på alla djup. Ett mönster som bara
+# matchar roten missar underkataloger, vilket i huvudrepot lät 19 337 filer
+# slinka in i en commit.
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Testning
+coverage/
+
+# Loggar
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Hemligheter — det här repot är PUBLIKT. Inget känsligt får någonsin in.
+.env
+.env.*
+!.env.example
+*.pem
+*.key

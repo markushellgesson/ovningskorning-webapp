@@ -1,0 +1,257 @@
+@import 'tailwindcss';
+
+/**
+ * Designsystemet (ux-spec kap. 11).
+ *
+ * Uttryck: lugnt, tydligt, vuxet, pedagogiskt, trovärdigt, svenskt.
+ * Generöst med luft, tydlig hierarki genom storlek och vikt snarare än färg.
+ * Färg som bärare av betydelse, inte dekoration.
+ */
+
+:root {
+  /* Neutralskala — basen för det mesta i gränssnittet */
+  --neutral-50: #f8f9fa;
+  --neutral-100: #f1f3f5;
+  --neutral-200: #e9ecef;
+  --neutral-300: #dee2e6;
+  --neutral-400: #ced4da;
+  --neutral-500: #adb5bd;
+  --neutral-600: #6c757d;
+  --neutral-700: #495057;
+  --neutral-800: #343a40;
+  --neutral-900: #212529;
+  --neutral-950: #16191d;
+
+  /* Primärfärg — dämpad slatblå, inte startup-blå */
+  --primary-50: #f1f5f9;
+  --primary-100: #e2e8f0;
+  --primary-200: #cbd5e1;
+  --primary-300: #94a3b8;
+  --primary-400: #64748b;
+  --primary-500: #475569;
+  --primary-600: #334155;
+  --primary-700: #1e293b;
+  --primary-800: #0f172a;
+
+  /* Semantiska färger — mättade bara när de betyder något */
+  --attention-50: #fffbeb;
+  --attention-100: #fef3c7;
+  --attention-200: #fde68a;
+  --attention-600: #d97706;
+  --attention-700: #b45309;
+  --attention-800: #92400e;
+
+  --safety-50: #fef2f2;
+  --safety-100: #fee2e2;
+  --safety-200: #fecaca;
+  --safety-600: #dc2626;
+  --safety-700: #b91c1c;
+  --safety-800: #991b1b;
+
+  --progress-50: #f0fdf4;
+  --progress-100: #dcfce7;
+  --progress-200: #bbf7d0;
+  --progress-600: #16a34a;
+  --progress-700: #15803d;
+  --progress-800: #166534;
+
+  /* Ytfärger */
+  --surface-base: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-overlay: #f8f9fa;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-tertiary: #6c757d;
+  --border-subtle: #e9ecef;
+  --border-default: #dee2e6;
+  --border-emphasis: #495057;
+
+  /* Interaktionsstatus */
+  --focus-ring: #3b82f6;
+
+  /* Skuggor — en enda nivå, diskret */
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-moderate: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+  /* Spacing-skala (px) — ux-spec 11.2 */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md-small: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Radius — ux-spec 11.3 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Neutralskala inverterad och justerad för mörkt läge */
+    --neutral-50: #16191d;
+    --neutral-100: #1f2328;
+    --neutral-200: #2d333b;
+    --neutral-300: #444c56;
+    --neutral-400: #636e7b;
+    --neutral-500: #768390;
+    --neutral-600: #909dab;
+    --neutral-700: #adbac7;
+    --neutral-800: #cdd9e5;
+    --neutral-900: #e6edf3;
+    --neutral-950: #f0f6fc;
+
+    /* Primärfärg justerad för mörkt läge */
+    --primary-50: #0f172a;
+    --primary-100: #1e293b;
+    --primary-200: #334155;
+    --primary-300: #475569;
+    --primary-400: #64748b;
+    --primary-500: #94a3b8;
+    --primary-600: #cbd5e1;
+    --primary-700: #e2e8f0;
+    --primary-800: #f1f5f9;
+
+    /* Semantiska färger justerade för läsbarhet i mörkt läge */
+    --attention-50: #422006;
+    --attention-100: #78350f;
+    --attention-200: #92400e;
+    --attention-600: #fbbf24;
+    --attention-700: #fcd34d;
+    --attention-800: #fde68a;
+
+    --safety-50: #450a0a;
+    --safety-100: #7f1d1d;
+    --safety-200: #991b1b;
+    --safety-600: #f87171;
+    --safety-700: #fca5a5;
+    --safety-800: #fecaca;
+
+    --progress-50: #052e16;
+    --progress-100: #14532d;
+    --progress-200: #166534;
+    --progress-600: #4ade80;
+    --progress-700: #86efac;
+    --progress-800: #bbf7d0;
+
+    /* Ytfärger för mörkt läge */
+    --surface-base: #0f1115;
+    --surface-raised: #1f2328;
+    --surface-overlay: #16191d;
+    --text-primary: #e6edf3;
+    --text-secondary: #adbac7;
+    --text-tertiary: #768390;
+    --border-subtle: #2d333b;
+    --border-default: #444c56;
+    --border-emphasis: #909dab;
+
+    /* Interaktionsstatus för mörkt läge */
+    --focus-ring: #60a5fa;
+
+    /* Skuggor i mörkt läge — ännu mer diskreta */
+    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-moderate: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@theme inline {
+  /* Tailwind-mappning via @theme inline (Tailwind 4) */
+  --color-background: var(--surface-base);
+  --color-foreground: var(--text-primary);
+
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+
+  --color-attention-50: var(--attention-50);
+  --color-attention-100: var(--attention-100);
+  --color-attention-200: var(--attention-200);
+  --color-attention-600: var(--attention-600);
+  --color-attention-700: var(--attention-700);
+  --color-attention-800: var(--attention-800);
+
+  --color-safety-50: var(--safety-50);
+  --color-safety-100: var(--safety-100);
+  --color-safety-200: var(--safety-200);
+  --color-safety-600: var(--safety-600);
+  --color-safety-700: var(--safety-700);
+  --color-safety-800: var(--safety-800);
+
+  --color-progress-50: var(--progress-50);
+  --color-progress-100: var(--progress-100);
+  --color-progress-200: var(--progress-200);
+  --color-progress-600: var(--progress-600);
+  --color-progress-700: var(--progress-700);
+  --color-progress-800: var(--progress-800);
+
+  --color-surface-base: var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-emphasis: var(--border-emphasis);
+
+  --color-focus-ring: var(--focus-ring);
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+body {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* Respektera användarens rörelsepreferenser (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fokusringens offsetfärg.
+ *
+ * Tailwinds `ring-offset-*` faller annars tillbaka på vitt, vilket i mörkt
+ * läge ritar en vit ram runt knappen — dels fult, dels vilseledande.
+ *
+ * Offseten är dessutom vad som gör fokusringen synlig alls på en ljus
+ * primärknapp i mörkt läge: ringen hamnar då utanför knappen, mot sidans
+ * bakgrund (7,4:1) i stället för mot knappen själv (1,7:1, långt under
+ * WCAG:s 3:1). Utan detta är fokus i praktiken osynligt med tangentbord.
+ */
+*,
+*::before,
+*::after {
+  --tw-ring-offset-color: var(--surface-base);
+}
