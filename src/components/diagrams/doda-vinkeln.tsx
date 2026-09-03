@@ -13,8 +13,8 @@ export function DodaVinkelnDiagram() {
     >
       <title id="blind-title">Döda vinkeln sedd uppifrån</title>
       <desc id="blind-desc">
-        Bil sedd uppifrån. Ljusblå streckade områden visar vad backspegeln och sidospeglarna täcker
-        in. Mörka områden med kryss-mönster vid sidan om bilen är de döda vinklarna — zoner som inte
+        Bil sedd uppifrån. Ljusblå streckade områden visar vad innerspegeln och ytterspeglarna täcker
+        in. Mörka områden med kryssmönster vid sidan om bilen är de döda vinklarna — zoner som inte
         syns i speglarna. För att se dessa måste föraren titta över axeln.
       </desc>
 
@@ -208,7 +208,7 @@ export function DodaVinkelnDiagram() {
       </defs>
 
       <text x="200" y="470" className="fill-text-secondary text-[13px]" textAnchor="middle">
-        Titta över axeln innan filbyte
+        Titta över axeln innan körfältsbyte
       </text>
     </svg>
   );

@@ -21,7 +21,7 @@
         "Sitter för långt bak — armarna är raka och ratten blir tung att vrida",
         "Sitter för nära ratten — armarna får inte plats att arbeta",
         "Ryggstödet för bakåtlutat — dålig kontroll",
-        "Nackstödet för lågt — whiplash-risk",
+        "Nackstödet för lågt — risk för whiplashskada",
         "Glömmer att justera när annan förare kört"
       ],
       "supervisorObservations": [
@@ -54,9 +54,9 @@
         "Veta hur man kompenserar för den"
       ],
       "practiceSteps": [
-        "Innerspegeln: hela bakrutan ska synas, horisont i mitten",
-        "Vänster ytter: liten del av bilen ska synas i högerkant",
-        "Höger ytter: liten del av bilen ska synas i vänsterkant",
+        "Innerspegeln: hela bakrutan ska synas, horisonten i mitten",
+        "Vänster ytterspegel: en liten del av bilen ska synas i högerkanten",
+        "Höger ytterspegel: en liten del av bilen ska synas i vänsterkanten",
         "Testa döda vinkeln genom att låta någon gå runt bilen"
       ],
       "commonErrors": [
@@ -102,7 +102,7 @@
         "Kontrollera alla passagerare före start"
       ],
       "commonErrors": [
-        "Startar utan att kontrollera passagerare",
+        "Startar utan att kontrollera passagerarna",
         "Bältet sitter löst"
       ],
       "supervisorObservations": [
@@ -156,7 +156,7 @@
         "Använda blinkers i god tid"
       ],
       "practiceSteps": [
-        "Lär dig vilket ljusläge som gäller när",
+        "Lär dig vilket ljusläge som gäller i vilka situationer",
         "Öva på att blinka i god tid"
       ],
       "commonErrors": [
@@ -194,7 +194,7 @@
         "Manuell — start: håll fotbromsen nedtryckt och handbromsen åtdragen, kopplingen i botten, lägg i ettans växel",
         "Manuell: släpp kopplingen till den punkt där bilen börjar vilja dra — håll kvar där",
         "Manuell: släpp handbromsen, ge lite gas och släpp kopplingen mjukt vidare",
-        "Automat, start: håll fotbromsen nedtryckt, växelväljaren till D, släpp handbromsen",
+        "Automat — start: håll fotbromsen nedtryckt, växelväljaren till D, släpp handbromsen",
         "Automat: släpp fotbromsen försiktigt — bilen kryper framåt av sig själv",
         "Stopp: planera tidigt, lägg an bromsen mjukt och lätta på trycket strax innan stillastående"
       ],
@@ -242,7 +242,7 @@
       ],
       "commonErrors": [
         "Blicken fastnar strax framför bilen — styrningen blir ryckig och bilen slingrar",
-        "Stora rattrörelser istället för små justeringar",
+        "Stora rattrörelser i stället för små justeringar",
         "Håller för hårt i ratten — blir stel",
         "Glömmer att blicka framåt i kurvor"
       ],
@@ -482,7 +482,7 @@
       ],
       "practiceSteps": [
         "Stanna, titta runt — finns det fotgängare, cyklister, fordon?",
-        "Gör en plan: var ska bilen stå när den står stilla, och hur styr du dit?",
+        "Gör en plan: var ska bilen stå till slut, och hur styr du dit?",
         "Kör/backa långsamt med full koll på omgivningen",
         "Stanna om något oförutsett händer"
       ],
@@ -563,25 +563,25 @@
       "name": "Spegelrutin",
       "description": "Systematisk spegelkoll före varje beslut som påverkar andra trafikanter.",
       "goals": [
-        "Kolla speglar innan fartändring, filbyte, sväng",
+        "Kolla speglar innan fartändring, körfältsbyte, sväng",
         "Förstå vad du letar efter i speglarna",
         "Göra det till en vana, inte bara en ritual"
       ],
       "practiceSteps": [
         "Innan fartändring: innerspegeln — hur nära är bilen bakom?",
-        "Innan filbyte: ytter + innerspegel → axelblick för döda vinkeln",
+        "Innan körfältsbyte: ytterspegel och innerspegel, sedan axelblick för döda vinkeln",
         "Innan sväng: relevant spegel → finns det någon bredvid/bakom?"
       ],
       "commonErrors": [
         "Kollar speglarna men ser inte vad som finns där",
-        "Glömmer axelblicken vid filbyte — missar cyklist",
+        "Glömmer axelblicken vid körfältsbyte — missar cyklist",
         "Kollar inte innan fartändring",
         "Gör spegelkollen för sent — redan påbörjat manövern"
       ],
       "supervisorObservations": [
         "Kollar eleven speglarna före relevanta beslut?",
         "Anpassar eleven sitt handlande efter vad speglarna visar?",
-        "Gör eleven axelblicken vid filbyte?"
+        "Gör eleven axelblicken vid körfältsbyte?"
       ],
       "continuous": true,
       "safetyCritical": true,
@@ -609,11 +609,11 @@
       "description": "Aktiv kontroll av området som inte syns i speglarna.",
       "goals": [
         "Veta var döda vinkeln finns",
-        "Alltid kolla döda vinkeln vid filbyte"
+        "Alltid kolla döda vinkeln vid körfältsbyte"
       ],
       "practiceSteps": [
         "Visualisera var döda vinkeln finns",
-        "Träna axelblick vid varje filbyte"
+        "Träna axelblick vid varje körfältsbyte"
       ],
       "commonErrors": [
         "Litar bara på speglarna",
@@ -652,7 +652,7 @@
       ],
       "practiceSteps": [
         "Sök efter ledtrådar: parkerade bilar, cyklister, busshållplatser, barn",
-        "Fråga dig \"Vad kan hända om...?\""
+        "Fråga dig \"Vad kan hända om…?\""
       ],
       "commonErrors": [
         "Reagerar bara på det som redan händer",
@@ -722,7 +722,7 @@
       ],
       "practiceSteps": [
         "Leta aktivt efter hastighetsskyltar",
-        "Kom ihåg skyltvärdet — glöm inte när du tänker på annat",
+        "Håll skyltvärdet i huvudet även när du tänker på annat",
         "Uppmärksamma områdesskyltar och andra tecken på ändrad gräns",
         "Fråga dig: \"Vilken hastighet gäller här?\" — saknas skylt gäller bashastigheten"
       ],
@@ -754,7 +754,7 @@
       "parentId": "SPD-01",
       "category": "SPEED_DISTANCE",
       "name": "Situationsanpassad hastighet",
-      "description": "Skylten anger maxhastighet. Den faktiskt säkra hastigheten beror på sikt, väder, trafik och din egen förmåga.",
+      "description": "Skylten anger maxhastighet. Vilken hastighet som faktiskt är säker beror på sikt, väder, trafik och din egen förmåga.",
       "goals": [
         "Anpassa hastigheten till sikt, väder och trafik",
         "Kunna stanna på synlig vägsträcka",
@@ -762,7 +762,7 @@
       ],
       "practiceSteps": [
         "Ställ frågan: \"Kan jag stanna på det jag ser?\"",
-        "Sänk farten INNAN kurvan, krönet, den trånga passagen",
+        "Sänk farten före kurvan, krönet, den trånga passagen",
         "Ge extra marginal vid dålig sikt, halt väglag, tät trafik",
         "Anpassa till din egen erfarenhetsnivå"
       ],
@@ -811,7 +811,7 @@
       "parentId": "SPD-02",
       "category": "SPEED_DISTANCE",
       "name": "Säkerhetsavstånd",
-      "description": "Hålla tillräckligt avstånd till framförvarande.",
+      "description": "Hålla tillräckligt avstånd till bilen framför.",
       "goals": [
         "Hålla avstånd som ger tid att reagera",
         "Öka avståndet när hastigheten ökar"
@@ -888,7 +888,7 @@
       "parentId": null,
       "category": "INTERSECTIONS",
       "name": "Väjningsregler",
-      "description": "Grundläggande väjningsregler vid korsningar: väjningsplikt, stopplikt och högerregeln. Nödvändig grund för säker korsningspassage.",
+      "description": "Grundläggande väjningsregler vid korsningar: väjningsplikt, stopplikt och högerregeln. Grunden för att ta sig säkert genom korsningar.",
       "goals": [
         "Känna igen vägmärkena för väjningsplikt och stopplikt",
         "Förstå att högerregeln gäller där ingen skylt eller signal anger annat — du har väjningsplikt mot fordon som närmar sig från höger (trafikförordningen 3 kap 18 §)",
@@ -899,7 +899,7 @@
         "Identifiera vägmärken för väjningsplikt och stopplikt vid korsningar",
         "Diskutera vad varje märke innebär — väjningsplikt betyder att du ska ge fri väg, stopplikt kräver att du stannar helt",
         "Träna på att se när ingen skylt finns — då gäller högerregeln mot fordon som närmar sig från höger",
-        "Repetera: du väjer för trafik från höger, det är din plikt",
+        "Repetera: det är du som ska väja för trafik från höger",
         "Läs av om du kommer från en utfartsväg, parkeringsplats eller liknande område — då har du alltid väjningsplikt oavsett skyltning"
       ],
       "commonErrors": [
@@ -930,11 +930,11 @@
       "parentId": "INT-01",
       "category": "INTERSECTIONS",
       "name": "Oreglerad korsning med högerregel",
-      "description": "Högerregeln gäller där ingen skylt eller signal anger annat. Kräver tidig upptäckt, sänkt fart och blicksökning.",
+      "description": "Högerregeln gäller där ingen skylt eller signal anger annat. Kräver tidig upptäckt, sänkt fart och att du söker aktivt med blicken.",
       "goals": [
         "Identifiera oreglerade korsningar i tid",
         "Söka efter trafik från alla håll",
-        "Tillämpa högerregeln korrekt (se INT-01 för undantag)",
+        "Tillämpa högerregeln korrekt (se momentet Väjningsregler för undantagen)",
         "Sänka farten så att du har tid att reagera"
       ],
       "practiceSteps": [
@@ -962,15 +962,15 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
+          "prerequisiteSkillId": "INT-01",
+          "minimumState": "PRACTICING"
+        },
+        {
           "prerequisiteSkillId": "OBS-01",
           "minimumState": "PRACTICING"
         },
         {
           "prerequisiteSkillId": "SPD-02",
-          "minimumState": "PRACTICING"
-        },
-        {
-          "prerequisiteSkillId": "INT-01",
           "minimumState": "PRACTICING"
         }
       ],
@@ -992,7 +992,7 @@
         "Söka efter trafik från alla håll"
       ],
       "practiceSteps": [
-        "Närma dig stopplikten med sänkt fart",
+        "Närma dig korsningen med stopplikt med sänkt fart",
         "Stanna helt — inte rullande",
         "Sök trafik",
         "Fortsätt när det är säkert"
@@ -1093,7 +1093,7 @@
         "Kolla speglar och död vinkel innan bytet",
         "Använda blinkers i god tid",
         "Välja en tillräckligt stor lucka",
-        "Byta körfält mjukt utan att tvinga andra"
+        "Byta körfält mjukt utan att tvinga andra att bromsa"
       ],
       "practiceSteps": [
         "Bestäm att du ska byta fält — planera tidigt",
@@ -1187,14 +1187,14 @@
       "description": "Högre hastighet kräver längre blick, tidigare planering och anpassning till kurvor och sikt.",
       "goals": [
         "Hålla lämplig hastighet på landsväg",
-        "Anpassa farten INNAN kurvor och krön",
+        "Anpassa farten före kurvor och krön",
         "Håll högerplacering med marginal till sidorna",
         "Planera långt fram"
       ],
       "practiceSteps": [
         "Titta så långt fram att du hinner planera, inte bara reagera",
         "Sök efter kurvor, krön, vägarbeten",
-        "Sänk farten INNAN kurvan, inte i den",
+        "Sänk farten före kurvan, inte i den",
         "Håll höger men inte helt i kanten — ge marginal till diken och cyklister"
       ],
       "commonErrors": [
@@ -1231,18 +1231,18 @@
       "parentId": "RUR-01",
       "category": "HIGHWAY",
       "name": "Påfart motorväg",
-      "description": "Accelerera till motorvägshastighet i accelerationsfältet och väva in när luckan är tillräckligt stor.",
+      "description": "Accelerera till motorvägshastighet i accelerationsfältet och fläta in dig när luckan är tillräckligt stor.",
       "goals": [
         "Med accelerationsfält gäller inte väjningsplikt — du ska anpassa farten till trafiken i körfältet och flytta över när det kan ske utan fara eller onödigt hinder (trafikförordningen 3 kap 23 §). Saknas accelerationsfält har du väjningsplikt (3 kap 21 §).",
         "Accelerera så att hastigheten matchar trafikflödet innan accelerationsfältet tar slut",
         "Bedöma luckor i trafik som håller betydligt högre fart än du",
-        "Väva in mjukt utan att tvinga andra"
+        "Fläta in sig mjukt utan att tvinga andra att bromsa"
       ],
       "practiceSteps": [
         "Sök trafik på motorvägen tidigt",
         "Accelerera bestämt i accelerationsfältet",
         "Välj en lucka där du får plats utan att andra måste bromsa",
-        "Blinka, axelblick, sammanvävning"
+        "Blinka, axelblick, fläta in sig"
       ],
       "commonErrors": [
         "Accelererar för svagt — blir en fara",
@@ -1253,7 +1253,7 @@
       "supervisorObservations": [
         "Når eleven motorvägshastighet i accelerationsfältet?",
         "Bedömer eleven luckan korrekt?",
-        "Är sammanvävningen mjuk?"
+        "Flätar eleven in sig mjukt?"
       ],
       "continuous": false,
       "safetyCritical": true,
@@ -1277,7 +1277,7 @@
       "parentId": "OBS-01",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Fotgängare",
-      "description": "Identifiera och ge marginal till fotgängare — särskilt vid övergångsställen.",
+      "description": "Upptäcka fotgängare tidigt och ge dem marginal — särskilt vid övergångsställen.",
       "goals": [
         "Upptäcka fotgängare tidigt",
         "Ge marginal även när de inte korsar",
@@ -1308,12 +1308,12 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "OBS-01",
-          "minimumState": "INTRODUCED"
-        },
-        {
           "prerequisiteSkillId": "OBS-04",
           "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "OBS-01",
+          "minimumState": "INTRODUCED"
         }
       ],
       "theoryRelations": [
@@ -1424,20 +1424,20 @@
       "parentId": "OBS-01",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Buss och hållplats",
-      "description": "Passagerare kan gå av och korsa. Sänk farten vid buss som står vid hållplats.",
+      "description": "Passagerare kan gå av och gå över vägen. Sänk farten vid buss som står vid hållplats.",
       "goals": [
         "Identifiera busshållplatser",
-        "Förstå att passagerare kan korsa",
+        "Förstå att passagerare kan gå över vägen",
         "Sänka farten och vara beredd att stanna"
       ],
       "practiceSteps": [
         "Sök efter busshållplatser",
         "Sänk farten när buss står vid hållplats",
-        "Sök efter passagerare som kan korsa"
+        "Sök efter passagerare som kan gå över vägen"
       ],
       "commonErrors": [
         "Kör förbi buss i hög fart",
-        "Missar passagerare som korsar"
+        "Missar passagerare som går över vägen"
       ],
       "supervisorObservations": [
         "Upptäcker eleven busshållplatser?",
@@ -1450,12 +1450,12 @@
       "sourceVersion": "PRODUKT-2026.09",
       "prerequisites": [
         {
-          "prerequisiteSkillId": "OBS-01",
-          "minimumState": "INTRODUCED"
-        },
-        {
           "prerequisiteSkillId": "OBS-04",
           "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "OBS-01",
+          "minimumState": "INTRODUCED"
         }
       ],
       "theoryRelations": [
@@ -1470,7 +1470,7 @@
       "parentId": "OBS-01",
       "category": "SPECIAL_CONDITIONS",
       "name": "Vägarbete",
-      "description": "Tillfälliga skyltar och annan vägledning — läs situationen, inte bara din vana.",
+      "description": "Tillfälliga skyltar och annan vägledning — läs situationen i stället för att köra på vana.",
       "goals": [
         "Identifiera vägarbete i tid",
         "Läsa tillfälliga skyltar",
@@ -1570,24 +1570,24 @@
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
       "name": "Regn och låg sikt",
-      "description": "Regn försämrar både grepp och sikt — öka marginaler.",
+      "description": "Regn försämrar både grepp och sikt — öka marginalerna.",
       "goals": [
-        "Öka avstånd vid regn",
+        "Öka avståndet vid regn",
         "Sänka farten",
         "Förstå att greppet minskar"
       ],
       "practiceSteps": [
         "Diskutera hur regn påverkar bromssträcka och sikt",
         "Träna försiktigt i lätt regn",
-        "Öka avstånd och sänk fart"
+        "Öka avståndet och sänk farten"
       ],
       "commonErrors": [
         "Kör som vanligt trots regn",
-        "Ökar inte avstånd",
+        "Ökar inte avståndet",
         "Bromsar för sent"
       ],
       "supervisorObservations": [
-        "Ökar eleven marginaler vid regn?"
+        "Ökar eleven marginalerna vid regn?"
       ],
       "continuous": false,
       "safetyCritical": true,
@@ -1619,7 +1619,7 @@
       "description": "Halt underlag kräver mjuka rörelser på ratt, gas och broms, längre avstånd och lägre fart. Ersätter aldrig riskutbildning del 2, där halkmomentet ingår.",
       "goals": [
         "Identifiera halt väglag",
-        "Anpassa fart drastiskt",
+        "Sänk farten rejält",
         "Undvika plötsliga rörelser"
       ],
       "practiceSteps": [
@@ -1715,7 +1715,7 @@
         "Planera alternativ"
       ],
       "commonErrors": [
-        "Tror att recept = säkert att köra",
+        "Tror att receptbelagt betyder att det är säkert att köra",
         "Kontrollerar inte bipacksedeln"
       ],
       "supervisorObservations": [
@@ -1822,7 +1822,7 @@
         "Träna på att formulera gränser"
       ],
       "commonErrors": [
-        "Ändrar risknivå för att passa passagerare",
+        "Ändrar risknivån för att passa passagerarna",
         "Kan inte säga nej"
       ],
       "supervisorObservations": [
@@ -1846,7 +1846,7 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Impulsivitet och spänningssökande",
-      "description": "Ökad kompetens kan leda till högre risk om den används fel. Var medveten.",
+      "description": "Ökad kompetens kan leda till högre risk om den används fel. Var medveten om det.",
       "goals": [
         "Förstå att skicklighet inte är samma sak som säkerhet",
         "Identifiera när kompetens leder till högre risk",
@@ -2009,7 +2009,7 @@
       "id": "THEORY-DODA-VINKELN",
       "category": "TRAFFIC_SAFETY",
       "title": "Döda vinkeln",
-      "summary": "Alla fordon har områden som inte syns i speglarna. Cyklister och motorcyklister kan lätt hamna där vid filbyten och avsvängningar.",
+      "summary": "Alla fordon har områden som inte syns i speglarna. Cyklister och motorcyklister kan lätt hamna där vid körfältsbyten och svängar.",
       "sourceId": null,
       "sourceVersion": "PRODUKT-2026.09"
     },
@@ -2057,7 +2057,7 @@
       "id": "THEORY-PLACERING",
       "category": "TRAFFIC_RULES",
       "title": "Placering och körfält",
-      "summary": "Högerplacering gäller, men med marginal till vägkant och cyklister. Vid flerfiliga vägar väljs körfält efter skyltning och färdriktning.",
+      "summary": "Högerplacering gäller, men med marginal till vägkant och cyklister. På flerfiliga vägar väljs körfält efter skyltning och färdriktning.",
       "sourceId": null,
       "sourceVersion": "PRODUKT-2026.09"
     },
@@ -2203,7 +2203,7 @@
       "id": "EX-RAB-01-01",
       "skillId": "RAB-01",
       "title": "Planering i cirkulationsplats",
-      "description": "Träna planering och utförande i cirkulationsplats",
+      "description": "Träna planering och utförande i en cirkulationsplats",
       "difficulty": "INTERMEDIATE",
       "estimatedMinutes": 25
     },
@@ -2270,7 +2270,7 @@
     {
       "id": "ENV-MULTILANE",
       "type": "MULTILANE_URBAN",
-      "description": "Flerfilig stad — körfältsbyten, sammanvävning"
+      "description": "Flerfiliga gator — körfältsbyten, att fläta in sig"
     },
     {
       "id": "ENV-PARKING",
@@ -2550,6 +2550,6 @@
       "authority": "TRANSPORTSTYRELSEN"
     }
   ],
-  "exportedAt": "2026-09-03T10:58:47.309Z",
+  "exportedAt": "2026-09-03T16:58:35.613Z",
   "databaseVersion": "1.0"
 }

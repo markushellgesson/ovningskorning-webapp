@@ -25,9 +25,9 @@ export default function HomePage() {
               forskning om hur motoriska färdigheter utvecklas.
             </p>
             <p className="max-w-[var(--measure)] text-lg text-text-secondary">
-              Den här versionen är en serverlös demo som körs direkt i webbläsaren. All data lagras
-              lokalt på din enhet — ingen server, inget konto, ingen inloggning. Data stannar kvar
-              tills du rensar webbläsardata.
+              Den här versionen är en demo som klarar sig utan server och körs direkt i webbläsaren.
+              All data lagras lokalt på din enhet — ingen server, inget konto, ingen inloggning. Data
+              stannar kvar tills du rensar webbläsardata.
             </p>
           </Card>
 
@@ -39,9 +39,9 @@ export default function HomePage() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1">
-                  <h3 className="text-xl font-semibold text-primary-800">Kompetensbibliotek</h3>
+                  <h3 className="text-xl font-semibold text-primary-800">Träningsmoment</h3>
                   <p className="text-base text-primary-700">
-                    De 47 momenten du ska träna, strukturerade efter typ och sekvens
+                    De 47 momenten du ska träna, ordnade efter område och i den ordning ni bör ta dem
                   </p>
                 </div>
                 <span aria-hidden="true" className="mt-0.5 shrink-0 text-xl text-primary-600">
@@ -53,7 +53,7 @@ export default function HomePage() {
 
           <footer className="border-t border-border-subtle pt-8">
             <p className="max-w-[var(--measure)] text-sm text-text-tertiary">
-              Detta är en lokal variant som körs utan server. All data lever bara i din webbläsare.
+              Detta är en lokal variant som körs utan server. All data finns bara i din webbläsare.
             </p>
           </footer>
         </div>

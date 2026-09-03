@@ -55,7 +55,7 @@ export default function PlanPage() {
             <StatusBadge variant="progress" size="sm">
               tränas löpande
             </StatusBadge>
-            , introduceras här men övas sedan vidare genom hela utbildningen istället för att
+            , introduceras här men övas sedan vidare genom hela utbildningen i stället för att
             checkas av och lämnas bakom.
           </p>
         </Card>

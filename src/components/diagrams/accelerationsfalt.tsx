@@ -13,8 +13,8 @@ export function AccelerationsfaltDiagram() {
     >
       <title id="accel-title">Påfart med och utan accelerationsfält</title>
       <desc id="accel-desc">
-        Två scenarier visas. Överst: Påfart MED accelerationsfält (markerad med lodräta ränder). Du
-        anpassar farten och flätar in — ingen väjningsplikt enligt 3 kap 23 §. Underst: Påfart UTAN
+        Två scenarier visas. Överst: Påfart med accelerationsfält (markerat med lodräta ränder). Du
+        anpassar farten och flätar in — ingen väjningsplikt enligt 3 kap 23 §. Underst: Påfart utan
         accelerationsfält. Du har väjningsplikt mot trafiken på huvudleden enligt 3 kap 21 §.
       </desc>
 
@@ -84,7 +84,7 @@ export function AccelerationsfaltDiagram() {
 
         {/* Etikett */}
         <text x="200" y="120" className="fill-text-primary text-[14px] font-semibold">
-          MED accelerationsfält
+          Påfart med accelerationsfält
         </text>
         <text x="160" y="140" className="fill-text-secondary text-[13px]">
           Ingen väjningsplikt — anpassa farten (3 kap 23 §)
@@ -139,7 +139,7 @@ export function AccelerationsfaltDiagram() {
 
         {/* Etikett */}
         <text x="190" y="120" className="fill-text-primary text-[14px] font-semibold">
-          UTAN accelerationsfält
+          Påfart utan accelerationsfält
         </text>
         <text x="175" y="140" className="fill-text-secondary text-[13px]">
           Väjningsplikt mot trafiken på huvudleden (3 kap 21 §)

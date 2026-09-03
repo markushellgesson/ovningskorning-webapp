@@ -73,7 +73,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
             href="/skills"
             className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
-            ← Tillbaka till biblioteket
+            ← Alla moment
           </Link>
           <h1 className="text-3xl font-semibold text-text-primary">{skill.name}</h1>
           <p className="max-w-[var(--measure)] text-xl text-text-secondary">{skill.description}</p>
@@ -137,7 +137,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
 
           {skill.practiceSteps.length > 0 && (
             <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Övningssteg</h2>
+              <h2 className={SECTION_HEADING}>Hur ni övar</h2>
               <ol className={LIST}>
                 {skill.practiceSteps.map((step, i) => (
                   <li key={i} className={LIST_ITEM}>
@@ -158,7 +158,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
 
           {skill.commonErrors.length > 0 && (
             <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Vanliga fel</h2>
+              <h2 className={SECTION_HEADING}>Vanliga misstag</h2>
               <ul className={LIST}>
                 {skill.commonErrors.map((error, i) => (
                   <li key={i} className={LIST_ITEM}>
@@ -177,7 +177,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
 
           {skill.supervisorObservations.length > 0 && (
             <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Vad handledaren ska observera</h2>
+              <h2 className={SECTION_HEADING}>Vad handledaren tittar efter</h2>
               <ul className={LIST}>
                 {skill.supervisorObservations.map((obs, i) => (
                   <li key={i} className={LIST_ITEM}>

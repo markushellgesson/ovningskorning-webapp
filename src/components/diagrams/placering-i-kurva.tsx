@@ -22,7 +22,7 @@ export function PlaceringIKurvaDiagram() {
       {/* Scenario 1: Bra placering (vänster i körfältet) */}
       <g>
         <text x="20" y="30" className="fill-text-primary text-[15px] font-semibold">
-          Bra: Placera dig till vänster i körfältet
+          Bra: placering till vänster i körfältet
         </text>
 
         {/* Väg kurva höger */}
@@ -83,7 +83,7 @@ export function PlaceringIKurvaDiagram() {
       {/* Scenario 2: Mindre bra placering (höger i körfältet) */}
       <g transform="translate(0, 300)">
         <text x="20" y="30" className="fill-text-primary text-[15px] font-semibold">
-          Mindre bra: Placerad till höger i körfältet
+          Mindre bra: placering till höger i körfältet
         </text>
 
         {/* Väg kurva höger */}

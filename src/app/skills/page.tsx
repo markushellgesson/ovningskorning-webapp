@@ -55,9 +55,9 @@ export default function SkillsPage() {
           >
             ← Tillbaka
           </Link>
-          <h1 className="text-3xl font-semibold text-text-primary">Kompetensbibliotek</h1>
+          <h1 className="text-3xl font-semibold text-text-primary">Träningsmoment</h1>
           <p className="max-w-[var(--measure)] text-xl text-text-secondary">
-            {skills.length} moment strukturerade efter typ och sekvens
+            {skills.length} moment ordnade efter område och i den ordning ni bör ta dem
           </p>
         </header>
 
