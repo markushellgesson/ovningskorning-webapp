@@ -11,6 +11,8 @@
  * (allmän handling) och fri att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 export function JarnvagskorsningDiagram() {
   return (
     <svg
@@ -219,7 +221,7 @@ export function JarnvagskorsningDiagram() {
       {/* A35, varning för korsning med bommar, en bit före stopplatsen */}
       <g>
         <rect x="330" y="430" width="110" height="90" rx="8" className="fill-none stroke-border-default" strokeWidth="1.5" />
-        <image href="/signs/A35.svg" x="348" y="442" width="74" height="65" />
+        <image href={`${BASE_PATH}/signs/A35.svg`} x="348" y="442" width="74" height="65" />
         <text x="385" y="545" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
           A35
         </text>

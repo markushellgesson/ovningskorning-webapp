@@ -17,6 +17,8 @@
  * vägmärken (allmänna handlingar) och fria att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 interface PanelProps {
   /** Panelens mittlinje i x-led. */
   cx: number;
@@ -33,7 +35,7 @@ function Panel({ cx, idPrefix, variant }: PanelProps) {
     <g>
       {/* Vägmärke */}
       <image
-        href={isStop ? '/signs/B2.svg' : '/signs/B1.svg'}
+        href={isStop ? `${BASE_PATH}/signs/B2.svg` : `${BASE_PATH}/signs/B1.svg`}
         x={cx - 50}
         y="14"
         width="100"

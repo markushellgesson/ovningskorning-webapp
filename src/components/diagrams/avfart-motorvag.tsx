@@ -12,6 +12,8 @@
  * (allmän handling) och fri att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 type Heading = 'up' | 'down' | 'left' | 'right';
 
 function nosePoints(x: number, y: number, w: number, h: number, heading: Heading): string {
@@ -282,7 +284,7 @@ export function AvfartMotorvagDiagram() {
       </text>
 
       {/* C31-5: avfartens skyltade hastighet */}
-      <image href="/signs/C31-5.svg" x="360" y="300" width="46" height="46" />
+      <image href={`${BASE_PATH}/signs/C31-5.svg`} x="360" y="300" width="46" height="46" />
       <text x="383" y="366" textAnchor="middle" className="fill-text-secondary text-[13px]">
         Avfartens hastighet
       </text>

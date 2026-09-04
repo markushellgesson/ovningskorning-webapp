@@ -21,6 +21,8 @@
  * (allmänna handlingar) och fria att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 export function CirkulationsplatsDiagram() {
   return (
     <svg
@@ -225,8 +227,8 @@ export function CirkulationsplatsDiagram() {
       </g>
 
       {/* Vägmärken vid infarten: B1 väjningsplikt över D3 cirkulationsplats */}
-      <image href="/signs/B1.svg" x="262" y="304" width="36" height="32" />
-      <image href="/signs/D3.svg" x="262" y="342" width="36" height="36" />
+      <image href={`${BASE_PATH}/signs/B1.svg`} x="262" y="304" width="36" height="32" />
+      <image href={`${BASE_PATH}/signs/D3.svg`} x="262" y="342" width="36" height="36" />
       <text x="304" y="326" className="fill-text-secondary text-[13px]">
         B1
       </text>

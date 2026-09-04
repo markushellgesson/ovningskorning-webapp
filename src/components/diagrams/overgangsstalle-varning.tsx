@@ -17,6 +17,8 @@
  * (allmän handling) och fri att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 interface PedestrianProps {
   x: number;
   y: number;
@@ -149,7 +151,7 @@ export function OvergangsstalleVarningDiagram() {
       </text>
 
       {/* A13 på höger sida, före övergångsstället */}
-      <image href="/signs/A13.svg" x="282" y="290" width="48" height="43" />
+      <image href={`${BASE_PATH}/signs/A13.svg`} x="282" y="290" width="48" height="43" />
       <text x="306" y="352" textAnchor="middle" className="fill-text-secondary text-[13px]">
         A13
       </text>

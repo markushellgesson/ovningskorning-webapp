@@ -11,6 +11,8 @@
  * (allmän handling) och fri att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 type Heading = 'up' | 'down' | 'left' | 'right';
 
 function nosePoints(x: number, y: number, w: number, h: number, heading: Heading): string {
@@ -307,7 +309,7 @@ export function AccelerationsfaltDiagram() {
       <text x="20" y="440" className="fill-text-secondary text-[13px]">
         och flytta över när det kan ske utan fara eller onödigt hinder (3 kap 23 §).
       </text>
-      <image href="/signs/B1.svg" x="20" y="450" width="24" height="24" />
+      <image href={`${BASE_PATH}/signs/B1.svg`} x="20" y="450" width="24" height="24" />
       <text x="52" y="467" className="fill-text-secondary text-[13px]">
         Saknas accelerationsfält har du väjningsplikt (3 kap 21 §).
       </text>

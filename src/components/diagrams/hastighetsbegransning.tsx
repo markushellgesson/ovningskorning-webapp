@@ -6,6 +6,8 @@
  * (allmän handling) och fri att återge.
  */
 
+import { BASE_PATH } from '@/lib/base-path';
+
 export function HastighetsbegransningDiagram() {
   return (
     <svg
@@ -42,7 +44,7 @@ export function HastighetsbegransningDiagram() {
 
       <g>
         <rect x="20" y="45" width="130" height="130" rx="8" className="fill-none stroke-border-default" strokeWidth="1.5" />
-        <image href="/signs/C31-5.svg" x="32" y="57" width="106" height="106" />
+        <image href={`${BASE_PATH}/signs/C31-5.svg`} x="32" y="57" width="106" height="106" />
         <text x="85" y="195" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
           C31
         </text>
@@ -152,7 +154,7 @@ export function HastighetsbegransningDiagram() {
         <path d="M 92 493 L 112 493" className="stroke-attention-600" strokeWidth="2" markerEnd="url(#speed-arrow)" />
         {/* Vägmärke vid högra vägkanten i färdriktningen, alltså nedanför vägen */}
         <line x1="300" y1="506" x2="300" y2="518" className="stroke-text-tertiary" strokeWidth="2" />
-        <image href="/signs/C31-5.svg" x="288" y="512" width="24" height="24" />
+        <image href={`${BASE_PATH}/signs/C31-5.svg`} x="288" y="512" width="24" height="24" />
         <text x="330" y="530" className="fill-text-primary text-[13px] font-medium">
           Ny skylt här: ny gräns
         </text>
