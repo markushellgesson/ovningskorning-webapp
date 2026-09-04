@@ -154,6 +154,18 @@ export const PHOTO_CREDITS: PhotoCredit[] = [
     sourceUrl:
       'https://commons.wikimedia.org/wiki/File:Bicycle_crosswalk_button_in_Tyres%C3%B6,_Sweden.JPG',
   },
+  {
+    filename: 'busshallplats-brastad.jpg',
+    environment: 'Busshållplats',
+    altText:
+      'En buss i linjetrafik närmar sig en hållplats vid en tvåfältsväg i Brastad, sedd från vägens perspektiv i dagsljus.',
+    title: 'Bus 852 at Sågvägen bus stop in Brastad',
+    photographer: 'W.carter',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    sourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Bus_852_at_S%C3%A5gv%C3%A4gen_bus_stop_in_Brastad.jpg',
+  },
 ];
 
 /**
@@ -179,6 +191,7 @@ export const SKILL_PHOTOS: Record<string, string[]> = {
   'SPEC-02': ['morkerkorning-stockholm.jpg'],
   'SPEC-04': ['vintervaglag.jpg', 'vagarbete-vagsaltning-tuntorp.jpg'],
   'SPEC-05': ['jarnvagskorsning-farlev.jpg'],
+  'VRU-04': ['busshallplats-brastad.jpg'],
 };
 
 /** Hämtar foton för ett givet skillId, i den ordning de listas i SKILL_PHOTOS. */

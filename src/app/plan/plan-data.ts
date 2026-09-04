@@ -74,6 +74,44 @@ function formatNames(shown: string[], hasMore: boolean): string {
  * att raden spricker. Kapar aldrig mitt i ett namn: om redan ETT namn är
  * för långt får det stå som det är.
  */
+/**
+ * Ett sammanhållet steg — ett eller två kategorier — heter bäst det
+ * kategorin heter. Momentnamnen blir då bara ett godtyckligt urval: steg
+ * med grupptryck, impulsivitet och självbedömning hette "Grupptryck m.fl."
+ * bara för att grupptrycket råkade ligga först i sortOrder, medan
+ * "Riskmedvetenhet och självbedömning" säger vad steget faktiskt är.
+ *
+ * Blandade steg får däremot momentnamn: där finns ingen kategori som
+ * täcker helheten, och en av tre kategorier vore lika godtycklig.
+ *
+ * Returnerar null när kategorierna inte duger som rubrik.
+ */
+function joinLabels(first: string, second: string): string {
+  const eitherHasOch = / och /.test(first) || / och /.test(second);
+  return eitherHasOch ? `${first}, ${second}` : `${first} och ${second}`;
+}
+
+function categoryTitle(level: SkillMapLevel): string | null {
+  const categories = [...new Set(level.groups.flatMap((group) => group.categories))];
+  if (categories.length === 0 || categories.length > 2) return null;
+
+  const labels = categories.map(
+    (category) => CATEGORY_LABELS[category as keyof typeof CATEGORY_LABELS] ?? category,
+  );
+  // Gemener på det andra ledet — "och Självbedömning" mitt i en rubrik är
+  // inte svenska.
+  //
+  // Två kategorinamn binds ihop med komma i stället för "och" när något av
+  // dem redan innehåller ett "och": "Grundmanövrering och observation och
+  // blick" går inte att läsa.
+  const title =
+    labels.length === 1
+      ? labels[0]
+      : joinLabels(labels[0], `${labels[1].charAt(0).toLowerCase()}${labels[1].slice(1)}`);
+
+  return title.length <= MAX_TITLE_LENGTH ? title : null;
+}
+
 function candidateTitle(names: string[]): string {
   if (names.length === 0) return 'Steg';
 
@@ -100,7 +138,12 @@ const stepTitles = new Map<string, string>();
   for (const level of progressionMap.levels) {
     const names = skillNamesForLevel(level);
     let shownCount = Math.min(MAX_NAMES_SHOWN, names.length) || 1;
-    let title = candidateTitle(names);
+
+    // Kategorin först när steget är sammanhållet. Är den redan tagen —
+    // två steg kan dela enda kategori, som de två motorvägsstegen — faller
+    // vi tillbaka på momentnamnen, som alltid skiljer sig åt.
+    const byCategory = categoryTitle(level);
+    let title = byCategory && !used.has(byCategory) ? byCategory : candidateTitle(names);
 
     while (used.has(title) && shownCount < names.length) {
       shownCount += 1;
