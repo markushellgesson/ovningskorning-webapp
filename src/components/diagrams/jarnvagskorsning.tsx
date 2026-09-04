@@ -1,6 +1,11 @@
 /**
- * Järnvägs- och spårvägskorsning — stopplats, siktlinje längs spåret och
- * bommar. Trafikförordningen 2 kap 7 §.
+ * Järnvägs- och spårvägskorsning — stopplats på betryggande avstånd före
+ * signal och bom, siktlinje längs spåret åt båda håll, och kontrollen att det
+ * finns plats på andra sidan. Trafikförordningen 2 kap 7 §.
+ *
+ * Geometri: vägen går lodrätt, din bil kör uppåt och ligger därför i det
+ * östra (högra) körfältet. Vägmärket och ljussignalen står på höger sida i
+ * färdriktningen, alltså till höger i bilden.
  *
  * Vägmärkesbilden A35 i public/signs/ är ett svenskt officiellt vägmärke
  * (allmän handling) och fri att återge.
@@ -9,148 +14,216 @@
 export function JarnvagskorsningDiagram() {
   return (
     <svg
-      viewBox="0 0 500 520"
+      viewBox="0 0 500 600"
       className="w-full max-w-lg mx-auto"
       role="img"
       aria-labelledby="crossing-title crossing-desc"
     >
       <title id="crossing-title">Järnvägskorsning: stopplats, siktlinje och bommar</title>
       <desc id="crossing-desc">
-        Vy uppifrån av en väg som korsar ett spår. Spåret ritas med två räls och fyllda sliprar
-        tvärs över. En bit före korsningen varnar vägmärket A35 för korsning med bommar. En stopplats
-        markeras med en heldragen linje och etiketten &quot;Stopplats — betryggande avstånd&quot;, placerad
-        före både bommarna och spåret; din bil (prickmönster) står stannad vid linjen. Två
-        rödvitrandiga bommar ligger fällda tvärs över körbanan på var sin sida av spåret. Streckade
-        pilar längs spåret åt båda håll visar att föraren måste titta längs spåret själv, även om
-        ingen signal lyser. Långt bort åt höger står ett tåg på spåret, ritat med ett liggande
-        streckmönster som skiljer det från bilen, för att visa vad siktlinjen ska upptäcka.
+        Vy uppifrån av en väg med två körfält som korsar ett spår. Din bil, ritad med prickmönster,
+        kör uppåt i det högra körfältet och står stannad vid en stopplats som ligger på betryggande
+        avstånd före både ljussignalen och bommen. En bit bakom bilen, på höger sida i
+        färdriktningen, står vägmärket A35 som varnar för korsning med bommar. Vid vägkanten före
+        bommen står en ljussignal med rött sken, markerad med ett kryss: kör inte in. Två
+        rödvitrandiga bommar ligger fällda tvärs över hela körbanan, en på var sida om spåret.
+        Streckade pilar längs spåret åt båda håll visar att du själv ska titta längs spåret, även
+        när ingen signal lyser. Långt bort till höger på spåret syns ett tåg, ritat med liggande
+        streck så att det inte förväxlas med bilar. På andra sidan spåret står en annan bil (randigt
+        mönster) i kö, och en streckad ruta mellan spåret och kön ställer frågan om hela din bil får
+        plats där. Får den inte det ska du inte köra in.
       </desc>
 
       <defs>
         <pattern id="rail-dots" patternUnits="userSpaceOnUse" width="8" height="8">
           <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
         </pattern>
-        {/* Tåget får ett eget mönster: prickar betyder "din bil" i appens
-            diagram, och tåg och bil får inte gå att förväxla i just det
-            diagram som handlar om att upptäcka tåget. */}
+        <pattern id="rail-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
+          <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
+        </pattern>
+        {/* Tåget får ett eget mönster: prickar är din bil och snedränder är
+            andra bilar. Tåget ska inte gå att ta för något av dem. */}
         <pattern id="rail-train-bars" patternUnits="userSpaceOnUse" width="8" height="8">
           <rect width="8" height="3.5" className="fill-safety-600" />
         </pattern>
-        <pattern id="barrier-stripes" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="rotate(45)">
+        <pattern
+          id="rail-barrier"
+          patternUnits="userSpaceOnUse"
+          width="14"
+          height="14"
+          patternTransform="rotate(45)"
+        >
           <rect width="7" height="14" className="fill-safety-600" />
           <rect x="7" width="7" height="14" className="fill-diagram-marking" />
         </pattern>
         <marker
           id="rail-arrow"
           viewBox="0 0 10 10"
-          refX="5"
+          refX="6"
           refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto-start-reverse"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto"
         >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-secondary" />
         </marker>
       </defs>
 
-      {/* Vägen, vertikal */}
-      <rect x="170" y="0" width="140" height="520" className="fill-diagram-road" />
-      <line x1="170" y1="0" x2="170" y2="520" className="stroke-diagram-edge" strokeWidth="2" />
-      <line x1="310" y1="0" x2="310" y2="520" className="stroke-diagram-edge" strokeWidth="2" />
+      {/* Vägen, lodrät, två körfält */}
+      <rect x="140" y="0" width="140" height="600" className="fill-diagram-road" />
+      <line x1="140" y1="0" x2="140" y2="600" className="stroke-diagram-edge" strokeWidth="2" />
+      <line x1="280" y1="0" x2="280" y2="600" className="stroke-diagram-edge" strokeWidth="2" />
+      <line
+        x1="210"
+        y1="0"
+        x2="210"
+        y2="222"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+        strokeDasharray="12 10"
+      />
+      <line
+        x1="210"
+        y1="318"
+        x2="210"
+        y2="600"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+        strokeDasharray="12 10"
+      />
 
-      {/* Spåret, horisontellt, med sliprar */}
-      <rect x="0" y="215" width="500" height="50" className="fill-diagram-edge" opacity="0.25" />
+      {/* Spåret, vågrätt, med sliprar och två räler */}
+      <rect x="0" y="250" width="500" height="40" className="fill-diagram-edge" opacity="0.25" />
       {Array.from({ length: 14 }).map((_, i) => (
-        <rect key={i} x={i * 36 + 4} y="215" width="10" height="50" className="fill-diagram-edge" />
+        <rect key={i} x={i * 36 + 4} y="250" width="10" height="40" className="fill-diagram-edge" />
       ))}
-      <line x1="0" y1="228" x2="500" y2="228" className="stroke-primary-600" strokeWidth="3" />
-      <line x1="0" y1="252" x2="500" y2="252" className="stroke-primary-600" strokeWidth="3" />
+      <line x1="0" y1="260" x2="500" y2="260" className="stroke-primary-600" strokeWidth="3" />
+      <line x1="0" y1="280" x2="500" y2="280" className="stroke-primary-600" strokeWidth="3" />
 
       {/* Siktlinjer längs spåret, åt båda håll */}
       <path
-        d="M 165 240 L 30 240"
+        d="M 200 270 L 60 270"
         className="stroke-text-secondary"
         strokeWidth="2"
         strokeDasharray="6 5"
         markerEnd="url(#rail-arrow)"
       />
       <path
-        d="M 315 240 L 460 240"
+        d="M 220 270 L 420 270"
         className="stroke-text-secondary"
         strokeWidth="2"
         strokeDasharray="6 5"
         markerEnd="url(#rail-arrow)"
       />
-      <text x="15" y="200" className="fill-text-primary text-[13px] font-medium">
-        Titta längs
+      <text x="10" y="198" className="fill-text-primary text-[13px] font-semibold">
+        Titta längs spåret
       </text>
-      <text x="15" y="216" className="fill-text-primary text-[13px] font-medium">
-        spåret
+      <text x="10" y="214" className="fill-text-primary text-[13px] font-semibold">
+        åt båda håll, även
       </text>
-      <text x="370" y="200" className="fill-text-primary text-[13px] font-medium" textAnchor="middle">
-        och åt andra hållet
+      <text x="10" y="230" className="fill-text-primary text-[13px] font-semibold">
+        när ingen signal lyser
       </text>
 
       {/* Tåg långt bort längs spåret */}
-      <g transform="translate(440, 232)">
-        <rect width="46" height="18" rx="3" fill="url(#rail-train-bars)" className="stroke-safety-600" strokeWidth="2" />
-        <text x="23" y="34" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <g transform="translate(440, 262)">
+        <rect width="46" height="16" rx="3" fill="url(#rail-train-bars)" className="stroke-safety-600" strokeWidth="2" />
+        <text x="23" y="38" textAnchor="middle" className="fill-text-secondary text-[13px]">
           Tåg
         </text>
       </g>
 
-      {/* Bommar, fällda tvärs över körbanan på var sin sida av spåret */}
-      <rect
-        x="170"
-        y="195"
-        width="140"
-        height="14"
-        fill="url(#barrier-stripes)"
-        className="stroke-safety-700"
-        strokeWidth="1.5"
-      />
-      <text x="320" y="205" className="fill-text-secondary text-[13px]">
+      {/* Bommar, fällda tvärs över körbanan, en på var sida om spåret */}
+      <rect x="140" y="224" width="140" height="14" fill="url(#rail-barrier)" className="stroke-safety-700" strokeWidth="1.5" />
+      <rect x="140" y="302" width="140" height="14" fill="url(#rail-barrier)" className="stroke-safety-700" strokeWidth="1.5" />
+      <text x="288" y="236" className="fill-text-secondary text-[13px]">
         Bom, fälld
       </text>
-      <rect
-        x="170"
-        y="271"
-        width="140"
-        height="14"
-        fill="url(#barrier-stripes)"
-        className="stroke-safety-700"
-        strokeWidth="1.5"
-      />
 
-      {/* Stopplats: heldragen linje före bommen, på ankomstsidan */}
-      <line x1="170" y1="340" x2="310" y2="340" className="stroke-progress-600" strokeWidth="3" />
-      <text x="240" y="365" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
+      {/* Ljussignal vid högra vägkanten, före bommen */}
+      <g>
+        <line x1="304" y1="204" x2="304" y2="218" className="stroke-text-tertiary" strokeWidth="3" />
+        <rect x="290" y="160" width="28" height="44" rx="4" className="fill-neutral-200 stroke-diagram-edge" strokeWidth="1.5" />
+        <circle cx="304" cy="182" r="10" className="fill-safety-600 stroke-text-primary" strokeWidth="1" />
+        {/* Kryss: rött sken betyder kör inte in, oavsett färgseende */}
+        <path d="M 328 174 L 344 190 M 344 174 L 328 190" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
+        <text x="354" y="180" className="fill-text-primary text-[13px] font-semibold">
+          Rött sken:
+        </text>
+        <text x="354" y="196" className="fill-text-primary text-[13px] font-semibold">
+          kör inte in
+        </text>
+      </g>
+
+      {/* Betryggande avstånd: mått från bommen ned till stopplatsen */}
+      <line x1="292" y1="240" x2="292" y2="348" className="stroke-text-tertiary" strokeWidth="1" />
+      <line x1="288" y1="240" x2="296" y2="240" className="stroke-text-tertiary" strokeWidth="1" />
+      <line x1="288" y1="348" x2="296" y2="348" className="stroke-text-tertiary" strokeWidth="1" />
+      <text x="300" y="324" className="fill-text-secondary text-[13px]">
+        Betryggande
+      </text>
+      <text x="300" y="340" className="fill-text-secondary text-[13px]">
+        avstånd
+      </text>
+
+      {/* Stopplats: heldragen linje i ditt körfält, före signal och bom */}
+      <line x1="212" y1="350" x2="278" y2="350" className="stroke-progress-600" strokeWidth="4" />
+      <text x="288" y="360" className="fill-text-primary text-[14px] font-semibold">
         Stopplats
       </text>
-      <text x="240" y="385" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        Betryggande avstånd, före bom och spår
+      <text x="288" y="376" className="fill-text-secondary text-[13px]">
+        före signal och bom
       </text>
 
-      {/* Bilen, stannad vid stopplatsen */}
-      <rect
-        x="215"
-        y="400"
-        width="50"
-        height="30"
-        fill="url(#rail-dots)"
-        className="stroke-attention-600"
-        strokeWidth="2"
-        rx="4"
-      />
-
-      {/* A35 — varning för korsning med bommar, en bit före stopplatsen */}
+      {/* Din bil, stannad vid stopplatsen, kör uppåt i högra körfältet */}
       <g>
-        <rect x="30" y="380" width="110" height="110" className="fill-none stroke-border-default" strokeWidth="1.5" rx="8" />
-        <image href="/signs/A35.svg" x="48" y="392" width="74" height="65" />
-        <text x="85" y="475" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        <rect x="225" y="386" width="40" height="42" rx="4" fill="url(#rail-dots)" className="stroke-attention-600" strokeWidth="2" />
+        <rect x="231" y="391" width="28" height="7" rx="2" className="fill-diagram-marking" />
+        <text x="245" y="448" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
+          Du
+        </text>
+      </g>
+
+      {/* Kö på andra sidan: plats för hela bilen? */}
+      <g>
+        <rect x="225" y="120" width="40" height="42" rx="4" fill="url(#rail-stripes)" className="stroke-primary-600" strokeWidth="2" />
+        <rect x="231" y="125" width="28" height="7" rx="2" className="fill-diagram-marking" />
+        <text x="245" y="110" textAnchor="middle" className="fill-text-secondary text-[13px]">
+          Kö
+        </text>
+        <rect
+          x="216"
+          y="168"
+          width="58"
+          height="50"
+          rx="4"
+          className="fill-none stroke-text-tertiary"
+          strokeWidth="2"
+          strokeDasharray="5 4"
+        />
+        <text x="245" y="199" textAnchor="middle" className="fill-text-primary text-[16px] font-semibold">
+          ?
+        </text>
+        <line x1="134" y1="160" x2="214" y2="180" className="stroke-text-tertiary" strokeWidth="1.5" />
+        <text x="10" y="132" className="fill-text-primary text-[13px] font-semibold">
+          Får hela bilen plats
+        </text>
+        <text x="10" y="148" className="fill-text-primary text-[13px] font-semibold">
+          på andra sidan?
+        </text>
+        <text x="10" y="164" className="fill-text-secondary text-[13px]">
+          Annars: kör inte in
+        </text>
+      </g>
+
+      {/* A35, varning för korsning med bommar, en bit före stopplatsen */}
+      <g>
+        <rect x="330" y="430" width="110" height="90" rx="8" className="fill-none stroke-border-default" strokeWidth="1.5" />
+        <image href="/signs/A35.svg" x="348" y="442" width="74" height="65" />
+        <text x="385" y="545" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
           A35
         </text>
-        <text x="85" y="500" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+        <text x="385" y="561" textAnchor="middle" className="fill-text-tertiary text-[13px]">
           Varnar för bommar
         </text>
       </g>

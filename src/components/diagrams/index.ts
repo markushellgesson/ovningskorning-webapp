@@ -20,3 +20,6 @@ export { MoteSmalVagDiagram } from './mote-smal-vag';
 export { VandningDiagram } from './vandning';
 export { JarnvagskorsningDiagram } from './jarnvagskorsning';
 export { AvfartMotorvagDiagram } from './avfart-motorvag';
+export { TrafiksignalerPolismanDiagram } from './trafiksignaler-polisman';
+export { VanstersvangLandsvagDiagram } from './vanstersvang-landsvag';
+export { StartFranVagkantDiagram } from './start-fran-vagkant';

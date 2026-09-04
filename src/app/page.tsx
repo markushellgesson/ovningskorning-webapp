@@ -51,6 +51,23 @@ export default function HomePage() {
                 </span>
               </div>
             </Link>
+            <Link
+              href="/upplagg"
+              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <h3 className="text-xl font-semibold text-primary-800">Upplägg</h3>
+                  <p className="text-base text-primary-700">
+                    Hur ni lägger upp ett pass, i vilken ordning ni går vidare, och vad ni gör
+                    före varje körning
+                  </p>
+                </div>
+                <span aria-hidden="true" className="mt-0.5 shrink-0 text-xl text-primary-600">
+                  →
+                </span>
+              </div>
+            </Link>
           </section>
 
           <footer className="space-y-3 border-t border-border-subtle pt-8">

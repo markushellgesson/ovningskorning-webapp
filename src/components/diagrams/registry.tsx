@@ -20,6 +20,9 @@ import {
   BackningRuntHornetDiagram,
   VagmarkenVajningsreglerDiagram,
   HastighetsbegransningDiagram,
+  TrafiksignalerPolismanDiagram,
+  VanstersvangLandsvagDiagram,
+  StartFranVagkantDiagram,
   OvergangsstalleVarningDiagram,
   OmkorningLandsvagDiagram,
   MoteSmalVagDiagram,
@@ -68,6 +71,16 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
 
   // Hastighetsbegränsning (C31) och bashastighet — 3 kap 17 §
   'SPD-01': () => <HastighetsbegransningDiagram />,
+
+  // Trafiksignaler och polismans tecken — vägmärkesförordningen 3 kap och 7 kap.
+  // P1 stopp betyder stopp framifrån och bakifrån, men fri väg från sidan.
+  'INT-05': () => <TrafiksignalerPolismanDiagram />,
+
+  // Vänstersväng på landsväg — mötande, bakomvarande och hjulens läge
+  'RUR-04': () => <VanstersvangLandsvagDiagram />,
+
+  // Start från vägkant — kontroller före utfart
+  'MAN-11': () => <StartFranVagkantDiagram />,
 
   // Varning för gående (A13) — sätts ofta upp före övergångsstället
   'VRU-01': () => <OvergangsstalleVarningDiagram />,

@@ -1,30 +1,14 @@
 import Link from 'next/link';
-import content from '@/content';
-import type { Skill } from '@/content/types';
 import { CATEGORY_LABELS } from '@/content/category-labels';
 import { Card } from '@/components/ui/card';
 import { StatusBadge } from '@/components/ui/badge';
-import { buildProgressionMap } from '@/domain/progression-map/build-map';
-
-const skills = content.skills;
-const skillsById = new Map(skills.map((skill) => [skill.id, skill]));
-
-// Beräknas vid bygget — sidan är statiskt exporterad och har ingen server
-// att räkna om kartan i efterhand (se ADR 0013 / output: 'export').
-const progressionMap = buildProgressionMap(skills);
-
-// Kontinuerliga moment grupperade per kategori, i den ordning kategorin
-// först dyker upp bland de kontinuerliga momenten — samma sorterade
-// ordning som resten av innehållet (sortOrder).
-const continuousByCategory = new Map<string, Skill[]>();
-for (const id of progressionMap.continuousSkillIds) {
-  const skill = skillsById.get(id);
-  if (!skill) continue;
-  if (!continuousByCategory.has(skill.category)) {
-    continuousByCategory.set(skill.category, []);
-  }
-  continuousByCategory.get(skill.category)!.push(skill);
-}
+import {
+  skills,
+  progressionMap,
+  continuousByCategory,
+  countSkillsInLevel,
+  stepTitle,
+} from './plan-data';
 
 export const metadata = {
   title: 'Träningskarta',
@@ -46,8 +30,8 @@ export default function PlanPage() {
 
         <Card padding="lg" className="space-y-3">
           <p className="text-lg leading-relaxed text-text-primary">
-            Varje steg bygger vidare på det föregående. Moment i samma ruta hör ihop och passar
-            att öva under samma pass.
+            Varje steg bygger vidare på det föregående. Moment i samma ruta hör ihop och passar att
+            öva under samma pass.
           </p>
           <p className="text-base leading-relaxed text-text-secondary">
             Ordningen är pedagogisk, inte en regel — den visar vad som är rimligt att kunna innan
@@ -60,80 +44,55 @@ export default function PlanPage() {
           </p>
         </Card>
 
-        <ol className="space-y-10">
+        <Link
+          href="/upplagg"
+          className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-5 transition-colors duration-150 hover:bg-primary-100"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-1">
+              <h2 className="text-lg font-semibold text-primary-800">Upplägg</h2>
+              <p className="text-sm text-primary-700">
+                Hur ni lägger upp ett pass, i vilken ordning ni går vidare, och vad ni gör före
+                varje körning
+              </p>
+            </div>
+            <span aria-hidden="true" className="mt-0.5 shrink-0 text-xl text-primary-600">
+              →
+            </span>
+          </div>
+        </Link>
+
+        <ol className="space-y-3">
           {progressionMap.levels.map((level, index) => {
             const stepNumber = index + 1;
+            const momentCount = countSkillsInLevel(level);
             return (
-              <li key={level.id} className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-white"
+              <li key={level.id}>
+                <Link
+                  href={`/plan/${stepNumber}`}
+                  className="flex min-h-12 items-center gap-4 rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                >
+                  <Card
+                    padding="md"
+                    className="flex w-full items-center gap-4 transition-colors duration-150 hover:border-primary-400"
                   >
-                    {stepNumber}
-                  </span>
-                  <h2 className="text-2xl font-semibold text-text-primary">
-                    Steg {stepNumber}
-                  </h2>
-                </div>
-
-                <div className="ml-5 space-y-4 border-l-2 border-border-default pl-6">
-                  {level.groups.map((group) => {
-                    const prerequisiteNames = group.prerequisiteIds
-                      .map((id) => skillsById.get(id)?.name)
-                      .filter((name): name is string => Boolean(name));
-
-                    return (
-                      <Card key={group.id} padding="md" className="space-y-3">
-                        {group.skillIds.length > 1 && (
-                          <StatusBadge variant="progress">
-                            Hör ihop — kan tränas i samma pass
-                          </StatusBadge>
-                        )}
-
-                        <ul className="space-y-3">
-                          {group.skillIds.map((skillId) => {
-                            const skill = skillsById.get(skillId);
-                            if (!skill) return null;
-                            return (
-                              <li key={skillId}>
-                                <Link
-                                  href={`/skills/${skill.id}`}
-                                  className="block min-h-12 rounded-[var(--radius-sm)] border border-border-subtle p-3 transition-colors hover:border-primary-500 hover:bg-primary-50"
-                                >
-                                  <div className="flex items-start justify-between gap-3">
-                                    <div className="min-w-0 flex-1">
-                                      <h3 className="font-semibold text-text-primary">
-                                        {skill.name}
-                                      </h3>
-                                      <p className="mt-1 text-sm text-text-secondary">
-                                        {skill.description}
-                                      </p>
-                                    </div>
-                                    <div className="flex shrink-0 flex-col items-end gap-1">
-                                      {skill.continuous && (
-                                        <StatusBadge variant="progress">Tränas löpande</StatusBadge>
-                                      )}
-                                      {skill.safetyCritical && (
-                                        <StatusBadge variant="safety">Säkerhetskritiskt</StatusBadge>
-                                      )}
-                                    </div>
-                                  </div>
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-
-                        {prerequisiteNames.length > 0 && (
-                          <p className="border-t border-border-subtle pt-3 text-sm text-text-tertiary">
-                            Bygger på {prerequisiteNames.join(', ')}
-                          </p>
-                        )}
-                      </Card>
-                    );
-                  })}
-                </div>
+                    <span
+                      aria-hidden="true"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-white"
+                    >
+                      {stepNumber}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <h2 className="text-lg font-semibold text-text-primary">
+                        {stepTitle(level)}
+                      </h2>
+                      <p className="text-sm text-text-secondary">{momentCount} moment</p>
+                    </div>
+                    <span aria-hidden="true" className="shrink-0 text-xl text-text-tertiary">
+                      →
+                    </span>
+                  </Card>
+                </Link>
               </li>
             );
           })}
@@ -146,8 +105,8 @@ export default function PlanPage() {
             <StatusBadge variant="progress" size="sm">
               tränas löpande
             </StatusBadge>
-            . De introduceras vid sin nivå precis som andra moment, men slutar inte där — de vävs
-            in i övningen genomgående, från första passet till sista.
+            . De introduceras vid sin nivå precis som andra moment, men slutar inte där — de vävs in
+            i övningen genomgående, från första passet till sista.
           </p>
 
           <div className="space-y-6">
