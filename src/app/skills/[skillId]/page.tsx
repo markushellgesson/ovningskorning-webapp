@@ -5,8 +5,6 @@ import content from '@/content';
 import type { DifficultyLevel, PhraseType, Skill, TheoryRelationType } from '@/content/types';
 import { StatusBadge } from '@/components/ui/badge';
 import { getDiagramForSkill } from '@/components/diagrams/registry';
-import { getPhotosForSkill } from '@/content/photo-credits';
-import { SkillPhoto } from '@/components/skill-photo';
 
 const skills = content.skills;
 
@@ -95,7 +93,6 @@ export default async function SkillPage({ params }: SkillPageProps) {
 
   const children = skills.filter((s) => s.parentId === skill.id);
   const diagram = getDiagramForSkill(skillId);
-  const photos = getPhotosForSkill(skillId);
 
   // Fraser med skillId: null är allmänna mönster, inte knutna till just
   // detta moment — de visas inte här (se content/types.ts).
@@ -145,16 +142,6 @@ export default async function SkillPage({ params }: SkillPageProps) {
             <figure className="rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised px-4 py-6 sm:px-6">
               {diagram}
             </figure>
-          )}
-
-          {/* Foto av trafikmiljön, om ett finns för detta moment. Diagrammet
-              ovan är fortfarande huvudillustrationen — fotot kompletterar. */}
-          {photos.length > 0 && (
-            <div className="space-y-4">
-              {photos.map((photo) => (
-                <SkillPhoto key={photo.filename} photo={photo} />
-              ))}
-            </div>
           )}
 
           {prerequisites.length > 0 && (

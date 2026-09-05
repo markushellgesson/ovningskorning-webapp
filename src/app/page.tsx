@@ -74,12 +74,6 @@ export default function HomePage() {
             <p className="max-w-[var(--measure)] text-sm text-text-tertiary">
               Detta är en lokal variant som körs utan server. All data finns bara i din webbläsare.
             </p>
-            <p className="max-w-[var(--measure)] text-sm text-text-tertiary">
-              <Link href="/bilder" className="text-primary-600 hover:underline">
-                Bildkällor
-              </Link>{' '}
-              — foton av trafikmiljöer med källa och licens.
-            </p>
           </footer>
         </div>
       </div>

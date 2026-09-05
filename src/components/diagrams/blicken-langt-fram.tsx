@@ -6,32 +6,53 @@
  *
  * Geometri: vägen ligger x 150–270, mittlinje x = 210, höger körfält x 210–270.
  * Bilen kör uppåt, så dess högra sida är bildens högra: bilen står i x 225–255.
+ *
+ * Båda panelerna ritas i dessa koordinater inuti varsin grupp med
+ * translate(−70 …), så att marginalen till höger rymmer numrerade
+ * hänvisningar. Geometrin är oförändrad.
  */
+
+function Badge({ cx, cy, n }: { cx: number; cy: number; n: string }) {
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
+      <text
+        x={cx}
+        y={cy + 5}
+        textAnchor="middle"
+        className="fill-surface-base text-[13px] font-semibold"
+      >
+        {n}
+      </text>
+    </g>
+  );
+}
 
 export function BlickenLangtFramDiagram() {
   return (
     <svg
-      viewBox="0 0 400 570"
-      className="w-full max-w-md mx-auto"
+      viewBox="0 0 460 756"
+      className="w-full max-w-lg mx-auto"
       role="img"
       aria-labelledby="bl-title bl-desc"
     >
       <title id="bl-title">Blicken långt fram styr bilen</title>
       <desc id="bl-desc">
         Två likadana raka vägar sedda uppifrån, den ena ovanför den andra. På båda kör din bil,
-        ritad med prickmönster, uppåt i högra körfältet. Den övre vägen är märkt Rätt: en
-        cirkel långt fram på vägen markerar var blicken ligger, dit bilen ska vara om några
-        sekunder, och bilens väg dit är en rak, jämn linje med pil. Det ger jämn körning och
-        tid att planera. Den nedre vägen är märkt Fel: cirkeln ligger alldeles framför bilens
-        front, blicken har fastnat nära, och bilens väg framåt är en vågig linje som slingrar
-        fram och tillbaka över körfältet. Det ger ryckig styrning och sena reaktioner.
-        Slutsatsen står under figuren: titta dit du vill att bilen ska åka, blicken drar
-        styrningen med sig.
+        ritad med prickmönster, uppåt i högra körfältet. Den övre vägen är märkt Rätt med en
+        bock: en cirkel långt fram på vägen markerar var blicken ligger, dit bilen ska vara om
+        några sekunder, och bilens väg dit är en rak, jämn linje med pil. Det ger jämn körning
+        och tid att planera. Den nedre vägen är märkt Fel med ett kryss: cirkeln ligger
+        alldeles framför bilens front, blicken har fastnat nära, och bilens väg framåt är en
+        vågig linje som slingrar fram och tillbaka över körfältet. Det ger ryckig styrning och
+        sena reaktioner. I båda panelerna pekar numrerade hänvisningar på blickpunkten, bilens
+        väg och bilen. Slutsatsen står i en ruta under figuren: titta dit du vill att bilen ska
+        åka, blicken drar styrningen med sig.
       </desc>
 
       <defs>
         {/* Elevens bil: prickar */}
-        <pattern id="bl-car" patternUnits="userSpaceOnUse" width="8" height="8">
+        <pattern id="bl-car-fill" patternUnits="userSpaceOnUse" width="8" height="8">
           <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
         </pattern>
         <marker
@@ -56,14 +77,57 @@ export function BlickenLangtFramDiagram() {
         >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-safety-600" />
         </marker>
+        <marker
+          id="bl-arrow-key"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="4"
+          markerHeight="4"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-primary" />
+        </marker>
+        {/* Din bil, fronten uppåt, centrerad i origo: karossen är 30 × 44 */}
+        <g id="bl-car">
+          <rect x="-17" y="-18" width="4" height="10" rx="1" className="fill-text-primary" />
+          <rect x="13" y="-18" width="4" height="10" rx="1" className="fill-text-primary" />
+          <rect x="-17" y="8" width="4" height="10" rx="1" className="fill-text-primary" />
+          <rect x="13" y="8" width="4" height="10" rx="1" className="fill-text-primary" />
+          <rect x="-15" y="-22" width="30" height="44" rx="4" fill="url(#bl-car-fill)" className="stroke-attention-600" strokeWidth="2" />
+          <rect x="-10" y="-16" width="20" height="8" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
+          <rect x="-10" y="11" width="20" height="5" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
+        </g>
       </defs>
 
-      {/* Rätt: blicken långt fram */}
-      <g>
-        <text x="20" y="22" className="fill-text-primary text-[14px] font-semibold">
-          Rätt: blicken långt fram
-        </text>
+      {/* Rubrik */}
+      <text x="20" y="32" className="fill-text-primary text-[16px] font-semibold">
+        Blicken långt fram styr bilen
+      </text>
+      <text x="20" y="52" className="fill-text-secondary text-[13px]">
+        Sett uppifrån — du kör uppåt.
+      </text>
 
+      {/* Teckenförklaring */}
+      <g>
+        <path d="M 300 28 L 326 28" className="stroke-text-primary" strokeWidth="3" markerEnd="url(#bl-arrow-key)" />
+        <text x="340" y="32" className="fill-text-secondary text-[13px]">
+          Bilens väg
+        </text>
+        <circle cx="313" cy="52" r="7" className="fill-none stroke-text-primary" strokeWidth="2" />
+        <circle cx="313" cy="52" r="2.5" className="fill-text-primary" />
+        <text x="340" y="56" className="fill-text-secondary text-[13px]">
+          Blickpunkt
+        </text>
+      </g>
+
+      {/* Rätt: blicken långt fram */}
+      <path d="M 20 86 l 5 5 l 9 -11" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="42" y="91" className="fill-text-primary text-[14px] font-semibold">
+        Rätt: blicken långt fram
+      </text>
+
+      <g transform="translate(-70 70)">
         {/* Väg */}
         <rect
           x="150"
@@ -102,63 +166,55 @@ export function BlickenLangtFramDiagram() {
         />
         <circle cx="240" cy="52" r="3" className="fill-progress-600" />
 
-        {/* Bilen */}
-        <rect
-          x="225"
-          y="206"
-          width="30"
-          height="44"
-          rx="3"
-          fill="url(#bl-car)"
-          className="stroke-attention-600"
-          strokeWidth="2"
-        />
-
-        {/* Etiketter */}
-        <text x="282" y="50" className="fill-text-primary text-[13px] font-medium">
-          Blicken hit —
-        </text>
-        <text x="282" y="66" className="fill-text-secondary text-[13px]">
-          dit bilen ska vara
-        </text>
-        <text x="282" y="82" className="fill-text-secondary text-[13px]">
-          om några sekunder
-        </text>
-
-        <line
-          x1="244"
-          y1="140"
-          x2="276"
-          y2="140"
-          className="stroke-text-tertiary"
-          strokeWidth="1"
-        />
-        <text x="282" y="136" className="fill-text-primary text-[13px] font-medium">
-          Bilens väg: jämn
-        </text>
-        <text x="282" y="152" className="fill-text-secondary text-[13px]">
-          tid att planera
-        </text>
-
-        <text x="20" y="232" className="fill-text-primary text-[13px] font-semibold">
-          Du
-        </text>
-        <line
-          x1="42"
-          y1="228"
-          x2="222"
-          y2="228"
-          className="stroke-text-tertiary"
-          strokeWidth="1"
-        />
+        {/* Bilen: kaross x 225–255, y 206–250 */}
+        <use href="#bl-car" transform="translate(240 228)" />
       </g>
 
-      {/* Fel: blicken strax framför bilen */}
-      <g transform="translate(0, 270)">
-        <text x="20" y="22" className="fill-text-primary text-[14px] font-semibold">
-          Fel: blicken strax framför bilen
-        </text>
+      <g className="stroke-text-tertiary" strokeWidth="1.5">
+        <line x1="229" y1="122" x2="184" y2="122" />
+        <line x1="229" y1="212" x2="174" y2="212" />
+        <line x1="229" y1="300" x2="190" y2="300" />
+      </g>
+      <g className="fill-text-tertiary">
+        <circle cx="184" cy="122" r="3" />
+        <circle cx="174" cy="212" r="3" />
+        <circle cx="190" cy="300" r="3" />
+      </g>
 
+      <Badge cx={242} cy={122} n="1" />
+      <text x="258" y="126" className="fill-text-primary text-[13px] font-semibold">
+        Blicken hit
+      </text>
+      <text x="231" y="144" className="fill-text-secondary text-[13px]">
+        dit bilen ska vara
+      </text>
+      <text x="231" y="160" className="fill-text-secondary text-[13px]">
+        om några sekunder
+      </text>
+
+      <Badge cx={242} cy={212} n="2" />
+      <text x="258" y="216" className="fill-text-primary text-[13px] font-semibold">
+        Bilens väg: jämn
+      </text>
+      <text x="231" y="234" className="fill-text-secondary text-[13px]">
+        tid att planera
+      </text>
+
+      <Badge cx={242} cy={300} n="3" />
+      <text x="258" y="304" className="fill-text-primary text-[13px] font-semibold">
+        Du
+      </text>
+      <text x="231" y="322" className="fill-text-secondary text-[13px]">
+        i högra körfältet
+      </text>
+
+      {/* Fel: blicken strax framför bilen */}
+      <path d="M 20 408 L 34 422 M 34 408 L 20 422" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
+      <text x="42" y="421" className="fill-text-primary text-[14px] font-semibold">
+        Fel: blicken strax framför bilen
+      </text>
+
+      <g transform="translate(-70 400)">
         <rect
           x="150"
           y="34"
@@ -196,70 +252,53 @@ export function BlickenLangtFramDiagram() {
         />
         <circle cx="240" cy="188" r="3" className="fill-safety-600" />
 
-        <rect
-          x="225"
-          y="206"
-          width="30"
-          height="44"
-          rx="3"
-          fill="url(#bl-car)"
-          className="stroke-attention-600"
-          strokeWidth="2"
-        />
-
-        <text x="282" y="184" className="fill-text-primary text-[13px] font-medium">
-          Blicken fastnar
-        </text>
-        <text x="282" y="200" className="fill-text-secondary text-[13px]">
-          strax framför bilen
-        </text>
-
-        <line
-          x1="252"
-          y1="118"
-          x2="276"
-          y2="118"
-          className="stroke-text-tertiary"
-          strokeWidth="1"
-        />
-        <text x="282" y="114" className="fill-text-primary text-[13px] font-medium">
-          Bilens väg: slingrar
-        </text>
-        <text x="282" y="130" className="fill-text-secondary text-[13px]">
-          ryckig styrning,
-        </text>
-        <text x="282" y="146" className="fill-text-secondary text-[13px]">
-          sena reaktioner
-        </text>
-
-        <text x="20" y="232" className="fill-text-primary text-[13px] font-semibold">
-          Du
-        </text>
-        <line
-          x1="42"
-          y1="228"
-          x2="222"
-          y2="228"
-          className="stroke-text-tertiary"
-          strokeWidth="1"
-        />
+        <use href="#bl-car" transform="translate(240 228)" />
       </g>
 
+      <g className="stroke-text-tertiary" strokeWidth="1.5">
+        <line x1="229" y1="588" x2="184" y2="588" />
+        <line x1="229" y1="520" x2="183" y2="527" />
+        <line x1="229" y1="630" x2="190" y2="630" />
+      </g>
+      <g className="fill-text-tertiary">
+        <circle cx="184" cy="588" r="3" />
+        <circle cx="183" cy="527" r="3" />
+        <circle cx="190" cy="630" r="3" />
+      </g>
+
+      <Badge cx={242} cy={520} n="2" />
+      <text x="258" y="524" className="fill-text-primary text-[13px] font-semibold">
+        Bilens väg: slingrar
+      </text>
+      <text x="231" y="542" className="fill-text-secondary text-[13px]">
+        ryckig styrning,
+      </text>
+      <text x="231" y="558" className="fill-text-secondary text-[13px]">
+        sena reaktioner
+      </text>
+
+      <Badge cx={242} cy={588} n="1" />
+      <text x="258" y="592" className="fill-text-primary text-[13px] font-semibold">
+        Blicken fastnar
+      </text>
+      <text x="231" y="610" className="fill-text-secondary text-[13px]">
+        strax framför bilen
+      </text>
+
+      <Badge cx={242} cy={630} n="3" />
+      <text x="258" y="634" className="fill-text-primary text-[13px] font-semibold">
+        Du
+      </text>
+      <text x="231" y="652" className="fill-text-secondary text-[13px]">
+        i högra körfältet
+      </text>
+
       {/* Slutsats */}
-      <text
-        x="200"
-        y="540"
-        className="fill-text-primary text-[13px] font-medium"
-        textAnchor="middle"
-      >
+      <rect x="20" y="680" width="420" height="60" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="230" y="705" className="fill-text-primary text-[13px] font-semibold" textAnchor="middle">
         Titta dit du vill att bilen ska åka —
       </text>
-      <text
-        x="200"
-        y="558"
-        className="fill-text-primary text-[13px] font-medium"
-        textAnchor="middle"
-      >
+      <text x="230" y="725" className="fill-text-primary text-[13px]" textAnchor="middle">
         blicken drar styrningen med sig.
       </text>
     </svg>

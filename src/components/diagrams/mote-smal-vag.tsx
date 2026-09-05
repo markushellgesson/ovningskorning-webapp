@@ -9,6 +9,10 @@
  * förarens högra sida bildens högra sida, alltså vägens högra halva
  * (x 260–305). Den mötande kör NEDÅT (ökande y); dess högra sida är bildens
  * vänstra, alltså vägens vänstra halva (x 215–260).
+ *
+ * Koordinaterna ovan är panelernas egna. Övre panelen ligger i en grupp med
+ * translate(20 76), nedre i translate(20 456); grupperna ger bara plats för
+ * rubrik och luft. Inga koordinater inne i panelerna har flyttats.
  */
 
 type Heading = 'up' | 'down';
@@ -47,6 +51,28 @@ function Car({
   );
 }
 
+/** Numrerad hänvisning: fylld cirkel med siffra. */
+function Badge({ cx, cy, n }: { cx: number; cy: number; n: number }) {
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
+      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
+        {n}
+      </text>
+    </g>
+  );
+}
+
+/** Tunn pekarlinje från etiketten till det den syftar på, med en punkt i änden. */
+function Pointer({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
+  return (
+    <g>
+      <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-text-secondary" strokeWidth="1.5" />
+      <circle cx={x2} cy={y2} r="3" className="fill-text-secondary" />
+    </g>
+  );
+}
+
 /** Den smala vägen: körbana x 215–305, mittlinje x 260. */
 function Road() {
   return (
@@ -70,7 +96,7 @@ function Road() {
 export function MoteSmalVagDiagram() {
   return (
     <svg
-      viewBox="0 0 520 830"
+      viewBox="0 0 560 900"
       className="w-full max-w-lg mx-auto"
       role="img"
       aria-labelledby="meet-title meet-desc"
@@ -88,9 +114,10 @@ export function MoteSmalVagDiagram() {
         farten i god tid. Nedre bilden: hindret står i vägens vänstra halva, på den mötandes sida.
         Nu är det den mötande som står stilla före hindret med texten den mötande stannar vid
         behov, medan du kör förbi i din högra halva längs en streckad grön pil, med en markerad lucka
-        i sidled mellan hindret och din bil: betryggande avstånd i sidled. Texten nederst: håll till
-        höger och lämna betryggande avstånd i sidled (3 kap 30 §). Har du hindret på din sida ska
-        du stanna om det behövs för att den mötande ska kunna passera (3 kap 30 § andra stycket).
+        i sidled mellan hindret och din bil: betryggande avstånd i sidled. Etiketterna pekar med
+        tunna linjer på det de avser. Texten nederst: håll till höger och lämna betryggande avstånd
+        i sidled (3 kap 30 §). Har du hindret på din sida ska du stanna om det behövs för att den
+        mötande ska kunna passera (3 kap 30 § andra stycket).
       </desc>
 
       <defs>
@@ -116,12 +143,49 @@ export function MoteSmalVagDiagram() {
         </marker>
       </defs>
 
+      {/* Rubrik */}
+      <text x="20" y="38" className="fill-text-primary text-[22px] font-bold">
+        Möte vid hinder på smal väg
+      </text>
+      <text x="20" y="60" className="fill-text-secondary text-[14px]">
+        Vy uppifrån. Du kör uppåt i bilden, den mötande nedåt.
+      </text>
+
       {/* Övre bilden: hindret på din sida */}
-      <g>
-        <text x="20" y="24" className="fill-text-primary text-[14px] font-semibold">
+      <g transform="translate(20 76)">
+        <text x="0" y="24" className="fill-text-primary text-[16px] font-semibold">
           Hindret på din sida: du stannar vid behov
         </text>
         <Road />
+
+        {/* Teckenförklaring, i eget hörn */}
+        <g>
+          <rect x="330" y="40" width="14" height="14" fill="url(#meet-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+          <text x="352" y="52" className="fill-text-secondary text-[13px]">
+            Din bil
+          </text>
+          <rect x="330" y="62" width="14" height="14" fill="url(#meet-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
+          <text x="352" y="74" className="fill-text-secondary text-[13px]">
+            Mötande
+          </text>
+          <rect x="330" y="84" width="14" height="14" fill="url(#meet-bars)" className="stroke-safety-600" strokeWidth="1.5" />
+          <text x="352" y="96" className="fill-text-secondary text-[13px]">
+            Hinder
+          </text>
+          <line
+            x1="330"
+            y1="113"
+            x2="360"
+            y2="113"
+            className="stroke-progress-600"
+            strokeWidth="2.5"
+            strokeDasharray="7 5"
+            markerEnd="url(#meet-arrow)"
+          />
+          <text x="368" y="118" className="fill-text-secondary text-[13px]">
+            Väg förbi hindret
+          </text>
+        </g>
 
         {/* Mötande, kör nedåt i vägens vänstra halva (x 220–255) */}
         <Car
@@ -134,12 +198,13 @@ export function MoteSmalVagDiagram() {
           stroke="stroke-primary-600"
           nose="fill-primary-600"
         />
-        <text x="205" y="74" textAnchor="end" className="fill-text-secondary text-[13px]">
-          Mötande,
+        <text x="20" y="74" className="fill-text-primary text-[14px] font-semibold">
+          Mötande
         </text>
-        <text x="205" y="92" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <text x="20" y="92" className="fill-text-secondary text-[13px]">
           kör nedåt
         </text>
+        <Pointer x1={82} y1={78} x2={218} y2={80} />
 
         {/* Den mötandes väg förbi hindret, i sin egen halva */}
         <line
@@ -152,12 +217,13 @@ export function MoteSmalVagDiagram() {
           strokeDasharray="7 5"
           markerEnd="url(#meet-arrow)"
         />
-        <text x="205" y="300" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <text x="20" y="300" className="fill-text-secondary text-[13px]">
           Den mötande
         </text>
-        <text x="205" y="318" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <text x="20" y="318" className="fill-text-secondary text-[13px]">
           passerar
         </text>
+        <Pointer x1={100} y1={304} x2={233} y2={298} />
 
         {/* Hindret i vägens högra halva (x 265–300) — din högra sida när du kör uppåt */}
         <rect
@@ -169,12 +235,13 @@ export function MoteSmalVagDiagram() {
           className="stroke-safety-600"
           strokeWidth="2"
         />
-        <text x="315" y="158" className="fill-text-primary text-[13px] font-medium">
+        <text x="340" y="158" className="fill-text-primary text-[14px] font-semibold">
           Hinder på
         </text>
-        <text x="315" y="176" className="fill-text-primary text-[13px] font-medium">
+        <text x="340" y="176" className="fill-text-primary text-[14px] font-semibold">
           din högra sida
         </text>
+        <Pointer x1={334} y1={162} x2={302} y2={162} />
 
         {/* Din bil, stannad före hindret i samma halva (x 265–300), nosen uppåt */}
         <Car
@@ -187,12 +254,14 @@ export function MoteSmalVagDiagram() {
           stroke="stroke-attention-600"
           nose="fill-attention-600"
         />
-        <text x="315" y="260" className="fill-text-primary text-[13px] font-semibold">
+        <Badge cx={350} cy={258} n={3} />
+        <text x="368" y="263" className="fill-text-primary text-[15px] font-semibold">
           Du stannar
         </text>
-        <text x="315" y="278" className="fill-text-primary text-[13px] font-semibold">
+        <text x="368" y="282" className="fill-text-primary text-[15px] font-semibold">
           vid behov
         </text>
+        <Pointer x1={338} y1={262} x2={302} y2={262} />
 
         {/* Siktlinje: ni ser varandra tidigt */}
         <line
@@ -204,26 +273,29 @@ export function MoteSmalVagDiagram() {
           strokeWidth="1.5"
           strokeDasharray="3 4"
         />
-        <text x="205" y="150" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <Badge cx={30} cy={154} n={1} />
+        <text x="46" y="159" className="fill-text-primary text-[15px] font-semibold">
           Ni ser varandra
         </text>
-        <text x="205" y="168" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <text x="46" y="177" className="fill-text-primary text-[15px] font-semibold">
           tidigt
         </text>
+        <Pointer x1={165} y1={162} x2={252} y2={172} />
 
         {/* Farten ned i god tid: avsmalnande kil i färdriktningen */}
         <polygon points="312,340 324,340 318,295" className="fill-progress-600" />
-        <text x="332" y="316" className="fill-text-secondary text-[13px]">
+        <Badge cx={350} cy={316} n={2} />
+        <text x="368" y="321" className="fill-text-primary text-[14px] font-semibold">
           Farten ned
         </text>
-        <text x="332" y="334" className="fill-text-secondary text-[13px]">
+        <text x="368" y="339" className="fill-text-secondary text-[13px]">
           i god tid
         </text>
       </g>
 
       {/* Nedre bilden: hindret på den mötandes sida */}
-      <g transform="translate(0, 390)">
-        <text x="20" y="24" className="fill-text-primary text-[14px] font-semibold">
+      <g transform="translate(20 456)">
+        <text x="0" y="24" className="fill-text-primary text-[16px] font-semibold">
           Hindret på den mötandes sida: den mötande stannar vid behov
         </text>
         <Road />
@@ -238,12 +310,13 @@ export function MoteSmalVagDiagram() {
           className="stroke-safety-600"
           strokeWidth="2"
         />
-        <text x="205" y="158" textAnchor="end" className="fill-text-primary text-[13px] font-medium">
+        <text x="20" y="158" className="fill-text-primary text-[14px] font-semibold">
           Hinder på den
         </text>
-        <text x="205" y="176" textAnchor="end" className="fill-text-primary text-[13px] font-medium">
+        <text x="20" y="176" className="fill-text-primary text-[14px] font-semibold">
           mötandes sida
         </text>
+        <Pointer x1={126} y1={162} x2={218} y2={162} />
 
         {/* Mötande, stannad före hindret i sin halva (x 220–255), nosen nedåt */}
         <Car
@@ -256,12 +329,14 @@ export function MoteSmalVagDiagram() {
           stroke="stroke-primary-600"
           nose="fill-primary-600"
         />
-        <text x="205" y="74" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
+        <Badge cx={30} cy={72} n={1} />
+        <text x="46" y="77" className="fill-text-primary text-[15px] font-semibold">
           Den mötande
         </text>
-        <text x="205" y="92" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
+        <text x="46" y="96" className="fill-text-primary text-[15px] font-semibold">
           stannar vid behov
         </text>
+        <Pointer x1={142} y1={76} x2={218} y2={78} />
 
         {/* Din väg förbi hindret, i din högra halva */}
         <line
@@ -286,49 +361,38 @@ export function MoteSmalVagDiagram() {
           stroke="stroke-attention-600"
           nose="fill-attention-600"
         />
-        <text x="315" y="286" className="fill-text-primary text-[13px] font-semibold">
+        <Badge cx={350} cy={284} n={2} />
+        <text x="368" y="289" className="fill-text-primary text-[14px] font-semibold">
           Du håller till höger
         </text>
-        <text x="315" y="304" className="fill-text-primary text-[13px] font-semibold">
+        <text x="368" y="307" className="fill-text-secondary text-[13px]">
           och passerar
         </text>
+        <Pointer x1={338} y1={288} x2={302} y2={288} />
 
         {/* Avstånd i sidled mellan hindret (x 250) och din bana (x 268) */}
         <line x1="251" y1="165" x2="267" y2="165" className="stroke-text-primary" strokeWidth="2" />
         <line x1="251" y1="160" x2="251" y2="170" className="stroke-text-primary" strokeWidth="2" />
         <line x1="267" y1="160" x2="267" y2="170" className="stroke-text-primary" strokeWidth="2" />
-        <text x="315" y="160" className="fill-text-secondary text-[13px]">
+        <Badge cx={350} cy={160} n={3} />
+        <text x="368" y="165" className="fill-text-primary text-[14px] font-semibold">
           Betryggande
         </text>
-        <text x="315" y="178" className="fill-text-secondary text-[13px]">
+        <text x="368" y="183" className="fill-text-secondary text-[13px]">
           avstånd i sidled
         </text>
-      </g>
-
-      {/* Teckenförklaring */}
-      <g transform="translate(20, 748)">
-        <rect width="16" height="16" fill="url(#meet-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="22" y="12" className="fill-text-secondary text-[13px]">
-          Din bil
-        </text>
-        <rect x="110" width="16" height="16" fill="url(#meet-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="132" y="12" className="fill-text-secondary text-[13px]">
-          Mötande
-        </text>
-        <rect x="220" width="16" height="16" fill="url(#meet-bars)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="242" y="12" className="fill-text-secondary text-[13px]">
-          Hinder
-        </text>
+        <Pointer x1={338} y1={165} x2={270} y2={165} />
       </g>
 
       {/* Regeln, som den står i momentet */}
-      <text x="20" y="786" className="fill-text-secondary text-[13px]">
+      <rect x="20" y="812" width="520" height="78" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="36" y="838" className="fill-text-primary text-[13px] font-medium">
         Håll till höger och lämna betryggande avstånd i sidled (3 kap 30 §).
       </text>
-      <text x="20" y="804" className="fill-text-secondary text-[13px]">
+      <text x="36" y="858" className="fill-text-secondary text-[13px]">
         Har du hindret på din sida ska du stanna om det behövs för att den mötande
       </text>
-      <text x="20" y="822" className="fill-text-secondary text-[13px]">
+      <text x="36" y="878" className="fill-text-secondary text-[13px]">
         ska kunna passera (3 kap 30 § andra stycket).
       </text>
     </svg>

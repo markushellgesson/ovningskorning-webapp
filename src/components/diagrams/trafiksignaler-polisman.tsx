@@ -8,8 +8,101 @@
  * Geometri i korsningen: varje bil ligger i sitt högra körfält. Bilen som kör
  * nedåt har sin högra sida åt väster (bildens vänstra); bilen som kör åt höger
  * har sin högra sida åt söder (bildens nedre); bilen som kör åt vänster har sin
- * högra sida åt norr (bildens övre).
+ * högra sida åt norr (bildens övre). Korsningen ritas i en grupp förskjuten
+ * 214 px nedåt; koordinaterna i scenen är oförändrade.
+ *
+ * Mönster: diagonala ränder = andra fordon (du är inte med i bilden). Kryss =
+ * stopp, bock = vägen är fri. Heldragen pil = rör sig nu. Bilar som ska stanna
+ * har bromsljusen tända.
  */
+
+type Heading = 'up' | 'right' | 'down' | 'left';
+const HEADING_DEG: Record<Heading, number> = { up: 0, right: 90, down: 180, left: -90 };
+
+interface CarProps {
+  cx: number;
+  cy: number;
+  width: number;
+  length: number;
+  heading: Heading;
+  fill: string;
+  stroke: string;
+  brakeLights?: boolean;
+}
+
+/**
+ * Bil ritad med fronten uppåt och sedan vriden efter färdriktningen.
+ * Karossen upptar exakt (cx ± width/2, cy ± length/2); hjulen sticker ut 3 px.
+ */
+function Car({ cx, cy, width, length, heading, fill, stroke, brakeLights }: CarProps) {
+  const hw = width / 2;
+  const hl = length / 2;
+  const glass = `fill-diagram-marking ${stroke}`;
+  return (
+    <g transform={`translate(${cx} ${cy}) rotate(${HEADING_DEG[heading]})`}>
+      <g className="fill-text-primary">
+        <rect x={-hw - 3} y={-hl + 5} width="5" height="10" rx="1.5" />
+        <rect x={hw - 2} y={-hl + 5} width="5" height="10" rx="1.5" />
+        <rect x={-hw - 3} y={hl - 15} width="5" height="10" rx="1.5" />
+        <rect x={hw - 2} y={hl - 15} width="5" height="10" rx="1.5" />
+      </g>
+      <rect x={-hw} y={-hl} width={width} height={length} rx="4" fill={fill} className={stroke} strokeWidth="2" />
+      <rect x={-hw + 5} y={-hl + 7} width={width - 10} height="8" rx="2" className={glass} strokeWidth="1" />
+      <rect x={-hw + 5} y={hl - 11} width={width - 10} height="5" rx="2" className={glass} strokeWidth="1" />
+      {brakeLights && (
+        <g className="fill-safety-600">
+          <rect x={-hw + 2} y={hl - 1} width="6" height="3" />
+          <rect x={hw - 8} y={hl - 1} width="6" height="3" />
+        </g>
+      )}
+    </g>
+  );
+}
+
+/** Numrerad hänvisning: mörk cirkel med siffra. */
+function Callout({ x, y, n }: { x: number; y: number; n: number }) {
+  return (
+    <g>
+      <circle cx={x} cy={y} r="11" className="fill-text-primary" />
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+        {n}
+      </text>
+    </g>
+  );
+}
+
+/** Tunn pekarlinje från en etikett till det den syftar på, med en punkt i målet. */
+function Pointer({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
+  return (
+    <g>
+      <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-text-tertiary" strokeWidth="1.5" />
+      <circle cx={x2} cy={y2} r="3" className="fill-text-tertiary" />
+    </g>
+  );
+}
+
+function Check({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 9} ${y} l 6 6 l 12 -13`}
+      className="fill-none stroke-progress-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  );
+}
+
+function Cross({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 8} ${y - 8} L ${x + 8} ${y + 8} M ${x + 8} ${y - 8} L ${x - 8} ${y + 8}`}
+      className="stroke-safety-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  );
+}
 
 function Lamp({
   x,
@@ -63,9 +156,9 @@ function Lamp({
           </text>
         </g>
       ) : allowed ? (
-        <path d={`M ${x - 9} 160 l 6 6 l 12 -13`} className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <Check x={x} y={160} />
       ) : (
-        <path d={`M ${x - 8} 152 L ${x + 8} 168 M ${x + 8} 152 L ${x - 8} 168`} className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
+        <Cross x={x} y={160} />
       )}
       {label.map((line, i) => (
         <text
@@ -85,7 +178,7 @@ function Lamp({
 export function TrafiksignalerPolismanDiagram() {
   return (
     <svg
-      viewBox="0 0 500 878"
+      viewBox="0 0 500 1014"
       className="w-full max-w-lg mx-auto"
       role="img"
       aria-labelledby="signals-title signals-desc"
@@ -103,21 +196,23 @@ export function TrafiksignalerPolismanDiagram() {
         trafikreglerna och framför märken och signaler; fast sken gäller framför stopp- eller
         väjningsplikt som meddelas genom vägmärke, men inte framför andra vägmärken; och en anvisning
         som avviker från en trafikregel gäller framför regeln. Nederst en korsning sedd uppifrån med
-        en polisman i mitten som ger tecken P1 stopp, vänd mot norr. Bilen som kommer uppifrån,
-        alltså framifrån, och bilen som kommer
-        nedifrån, alltså bakifrån, har båda ett kryss och en stopplinje: stopp. Bilarna som kommer
-        från vänster och höger, alltså från sidan, har båda en bock och en pil framåt: vägen är fri.
-        Samma tecken betyder alltså olika saker beroende på varifrån du kommer.
+        en polisman i mitten som ger tecken P1 stopp, vänd mot norr. En teckenförklaring skiljer på
+        heldragen pil, rör sig nu, kryss, stopp, och bock, vägen är fri. Bilen som kommer uppifrån,
+        alltså framifrån, markerad 1, och bilen som kommer nedifrån, alltså bakifrån, markerad 2,
+        har båda bromsljusen tända, ett kryss och en stopplinje: stopp. Bilarna som kommer från
+        vänster, markerad 3, och från höger, markerad 4, alltså från sidan, har båda en bock och en
+        heldragen pil framåt: vägen är fri. Samma tecken betyder alltså olika saker beroende på
+        varifrån du kommer.
       </desc>
 
       <defs>
         <pattern id="signals-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
           <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
         </pattern>
-        <marker id="signals-arrow-go" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <marker id="signals-arrow-go" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-progress-600" />
         </marker>
-        <marker id="signals-arrow-neutral" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <marker id="signals-arrow-neutral" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
         </marker>
         <marker id="signals-arrow-rank" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto">
@@ -125,174 +220,213 @@ export function TrafiksignalerPolismanDiagram() {
         </marker>
       </defs>
 
+      {/* Rubrik */}
+      <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
+        Trafiksignaler och polismans tecken
+      </text>
+
       {/* Del 1: signalbilderna */}
-      <text x="20" y="28" className="fill-text-primary text-[14px] font-semibold">
+      <text x="20" y="60" className="fill-text-primary text-[14px] font-semibold">
         Signalbilder (vägmärkesförordningen 3 kap 6 §)
       </text>
-      <Lamp x={58} lit={['red']} label={['Rött: stopp', 'före stopplinjen']} />
-      <Lamp x={154} lit={['red', 'yellow']} label={['Rött + gult:', 'vänta, ingen', 'startsignal']} />
-      <Lamp x={250} lit={['yellow']} label={['Gult: stanna,', 'kör bara om du inte', 'kan stanna utan fara']} />
-      <Lamp x={346} lit={['green']} label={['Grönt: kör,', 'om korsningen', 'är fri']} />
-      <Lamp x={442} lit={['yellow']} blinking label={['Blinkande gult:', 'särskild', 'försiktighet']} />
+      <g transform="translate(0 40)">
+        <Lamp x={58} lit={['red']} label={['Rött: stopp', 'före stopplinjen']} />
+        <Lamp x={154} lit={['red', 'yellow']} label={['Rött + gult:', 'vänta, ingen', 'startsignal']} />
+        <Lamp x={250} lit={['yellow']} label={['Gult: stanna,', 'kör bara om du', 'inte kan stanna', 'utan fara']} />
+        <Lamp x={346} lit={['green']} label={['Grönt: kör,', 'om korsningen', 'är fri']} />
+        <Lamp x={442} lit={['yellow']} blinking label={['Blinkande gult:', 'särskild', 'försiktighet']} />
+      </g>
 
-      <text x="20" y="246" className="fill-text-secondary text-[13px]">
+      <text x="20" y="300" className="fill-text-secondary text-[13px]">
         Grönt säger när du får köra, inte att vägen är fri.
       </text>
-      <text x="20" y="262" className="fill-text-secondary text-[13px]">
+      <text x="20" y="316" className="fill-text-secondary text-[13px]">
         Sök av korsningen, och lämna gående som gått ut på
       </text>
-      <text x="20" y="278" className="fill-text-secondary text-[13px]">
+      <text x="20" y="332" className="fill-text-secondary text-[13px]">
         övergångsstället möjlighet att passera (3 kap 60 §).
       </text>
 
       {/* Del 2: rangordning */}
-      <text x="20" y="306" className="fill-text-primary text-[14px] font-semibold">
+      <text x="20" y="366" className="fill-text-primary text-[14px] font-semibold">
         Rangordning
       </text>
-      <text x="20" y="322" className="fill-text-secondary text-[13px]">
+      <text x="20" y="384" className="fill-text-secondary text-[13px]">
         Det överst gäller framför det under (2 kap 2 och 3 §§)
       </text>
       <g>
-        <rect x="20" y="332" width="210" height="28" rx="6" className="fill-attention-100 stroke-attention-600" strokeWidth="1.5" />
-        <text x="32" y="351" className="fill-text-primary text-[13px] font-semibold">
+        <rect x="20" y="396" width="210" height="28" rx="6" className="fill-attention-100 stroke-attention-600" strokeWidth="1.5" />
+        <text x="32" y="415" className="fill-text-primary text-[13px] font-semibold">
           1. Polismans tecken
         </text>
-        <path d="M 125 361 L 125 371" className="stroke-text-secondary" strokeWidth="2" markerEnd="url(#signals-arrow-rank)" />
+        <path d="M 125 426 L 125 440" className="stroke-text-secondary" strokeWidth="2" markerEnd="url(#signals-arrow-rank)" />
 
-        <rect x="20" y="364" width="210" height="28" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-        <text x="32" y="383" className="fill-text-primary text-[13px] font-semibold">
+        <rect x="20" y="446" width="210" height="28" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+        <text x="32" y="465" className="fill-text-primary text-[13px] font-semibold">
           2. Trafiksignal, fast sken
         </text>
-        <path d="M 125 393 L 125 403" className="stroke-text-secondary" strokeWidth="2" markerEnd="url(#signals-arrow-rank)" />
+        <path d="M 125 476 L 125 490" className="stroke-text-secondary" strokeWidth="2" markerEnd="url(#signals-arrow-rank)" />
 
-        <rect x="20" y="396" width="210" height="28" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-        <text x="32" y="415" className="fill-text-primary text-[13px] font-semibold">
+        <rect x="20" y="496" width="210" height="28" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+        <text x="32" y="515" className="fill-text-primary text-[13px] font-semibold">
           3. Vägmärke och vägmarkering
         </text>
-        <path d="M 125 425 L 125 435" className="stroke-text-secondary" strokeWidth="2" markerEnd="url(#signals-arrow-rank)" />
+        <path d="M 125 526 L 125 540" className="stroke-text-secondary" strokeWidth="2" markerEnd="url(#signals-arrow-rank)" />
 
-        <rect x="20" y="428" width="210" height="28" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-        <text x="32" y="447" className="fill-text-primary text-[13px] font-semibold">
+        <rect x="20" y="546" width="210" height="28" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+        <text x="32" y="565" className="fill-text-primary text-[13px] font-semibold">
           4. Trafikregel
         </text>
 
-        <text x="244" y="344" className="fill-text-secondary text-[11px]">
+        {/* Förbehållen, i höjd med den ruta de hör till */}
+        <text x="244" y="404" className="fill-text-secondary text-[13px]">
           Polismans anvisning gäller framför
         </text>
-        <text x="244" y="357" className="fill-text-secondary text-[11px]">
+        <text x="244" y="420" className="fill-text-secondary text-[13px]">
           trafikreglerna och framför märken
         </text>
-        <text x="244" y="370" className="fill-text-secondary text-[11px]">
+        <text x="244" y="436" className="fill-text-secondary text-[13px]">
           och signaler (2 kap 3 §).
         </text>
-        <text x="244" y="390" className="fill-text-secondary text-[11px]">
+        <text x="244" y="454" className="fill-text-secondary text-[13px]">
           Fast sken gäller framför stopp- eller
         </text>
-        <text x="244" y="403" className="fill-text-secondary text-[11px]">
+        <text x="244" y="470" className="fill-text-secondary text-[13px]">
           väjningsplikt som meddelas genom
         </text>
-        <text x="244" y="416" className="fill-text-secondary text-[11px]">
+        <text x="244" y="486" className="fill-text-secondary text-[13px]">
           vägmärke, men inte framför andra
         </text>
-        <text x="244" y="429" className="fill-text-secondary text-[11px]">
+        <text x="244" y="502" className="fill-text-secondary text-[13px]">
           vägmärken (2 kap 2 § andra stycket).
         </text>
-        <text x="244" y="449" className="fill-text-secondary text-[11px]">
+        <text x="244" y="542" className="fill-text-secondary text-[13px]">
           En anvisning som avviker från en
         </text>
-        <text x="244" y="462" className="fill-text-secondary text-[11px]">
+        <text x="244" y="558" className="fill-text-secondary text-[13px]">
           trafikregel gäller framför regeln
         </text>
-        <text x="244" y="475" className="fill-text-secondary text-[11px]">
+        <text x="244" y="574" className="fill-text-secondary text-[13px]">
           (2 kap 2 § första stycket).
         </text>
       </g>
 
-      <g transform="translate(0, 98)">
       {/* Del 3: P1 stopp beror på varifrån du kommer */}
-      <text x="20" y="408" className="fill-text-primary text-[14px] font-semibold">
+      <text x="20" y="618" className="fill-text-primary text-[14px] font-semibold">
         Polismans tecken P1 stopp: samma tecken, olika betydelse
       </text>
-      <text x="20" y="424" className="fill-text-secondary text-[13px]">
+      <text x="20" y="636" className="fill-text-secondary text-[13px]">
         Det beror på varifrån du kommer (vägmärkesförordningen 7 kap 2 §)
       </text>
 
-      {/* Korsningen */}
-      <rect x="200" y="436" width="100" height="344" className="fill-diagram-road" />
-      <rect x="40" y="560" width="420" height="100" className="fill-diagram-road" />
-      <line x1="250" y1="436" x2="250" y2="560" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8" />
-      <line x1="250" y1="660" x2="250" y2="780" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8" />
-      <line x1="40" y1="610" x2="200" y2="610" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8" />
-      <line x1="300" y1="610" x2="460" y2="610" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8" />
+      <g transform="translate(0 214)">
+        {/* Korsningen */}
+        <rect x="200" y="436" width="100" height="344" className="fill-diagram-road" />
+        <rect x="40" y="560" width="420" height="100" className="fill-diagram-road" />
+        <g className="stroke-diagram-edge" strokeWidth="1.5">
+          <line x1="200" y1="436" x2="200" y2="560" />
+          <line x1="300" y1="436" x2="300" y2="560" />
+          <line x1="200" y1="660" x2="200" y2="780" />
+          <line x1="300" y1="660" x2="300" y2="780" />
+          <line x1="40" y1="560" x2="200" y2="560" />
+          <line x1="40" y1="660" x2="200" y2="660" />
+          <line x1="300" y1="560" x2="460" y2="560" />
+          <line x1="300" y1="660" x2="460" y2="660" />
+        </g>
+        <g className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8">
+          <line x1="250" y1="436" x2="250" y2="560" />
+          <line x1="250" y1="660" x2="250" y2="780" />
+          <line x1="40" y1="610" x2="200" y2="610" />
+          <line x1="300" y1="610" x2="460" y2="610" />
+        </g>
 
-      {/* Polisman i mitten, vänd mot norr. Utförandet av P1 beskrivs inte i
-          vägmärkesförordningens text, bara tecknets innebörd (7 kap 2 §) —
-          därför ritas ingen armställning och påstås ingen. */}
-      <g>
-        <line x1="238" y1="610" x2="262" y2="610" className="stroke-attention-600" strokeWidth="6" strokeLinecap="round" />
-        <circle cx="250" cy="610" r="9" className="fill-attention-600" />
-        <path d="M 250 589 L 243 600 L 257 600 Z" className="fill-attention-600" />
-        <text x="308" y="632" className="fill-text-primary text-[13px] font-semibold">
-          Polisman ger P1 stopp,
-        </text>
-        <text x="308" y="648" className="fill-text-primary text-[13px] font-semibold">
-          vänd uppåt i bilden
-        </text>
-      </g>
+        {/* Teckenförklaring, övre vänstra hörnet */}
+        <g>
+          <path d="M 40 452 L 66 452" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#signals-arrow-neutral)" />
+          <text x="74" y="457" className="fill-text-secondary text-[13px]">
+            Rör sig nu
+          </text>
+          <Cross x={53} y={474} />
+          <text x="74" y="479" className="fill-text-secondary text-[13px]">
+            Stopp
+          </text>
+          <Check x={53} y={496} />
+          <text x="74" y="501" className="fill-text-secondary text-[13px]">
+            Vägen är fri
+          </text>
+        </g>
 
-      {/* Framifrån (norr): kör nedåt i västra körfältet. Stopp. */}
-      <g>
-        <rect x="210" y="445" width="30" height="40" rx="3" fill="url(#signals-stripes)" className="stroke-primary-600" strokeWidth="2" />
-        <path d="M 225 490 L 225 508" className="stroke-primary-600" strokeWidth="2" markerEnd="url(#signals-arrow-neutral)" />
-        <path d="M 217 514 L 233 530 M 233 514 L 217 530" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
-        <line x1="202" y1="538" x2="248" y2="538" className="stroke-safety-600" strokeWidth="4" />
-        <text x="310" y="465" className="fill-text-primary text-[13px] font-semibold">
-          Framifrån:
-        </text>
-        <text x="310" y="481" className="fill-text-primary text-[13px] font-semibold">
-          stopp
-        </text>
-      </g>
+        {/* Polisman i mitten, vänd mot norr. Utförandet av P1 beskrivs inte i
+            vägmärkesförordningens text, bara tecknets innebörd (7 kap 2 §) —
+            därför ritas ingen armställning och påstås ingen. */}
+        <g>
+          <line x1="238" y1="610" x2="262" y2="610" className="stroke-attention-600" strokeWidth="6" strokeLinecap="round" />
+          <circle cx="250" cy="610" r="9" className="fill-attention-600" />
+          <path d="M 250 589 L 243 600 L 257 600 Z" className="fill-attention-600" />
+          <text x="322" y="520" className="fill-text-primary text-[13px] font-semibold">
+            Polisman ger P1 stopp,
+          </text>
+          <text x="322" y="537" className="fill-text-secondary text-[13px]">
+            vänd uppåt i bilden
+          </text>
+          <Pointer x1={318} y1={532} x2={262} y2={598} />
+        </g>
 
-      {/* Bakifrån (söder): kör uppåt i östra körfältet. Stopp. */}
-      <g>
-        <rect x="260" y="725" width="30" height="40" rx="3" fill="url(#signals-stripes)" className="stroke-primary-600" strokeWidth="2" />
-        <path d="M 275 720 L 275 702" className="stroke-primary-600" strokeWidth="2" markerEnd="url(#signals-arrow-neutral)" />
-        <path d="M 267 680 L 283 696 M 283 680 L 267 696" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
-        <line x1="252" y1="672" x2="298" y2="672" className="stroke-safety-600" strokeWidth="4" />
-        <text x="190" y="745" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
-          Bakifrån:
-        </text>
-        <text x="190" y="761" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
-          stopp
-        </text>
-      </g>
+        {/* 1. Framifrån (norr): kör nedåt i västra körfältet. Stopp. */}
+        <g>
+          <Car cx={225} cy={465} width={30} length={40} heading="down" fill="url(#signals-stripes)" stroke="stroke-primary-600" brakeLights />
+          <path d="M 225 490 L 225 508" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#signals-arrow-neutral)" />
+          <Cross x={225} y={522} />
+          <line x1="202" y1="538" x2="248" y2="538" className="stroke-safety-600" strokeWidth="4" />
+          <Callout x={322} y={452} n={1} />
+          <text x="338" y="457" className="fill-text-primary text-[13px] font-semibold">
+            Framifrån: stopp
+          </text>
+          <Pointer x1={318} y1={462} x2={243} y2={465} />
+        </g>
 
-      {/* Från sidan (väster): kör åt höger i södra körfältet. Fri väg. */}
-      <g>
-        <rect x="60" y="620" width="40" height="30" rx="3" fill="url(#signals-stripes)" className="stroke-primary-600" strokeWidth="2" />
-        <path d="M 105 635 L 160 635" className="stroke-progress-600" strokeWidth="3" markerEnd="url(#signals-arrow-go)" />
-        <path d="M 172 636 l 5 5 l 10 -11" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="40" y="530" className="fill-text-primary text-[13px] font-semibold">
-          Från sidan:
-        </text>
-        <text x="40" y="546" className="fill-text-primary text-[13px] font-semibold">
-          vägen är fri
-        </text>
-      </g>
+        {/* 2. Bakifrån (söder): kör uppåt i östra körfältet. Stopp. */}
+        <g>
+          <Car cx={275} cy={745} width={30} length={40} heading="up" fill="url(#signals-stripes)" stroke="stroke-primary-600" brakeLights />
+          <path d="M 275 720 L 275 702" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#signals-arrow-neutral)" />
+          <Cross x={275} y={688} />
+          <line x1="252" y1="672" x2="298" y2="672" className="stroke-safety-600" strokeWidth="4" />
+          <Callout x={30} y={742} n={2} />
+          <text x="46" y="747" className="fill-text-primary text-[13px] font-semibold">
+            Bakifrån: stopp
+          </text>
+          <Pointer x1={150} y1={742} x2={257} y2={745} />
+        </g>
 
-      {/* Från sidan (öster): kör åt vänster i norra körfältet. Fri väg. */}
-      <g>
-        <rect x="400" y="570" width="40" height="30" rx="3" fill="url(#signals-stripes)" className="stroke-primary-600" strokeWidth="2" />
-        <path d="M 395 585 L 340 585" className="stroke-progress-600" strokeWidth="3" markerEnd="url(#signals-arrow-go)" />
-        <path d="M 312 586 l 5 5 l 10 -11" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="460" y="684" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
-          Från sidan:
-        </text>
-        <text x="460" y="700" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
-          vägen är fri
-        </text>
-      </g>
+        {/* 3. Från sidan (väster): kör åt höger i södra körfältet. Fri väg. */}
+        <g>
+          <Car cx={80} cy={635} width={30} length={40} heading="right" fill="url(#signals-stripes)" stroke="stroke-primary-600" />
+          <path d="M 105 635 L 160 635" className="stroke-progress-600" strokeWidth="3" markerEnd="url(#signals-arrow-go)" />
+          <Check x={181} y={636} />
+          <Callout x={30} y={528} n={3} />
+          <text x="46" y="533" className="fill-text-primary text-[13px] font-semibold">
+            Från sidan:
+          </text>
+          <text x="46" y="550" className="fill-text-primary text-[13px] font-semibold">
+            vägen är fri
+          </text>
+          <Pointer x1={60} y1={558} x2={80} y2={617} />
+        </g>
+
+        {/* 4. Från sidan (öster): kör åt vänster i norra körfältet. Fri väg. */}
+        <g>
+          <Car cx={420} cy={585} width={30} length={40} heading="left" fill="url(#signals-stripes)" stroke="stroke-primary-600" />
+          <path d="M 395 585 L 340 585" className="stroke-progress-600" strokeWidth="3" markerEnd="url(#signals-arrow-go)" />
+          <Check x={321} y={586} />
+          <Callout x={330} y={712} n={4} />
+          <text x="346" y="717" className="fill-text-primary text-[13px] font-semibold">
+            Från sidan:
+          </text>
+          <text x="346" y="734" className="fill-text-primary text-[13px] font-semibold">
+            vägen är fri
+          </text>
+          <Pointer x1={356} y1={702} x2={420} y2={603} />
+        </g>
       </g>
     </svg>
   );

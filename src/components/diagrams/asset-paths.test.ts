@@ -18,7 +18,7 @@ import { describe, expect, it } from 'vitest';
 const DIAGRAM_DIR = join(__dirname);
 
 /** Kataloger under `public/` som diagrammen refererar till. */
-const PUBLIC_DIRS = ['signs', 'photos'];
+const PUBLIC_DIRS = ['signs'];
 
 function diagramSources(): { file: string; source: string }[] {
   return readdirSync(DIAGRAM_DIR)
