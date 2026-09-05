@@ -1,66 +1,76 @@
 /**
- * Backning runt hörn (MAN-08) — bakhjulens täta kurva, framvagnens svep och
- * blickriktningen. Trafikförordningen 3 kap 46 § första stycket är den enda
- * regeln i momentet; resten är körteknik.
+ * Backning runt hörn (MAN-08) — bakhjulen går den tätare kurvan och skär
+ * hörnet, medan framvagnen samtidigt sveper ut åt motsatt håll. Blicken
+ * går bakåt över axeln.
  *
- * Geometri (högertrafik, vy uppifrån, 12 px ≈ 1 m). Scenen ligger i en grupp
- * med translate(20 64); koordinaterna nedan är gruppens lokala.
+ * Skala 12 px = 1 m. Kaross 22 × 53 px, hjulbas 31 px, bakaxeln 11 px fram
+ * om bakre kanten, nosen 42 px fram om bakaxeln. Bakaxelns radie vid fullt
+ * rattutslag 55 px (4,6 m), vilket svarar mot styrvinkeln 29,4°.
+ *
+ * Geometri (högertrafik, vy uppifrån). Scenen ligger i en grupp med
+ * translate(20 64); koordinaterna nedan är gruppens lokala.
  * - Huvudgatan går lodrätt, x 136–220, mittlinje x 178. Din bil har nosen
- *   uppåt och står därför i det östra (högra) körfältet, x 182–204.
- * - Sidogatan går ut åt höger (öster) från x 220, y 290–374. Innerhörnet
- *   ligger i (220, 290).
- * - Bilen backar först rakt (bakaxel från y 122 till y 262), sedan med
- *   fullt högerutslag: bakaxeln går en cirkel med radie 55 runt (248, 262).
- *   Inre bakhjulet (11 från bakaxelns mitt) går radie 44 runt samma punkt;
- *   hörnet ligger 39,6 från centrum, alltså innanför hjulets bana, så hjulet
- *   passerar hörnet med 4,4 px marginal. Yttre framhörnet (43 fram, 11 ut)
- *   går radie 79 och svänger ut till x 169 — över mittlinjen x 178.
- * - Efter svängen backar bilen rakt österut och slutar med nosen åt väster
- *   i sidogatans norra halva, som är höger körfält för den riktningen.
+ *   uppåt (norrut). Kör man uppåt i bilden är den egna högra sidan bildens
+ *   högra, så du ligger i det östra körfältet x 178–220: kaross x 182–204,
+ *   y 80–133. Det västra körfältet x 136–178 är mötande.
+ * - Sidogatan går ut åt öster från x 220, y 290–374, mittlinje y 332.
+ *   Innerhörnet ligger i (220, 290).
+ * - Du backar först rakt: bakaxeln från y 122 till y 262. Sedan fullt
+ *   utslag; bakaxeln går radie 55 kring (248, 262) medan kursen vrids från
+ *   norr till väster.
+ * - Inre bakhjulet går 11 px innanför bakaxelns mitt, alltså radie 44 kring
+ *   samma punkt. Hörnet ligger 39,60 px från centrum. Hjulbanan passerar
+ *   därför 4,40 px (0,37 m) utanför hörnet — den skär tätt.
+ * - Yttre främre hörnet ligger 42 px fram och 11 px ut från bakaxeln, på
+ *   svängens ytterkant, alltså radie √(66² + 42²) = 78,23 kring samma
+ *   centrum. Det når som längst väster x 169,77 vid kursen 122,5° — alltså
+ *   8,23 px (0,69 m) förbi mittlinjen x 178, in i det mötande körfältet.
+ *   Effekten är liten i bild men det är den sanna storleksordningen.
+ * - Efter bågen backar bilen rakt österut och slutar med nosen åt väster,
+ *   kaross x 252–305, y 306–328. Kör man åt väster är den egna högra sidan
+ *   bildens övre, så sidogatans norra halva y 290–332 är rätt körfält.
  *
- * Förklaringsrutan längst ned är fristående: samma bil i ett kort stycke
- * sidogata, rak (rotate -90) när ratten rätats upp i tid, respektive kvar i
- * sväng (rotate -110) när uppriktningen kommer för sent.
+ * Mönster: prickar = din bil, diagonala ränder = mötande fordon,
+ * skraffering = konfliktyta. Heldragen linje = bakhjulets väg, streckad =
+ * framvagnens svep, prickad = blicken. Förklaringsrutan använder samma
+ * lokala koordinater i skala 0,75: det mötande fordonet kör nedåt i bilden
+ * och ligger därför i det västra körfältet x 136–178 — samma körfält som
+ * framvagnens svep tränger in i.
  */
 
-function Bil({ cx, cy, rotate }: { cx: number; cy: number; rotate: number }) {
+/** Bil ritad med fronten uppåt och sedan vriden. Kaross 22 × 53, hjulen sticker ut 3 px. */
+function Bil({
+  cx,
+  cy,
+  rot,
+  fill,
+  stroke,
+  nose,
+}: {
+  cx: number;
+  cy: number;
+  rot: number;
+  fill: string;
+  stroke: string;
+  nose: string;
+}) {
   return (
-    <g transform={`translate(${cx} ${cy}) rotate(${rotate})`}>
-      {/* Hjul: bakaxel vid lokal y 15.5, framaxel vid -15.5 */}
-      <rect x="-14" y="11" width="4" height="9" rx="1" className="fill-attention-600" />
-      <rect x="10" y="11" width="4" height="9" rx="1" className="fill-attention-600" />
-      <rect x="-14" y="-20" width="4" height="9" rx="1" className="fill-attention-600" />
-      <rect x="10" y="-20" width="4" height="9" rx="1" className="fill-attention-600" />
-      <rect
-        x="-11"
-        y="-26.5"
-        width="22"
-        height="53"
-        rx="3"
-        fill="url(#bh-dots)"
-        className="stroke-attention-600"
-        strokeWidth="2"
-      />
-      {/* Nosen: fylld spets som visar vart bilen pekar */}
-      <polygon points="-7,-18 0,-25 7,-18" className="fill-attention-600" />
+    <g transform={`translate(${cx} ${cy}) rotate(${rot})`}>
+      <g className="fill-text-primary">
+        <rect x="-14" y="-20" width="4" height="9" rx="1" />
+        <rect x="10" y="-20" width="4" height="9" rx="1" />
+        <rect x="-14" y="11" width="4" height="9" rx="1" />
+        <rect x="10" y="11" width="4" height="9" rx="1" />
+      </g>
+      <rect x="-11" y="-26.5" width="22" height="53" rx="3" className="fill-surface-base" />
+      <rect x="-11" y="-26.5" width="22" height="53" rx="3" fill={fill} className={stroke} strokeWidth="2" />
+      <polygon points="-7,-17 0,-24 7,-17" className={nose} />
     </g>
   );
 }
 
-/** Kort stycke sidogata till förklaringsrutan: två körfält, 160 × 84. */
-function Minigata() {
-  return (
-    <g>
-      <rect x="0" y="0" width="160" height="84" className="fill-diagram-road" />
-      <line x1="0" y1="0" x2="160" y2="0" className="stroke-diagram-edge" strokeWidth="2" />
-      <line x1="0" y1="84" x2="160" y2="84" className="stroke-diagram-edge" strokeWidth="2" />
-      <line x1="0" y1="42" x2="160" y2="42" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8" />
-    </g>
-  );
-}
-
-/** Fylld siffra, som i hänvisningarna i vänstersvängsbilden. */
-function Siffra({ n, x, y }: { n: number; x: number; y: number }) {
+/** Numrerad hänvisning: mörk cirkel med siffra. */
+function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
@@ -71,7 +81,7 @@ function Siffra({ n, x, y }: { n: number; x: number; y: number }) {
   );
 }
 
-/** Tunn hänvisningslinje som slutar i en punkt på det den pekar på. */
+/** Tunn pekarlinje som slutar i en punkt på det den syftar på. */
 function Pekare({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
   return (
     <g>
@@ -81,81 +91,137 @@ function Pekare({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: nu
   );
 }
 
+function Check({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 9} ${y} l 6 6 l 12 -13`}
+      className="fill-none stroke-progress-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  );
+}
+
+function Cross({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 7} ${y - 7} L ${x + 7} ${y + 7} M ${x + 7} ${y - 7} L ${x - 7} ${y + 7}`}
+      className="stroke-safety-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  );
+}
+
+/**
+ * Samma hörn i skala 0,75 för förklaringsrutan, i huvudbildens lokala
+ * koordinater (utsnitt x 130–262, y 195–350). Din bil står i svepets
+ * ytterläge, kurs 122,5°. Det mötande fordonet kör nedåt i bilden och
+ * ligger därför i västra körfältet x 136–178.
+ */
+function MiniHorn({ x, y, motande }: { x: number; y: number; motande: boolean }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(0.75) translate(-130 -195)`}>
+      <rect x="136" y="195" width="84" height="155" className="fill-diagram-road" />
+      <rect x="220" y="290" width="42" height="60" className="fill-diagram-road" />
+      <g className="stroke-diagram-edge" strokeWidth="2">
+        <line x1="136" y1="195" x2="136" y2="350" />
+        <line x1="220" y1="195" x2="220" y2="290" />
+        <line x1="220" y1="290" x2="262" y2="290" />
+      </g>
+      <line
+        x1="178"
+        y1="195"
+        x2="178"
+        y2="350"
+        className="stroke-diagram-marking"
+        strokeWidth="2.5"
+        strokeDasharray="10 8"
+      />
+      {/* Framvagnens svep över mittlinjen */}
+      <path
+        d="M 178 227.1 A 78.23 78.23 0 0 0 178 296.9 Z"
+        fill={motande ? 'url(#bh-hatch)' : 'none'}
+        className="stroke-safety-600"
+        strokeWidth="2"
+        strokeDasharray="6 4"
+      />
+      {motande && (
+        <g>
+          <Bil cx={157} cy={228} rot={180} fill="url(#bh-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+          <path
+            d="M 157 257 L 157 286"
+            className="stroke-primary-600"
+            strokeWidth="4"
+            markerEnd="url(#bh-arrow-other)"
+          />
+        </g>
+      )}
+      <Bil cx={193.3} cy={278.5} rot={-32.5} fill="url(#bh-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
+    </g>
+  );
+}
+
 export function BackningRuntHornetDiagram() {
   return (
     <svg
-      viewBox="0 0 440 936"
+      viewBox="0 0 440 946"
       className="w-full max-w-md mx-auto"
       role="img"
       aria-labelledby="bh-title bh-desc"
     >
-      <title id="bh-title">Backning runt hörn: bakhjulen går tätt, framvagnen svänger ut</title>
+      <title id="bh-title">Backning runt hörn: bakhjulen skär hörnet, framvagnen sveper ut</title>
       <desc id="bh-desc">
-        Vy uppifrån av en lodrät gata med en sidogata som går ut åt höger. Din bil, ritad med
-        prickmönster och en fylld nos, står i högra körfältet med nosen uppåt och backar nedåt i
-        bilden och runt hörnet in i sidogatan, där den slutar med nosen åt vänster i sidogatans
-        övre halva. Bilen visas i tre lägen: start, mitt i svängen och slut. Tre fyllda siffror
-        med tunna linjer till det de syftar på: 1, till vänster om gatan, pekar på den raka
-        backningen först. 2, också till vänster, pekar på framvagnens svep där det går ut över
-        mittlinjen: ratten vrids åt höger, det håll bakvagnen ska, och framvagnen svänger då ut
-        åt vänster, motsatt håll. 3, ovanför sidogatan, pekar på bilen i slutläget: ratten rätas
-        upp innan bilen är framme. En heldragen linje visar det inre bakhjulets väg: den går tätt
-        intill hörnet i en snäv kurva. En streckad linje visar det yttre framhörnets svep: en
-        vidare kurva som svänger ut åt vänster över gatans mittlinje. En prickad linje från
-        förarplatsen pekar bakåt över axeln dit bilen ska. En teckenförklaring i övre högra
-        hörnet förklarar de tre linjerna. Under bilden står stegen och regeln: backa endast om
-        det kan ske utan fara eller hinder för andra vägtrafikanter, och skyldigheten ligger på
-        dig som backar. Längst ned en förklaringsruta med två små bilder av sidogatan: till
-        vänster har ratten rätats upp i tid och bilen står rakt i körfältet, markerat med en
-        bock; till höger kom uppriktningen för sent och bilen står snett med nosen mot
-        mittlinjen, markerat med ett kryss.
+        Vy uppifrån av en lodrät gata med en sidogata som går ut åt höger. Din bil, fylld med
+        prickmönster och med en fylld nosspets, står med nosen uppåt i det högra körfältet och
+        backar nedåt i bilden och sedan runt hörnet in i sidogatan, där den slutar med nosen åt
+        vänster i sidogatans övre halva. Bilen visas i tre lägen som inte överlappar varandra:
+        start, mitt i svängen och slut. En heldragen linje visar det inre bakhjulets väg: den går
+        tätt intill hörnet i en snäv kurva, markering 1. En streckad linje visar det yttre främre
+        hörnets svep: en betydligt vidare kurva åt motsatt håll, som går en bit över gatans
+        mittlinje in i det mötande körfältet. Det övertrampet är markerat 2 och som en liten
+        skrafferad yta med konturlinje. En prickad linje från förarplatsen pekar bakåt över axeln
+        in i sidogatan, markering 3: speglarna täcker inte det här. En teckenförklaring skiljer
+        på heldragen linje, bakhjulets väg, streckad linje, framvagnens svep, och prickad linje,
+        blicken. Under bilden står regeln: du får backa endast om det kan ske utan fara eller
+        hinder för andra vägtrafikanter, och skyldigheten ligger på dig som backar. Längst ned en
+        ruta med två små bilder av samma hörn: till vänster är körbanan bakom och bredvid fri och
+        svepet får plats, markerat med en bock; till höger kommer ett randigt fordon emot i det
+        körfält som svepet går in i, ytan är skrafferad, och backningen får då inte göras,
+        markerat med ett kryss.
       </desc>
 
       <defs>
         <pattern id="bh-dots" patternUnits="userSpaceOnUse" width="8" height="8">
-          <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
+          <circle cx="4" cy="4" r="1.6" className="fill-attention-600" />
         </pattern>
-        <marker
-          id="bh-arrow-rear"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto"
-        >
-          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-progress-600" />
+        <pattern id="bh-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
+          <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
+        </pattern>
+        <pattern id="bh-hatch" patternUnits="userSpaceOnUse" width="7" height="7">
+          <path d="M-1,1 l2,-2 M0,7 l7,-7 M6,8 l2,-2" className="stroke-safety-600" strokeWidth="1.6" />
+        </pattern>
+        <marker id="bh-arrow-rear" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-attention-600" />
         </marker>
-        <marker
-          id="bh-arrow-front"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto"
-        >
+        <marker id="bh-arrow-front" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-safety-600" />
         </marker>
-        <marker
-          id="bh-arrow-look"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto"
-        >
+        <marker id="bh-arrow-look" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-tertiary" />
+        </marker>
+        <marker id="bh-arrow-other" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
         </marker>
       </defs>
 
       {/* Rubrik */}
-      <text x="20" y="34" className="fill-text-primary text-[20px] font-semibold">
+      <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Backning runt hörn
       </text>
-      <text x="20" y="56" className="fill-text-secondary text-[13px]">
-        Bakhjulen går tätt intill hörnet, framvagnen svänger ut
+      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+        Bakhjulen skär hörnet, framvagnen sveper ut
       </text>
 
       <g transform="translate(20 64)">
@@ -175,178 +241,227 @@ export function BackningRuntHornetDiagram() {
         {/* Mittlinjer */}
         <g className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 8">
           <line x1="178" y1="40" x2="178" y2="420" />
-          <line x1="232" y1="332" x2="400" y2="332" />
+          <line x1="236" y1="332" x2="400" y2="332" />
         </g>
 
-        {/* Teckenförklaring i övre högra hörnet */}
+        {/* Teckenförklaring i den fria ytan ovanför sidogatan */}
         <g>
-          <line x1="240" y1="62" x2="270" y2="62" className="stroke-progress-600" strokeWidth="2.5" />
-          <text x="278" y="66" className="fill-text-secondary text-[13px]">
+          <line x1="238" y1="96" x2="266" y2="96" className="stroke-attention-600" strokeWidth="3" />
+          <text x="274" y="101" className="fill-text-secondary text-[13px]">
             Bakhjulets väg
           </text>
-          <line x1="240" y1="84" x2="270" y2="84" className="stroke-safety-600" strokeWidth="2.5" strokeDasharray="7 5" />
-          <text x="278" y="88" className="fill-text-secondary text-[13px]">
+          <line
+            x1="238"
+            y1="118"
+            x2="266"
+            y2="118"
+            className="stroke-safety-600"
+            strokeWidth="3"
+            strokeDasharray="7 5"
+          />
+          <text x="274" y="123" className="fill-text-secondary text-[13px]">
             Framvagnens svep
           </text>
-          <line x1="240" y1="106" x2="270" y2="106" className="stroke-primary-600" strokeWidth="2" strokeDasharray="2 4" />
-          <text x="278" y="110" className="fill-text-secondary text-[13px]">
+          <line
+            x1="238"
+            y1="140"
+            x2="266"
+            y2="140"
+            className="stroke-text-tertiary"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeDasharray="0.5 6"
+          />
+          <text x="274" y="145" className="fill-text-secondary text-[13px]">
             Blicken
           </text>
         </g>
 
-        {/* Hörnet */}
-        <circle cx="220" cy="290" r="4" className="fill-safety-600" />
-        <text x="230" y="282" className="fill-text-primary text-[13px] font-medium">
-          Hörnet
-        </text>
-
-        {/* Bilen i tre lägen: start, mitt i svängen, slut */}
-        <Bil cx={193} cy={106.5} rotate={0} />
-        <Bil cx={198} cy={290} rotate={-45} />
-        <Bil cx={284.5} cy={317} rotate={-90} />
-        <text x="193" y="68" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
-          Start
-        </text>
-        <text x="284" y="360" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
-          Slut
-        </text>
-
-        {/* Inre bakhjulets väg: rakt ned, snäv kurva radie 44 runt (248,262), rakt österut */}
+        {/* Konfliktytan: den del av svepet som ligger väster om mittlinjen */}
         <path
-          d="M 204 122 L 204 262 A 44 44 0 0 0 248 306 L 300 306"
-          className="fill-none stroke-progress-600"
-          strokeWidth="2.5"
+          d="M 178 227.1 A 78.23 78.23 0 0 0 178 296.9 Z"
+          fill="url(#bh-hatch)"
+          className="stroke-safety-600"
+          strokeWidth="1.5"
+        />
+
+        {/* Inre bakhjulets väg: rakt ned, snäv kurva radie 44, rakt österut */}
+        <path
+          d="M 204 122 L 204 262 A 44 44 0 0 0 248 306"
+          className="fill-none stroke-attention-600"
+          strokeWidth="3"
           markerEnd="url(#bh-arrow-rear)"
         />
 
-        {/* Yttre framhörnets svep: rakt ned, vid kurva radie 79 runt samma centrum, rakt österut */}
+        {/* Yttre främre hörnets svep: rakt ned, vid kurva radie 78,23, rakt österut */}
         <path
-          d="M 182 80 L 182 219 A 79 79 0 0 0 205 328 L 257 328"
+          d="M 182 80 L 182 220 A 78.23 78.23 0 0 0 206 328"
           className="fill-none stroke-safety-600"
           strokeWidth="2.5"
           strokeDasharray="7 5"
           markerEnd="url(#bh-arrow-front)"
         />
 
-        {/* Blicken: från förarplatsen bakåt över axeln, dit bilen ska */}
-        <circle cx="186" cy="285" r="4" className="fill-primary-600" />
+        {/* Bilen i tre lägen: start, svepets ytterläge, slut */}
+        <Bil cx={193} cy={106.5} rot={0} fill="url(#bh-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
+        <Bil cx={193.3} cy={278.5} rot={-32.5} fill="url(#bh-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
+        <Bil cx={278.5} cy={317} rot={-90} fill="url(#bh-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
+
+        {/* Blicken bakåt över axeln, dit bilen ska */}
+        <circle cx="180.4" cy="273.1" r="3.5" className="fill-text-tertiary" />
         <line
-          x1="186"
-          y1="285"
-          x2="262"
-          y2="352"
-          className="stroke-primary-600"
-          strokeWidth="2"
-          strokeDasharray="2 4"
+          x1="180.4"
+          y1="273.1"
+          x2="245"
+          y2="330"
+          className="stroke-text-tertiary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeDasharray="0.5 6"
           markerEnd="url(#bh-arrow-look)"
         />
-        <text x="232" y="396" className="fill-text-primary text-[13px] font-medium">
-          Blicken bakåt över axeln,
+
+        {/* Slutläget i sidogatan */}
+        <text x="308" y="256" className="fill-text-primary text-[13px] font-semibold">
+          Slut
         </text>
-        <text x="232" y="412" className="fill-text-primary text-[13px] font-medium">
-          dit bilen ska
+        <text x="308" y="274" className="fill-text-secondary text-[13px]">
+          höger körfält
+        </text>
+        <Pekare x1={322} y1={282} x2={292} y2={306} />
+
+        {/* Hörnet */}
+        <circle cx="220" cy="290" r="4" className="fill-text-primary" />
+        <text x="228" y="284" className="fill-text-primary text-[13px] font-medium">
+          Hörnet
         </text>
 
-        {/* 1. Rakt bakåt först */}
-        <Siffra n={1} x={22} y={150} />
-        <text x="40" y="155" className="fill-text-primary text-[14px] font-semibold">
-          Backa rakt
+        {/* Startläget */}
+        <text x="126" y="86" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
+          Start
         </text>
-        <text x="10" y="173" className="fill-text-secondary text-[13px]">
-          en bit först
+        <text x="126" y="104" textAnchor="end" className="fill-text-secondary text-[13px]">
+          i höger körfält.
         </text>
-        <Pekare x1={92} y1={169} x2={204} y2={170} />
+        <text x="126" y="122" textAnchor="end" className="fill-text-secondary text-[13px]">
+          Backa rakt först
+        </text>
+        <Pekare x1={130} y1={116} x2={182} y2={110} />
 
-        {/* 2. Ratten åt höger: bakvagnen in, framvagnen ut över mittlinjen (svepets apex x 169) */}
-        <Siffra n={2} x={22} y={208} />
-        <text x="40" y="213" className="fill-text-primary text-[14px] font-semibold">
-          Ratt åt höger
+        {/* 1. Bakhjulen skär hörnet */}
+        <Callout x={244} y={218} n={1} />
+        <text x="260" y="223" className="fill-text-primary text-[13px] font-semibold">
+          Bakhjulen går tätt
         </text>
-        <text x="10" y="231" className="fill-text-secondary text-[13px]">
-          bakvagnen in mot
+        <text x="234" y="241" className="fill-text-secondary text-[13px]">
+          intill hörnet
         </text>
-        <text x="10" y="247" className="fill-text-secondary text-[13px]">
-          hörnet, framvagnen
-        </text>
-        <text x="10" y="263" className="fill-text-secondary text-[13px]">
-          ut över mittlinjen
-        </text>
-        <Pekare x1={128} y1={260} x2={169} y2={262} />
+        <Pekare x1={268} y1={250} x2={219} y2={283} />
 
-        {/* 3. Räta upp innan bilen är framme */}
-        <Siffra n={3} x={252} y={190} />
-        <text x="270" y="195" className="fill-text-primary text-[14px] font-semibold">
-          Räta upp innan
+        {/* 2. Framvagnen sveper ut över mittlinjen */}
+        <Callout x={22} y={228} n={2} />
+        <text x="38" y="233" className="fill-text-primary text-[13px] font-semibold">
+          Framvagnen
         </text>
-        <text x="240" y="213" className="fill-text-secondary text-[13px]">
-          du är framme, inte efter
+        <text x="8" y="251" className="fill-text-secondary text-[13px]">
+          sveper ut åt
         </text>
-        <Pekare x1={292} y1={222} x2={286} y2={305} />
+        <text x="8" y="269" className="fill-text-secondary text-[13px]">
+          motsatt håll —
+        </text>
+        <text x="8" y="287" className="fill-text-secondary text-[13px]">
+          över mittlinjen.
+        </text>
+        <text x="8" y="305" className="fill-text-secondary text-[13px]">
+          Det överraskar
+        </text>
+        <Pekare x1={112} y1={282} x2={171} y2={262} />
+
+        {/* 3. Blicken bakåt över axeln */}
+        <Callout x={246} y={398} n={3} />
+        <text x="262" y="403" className="fill-text-primary text-[13px] font-semibold">
+          Blicken över axeln
+        </text>
+        <text x="236" y="421" className="fill-text-secondary text-[13px]">
+          speglarna räcker inte
+        </text>
+        <Pekare x1={252} y1={386} x2={213} y2={303} />
       </g>
 
-      {/* Stegen */}
-      <Siffra n={1} x={30} y={522} />
-      <text x="50" y="527" className="fill-text-primary text-[13px] font-medium">
-        Backa rakt en bit först.
+      {/* Regeltext */}
+      <text x="220" y="524" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        Du får backa endast om det kan ske utan fara
       </text>
-      <Siffra n={2} x={30} y={552} />
-      <text x="50" y="557" className="fill-text-primary text-[13px] font-medium">
-        Vrid ratten åt det håll bakvagnen ska, och håll koll på
+      <text x="220" y="544" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        eller hinder för andra vägtrafikanter.
       </text>
-      <text x="50" y="575" className="fill-text-primary text-[13px] font-medium">
-        framvagnen — den svänger ut åt motsatt håll.
+      <text x="220" y="568" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        Skyldigheten ligger på dig som backar,
       </text>
-      <Siffra n={3} x={30} y={604} />
-      <text x="50" y="609" className="fill-text-primary text-[13px] font-medium">
-        Räta upp innan du är framme, inte efter.
+      <text x="220" y="586" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        inte på dem som kommer.
       </text>
-
-      {/* Regeln */}
-      <text x="20" y="642" className="fill-text-primary text-[13px] font-medium">
-        Backa endast om det kan ske utan fara eller hinder för andra
+      <text x="220" y="610" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        Krypfart. Tappar du överblicken:
       </text>
-      <text x="20" y="660" className="fill-text-primary text-[13px] font-medium">
-        vägtrafikanter (3 kap 46 §).
-      </text>
-      <text x="20" y="678" className="fill-text-primary text-[13px] font-medium">
-        Skyldigheten ligger på dig som backar.
-      </text>
-      <text x="20" y="702" className="fill-text-secondary text-[13px]">
-        Krypfart. Tappar du överblicken: stanna helt och titta om.
+      <text x="220" y="628" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        stanna helt och titta om.
       </text>
 
-      {/* Förklaringsruta: uppriktningen i tid eller för sent */}
-      <rect x="20" y="726" width="400" height="190" rx="6" className="fill-surface-raised stroke-border-default" strokeWidth="1.5" />
-      <text x="36" y="752" className="fill-text-primary text-[14px] font-semibold">
-        Räta upp innan du är framme — inte efter
-      </text>
-      <line x1="210" y1="766" x2="210" y2="904" className="stroke-text-tertiary" strokeWidth="2" strokeDasharray="6 5" />
-
-      {/* A: uppriktad i tid, bilen står rakt i körfältet */}
-      <g transform="translate(36 766)">
-        <Minigata />
-        <Bil cx={80} cy={23} rotate={-90} />
+      {/* Mönsterförklaring */}
+      <g>
+        <rect
+          x="78"
+          y="652"
+          width="22"
+          height="14"
+          rx="2"
+          fill="url(#bh-dots)"
+          className="stroke-attention-600"
+          strokeWidth="1.5"
+        />
+        <text x="108" y="664" className="fill-text-tertiary text-[13px]">
+          Du (prickar)
+        </text>
+        <rect
+          x="204"
+          y="652"
+          width="22"
+          height="14"
+          rx="2"
+          fill="url(#bh-stripes)"
+          className="stroke-primary-600"
+          strokeWidth="1.5"
+        />
+        <text x="234" y="664" className="fill-text-tertiary text-[13px]">
+          Mötande fordon
+        </text>
       </g>
-      <path d="M 36 874 l 6 6 l 12 -13" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="60" y="878" className="fill-text-primary text-[13px] font-semibold">
-        Rätar upp i tid:
-      </text>
-      <text x="60" y="896" className="fill-text-primary text-[13px]">
-        bilen slutar rakt
-      </text>
 
-      {/* B: uppriktad för sent, bilen fortsätter svänga och står snett */}
-      <g transform="translate(224 766)">
-        <Minigata />
-        <Bil cx={80} cy={24} rotate={-110} />
-      </g>
-      <path d="M 224 868 L 238 882 M 238 868 L 224 882" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
-      <text x="248" y="878" className="fill-text-primary text-[13px] font-semibold">
-        Rätar upp för sent:
+      {/* Förklaringsruta: svepet mot mötande körfält */}
+      <rect x="20" y="684" width="400" height="242" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="34" y="708" className="fill-text-primary text-[13px] font-semibold">
+        Framvagnen sveper in i det mötande körfältet:
       </text>
-      <text x="248" y="896" className="fill-text-primary text-[13px]">
-        bilen fortsätter svänga
+      <line x1="220" y1="722" x2="220" y2="918" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
+
+      <MiniHorn x={80} y={724} motande={false} />
+      <text x="129" y="870" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Körbanan är fri
       </text>
+      <text x="129" y="886" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        svepet får plats
+      </text>
+      <Check x={129} y={906} />
+
+      <MiniHorn x={270} y={724} motande />
+      <text x="319" y="870" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Ett fordon kommer emot
+      </text>
+      <text x="319" y="886" className="fill-text-secondary text-[13px]" textAnchor="middle">
+        då får du inte backa
+      </text>
+      <Cross x={319} y={906} />
     </svg>
   );
 }

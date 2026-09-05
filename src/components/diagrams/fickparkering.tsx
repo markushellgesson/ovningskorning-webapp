@@ -1,104 +1,111 @@
 /**
- * Fickparkering (MAN-10) — backa in längs kant i tre steg, med referenspunkter.
- * Referenspunkterna är körteknik, inte regler. Reglerna i momentet är 3 kap
- * 50 § (säkra bilen) och 3 kap 21 § (väjningsplikt när du kör ut igen).
+ * Fickparkering (MAN-10) — inparkering mellan två stillastående bilar i tre
+ * steg, med de referenspunkter man styr efter, samt väjningsplikten när
+ * bilen sedan lämnar platsen.
  *
- * Geometri (högertrafik, vy uppifrån, 12 px ≈ 1 m, bakaxelradie 45 vid fullt
- * rattutslag, hjulbas 32, bil 22 × 53). Tre paneler med samma lokala
- * koordinater: körbana x 10–116, kantsten x 116, färdriktning uppåt.
- * Parkerad bil framför (A) x 90–112, y 40–93; parkerad bil bakom (B)
- * x 90–112, y 180–233; luckan är 87 px ≈ 7,3 m.
- * - Steg 1: din bil jämsides, x 62–84 (0,5 m från A), bakaxel y 92, alltså
- *   i höjd med A:s bakkant y 93.
- * - Steg 2: backning med fullt högerutslag, bakaxeln går runt (118, 92).
- *   Vid 45°: bakaxel (86.2, 123.8), bakkant (94, 131.6), högra framhörnet
- *   (64.3, 86.3) — klart till vänster om A:s vänstra sida x 90.
- * - Steg 3: fullt vänsterutslag, bakaxeln går runt (54.4, 155.6). Högra
- *   framhörnet går radie 70 och passerar A:s bakre vänstra hörn (90, 93)
- *   med 3–5 px marginal. Bakre högra hörnet når som mest x 111.5, innanför
- *   kantstenen. Slutläge: bakaxel (99.4, 155.6), bil x 88–110, y 114–167,
- *   20 px till A och 13 px till B.
+ * Skala 12 px = 1 m. Kaross 22 × 53 px (1,8 × 4,4 m), hjulbas 31 px,
+ * bakaxeln 11 px fram om bakre kanten, nosen 42 px fram om bakaxeln.
+ * Bakaxelns radie vid fullt rattutslag 48 px (4,0 m), vilket svarar mot
+ * styrvinkeln 32,9°.
  *
- * Förklaringsrutan längst ned använder samma cirkel som steg 2. "För tidigt"
- * är läget vid 20° i stället för 45°: bakaxel (75.7, 107.4), bilens mitt
- * (70.4, 92.8), högra framhörnet (71.7, 64.2) — fortfarande jämsides med A.
- * Fullt vänsterutslag därifrån ger bakaxelcentrum (33.4, 122.8) och hörnet
- * går radie 70 in i A:s vänstra sida vid ungefär (90.7, 82.7). Från 45°-läget
- * går samma radie-70-båge runt (54.4, 155.6) och förbi A:s hörn.
+ * Geometri (högertrafik, vy uppifrån). Gatan går vågrätt i varje panel,
+ * lokal koordinat: körbana y 0–132, mittlinje y 66, kantsten y 132.
+ * Färdriktningen är åt höger (öster).
+ * - Du kör åt höger i bilden. Din högra sida är då bildens nedre, så du
+ *   och de parkerade bilarna ligger i den södra halvan y 66–132. Samtliga
+ *   fordon i bilden kör eller står med nosen åt öster och ligger i den
+ *   halvan; det norra körfältet y 0–66 är mötande och lämnas tomt.
+ * - Bilen framför luckan x 210–263, bilen bakom x 61–114, båda y 104–126,
+ *   alltså 6 px från kantstenen. Luckan är 96 px lång mot bilens 53.
+ * - Steg 1: du står jämsides, kaross x 200,6–253,6, y 72–94. Din bakaxel
+ *   ligger i x 211,6 och den framförvarande bilens bakre kant i x 210 —
+ *   1,55 px isär, alltså i praktiken mitt för varandra. Det är
+ *   referenspunkten.
+ * - Steg 2: fullt utslag mot kanten. Bakaxeln går en cirkel med radie 48
+ *   kring (211,6 , 131) och stannar vid 48,19°, bakaxel (175,8 , 99).
+ *   Vänster ytterspegel ligger då i (185,6 , 71,5) och den bakre bilens
+ *   främre vänstra hörn i (114, 104) — siktlinjen mellan dem är den andra
+ *   referenspunkten.
+ * - Steg 3: fullt motsatt utslag, bakaxeln går kring (140, 67) till
+ *   (140, 115). Slutläge: kaross x 129–182, y 104–126; 15 px till bilen
+ *   bakom, 28 px till bilen framför, 6 px till kantstenen.
+ * - Efterräknat längs hela banan: minsta avstånd till bilen framför
+ *   6,75 px (0,56 m, inträffar i andra bågen vid 26,7°), till bilen bakom
+ *   15 px, och bakvagnen kommer aldrig närmare kantstenen än 4,98 px.
+ *   Framvagnen sveper som mest 7,42 px norr om mittlinjen — den
+ *   utsvängningen ritas som den är, liten men verklig.
  *
- * Panelerna ligger i grupper med translate; alla koordinater ovan är lokala.
+ * Mönster: prickar = din bil, diagonala ränder = andra fordon. Heldragen
+ * linje = bakaxelns väg i steget, streckad = framvagnens svep, prickad =
+ * referenspunkt. Förklaringsrutan ritar samma gata i halv skala: du står
+ * kvar i luckan y 104–126 och fordonet bakifrån kör åt öster i den södra
+ * halvan, väster om dig — samma körfält och samma riktning som i
+ * huvudbilden.
  */
 
+/** Bil ritad med fronten uppåt och sedan vriden. Kaross 22 × 53, hjulen sticker ut 3 px. */
 function Bil({
   cx,
   cy,
-  rotate,
+  rot,
   fill,
   stroke,
   nose,
-  opacity = 1,
+  brakeLights,
 }: {
   cx: number;
   cy: number;
-  rotate: number;
+  rot: number;
   fill: string;
   stroke: string;
   nose: string;
-  opacity?: number;
+  brakeLights?: boolean;
 }) {
   return (
-    <g transform={`translate(${cx} ${cy}) rotate(${rotate})`} opacity={opacity}>
-      <rect x="-14" y="11" width="4" height="9" rx="1" className={nose} />
-      <rect x="10" y="11" width="4" height="9" rx="1" className={nose} />
-      <rect x="-14" y="-20" width="4" height="9" rx="1" className={nose} />
-      <rect x="10" y="-20" width="4" height="9" rx="1" className={nose} />
+    <g transform={`translate(${cx} ${cy}) rotate(${rot})`}>
+      <g className="fill-text-primary">
+        <rect x="-14" y="-20" width="4" height="9" rx="1" />
+        <rect x="10" y="-20" width="4" height="9" rx="1" />
+        <rect x="-14" y="11" width="4" height="9" rx="1" />
+        <rect x="10" y="11" width="4" height="9" rx="1" />
+      </g>
+      <rect x="-11" y="-26.5" width="22" height="53" rx="3" className="fill-surface-base" />
       <rect x="-11" y="-26.5" width="22" height="53" rx="3" fill={fill} className={stroke} strokeWidth="2" />
-      <polygon points="-7,-18 0,-25 7,-18" className={nose} />
+      {/* Nosen: fylld spets som visar vart bilen pekar */}
+      <polygon points="-7,-17 0,-24 7,-17" className={nose} />
+      {brakeLights && (
+        <g className="fill-safety-600">
+          <rect x="-9" y="25" width="6" height="3" />
+          <rect x="3" y="25" width="6" height="3" />
+        </g>
+      )}
     </g>
   );
 }
 
-const egen = { fill: 'url(#fp-dots)', stroke: 'stroke-attention-600', nose: 'fill-attention-600' };
-const parkerad = { fill: 'url(#fp-stripes)', stroke: 'stroke-primary-600', nose: 'fill-primary-600' };
-
-/** Körbana med kantsten till höger samt de två parkerade bilarna A och B. */
+/** Gatustycke: körbana 360 × 132, kantsten och trottoar nedtill, mittlinje i y 66. */
 function Gata() {
   return (
     <g>
-      <rect x="10" y="0" width="106" height="240" className="fill-diagram-road" />
-      <rect x="116" y="0" width="14" height="240" className="fill-diagram-edge" opacity="0.35" />
-      <line x1="10" y1="0" x2="10" y2="240" className="stroke-diagram-edge" strokeWidth="1.5" />
-      <line x1="116" y1="0" x2="116" y2="240" className="stroke-diagram-edge" strokeWidth="3" />
-      <Bil cx={101} cy={66.5} rotate={0} {...parkerad} />
-      <Bil cx={101} cy={206.5} rotate={0} {...parkerad} />
-      <text x="101" y="30" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        A
-      </text>
-      <text x="101" y="238" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        B
-      </text>
+      <rect x="0" y="0" width="360" height="132" className="fill-diagram-road" />
+      <rect x="0" y="132" width="360" height="14" className="fill-diagram-edge" opacity="0.3" />
+      <line x1="0" y1="0" x2="360" y2="0" className="stroke-diagram-edge" strokeWidth="2" />
+      <line x1="0" y1="132" x2="360" y2="132" className="stroke-diagram-edge" strokeWidth="3" />
+      <line
+        x1="0"
+        y1="66"
+        x2="360"
+        y2="66"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+        strokeDasharray="10 8"
+      />
     </g>
   );
 }
 
-/** Utsnitt av gatan kring A, till förklaringsrutan: samma lokala koordinater. */
-function Utsnitt() {
-  return (
-    <g>
-      <rect x="10" y="30" width="106" height="120" className="fill-diagram-road" />
-      <rect x="116" y="30" width="14" height="120" className="fill-diagram-edge" opacity="0.35" />
-      <line x1="10" y1="30" x2="10" y2="150" className="stroke-diagram-edge" strokeWidth="1.5" />
-      <line x1="116" y1="30" x2="116" y2="150" className="stroke-diagram-edge" strokeWidth="3" />
-      <Bil cx={101} cy={66.5} rotate={0} {...parkerad} />
-      <text x="123" y="71" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        A
-      </text>
-    </g>
-  );
-}
-
-/** Fylld siffra, som i hänvisningarna i vänstersvängsbilden. */
-function Siffra({ n, x, y }: { n: number; x: number; y: number }) {
+/** Numrerat steg: mörk cirkel med siffra. */
+function Steg({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
@@ -109,12 +116,63 @@ function Siffra({ n, x, y }: { n: number; x: number; y: number }) {
   );
 }
 
-/** Tunn hänvisningslinje som slutar i en punkt på det den pekar på. */
-function Pekare({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
+function Check({ x, y }: { x: number; y: number }) {
   return (
-    <g>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-text-tertiary" strokeWidth="1.5" />
-      <circle cx={x2} cy={y2} r="3" className="fill-text-tertiary" />
+    <path
+      d={`M ${x - 9} ${y} l 6 6 l 12 -13`}
+      className="fill-none stroke-progress-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  );
+}
+
+function Cross({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 7} ${y - 7} L ${x + 7} ${y + 7} M ${x + 7} ${y - 7} L ${x - 7} ${y + 7}`}
+      className="stroke-safety-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  );
+}
+
+/**
+ * Samma gata i halv skala för förklaringsrutan: du står i luckan (y 104–126,
+ * södra halvan) och ett fordon närmar sig bakifrån i samma körfält och
+ * samma riktning, väster om dig.
+ */
+function MiniUtfart({ x, y, variant }: { x: number; y: number; variant: 'vantar' | 'kor-ut' }) {
+  const waits = variant === 'vantar';
+  return (
+    <g transform={`translate(${x} ${y}) scale(0.5)`}>
+      <rect x="0" y="40" width="300" height="92" className="fill-diagram-road" />
+      <rect x="0" y="132" width="300" height="14" className="fill-diagram-edge" opacity="0.3" />
+      <line x1="0" y1="132" x2="300" y2="132" className="stroke-diagram-edge" strokeWidth="3" />
+      <line x1="0" y1="66" x2="300" y2="66" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="12 10" />
+      {/* Parkerade bilar och du mellan dem */}
+      <Bil cx={87.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+      <Bil cx={236.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+      <Bil cx={155.5} cy={115} rot={90} fill="url(#fp-dots)" stroke="stroke-attention-600" nose="fill-attention-600" brakeLights={waits} />
+      {/* Fordon bakifrån: samma körfält, samma riktning, väster om dig */}
+      <Bil cx={110} cy={83} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+      <path
+        d={waits ? 'M 138 83 L 262 83' : 'M 138 83 L 206 83'}
+        className="stroke-primary-600"
+        strokeWidth="5"
+        markerEnd="url(#fp-arrow-other)"
+      />
+      {!waits && (
+        <path
+          d="M 184 112 C 220 108 226 96 232 84"
+          className="fill-none stroke-attention-600"
+          strokeWidth="5"
+          strokeDasharray="10 8"
+          markerEnd="url(#fp-arrow-you)"
+        />
+      )}
     </g>
   );
 }
@@ -122,242 +180,277 @@ function Pekare({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: nu
 export function FickparkeringDiagram() {
   return (
     <svg
-      viewBox="0 0 480 912"
+      viewBox="0 0 400 1168"
       className="w-full max-w-md mx-auto"
       role="img"
       aria-labelledby="fp-title fp-desc"
     >
       <title id="fp-title">Fickparkering i tre steg</title>
       <desc id="fp-desc">
-        Tre smala bilder sida vid sida, numrerade 1 till 3 från vänster, av samma gata sedd
-        uppifrån. Färdriktningen är uppåt och kantstenen ligger till höger. Två parkerade bilar med
-        diagonalt randmönster står längs kanten: A överst och B nederst, med en lucka emellan. Din
-        bil har prickmönster och en fylld nos som visar vart den pekar. Varje steg har en fylld
-        siffra till vänster om gatan med en tunn linje till det siffran syftar på. Steg 1: din bil
-        står jämsides med A, ungefär en halvmeter ut, och siffran pekar på en streckad
-        referenslinje: din bakaxel i höjd med A:s bakkant. Steg 2: ratten fullt åt höger och bilen
-        backar i krypfart tills den står i ungefär 45 grader med nosen snett ut i gatan; en
-        streckad röd pil visar bakkantens väg in mot luckan. Siffran pekar på ditt högra
-        framhörn, som fortfarande ligger klart till vänster om A. Steg 3: när framhörnet går fritt
-        från A vrids ratten fullt åt vänster och bilen backar in tills den står parallellt med
-        kanten; en streckad grön pil visar bakkantens väg. Bilen slutar rakt i luckan med avstånd
-        både till A och B. Under bilderna finns en teckenförklaring, de tre stegen med
-        referenspunkter, att de är körteknik, samt regeln att du har väjningsplikt när du sedan
-        kör ut från platsen. Längst ned en förklaringsruta med två små utsnitt kring A: till
-        vänster har framhörnet gått fritt och en grön båge visar att det svänger förbi A:s hörn,
-        markerat med en bock; till höger vrids ratten för tidigt, medan framhörnet ännu är
-        jämsides med A, och en röd båge visar att hörnet svänger in i A:s sida, markerat med ett
-        kryss.
+        Tre panelbilder ovanför varandra, alla sedda uppifrån. I varje panel går gatan vågrätt med
+        en streckad mittlinje och en kantsten med trottoar nedtill. Färdriktningen är åt höger.
+        Två stillastående bilar, fyllda med diagonala ränder, står vid kantstenen med en lucka
+        mellan sig som är tydligt längre än en bil. Din bil är fylld med prickmönster och har en
+        fylld nosspets som visar vart den pekar. Panel 1: du står jämsides med bilen framför,
+        med litet mellanrum, och en prickad lodrät referenslinje visar att ditt bakhjul står mitt
+        för den bilens bakre hörn. Panel 2: du backar med fullt utslag mot kanten. En heldragen
+        linje visar bakaxelns väg in mot luckan och en streckad linje visar hur framvagnen samtidigt
+        sveper ut åt motsatt håll, en bit över mittlinjen. En prickad siktlinje går från din
+        vänstra ytterspegel till den bakre bilens främre hörn: referenspunkten för att lägga om
+        ratten. Panel 3: fullt motsatt utslag, en heldragen linje visar bakaxelns väg och bilen
+        står till slut parallellt med kantstenen mellan de två bilarna. Under panelerna står
+        regeln: när du sedan kör ut från platsen har du väjningsplikt. Längst ned en ruta med två
+        små bilder av samma gata: till vänster väntar du kvar i luckan med bromsljusen tända medan
+        ett randigt fordon passerar, markerat med en bock; till höger kör du ut framför fordonet
+        och bryter mot väjningsplikten, markerat med ett kryss.
       </desc>
 
       <defs>
         <pattern id="fp-dots" patternUnits="userSpaceOnUse" width="8" height="8">
-          <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
+          <circle cx="4" cy="4" r="1.6" className="fill-attention-600" />
         </pattern>
         <pattern id="fp-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
           <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
         </pattern>
-        <marker
-          id="fp-arrow-right"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto"
-        >
-          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-safety-600" />
+        <marker id="fp-arrow-you" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-attention-600" />
         </marker>
-        <marker
-          id="fp-arrow-left"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto"
-        >
-          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-progress-600" />
+        <marker id="fp-arrow-other" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
+        </marker>
+        <marker id="fp-arrow-note" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-tertiary" />
+        </marker>
+        <marker id="fp-arrow-sweep" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-safety-600" />
         </marker>
       </defs>
 
       {/* Rubrik */}
-      <text x="20" y="36" className="fill-text-primary text-[20px] font-semibold">
-        Fickparkering
+      <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
+        Fickparkering i tre steg
       </text>
-      <text x="20" y="58" className="fill-text-secondary text-[13px]">
-        Backa in längs kanten: jämsides, fullt höger, fullt vänster
+      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+        Teknik i tre steg — och regeln när du kör ut igen
       </text>
-
-      {/* Steg 1: jämsides med A, bakaxel i höjd med A:s bakkant */}
-      <g transform="translate(24 96)">
-        <Gata />
-        {/* Referenslinje: A:s bakkant y 93, din bakaxel y 92 */}
-        <line
-          x1="40"
-          y1="93"
-          x2="114"
-          y2="93"
-          className="stroke-text-primary"
-          strokeWidth="1.5"
-          strokeDasharray="4 3"
-        />
-        <Bil cx={73} cy={76.5} rotate={0} {...egen} />
-        <Siffra n={1} x={-14} y={93} />
-        <Pekare x1={-2} y1={93} x2={36} y2={93} />
-        <text x="65" y="266" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
-          Jämsides, ½ m ut
-        </text>
-        <text x="65" y="284" textAnchor="middle" className="fill-text-secondary text-[13px]">
-          bakaxel i höjd med A
-        </text>
-      </g>
-
-      {/* Steg 2: fullt höger, backa till ungefär 45 grader */}
-      <g transform="translate(184 96)">
-        <Gata />
-        <Bil cx={73} cy={76.5} rotate={0} {...egen} opacity={0.35} />
-        {/* Bakkantens väg: radie 46.3 runt (118, 92) */}
-        <path
-          d="M 73 103 A 46.3 46.3 0 0 0 94 131.6"
-          className="fill-none stroke-safety-600"
-          strokeWidth="2.5"
-          strokeDasharray="7 5"
-          markerEnd="url(#fp-arrow-right)"
-        />
-        <Bil cx={75.2} cy={112.8} rotate={-45} {...egen} />
-        {/* Högra framhörnet (64.3, 86.3) mot A:s bakre vänstra hörn (90, 93) */}
-        <circle cx="64.3" cy="86.3" r="4" className="fill-none stroke-safety-600" strokeWidth="2" />
-        <Siffra n={2} x={-14} y={70} />
-        <Pekare x1={-2} y1={72} x2={57} y2={83} />
-        <text x="65" y="266" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
-          Ratt fullt höger
-        </text>
-        <text x="65" y="284" textAnchor="middle" className="fill-text-secondary text-[13px]">
-          backa till ≈ 45°
-        </text>
-      </g>
-
-      {/* Steg 3: framhörnet fritt, fullt vänster, backa in parallellt */}
-      <g transform="translate(344 96)">
-        <Gata />
-        <Bil cx={75.2} cy={112.8} rotate={-45} {...egen} opacity={0.35} />
-        {/* Bakkantens väg: radie 46.3 runt (54.4, 155.6) */}
-        <path
-          d="M 94 131.6 A 46.3 46.3 0 0 1 99.4 166.6"
-          className="fill-none stroke-progress-600"
-          strokeWidth="2.5"
-          strokeDasharray="7 5"
-          markerEnd="url(#fp-arrow-left)"
-        />
-        <Bil cx={99.4} cy={140.1} rotate={0} {...egen} />
-        <Siffra n={3} x={-14} y={142} />
-        <Pekare x1={-2} y1={142} x2={84} y2={143} />
-        <text x="65" y="266" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
-          Ratt fullt vänster
-        </text>
-        <text x="65" y="284" textAnchor="middle" className="fill-text-secondary text-[13px]">
-          backa in parallellt
-        </text>
-      </g>
 
       {/* Teckenförklaring */}
-      <g transform="translate(24 404)">
-        <rect width="16" height="12" fill="url(#fp-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="22" y="10" className="fill-text-secondary text-[13px]">
-          Din bil (prickar)
+      <g>
+        <path d="M 20 76 L 48 76" className="stroke-attention-600" strokeWidth="3" markerEnd="url(#fp-arrow-you)" />
+        <text x="56" y="81" className="fill-text-secondary text-[13px]">
+          Bakaxelns väg
         </text>
-        <rect x="140" width="16" height="12" fill="url(#fp-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="162" y="10" className="fill-text-secondary text-[13px]">
-          Parkerade bilar (ränder)
-        </text>
-        <line x1="320" y1="6" x2="350" y2="6" className="stroke-text-secondary" strokeWidth="2.5" strokeDasharray="7 5" />
-        <text x="358" y="10" className="fill-text-secondary text-[13px]">
-          Bakkantens väg
-        </text>
-      </g>
-
-      {/* Stegen med referenspunkter */}
-      <Siffra n={1} x={30} y={448} />
-      <text x="50" y="453" className="fill-text-primary text-[13px] font-medium">
-        Stanna jämsides med bilen framför, ungefär en halvmeter ut,
-      </text>
-      <text x="50" y="471" className="fill-text-primary text-[13px] font-medium">
-        med din bakaxel i höjd med dess bakkant.
-      </text>
-
-      <Siffra n={2} x={30} y={500} />
-      <text x="50" y="505" className="fill-text-primary text-[13px] font-medium">
-        Ratten fullt åt höger, backa i krypfart till ungefär 45 grader.
-      </text>
-      <text x="50" y="523" className="fill-text-primary text-[13px] font-medium">
-        Håll koll på ditt högra framhörn mot bilen framför.
-      </text>
-
-      <Siffra n={3} x={30} y={552} />
-      <text x="50" y="557" className="fill-text-primary text-[13px] font-medium">
-        När framhörnet går fritt: ratten fullt åt vänster, backa in
-      </text>
-      <text x="50" y="575" className="fill-text-primary text-[13px] font-medium">
-        tills bilen är parallell. Räta upp och justera fram.
-      </text>
-
-      <text x="24" y="606" className="fill-text-secondary text-[13px]">
-        Referenspunkterna är körteknik. Stanna, titta runt och gör en plan
-      </text>
-      <text x="24" y="624" className="fill-text-secondary text-[13px]">
-        först. Krypfart och koll runt hela manövern.
-      </text>
-      <text x="24" y="648" className="fill-text-primary text-[13px] font-medium">
-        När du sedan kör ut från platsen har du väjningsplikt (3 kap 21 §).
-      </text>
-
-      {/* Förklaringsruta: varför vänsterutslaget väntar tills framhörnet går fritt */}
-      <rect x="20" y="672" width="440" height="220" rx="6" className="fill-surface-raised stroke-border-default" strokeWidth="1.5" />
-      <text x="36" y="698" className="fill-text-primary text-[14px] font-semibold">
-        Vänta med vänsterutslaget tills framhörnet går fritt
-      </text>
-      <line x1="240" y1="712" x2="240" y2="880" className="stroke-text-tertiary" strokeWidth="2" strokeDasharray="6 5" />
-
-      {/* Utsnitt A: vid 45° har hörnet gått fritt, bågen passerar A:s hörn */}
-      <g transform="translate(66 682)">
-        <Utsnitt />
-        <Bil cx={75.2} cy={112.8} rotate={-45} {...egen} />
-        {/* Högra framhörnets väg: radie 70 runt (54.4, 155.6), förbi (90, 93) */}
         <path
-          d="M 64.3 86.3 A 70 70 0 0 1 99.4 102"
-          className="fill-none stroke-progress-600"
+          d="M 168 76 L 196 76"
+          className="stroke-safety-600"
+          strokeWidth="3"
+          strokeDasharray="7 5"
+          markerEnd="url(#fp-arrow-sweep)"
+        />
+        <text x="204" y="81" className="fill-text-secondary text-[13px]">
+          Framvagnens svep
+        </text>
+        <line
+          x1="20"
+          y1="96"
+          x2="48"
+          y2="96"
+          className="stroke-text-tertiary"
           strokeWidth="2.5"
-          markerEnd="url(#fp-arrow-left)"
+          strokeLinecap="round"
+          strokeDasharray="0.5 6"
+        />
+        <text x="56" y="101" className="fill-text-secondary text-[13px]">
+          Referenspunkt
+        </text>
+        <text x="272" y="101" className="fill-text-secondary text-[13px]">
+          Färdriktning
+        </text>
+        <line
+          x1="358"
+          y1="96"
+          x2="378"
+          y2="96"
+          className="stroke-text-tertiary"
+          strokeWidth="2"
+          markerEnd="url(#fp-arrow-note)"
         />
       </g>
-      <path d="M 36 856 l 6 6 l 12 -13" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="60" y="860" className="fill-text-primary text-[13px] font-semibold">
-        Framhörnet fritt från A:
-      </text>
-      <text x="60" y="878" className="fill-text-primary text-[13px]">
-        sedan fullt vänster
-      </text>
 
-      {/* Utsnitt B: vid 20° är hörnet ännu jämsides med A, bågen går in i A */}
-      <g transform="translate(286 682)">
-        <Utsnitt />
-        <Bil cx={70.4} cy={92.8} rotate={-20} {...egen} />
-        {/* Högra framhörnets väg: radie 70 runt (33.4, 122.8), in i A vid (90.7, 82.7) */}
+      {/* ------- Steg 1: jämsides ------- */}
+      <Steg x={31} y={128} n={1} />
+      <text x="50" y="133" className="fill-text-primary text-[14px] font-semibold">
+        Ställ dig jämsides med bilen framför
+      </text>
+      <text x="20" y="151" className="fill-text-secondary text-[13px]">
+        Litet mellanrum. Referenspunkt: ditt bakhjul mitt
+      </text>
+      <text x="20" y="169" className="fill-text-secondary text-[13px]">
+        för den framförvarande bilens bakre hörn.
+      </text>
+      <g transform="translate(20 180)">
+        <Gata />
+        <Bil cx={87.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+        <Bil cx={236.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+        <Bil cx={227} cy={83} rot={90} fill="url(#fp-dots)" stroke="stroke-attention-600" nose="fill-attention-600" brakeLights />
+        {/* Referenslinjen: ditt bakhjul (x 211,6) mot den framförvarande bilens bakre kant (x 210) */}
+        <line
+          x1="210.8"
+          y1="86"
+          x2="210.8"
+          y2="110"
+          className="stroke-text-tertiary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeDasharray="0.5 6"
+        />
+        <circle cx="210.8" cy="92" r="2.5" className="fill-text-tertiary" />
+        <circle cx="210.8" cy="104" r="2.5" className="fill-text-tertiary" />
+      </g>
+
+      {/* ------- Steg 2: fullt utslag mot kanten ------- */}
+      <Steg x={31} y={366} n={2} />
+      <text x="50" y="371" className="fill-text-primary text-[14px] font-semibold">
+        Fullt utslag mot kanten och backa
+      </text>
+      <text x="20" y="389" className="fill-text-secondary text-[13px]">
+        Referenspunkt: bilen bakom syns i vänster
+      </text>
+      <text x="20" y="407" className="fill-text-secondary text-[13px]">
+        ytterspegel — då lägger du om ratten.
+      </text>
+      <text x="20" y="425" className="fill-text-secondary text-[13px]">
+        Framvagnen sveper samtidigt ut åt motsatt håll.
+      </text>
+      <g transform="translate(20 436)">
+        <Gata />
+        <Bil cx={87.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+        <Bil cx={236.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+        {/* Bakaxelns väg, första bågen. Ihålig ring = där steget börjar */}
+        <circle cx="211.55" cy="83" r="3.5" className="fill-none stroke-attention-600" strokeWidth="2" />
         <path
-          d="M 71.7 64.2 A 70 70 0 0 1 90.7 82.7"
+          d="M 211.55 83 A 48 48 0 0 0 175.78 99"
+          className="fill-none stroke-attention-600"
+          strokeWidth="3"
+          markerEnd="url(#fp-arrow-you)"
+        />
+        {/* Framvagnens svep: yttre främre hörnet, radie 72,4 kring (211,55 , 131) */}
+        <circle cx="253.55" cy="72" r="3" className="fill-none stroke-safety-600" strokeWidth="1.5" />
+        <path
+          d="M 253.55 72 A 72.42 72.42 0 0 0 195.58 60.36"
           className="fill-none stroke-safety-600"
           strokeWidth="2.5"
-          markerEnd="url(#fp-arrow-right)"
+          strokeDasharray="7 5"
+          markerEnd="url(#fp-arrow-sweep)"
         />
+        {/* Siktlinje i vänster ytterspegel mot den bakre bilens främre hörn */}
+        <line
+          x1="185.6"
+          y1="71.5"
+          x2="115"
+          y2="103"
+          className="stroke-text-tertiary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeDasharray="0.5 6"
+        />
+        <circle cx="185.6" cy="71.5" r="3" className="fill-text-tertiary" />
+        <Bil cx={186.11} cy={87.45} rot={41.81} fill="url(#fp-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
       </g>
-      <path d="M 256 850 L 270 864 M 270 850 L 256 864" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
-      <text x="280" y="860" className="fill-text-primary text-[13px] font-semibold">
-        Vrider för tidigt:
+
+      {/* ------- Steg 3: fullt motsatt utslag ------- */}
+      <Steg x={31} y={622} n={3} />
+      <text x="50" y="627" className="fill-text-primary text-[14px] font-semibold">
+        Fullt motsatt utslag — räta upp
       </text>
-      <text x="280" y="878" className="fill-text-primary text-[13px]">
-        framhörnet svänger in i A
+      <text x="20" y="645" className="fill-text-secondary text-[13px]">
+        Krypfart hela vägen. Stanna om du
       </text>
+      <text x="20" y="663" className="fill-text-secondary text-[13px]">
+        tappar överblicken.
+      </text>
+      <g transform="translate(20 674)">
+        <Gata />
+        <Bil cx={87.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+        <Bil cx={236.5} cy={115} rot={90} fill="url(#fp-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
+        <circle cx="175.78" cy="99" r="3.5" className="fill-none stroke-attention-600" strokeWidth="2" />
+        <path
+          d="M 175.78 99 A 48 48 0 0 0 140 115"
+          className="fill-none stroke-attention-600"
+          strokeWidth="3"
+          markerEnd="url(#fp-arrow-you)"
+        />
+        <Bil cx={155.5} cy={115} rot={90} fill="url(#fp-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
+      </g>
+
+      {/* Regeltext */}
+      <text x="200" y="854" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        När du sedan kör ut från platsen
+      </text>
+      <text x="200" y="874" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        har du väjningsplikt.
+      </text>
+      <text x="200" y="898" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        Visa den genom att sänka farten eller stanna i tid.
+      </text>
+      <text x="200" y="916" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        Sikten härifrån är sämre än när du körde in.
+      </text>
+
+      {/* Mönsterförklaring */}
+      <g>
+        <rect
+          x="72"
+          y="944"
+          width="22"
+          height="14"
+          rx="2"
+          fill="url(#fp-dots)"
+          className="stroke-attention-600"
+          strokeWidth="1.5"
+        />
+        <text x="102" y="956" className="fill-text-tertiary text-[13px]">
+          Du (prickar)
+        </text>
+        <rect
+          x="210"
+          y="944"
+          width="22"
+          height="14"
+          rx="2"
+          fill="url(#fp-stripes)"
+          className="stroke-primary-600"
+          strokeWidth="1.5"
+        />
+        <text x="240" y="956" className="fill-text-tertiary text-[13px]">
+          Andra fordon
+        </text>
+      </g>
+
+      {/* Förklaringsruta: väjningsplikten när du lämnar platsen */}
+      <rect x="20" y="968" width="360" height="180" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="34" y="992" className="fill-text-primary text-[13px] font-semibold">
+        När ett fordon närmar sig medan du ska ut:
+      </text>
+      <line x1="200" y1="1006" x2="200" y2="1140" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
+
+      <MiniUtfart x={35} y={990} variant="vantar" />
+      <text x="110" y="1086" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Du väntar
+      </text>
+      <text x="110" y="1102" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        det passerar först
+      </text>
+      <Check x={110} y={1122} />
+
+      <MiniUtfart x={215} y={990} variant="kor-ut" />
+      <text x="290" y="1086" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Du kör ut framför det
+      </text>
+      <text x="290" y="1102" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        bryter mot väjningsplikten
+      </text>
+      <Cross x={290} y={1122} />
     </svg>
   );
 }

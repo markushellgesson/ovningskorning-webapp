@@ -1,353 +1,564 @@
 /**
- * Vänstersväng på landsväg — tre faror: mötande i hög fart, bakomvarande som
- * inte väntar sig en inbromsning, och hjulen som ska stå raka medan man
- * väntar. Trafikförordningen 3 kap 24, 26 och 65 §§.
+ * Vänstersväng på landsväg (RUR-04), vy uppifrån. Bilden lär ut väntan:
+ * du står nära körbanans mitt, med hjulen raka, tills du förvissat dig om
+ * att svängen kan ske utan hinder. Tre faror pekas ut: mötande i
+ * landsvägsfart, bakomvarande som inte väntar sig en inbromsning, och
+ * hjulen som ska stå raka medan du väntar.
  *
- * Geometri: landsvägen går lodrätt, x 150–350, mittlinje x 250. Din bil kör
- * uppåt och ligger därför i det östra (högra) körfältet, tätt intill mitten
- * på x 286. Mötande kör nedåt i det västra körfältet på x 200 (roterad 180°).
- * Bakomvarande kör uppåt i samma körfält som du, på x 300. Sidovägen går ut
- * åt väster; svängen korsar det västra körfältet och slutar i sidovägens
- * norra halva, som är höger körfält för den som kör västerut.
+ * Regelläge: det finns ingen uttrycklig väjningsplikt mot mötande vid
+ * vänstersväng. Skyldigheten är att förvissa sig om att svängen kan ske
+ * utan hinder för mötande och för dem på körbanan du kör in på. Bilden
+ * påstår inget utöver det.
  *
- * Koordinaterna ovan är scenens egna. Hela scenen, med etiketter, ligger i
- * en grupp med translate(50 70) som bara ger plats för rubrik och luft runt
- * om; ingen koordinat inne i gruppen har flyttats.
+ * Geometri (högertrafik, vy uppifrån), i scenens koordinater. Scenen ligger
+ * i en grupp förskjuten 64 px nedåt så att rubriken får luft; ingen koordinat
+ * inne i gruppen har flyttats.
+ * - Landsvägen går lodrätt. Vägbanan inklusive vägrenar är x 140–260,
+ *   körbanan x 150–250 mellan kantlinjerna, mittlinjen på x 200. Vägrenarna
+ *   är x 140–150 och x 250–260.
+ * - Din bil kör uppåt i bilden (minskande y). Dess högra sida är då bildens
+ *   högra, alltså ligger den i det högra körfältet x 200–250. Den står
+ *   stilla med mitten på x 216, kaross x 202–230 — inne i sitt eget körfält
+ *   men alldeles intill mittlinjen på x 200, vilket är hela poängen.
+ * - Den mötande bilen kör nedåt (ökande y). Dess högra sida är bildens
+ *   vänstra, alltså ligger den i det vänstra körfältet x 150–200, med
+ *   mitten på x 175, kaross x 161–189.
+ * - Den bakomvarande kör uppåt, alltså samma körfält som du: mitten på
+ *   x 225, kaross x 211–239.
+ * - Den mindre vägen går ut åt vänster. Körbanan är y 246–306 med
+ *   mittlinjen på y 276. Den som kör västerut (minskande x) har sin högra
+ *   sida uppåt i bilden, så det körfältet är y 246–276. Svängen slutar
+ *   därför på y 262 — i rätt körfält på den väg du kör in på.
+ * - Konfliktytan, alltså den del av mötande körfält som svängen korsar, är
+ *   x 152–198, y 246–306.
+ * - Förklaringsrutans miniscener: körbanan x -60–60 med mittlinjen på x 0,
+ *   din bil med mitten på x 16 (kaross x 2–30) och fronten uppåt — alltså
+ *   samma körfält, intill mitten, som i huvudbilden. Det mötande körfältet
+ *   är x -60–0.
  *
- * Hjulen raka är körteknik, inte en regel — se rutan längst ned.
+ * Mönster (inget mönster betyder två saker): prickar = din bil, snedränder =
+ * andra fordon, korsskraffering = konfliktyta.
  */
+
+type Heading = 'up' | 'right' | 'down' | 'left';
+const HEADING_DEG: Record<Heading, number> = { up: 0, right: 90, down: 180, left: -90 };
+
+interface CarProps {
+  cx: number;
+  cy: number;
+  width: number;
+  length: number;
+  heading: Heading;
+  fill: string;
+  stroke: string;
+  brakeLights?: boolean;
+  leftBlinker?: boolean;
+  /** Framhjulen vridna åt vänster. Används bara i förklaringsrutan. */
+  turnedWheels?: boolean;
+}
+
+/**
+ * Bil ritad med fronten uppåt och sedan vriden efter färdriktningen.
+ * Karossen upptar exakt (cx ± width/2, cy ± length/2); hjulen sticker ut 3 px.
+ * Hjulen ritas som egna rektanglar utanför karossen — det är det som gör att
+ * framhjulen kan vridas kring sin egen mitt i förklaringsrutan.
+ */
+function Car({
+  cx,
+  cy,
+  width,
+  length,
+  heading,
+  fill,
+  stroke,
+  brakeLights,
+  leftBlinker,
+  turnedWheels,
+}: CarProps) {
+  const hw = width / 2;
+  const hl = length / 2;
+  const glass = `fill-diagram-marking ${stroke}`;
+  const frontLeftX = -hw - 3;
+  const frontRightX = hw - 2;
+  const frontY = -hl + 5;
+  return (
+    <g transform={`translate(${cx} ${cy}) rotate(${HEADING_DEG[heading]})`}>
+      <g className="fill-text-primary">
+        <rect
+          x={frontLeftX}
+          y={frontY}
+          width="5"
+          height="10"
+          rx="1.5"
+          transform={turnedWheels ? `rotate(-30 ${frontLeftX + 2.5} ${frontY + 5})` : undefined}
+        />
+        <rect
+          x={frontRightX}
+          y={frontY}
+          width="5"
+          height="10"
+          rx="1.5"
+          transform={turnedWheels ? `rotate(-30 ${frontRightX + 2.5} ${frontY + 5})` : undefined}
+        />
+        <rect x={-hw - 3} y={hl - 15} width="5" height="10" rx="1.5" />
+        <rect x={hw - 2} y={hl - 15} width="5" height="10" rx="1.5" />
+      </g>
+      <rect x={-hw} y={-hl} width={width} height={length} rx="4" className="fill-diagram-marking" />
+      <rect x={-hw} y={-hl} width={width} height={length} rx="4" fill={fill} className={stroke} strokeWidth="2" />
+      <rect x={-hw + 5} y={-hl + 7} width={width - 10} height="8" rx="2" className={glass} strokeWidth="1" />
+      <rect x={-hw + 5} y={hl - 11} width={width - 10} height="5" rx="2" className={glass} strokeWidth="1" />
+      {brakeLights && (
+        <g className="fill-safety-600">
+          <rect x={-hw + 2} y={hl - 1} width="6" height="3" />
+          <rect x={hw - 8} y={hl - 1} width="6" height="3" />
+        </g>
+      )}
+      {/* Blinkers vänster: gula hörn på bilens vänstra sida. Ritas innanför
+          karossen, så att bilen inte ser ut att ligga över mittlinjen. */}
+      {leftBlinker && (
+        <g className="fill-attention-600 stroke-text-primary" strokeWidth="0.8">
+          <polygon points={`${-hw + 1},${-hl + 1} ${-hw + 9},${-hl + 1} ${-hw + 1},${-hl + 9}`} />
+          <polygon points={`${-hw + 1},${hl - 1} ${-hw + 9},${hl - 1} ${-hw + 1},${hl - 9}`} />
+        </g>
+      )}
+    </g>
+  );
+}
+
+/** Numrerad hänvisning: mörk cirkel med siffra. */
+function Callout({ x, y, n }: { x: number; y: number; n: number }) {
+  return (
+    <g>
+      <circle cx={x} cy={y} r="11" className="fill-text-primary" />
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+        {n}
+      </text>
+    </g>
+  );
+}
+
+/** Tunn pekarlinje från en etikett till det den syftar på, med en punkt i målet. */
+function Pointer({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
+  return (
+    <g>
+      <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-text-tertiary" strokeWidth="1.5" />
+      <circle cx={x2} cy={y2} r="3" className="fill-text-tertiary" />
+    </g>
+  );
+}
+
+function Check({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 9} ${y} l 6 6 l 12 -13`}
+      className="fill-none stroke-progress-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  );
+}
+
+function Cross({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 7} ${y - 7} L ${x + 7} ${y + 7} M ${x + 7} ${y - 7} L ${x - 7} ${y + 7}`}
+      className="stroke-safety-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  );
+}
+
+/**
+ * Samma väntläge i skala 0,6 för förklaringsrutan. Origo mitt på körbanan:
+ * mittlinjen ligger på x 0, ditt körfält på x 0–60 och det mötande på
+ * x -60–0. Din bil står med mitten på x 16, alltså intill mitten i sitt eget
+ * körfält — samma placering som i huvudbilden.
+ */
+function MiniVantan({ x, y, variant }: { x: number; y: number; variant: 'raka' | 'vridna' }) {
+  const straight = variant === 'raka';
+  return (
+    <g transform={`translate(${x} ${y}) scale(0.6)`}>
+      <rect x="-60" y="-100" width="120" height="200" className="fill-diagram-road" />
+      <g className="stroke-diagram-edge" strokeWidth="3">
+        <line x1="-60" y1="-100" x2="-60" y2="100" />
+        <line x1="60" y1="-100" x2="60" y2="100" />
+      </g>
+      <line x1="0" y1="-100" x2="0" y2="100" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="14 12" />
+
+      {/* Kraften bakifrån */}
+      <path d="M 16 94 L 16 52" className="stroke-text-primary" strokeWidth="6" markerEnd="url(#vsv-arrow-push)" />
+
+      <Car
+        cx={16}
+        cy={20}
+        width={28}
+        length={44}
+        heading="up"
+        fill="url(#vsv-dots)"
+        stroke="stroke-attention-600"
+        turnedWheels={!straight}
+      />
+
+      {/* Resultatet */}
+      {straight ? (
+        <path d="M 16 -10 L 16 -74" className="stroke-text-primary" strokeWidth="4" markerEnd="url(#vsv-arrow-push)" />
+      ) : (
+        <path d="M 12 -10 L -38 -68" className="stroke-text-primary" strokeWidth="4" markerEnd="url(#vsv-arrow-push)" />
+      )}
+    </g>
+  );
+}
 
 export function VanstersvangLandsvagDiagram() {
   return (
     <svg
-      viewBox="0 0 600 1200"
-      className="w-full max-w-lg mx-auto"
+      viewBox="0 0 400 1094"
+      className="w-full max-w-md mx-auto"
       role="img"
-      aria-labelledby="leftturn-title leftturn-desc"
+      aria-labelledby="vsv-title vsv-desc"
     >
-      <title id="leftturn-title">Vänstersväng på landsväg: vänta nära mitten med hjulen raka</title>
-      <desc id="leftturn-desc">
+      <title id="vsv-title">Vänstersväng på landsväg: vänta nära körbanans mitt med hjulen raka</title>
+      <desc id="vsv-desc">
         Vy uppifrån. En landsväg går lodrätt genom bilden och en mindre väg går ut åt vänster. Din
-        bil, ritad med prickmönster, kör uppåt i högra körfältet, har lagt sig alldeles intill
-        mittlinjen, blinkar vänster och står stilla med bromsljusen tända. Alla fyra hjulen pekar
-        rakt fram. En streckad pil visar den planerade svängen: den korsar det mötande körfältet,
-        som är rutmarkerat, och slutar i den bortre halvan av sidovägen. Uppifrån kommer en mötande
-        bil i hög fart, markerad 1, med fartstreck och en heldragen pil. Bakifrån, i samma körfält
-        som du, kommer en annan bil, markerad 2, som inte väntar sig att någon bromsar in där.
-        Markering 3 pekar på dina hjul: de står raka. En teckenförklaring uppe till höger: heldragen
-        pil betyder rör sig nu, streckad pil betyder planerad sväng. Under bilden förklaras de tre
-        punkterna, och att det inte finns någon uttrycklig väjningsplikt mot mötande: du svänger
-        först när du förvissat dig om att det går utan hinder. En ruta längst ned visar varför
-        hjulen ska stå raka. Blir bilen påkörd bakifrån med raka hjul knuffas den rakt fram,
-        markerat med en bock. Med hjulen vridna åt vänster knuffas den ut i mötande körfält,
-        markerat med ett kryss.
+        bil, fylld med prickmönster, kör uppåt i bilden i det högra körfältet, har lagt sig
+        alldeles intill mittlinjen, blinkar vänster med gula trianglar på vänster sida och står
+        stilla med bromsljusen tända. Alla fyra hjulen pekar rakt fram. En streckad pil visar den
+        planerade svängen: den korsar det mötande körfältet, som är markerat med korsskraffering,
+        och slutar i den övre halvan av den mindre vägen, alltså i rätt körfält för den som kör
+        västerut. Markering 1: en mötande bil, fylld med snedränder, kör nedåt i bilden i sitt
+        eget körfält med fartstreck bakom sig och en heldragen pil framåt — bedöm dess fart, inte
+        bara avståndet, och titta förbi den, för bakom den kan en motorcykel ligga. Markering 2:
+        en bakomvarande bil, också fylld med snedränder, kör uppåt i samma körfält som du och
+        väntar sig ingen inbromsning här. Markering 3 pekar på dina framhjul: de står raka.
+        Vägrenen längs högra kanten är utmärkt. En teckenförklaring skiljer på heldragen pil, rör
+        sig nu, och streckad pil, planerad sväng. Under bilden står att det inte finns någon
+        uttrycklig väjningsplikt mot mötande: du ska förvissa dig om att svängen kan ske utan
+        hinder. Där står också att avtömning på vägrenen kan släppa förbi bakomvarande, men att
+        svängen sedan görs från körbanans mitt. Längst ned en ruta som visar samma väntläge två
+        gånger, med en pil för kraften bakifrån och en pil för resultatet: med raka hjul knuffas
+        bilen rakt fram och stannar i sitt eget körfält, markerat med en bock; med hjulen vridna
+        åt vänster knuffas den ut över mittlinjen i mötande körfält, markerat med ett kryss.
       </desc>
 
       <defs>
-        <pattern id="vs-dots" patternUnits="userSpaceOnUse" width="8" height="8">
-          <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
+        <pattern id="vsv-dots" patternUnits="userSpaceOnUse" width="8" height="8">
+          <circle cx="4" cy="4" r="1.6" className="fill-attention-600" />
         </pattern>
-        <pattern id="vs-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
+        <pattern id="vsv-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
           <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
         </pattern>
-        {/* Rutmönster åt båda hållen: skilt från de enkla snedränderna som
-            betyder "annan bil". Betyder här "här korsar du mötande körfält". */}
-        <pattern id="vs-cross" patternUnits="userSpaceOnUse" width="10" height="10">
-          <path d="M 0 0 L 10 10 M 10 0 L 0 10" className="stroke-safety-600" strokeWidth="1.5" />
+        {/* Korsskraffering: konfliktyta. Skild från de enkla snedränder som
+            betyder "annat fordon". */}
+        <pattern id="vsv-conflict" patternUnits="userSpaceOnUse" width="14" height="14">
+          <path d="M 0 0 L 14 14 M 14 0 L 0 14" className="stroke-safety-600" strokeWidth="1.2" />
         </pattern>
-        <marker id="vs-arrow-other" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+        <marker
+          id="vsv-arrow-other"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
         </marker>
-        <marker id="vs-arrow-plan" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+        <marker
+          id="vsv-arrow-plan"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="4.5"
+          markerHeight="4.5"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-attention-600" />
         </marker>
-        <marker id="vs-arrow-push" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+        <marker
+          id="vsv-arrow-push"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-primary" />
         </marker>
-        {/* Annan bil, fronten uppåt, centrerad i origo */}
-        <g id="vs-car-other">
-          <rect x="-33" y="-45" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="23" y="-45" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="-33" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="23" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="-28" y="-55" width="56" height="110" rx="8" fill="url(#vs-stripes)" className="stroke-primary-600" strokeWidth="2" />
-          <rect x="-20" y="-40" width="40" height="16" rx="3" className="fill-diagram-marking stroke-primary-400" strokeWidth="1" />
-          <rect x="-20" y="28" width="40" height="10" rx="3" className="fill-diagram-marking stroke-primary-400" strokeWidth="1" />
-        </g>
       </defs>
 
       {/* Rubrik */}
-      <text x="20" y="38" className="fill-text-primary text-[22px] font-bold">
+      <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Vänstersväng på landsväg
       </text>
-      <text x="20" y="60" className="fill-text-secondary text-[14px]">
-        Vy uppifrån. Du kör uppåt i bilden.
+      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+        Vy uppifrån. Du kör uppåt i bilden och väntar.
       </text>
 
-      {/* Scenen. Koordinaterna här inne är de verifierade (se filhuvudet). */}
-      <g transform="translate(50 70)">
-        {/* Vägar. Sidovägen är ritad ut till bildkanten (x -50) så den inte tar
-            slut mitt i luften; körbanan är densamma. */}
-        <rect x="150" y="0" width="200" height="690" className="fill-diagram-road" />
-        <rect x="-50" y="260" width="200" height="120" className="fill-diagram-road" />
-        <line x1="150" y1="0" x2="150" y2="260" className="stroke-diagram-edge" strokeWidth="2" />
-        <line x1="150" y1="380" x2="150" y2="690" className="stroke-diagram-edge" strokeWidth="2" />
-        <line x1="350" y1="0" x2="350" y2="690" className="stroke-diagram-edge" strokeWidth="2" />
-        <line x1="-50" y1="260" x2="150" y2="260" className="stroke-diagram-edge" strokeWidth="2" />
-        <line x1="-50" y1="380" x2="150" y2="380" className="stroke-diagram-edge" strokeWidth="2" />
-        <line x1="250" y1="0" x2="250" y2="690" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="16 12" />
-        <line x1="-50" y1="320" x2="142" y2="320" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 10" />
+      <g transform="translate(0 64)">
+        {/* Vägbanor. Landsvägen inklusive vägrenar, och den mindre vägen. */}
+        <rect x="140" y="0" width="120" height="560" className="fill-diagram-road" />
+        <rect x="0" y="236" width="150" height="80" className="fill-diagram-road" />
 
-        {/* Vägnamn */}
-        <text x="200" y="672" textAnchor="middle" className="fill-text-secondary text-[13px] font-medium">
+        {/* Vägbanans ytterkanter */}
+        <g className="stroke-diagram-edge" strokeWidth="1.5">
+          <line x1="140" y1="0" x2="140" y2="236" />
+          <line x1="140" y1="316" x2="140" y2="560" />
+          <line x1="260" y1="0" x2="260" y2="560" />
+          <line x1="0" y1="236" x2="140" y2="236" />
+          <line x1="0" y1="316" x2="140" y2="316" />
+        </g>
+
+        {/* Kantlinjer, heldragna: gränsen mellan körbana och vägren */}
+        <g className="stroke-diagram-marking" strokeWidth="3">
+          <line x1="150" y1="0" x2="150" y2="236" />
+          <line x1="150" y1="316" x2="150" y2="560" />
+          <line x1="250" y1="0" x2="250" y2="560" />
+          <line x1="0" y1="246" x2="142" y2="246" />
+          <line x1="0" y1="306" x2="142" y2="306" />
+        </g>
+
+        {/* Mittlinjer */}
+        <line x1="200" y1="0" x2="200" y2="560" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="16 12" />
+        <line x1="0" y1="276" x2="138" y2="276" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 10" />
+
+        {/* Vägnamn — det enda som får ligga på vägbanan */}
+        <text x="175" y="548" textAnchor="middle" className="fill-diagram-marking text-[13px] font-semibold">
           Landsväg
         </text>
-        <text x="-40" y="362" className="fill-text-secondary text-[13px] font-medium">
+        <text x="12" y="300" className="fill-diagram-marking text-[13px] font-semibold">
           Mindre väg
         </text>
 
-        {/* Där svängen korsar mötande körfält */}
-        <rect x="152" y="262" width="96" height="116" fill="url(#vs-cross)" className="stroke-safety-600" strokeWidth="2" />
+        {/* Konfliktytan: den del av mötande körfält som svängen korsar */}
+        <rect
+          x="152"
+          y="246"
+          width="46"
+          height="60"
+          fill="url(#vsv-conflict)"
+          className="stroke-safety-600"
+          strokeWidth="1.5"
+        />
 
-        {/* Teckenförklaring, i eget hörn */}
+        {/* Teckenförklaring */}
         <g>
-          <path d="M 366 14 L 398 14" className="stroke-primary-600" strokeWidth="4" markerEnd="url(#vs-arrow-other)" />
-          <text x="410" y="19" className="fill-text-secondary text-[13px]">
+          <line x1="266" y1="18" x2="292" y2="18" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#vsv-arrow-other)" />
+          <text x="298" y="23" className="fill-text-secondary text-[13px]">
             Rör sig nu
           </text>
-          <path d="M 366 40 L 398 40" className="stroke-attention-600" strokeWidth="4" strokeDasharray="8 6" markerEnd="url(#vs-arrow-plan)" />
-          <text x="410" y="45" className="fill-text-secondary text-[13px]">
+          <line
+            x1="266"
+            y1="42"
+            x2="292"
+            y2="42"
+            className="stroke-attention-600"
+            strokeWidth="3"
+            strokeDasharray="8 6"
+            markerEnd="url(#vsv-arrow-plan)"
+          />
+          <text x="298" y="47" className="fill-text-secondary text-[13px]">
             Planerad sväng
           </text>
         </g>
 
-        {/* 1. Mötande bil i hög fart: kör nedåt i västra körfältet, fartstreck bakom */}
+        {/* 1. Mötande bil i landsvägsfart: kör nedåt i vänstra körfältet */}
         <g className="stroke-primary-600" strokeWidth="3" strokeLinecap="round">
-          <line x1="186" y1="20" x2="186" y2="40" />
-          <line x1="200" y1="10" x2="200" y2="40" />
-          <line x1="214" y1="20" x2="214" y2="40" />
+          <line x1="165" y1="28" x2="165" y2="46" />
+          <line x1="175" y1="18" x2="175" y2="46" />
+          <line x1="185" y1="28" x2="185" y2="46" />
         </g>
-        <use href="#vs-car-other" transform="translate(200 105) rotate(180)" />
-        <path d="M 200 168 L 200 248" className="stroke-primary-600" strokeWidth="4" markerEnd="url(#vs-arrow-other)" />
+        <Car cx={175} cy={76} width={28} length={44} heading="down" fill="url(#vsv-stripes)" stroke="stroke-primary-600" />
+        <line x1="175" y1="104" x2="175" y2="176" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#vsv-arrow-other)" />
 
-        {/* 2. Bakomvarande bil: kör uppåt i samma körfält som du */}
-        <use href="#vs-car-other" transform="translate(300 620)" />
-        <path d="M 300 556 L 300 522" className="stroke-primary-600" strokeWidth="4" markerEnd="url(#vs-arrow-other)" />
+        <Callout x={24} y={64} n={1} />
+        <text x="40" y="69" className="fill-text-primary text-[13px] font-semibold">
+          Mötande bil
+        </text>
+        <text x="14" y="88" className="fill-text-secondary text-[13px]">
+          i landsvägsfart
+        </text>
+        <text x="14" y="104" className="fill-text-secondary text-[13px]">
+          bedöm farten,
+        </text>
+        <text x="14" y="120" className="fill-text-secondary text-[13px]">
+          inte bara avståndet
+        </text>
+        <Pointer x1={100} y1={76} x2={158} y2={72} />
 
-        {/* Planerad sväng: korsar mötande körfält, slutar i sidovägens norra halva */}
+        {/* Titta förbi den mötande */}
+        <text x="264" y="196" className="fill-text-primary text-[13px] font-semibold">
+          Titta förbi den:
+        </text>
+        <text x="264" y="214" className="fill-text-secondary text-[13px]">
+          bakom kan en
+        </text>
+        <text x="264" y="230" className="fill-text-secondary text-[13px]">
+          motorcykel ligga
+        </text>
+        <Pointer x1={262} y1={190} x2={198} y2={40} />
+
+        {/* Svängen korsar mötande körfält */}
+        <text x="14" y="192" className="fill-text-primary text-[13px] font-semibold">
+          Svängen korsar
+        </text>
+        <text x="14" y="208" className="fill-text-primary text-[13px] font-semibold">
+          mötande körfält
+        </text>
+        <Pointer x1={114} y1={202} x2={166} y2={250} />
+
+        {/* Planerad sväng: korsar mötande körfält, slutar i rätt körfält
+            på den mindre vägen (y 246–276 för den som kör västerut) */}
         <path
-          d="M 286 396 C 286 330, 262 291, 150 291"
+          d="M 216 350 C 216 300, 200 262, 136 262"
           className="fill-none stroke-attention-600"
-          strokeWidth="4"
+          strokeWidth="3"
           strokeDasharray="10 8"
-          markerEnd="url(#vs-arrow-plan)"
+          markerEnd="url(#vsv-arrow-plan)"
         />
 
         {/* Din bil: står stilla intill mittlinjen, hjulen raka, blinkar vänster */}
-        <g transform="translate(286 455)">
-          <rect x="-33" y="-45" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="23" y="-45" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="-33" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="23" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-          <rect x="-28" y="-55" width="56" height="110" rx="8" fill="url(#vs-dots)" className="stroke-attention-600" strokeWidth="2" />
-          <rect x="-20" y="-40" width="40" height="16" rx="3" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
-          <rect x="-20" y="28" width="40" height="10" rx="3" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
-          {/* Bromsljus bak */}
-          <rect x="-22" y="52" width="12" height="5" className="fill-safety-600" />
-          <rect x="10" y="52" width="12" height="5" className="fill-safety-600" />
-          {/* Blinkers vänster: trianglar på vänster sida, med blinkstreck */}
-          <polygon points="-28,-56 -28,-47 -37,-51.5" className="fill-attention-600 stroke-text-primary" strokeWidth="1" />
-          <polygon points="-28,47 -28,56 -37,51.5" className="fill-attention-600 stroke-text-primary" strokeWidth="1" />
-          <g className="stroke-attention-600" strokeWidth="2" strokeLinecap="round">
-            <line x1="-41" y1="-57" x2="-48" y2="-63" />
-            <line x1="-42" y1="-51.5" x2="-52" y2="-51.5" />
-            <line x1="-41" y1="-46" x2="-48" y2="-40" />
-            <line x1="-41" y1="46" x2="-48" y2="40" />
-            <line x1="-42" y1="51.5" x2="-52" y2="51.5" />
-            <line x1="-41" y1="57" x2="-48" y2="63" />
-          </g>
-        </g>
+        <Car
+          cx={216}
+          cy={376}
+          width={28}
+          length={44}
+          heading="up"
+          fill="url(#vsv-dots)"
+          stroke="stroke-attention-600"
+          brakeLights
+          leftBlinker
+        />
 
-        {/* Hänvisningslinjer: från etiketten till det den syftar på, med en punkt i änden */}
-        <g className="stroke-text-secondary" strokeWidth="1.5">
-          <line x1="86" y1="109" x2="166" y2="110" />
-          <line x1="78" y1="402" x2="186" y2="362" />
-          <line x1="86" y1="458" x2="252" y2="462" />
-          <line x1="86" y1="498" x2="232" y2="506" />
-          <line x1="363" y1="420" x2="318" y2="402" />
-          <line x1="363" y1="480" x2="321" y2="489" />
-          <line x1="363" y1="610" x2="331" y2="610" />
-        </g>
-        <g className="fill-text-secondary">
-          <circle cx="166" cy="110" r="3" />
-          <circle cx="186" cy="362" r="3" />
-          <circle cx="252" cy="462" r="3" />
-          <circle cx="232" cy="506" r="3" />
-          <circle cx="318" cy="402" r="3" />
-          <circle cx="321" cy="489" r="3" />
-          <circle cx="331" cy="610" r="3" />
-        </g>
-
-        {/* Etiketter vänster */}
-        <circle cx="-28" cy="100" r="11" className="fill-text-primary" />
-        <text x="-28" y="105" textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
-          1
+        <text x="14" y="338" className="fill-text-primary text-[15px] font-semibold">
+          Du
         </text>
-        <text x="-10" y="105" className="fill-text-primary text-[15px] font-semibold">
-          Mötande bil
-        </text>
-        <text x="-40" y="124" className="fill-text-secondary text-[13px]">
-          i landsvägsfart
-        </text>
-
-        <text x="-40" y="406" className="fill-text-primary text-[15px] font-semibold">
-          Svängen korsar
-        </text>
-        <text x="-40" y="424" className="fill-text-primary text-[15px] font-semibold">
-          mötande körfält
-        </text>
-
-        <text x="-40" y="462" className="fill-text-primary text-[15px] font-semibold">
-          Nära vägmitten
-        </text>
-
-        <text x="-40" y="502" className="fill-text-primary text-[15px] font-semibold">
-          Blinkar vänster
-        </text>
-
-        {/* Etiketter höger */}
-        <text x="365" y="424" className="fill-text-primary text-[16px] font-semibold">
-          Din bil
-        </text>
-        <text x="365" y="443" className="fill-text-secondary text-[13px]">
+        <text x="14" y="356" className="fill-text-secondary text-[13px]">
           står stilla, väntar
         </text>
+        <Pointer x1={114} y1={342} x2={202} y2={358} />
 
-        <circle cx="376" cy="476" r="11" className="fill-text-primary" />
-        <text x="376" y="481" textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
-          3
+        <text x="14" y="388" className="fill-text-primary text-[13px] font-semibold">
+          Nära vägmitten
         </text>
-        <text x="394" y="481" className="fill-text-primary text-[15px] font-semibold">
+        <Pointer x1={108} y1={384} x2={198} y2={378} />
+
+        <text x="14" y="424" className="fill-text-primary text-[13px] font-semibold">
+          Blinkar vänster
+        </text>
+        <Pointer x1={114} y1={420} x2={204} y2={394} />
+
+        {/* 3. Hjulen raka */}
+        <Callout x={274} y={396} n={3} />
+        <text x="290" y="401" className="fill-text-primary text-[13px] font-semibold">
           Hjulen raka
         </text>
-        <text x="365" y="500" className="fill-text-secondary text-[13px]">
+        <text x="264" y="420" className="fill-text-secondary text-[13px]">
           inte vridna åt vänster
         </text>
+        <Pointer x1={262} y1={404} x2={236} y2={366} />
 
-        <circle cx="376" cy="612" r="11" className="fill-text-primary" />
-        <text x="376" y="617" textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
-          2
+        {/* Vägrenen */}
+        <text x="272" y="550" className="fill-text-tertiary text-[13px]">
+          vägren
         </text>
-        <text x="394" y="617" className="fill-text-primary text-[15px] font-semibold">
-          Bakomvarande bil
+        <Pointer x1={270} y1={546} x2={255} y2={546} />
+
+        {/* 2. Bakomvarande bil: kör uppåt i samma körfält som du */}
+        <Car cx={225} cy={496} width={28} length={44} heading="up" fill="url(#vsv-stripes)" stroke="stroke-primary-600" />
+        <line x1="225" y1="470" x2="225" y2="436" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#vsv-arrow-other)" />
+
+        <Callout x={274} y={486} n={2} />
+        <text x="290" y="491" className="fill-text-primary text-[13px] font-semibold">
+          Bakom dig
         </text>
-        <text x="365" y="636" className="fill-text-secondary text-[13px]">
+        <text x="264" y="510" className="fill-text-secondary text-[13px]">
           väntar sig ingen
         </text>
-        <text x="365" y="653" className="fill-text-secondary text-[13px]">
+        <text x="264" y="526" className="fill-text-secondary text-[13px]">
           inbromsning här
+        </text>
+        <Pointer x1={262} y1={496} x2={242} y2={496} />
+      </g>
+
+      {/* Regelläget, ordagrant så långt bilden får gå */}
+      <text x="20" y="652" className="fill-text-primary text-[14px] font-semibold">
+        Ingen uttrycklig väjningsplikt mot mötande.
+      </text>
+      <text x="20" y="674" className="fill-text-secondary text-[13px]">
+        Du ska förvissa dig om att svängen kan ske utan hinder
+      </text>
+      <text x="20" y="690" className="fill-text-secondary text-[13px]">
+        för mötande och för dem på körbanan du kör in på.
+      </text>
+
+      <text x="20" y="720" className="fill-text-primary text-[13px] font-semibold">
+        Avtömning
+      </text>
+      <text x="20" y="738" className="fill-text-secondary text-[13px]">
+        Ligger många bakom dig kan du dra ut på vägrenen och
+      </text>
+      <text x="20" y="754" className="fill-text-secondary text-[13px]">
+        släppa förbi dem. Svängen görs sedan från körbanans
+      </text>
+      <text x="20" y="770" className="fill-text-secondary text-[13px]">
+        mitt — aldrig från vägrenen.
+      </text>
+
+      {/* Mönsterförklaring */}
+      <g>
+        <rect x="30" y="792" width="22" height="14" rx="2" fill="url(#vsv-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+        <text x="58" y="804" className="fill-text-tertiary text-[13px]">
+          Du
+        </text>
+        <rect x="120" y="792" width="22" height="14" rx="2" fill="url(#vsv-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
+        <text x="148" y="804" className="fill-text-tertiary text-[13px]">
+          Andra fordon
+        </text>
+        <rect x="252" y="792" width="22" height="14" rx="2" fill="url(#vsv-conflict)" className="stroke-safety-600" strokeWidth="1.5" />
+        <text x="280" y="804" className="fill-text-tertiary text-[13px]">
+          Konfliktyta
         </text>
       </g>
 
-      {/* De tre punkterna */}
-      <text x="20" y="806" className="fill-text-primary text-[16px] font-semibold">
-        Tre saker som gör svängen svår
-      </text>
-
-      <circle cx="30" cy="834" r="11" className="fill-text-primary" />
-      <text x="30" y="839" textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
-        1
-      </text>
-      <text x="48" y="839" className="fill-text-primary text-[15px] font-medium">
-        Mötande i landsvägsfart: bedöm luckan på fart, inte bara på avstånd.
-      </text>
-      <text x="48" y="858" className="fill-text-secondary text-[13px]">
-        Titta förbi den: bakom kan en motorcykel eller en omkörande ligga.
-      </text>
-
-      <circle cx="30" cy="886" r="11" className="fill-text-primary" />
-      <text x="30" y="891" textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
-        2
-      </text>
-      <text x="48" y="891" className="fill-text-primary text-[15px] font-medium">
-        Bakomvarande väntar sig ingen inbromsning här.
-      </text>
-      <text x="48" y="910" className="fill-text-secondary text-[13px]">
-        Kolla bakåt, ge tecken, bromsa mjukt, i den ordningen (3 kap 65 §).
-      </text>
-
-      <circle cx="30" cy="938" r="11" className="fill-text-primary" />
-      <text x="30" y="943" textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
-        3
-      </text>
-      <text x="48" y="943" className="fill-text-primary text-[15px] font-medium">
-        Hjulen raka medan du väntar. Körteknik, inte en regel, se rutan nedan.
-      </text>
-
-      <text x="20" y="976" className="fill-text-secondary text-[13px]">
-        Det finns ingen uttrycklig väjningsplikt mot mötande. Du svänger först
-      </text>
-      <text x="20" y="994" className="fill-text-secondary text-[13px]">
-        när du förvissat dig om att svängen går utan hinder (3 kap 24 §).
-      </text>
-
-      {/* Förklaringsruta: varför hjulen ska stå raka */}
-      <rect x="20" y="1012" width="560" height="176" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="36" y="1038" className="fill-text-primary text-[15px] font-semibold">
+      {/* Förklaringsruta: varför hjulen ska stå raka medan du väntar */}
+      <rect x="20" y="826" width="360" height="252" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="34" y="850" className="fill-text-primary text-[13px] font-semibold">
         Om du blir påkörd bakifrån medan du väntar:
       </text>
-      <text x="36" y="1057" className="fill-text-secondary text-[13px]">
-        Streckad linje = gräns mot mötande körfält, till vänster om bilen
-      </text>
+      <line x1="200" y1="862" x2="200" y2="1068" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
-      {/* Panel A: hjulen raka, bilen knuffas rakt fram */}
-      <text x="48" y="1074" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+      <text x="86" y="866" textAnchor="middle" className="fill-text-tertiary text-[13px]">
         mötande
       </text>
-      <line x1="48" y1="1082" x2="48" y2="1176" className="stroke-text-tertiary" strokeWidth="2" strokeDasharray="6 5" />
-      <g transform="translate(88 1130) scale(0.6)">
-        <rect x="-33" y="-45" width="10" height="22" rx="2" className="fill-text-primary" />
-        <rect x="23" y="-45" width="10" height="22" rx="2" className="fill-text-primary" />
-        <rect x="-33" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-        <rect x="23" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-        <rect x="-28" y="-55" width="56" height="110" rx="8" fill="url(#vs-dots)" className="stroke-attention-600" strokeWidth="2.5" />
-        <rect x="-20" y="-40" width="40" height="16" rx="3" className="fill-diagram-marking stroke-attention-600" strokeWidth="1.5" />
-      </g>
-      <path d="M 88 1182 L 88 1170" className="stroke-text-primary" strokeWidth="5" markerEnd="url(#vs-arrow-push)" />
-      <path d="M 88 1092 L 88 1078" className="stroke-text-primary" strokeWidth="3" markerEnd="url(#vs-arrow-push)" />
-      <text x="122" y="1112" className="fill-text-primary text-[14px] font-semibold">
-        Hjulen raka:
+      <MiniVantan x={104} y={938} variant="raka" />
+      <text x="104" y="1006" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Hjulen raka
       </text>
-      <text x="122" y="1130" className="fill-text-primary text-[13px]">
-        bilen knuffas rakt fram
+      <text x="104" y="1022" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        bilen knuffas
       </text>
-      <path d="M 123 1148 l 6 6 l 12 -13" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="104" y="1038" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        rakt fram
+      </text>
+      <Check x={104} y={1060} />
 
-      {/* Panel B: hjulen vridna åt vänster, bilen knuffas ut i mötande körfält */}
-      <text x="338" y="1074" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+      <text x="272" y="866" textAnchor="middle" className="fill-text-tertiary text-[13px]">
         mötande
       </text>
-      <line x1="338" y1="1082" x2="338" y2="1176" className="stroke-text-tertiary" strokeWidth="2" strokeDasharray="6 5" />
-      <g transform="translate(378 1130) scale(0.6)">
-        <rect x="-33" y="-45" width="10" height="22" rx="2" className="fill-text-primary" transform="rotate(-28 -28 -34)" />
-        <rect x="23" y="-45" width="10" height="22" rx="2" className="fill-text-primary" transform="rotate(-28 28 -34)" />
-        <rect x="-33" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-        <rect x="23" y="23" width="10" height="22" rx="2" className="fill-text-primary" />
-        <rect x="-28" y="-55" width="56" height="110" rx="8" fill="url(#vs-dots)" className="stroke-attention-600" strokeWidth="2.5" />
-        <rect x="-20" y="-40" width="40" height="16" rx="3" className="fill-diagram-marking stroke-attention-600" strokeWidth="1.5" />
-      </g>
-      <path d="M 378 1182 L 378 1170" className="stroke-text-primary" strokeWidth="5" markerEnd="url(#vs-arrow-push)" />
-      <path d="M 376 1096 L 336 1080" className="stroke-text-primary" strokeWidth="3" markerEnd="url(#vs-arrow-push)" />
-      <text x="412" y="1112" className="fill-text-primary text-[14px] font-semibold">
-        Hjulen vridna:
+      <MiniVantan x={290} y={938} variant="vridna" />
+      <text x="290" y="1006" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Hjulen vridna
       </text>
-      <text x="412" y="1130" className="fill-text-primary text-[13px]">
+      <text x="290" y="1022" textAnchor="middle" className="fill-text-secondary text-[13px]">
         bilen knuffas ut i
       </text>
-      <text x="412" y="1147" className="fill-text-primary text-[13px]">
+      <text x="290" y="1038" textAnchor="middle" className="fill-text-secondary text-[13px]">
         mötande körfält
       </text>
-      <path d="M 414 1158 L 428 1172 M 428 1158 L 414 1172" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
+      <Cross x={290} y={1060} />
     </svg>
   );
 }

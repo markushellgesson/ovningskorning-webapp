@@ -150,11 +150,11 @@ function MiniPafart({ x, y, variant }: { x: number; y: number; variant: 'vaver-i
         className="stroke-safety-600"
         strokeWidth="2"
       />
-      <g className="fill-none stroke-diagram-marking" strokeWidth="3">
+      <g className="fill-none stroke-diagram-edge" strokeWidth="3">
         <line x1="-60" y1="-110" x2="-60" y2="110" />
-        <line x1="0" y1="-110" x2="0" y2="-90" />
         <path d="M 0 -90 L 60 -30 L 60 110" />
       </g>
+      <line x1="0" y1="-110" x2="0" y2="-90" className="stroke-diagram-edge" strokeWidth="3" />
       <line x1="0" y1="-90" x2="0" y2="110" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="14 10" />
 
       {/* Annan trafik i höger körfält, kör uppåt */}
@@ -199,7 +199,7 @@ function MiniPafart({ x, y, variant }: { x: number; y: number; variant: 'vaver-i
 export function AccelerationsfaltDiagram() {
   return (
     <svg
-      viewBox="0 0 440 1030"
+      viewBox="0 0 440 1048"
       className="w-full max-w-md mx-auto"
       role="img"
       aria-labelledby="acc-title acc-desc"
@@ -218,7 +218,7 @@ export function AccelerationsfaltDiagram() {
         krysskraffering och röd kontur, och markering 3 pekar dit: fältets slut. Nedanför
         accelerationsfältet fortsätter påfartsrampen snett ned åt höger. En teckenförklaring
         skiljer på heldragen pil, rör sig nu, streckad grön pil, din väg in, korta parallella
-        streck, hög fart, och grön måttmarkering, luckan. En ruta längst ned visar samma påfart
+        streck, hög fart, och grön måttmarkering, luckan. En rad under bilden säger att avstånden mellan fordonen är förkortade för att rymmas i bilden. En ruta längst ned visar samma påfart
         två gånger: eleven har farten uppe och väver in i luckan, markerat med en bock, och
         eleven har tvekat bort luckan och står i fältets slut medan fordonet i körfältet får
         bromsa, markerat med ett kryss.
@@ -260,7 +260,7 @@ export function AccelerationsfaltDiagram() {
       <polygon points="244,540 296,540 328,612 276,612" className="fill-diagram-road" />
 
       {/* Vägmarkeringar: kantlinjer heldragna, körfältslinjer streckade */}
-      <g className="fill-none stroke-diagram-marking" strokeWidth="2.5">
+      <g className="fill-none stroke-diagram-edge" strokeWidth="2">
         <line x1="140" y1="92" x2="140" y2="540" />
         <line x1="244" y1="92" x2="244" y2="212" />
         <path d="M 244 212 L 296 282 L 296 540 L 328 612" />
@@ -426,46 +426,51 @@ export function AccelerationsfaltDiagram() {
         mjukt. Tvinga dig inte in, och bli inte stående i fältets slut.
       </text>
 
+      {/* Notis: avstånden ryms inte skalenligt */}
+      <text x="220" y="736" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+        Avstånden mellan fordonen är förkortade för att rymmas i bilden.
+      </text>
+
       {/* Mönsterförklaring */}
       <g>
-        <rect x="34" y="740" width="22" height="14" rx="2" fill="url(#acc-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="62" y="752" className="fill-text-tertiary text-[13px]">
+        <rect x="34" y="760" width="22" height="14" rx="2" fill="url(#acc-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+        <text x="62" y="772" className="fill-text-tertiary text-[13px]">
           Du
         </text>
-        <rect x="106" y="740" width="22" height="14" rx="2" fill="url(#acc-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="134" y="752" className="fill-text-tertiary text-[13px]">
+        <rect x="106" y="760" width="22" height="14" rx="2" fill="url(#acc-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
+        <text x="134" y="772" className="fill-text-tertiary text-[13px]">
           Annan trafik
         </text>
-        <rect x="236" y="740" width="22" height="14" rx="2" fill="url(#acc-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="264" y="752" className="fill-text-tertiary text-[13px]">
+        <rect x="236" y="760" width="22" height="14" rx="2" fill="url(#acc-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
+        <text x="264" y="772" className="fill-text-tertiary text-[13px]">
           Fältets slut
         </text>
       </g>
 
       {/* Förklaringsruta: vad valet i accelerationsfältet leder till */}
-      <rect x="20" y="778" width="400" height="228" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="802" className="fill-text-primary text-[13px] font-semibold">
+      <rect x="20" y="796" width="400" height="228" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="34" y="820" className="fill-text-primary text-[13px] font-semibold">
         När accelerationsfältet börjar ta slut:
       </text>
-      <line x1="220" y1="818" x2="220" y2="994" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
+      <line x1="220" y1="836" x2="220" y2="1012" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
-      <MiniPafart x={118} y={880} variant="vaver-in" />
-      <text x="118" y="946" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <MiniPafart x={118} y={898} variant="vaver-in" />
+      <text x="118" y="964" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
         Farten är uppe
       </text>
-      <text x="118" y="962" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="118" y="980" textAnchor="middle" className="fill-text-secondary text-[13px]">
         du väver in i luckan
       </text>
-      <Check x={118} y={984} />
+      <Check x={118} y={1002} />
 
-      <MiniPafart x={322} y={880} variant="star-kvar" />
-      <text x="322" y="946" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <MiniPafart x={322} y={898} variant="star-kvar" />
+      <text x="322" y="964" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
         Du tvekar bort luckan
       </text>
-      <text x="322" y="962" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="322" y="980" textAnchor="middle" className="fill-text-secondary text-[13px]">
         och står i fältets slut
       </text>
-      <Cross x={322} y={984} />
+      <Cross x={322} y={1002} />
     </svg>
   );
 }

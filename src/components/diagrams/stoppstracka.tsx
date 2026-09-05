@@ -1,272 +1,383 @@
 /**
- * Stoppsträckan — reaktionssträcka + bromssträcka (MAN-06).
- * Två rader, lägre och högre fart, sedda uppifrån med bilen på väg åt höger.
+ * Stoppsträckan — reaktionssträcka plus bromssträcka (MAN-06).
  *
- * Kvalitativt, inga siffror: staplarnas längder är valda så att reaktionssträckan
- * växer i takt med farten och bromssträckan växer snabbare än så, utan att någon
- * bestämd multipel eller meterangivelse ritas ut eller går att läsa av som fakta.
- * Längderna (70/60 respektive 126/190 bildenheter) är desamma i båda figurerna.
+ * Vad bilden lär ut: stoppsträckan består av två delar efter varandra, och de
+ * växer inte lika fort när farten stiger. Bilden är kvalitativ.
  *
- * Rutan längst ned ställer samma två farter mot ett och samma avstånd till en
- * fara: vid den lägre farten slutar stoppsträckan före faran, vid den högre
- * räcker den förbi. Inte heller där anges något mått.
+ * INGA MÅTT. Det står ingen meter, ingen sekund och ingen multipel i bilden,
+ * varken i text eller som avläsbar skala. Det finns ingen axel, inga
+ * gradmarkeringar och ingen siffra vid någon stapel. Underrubriken säger
+ * uttryckligen att figuren visar förhållandet mellan delarna, inte mått.
+ *
+ * ---- Geometri (vy uppifrån) ----
+ * Huvudfiguren: två vägremsor under varandra, bilen kör åt HÖGER (ökande x).
+ * Vid högertrafik och färdriktning åt höger ligger fordonets högra sida mot
+ * bildens nedre kant; remsan visar bara det egna körfältet, så ingen mittlinje
+ * ritas och inget fordon kan hamna i fel körfält. Båda remsorna har samma
+ * startlinje x = 96 ("ser faran"), så längderna är jämförbara rakt av.
+ *   Lägre fart: reaktion 66, broms 48, stopp vid x = 210
+ *   Högre fart: reaktion 119, broms 156, stopp vid x = 371
+ * Formen är fysikaliskt riktig: reaktionssträckan skalar linjärt med farten
+ * (66 → 119) medan bromssträckan skalar med kvadraten (48 → 156). Talen är
+ * bildenheter valda för att ge den formen och representerar inga meter.
+ *
+ * Förklaringsrutan: samma två farter i skala 0.45, nu som två lodräta remsor
+ * sida vid sida där bilarna kör UPPÅT. Panelerna delar två vågräta
+ * referenslinjer, vilket är hela poängen med att ställa dem bredvid varandra:
+ *   y = 708  gemensam startlinje "ser faran" (båda bilarnas front)
+ *   y = 628  faran, samma avstånd i båda panelerna
+ * Efterräknat: lägre fart stannar vid y = 656.7, alltså 28.7 enheter FÖRE
+ * faran; högre fart stannar vid y = 584.2, alltså 43.8 enheter EFTER den.
+ *
+ * Mönster: prickar = din bil, diagonala ränder = reaktionssträcka,
+ * rutmönster = bromssträcka. Inget mönster betyder två saker. Varje del bär
+ * dessutom siffra och etikett, så färgen bär ingenting ensam.
  */
 
 function Badge({ cx, cy, n }: { cx: number; cy: number; n: string }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
-      <text
-        x={cx}
-        y={cy + 5}
-        textAnchor="middle"
-        className="fill-surface-base text-[13px] font-semibold"
-      >
+      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
         {n}
       </text>
     </g>
   );
 }
 
-/** Fartstreck bakom bilen: fler och längre ju högre fart. */
+/** Fartstreck bakom bilen: fler och längre ju högre fart. Säger tempo utan siffror. */
 function SpeedLines({ x, y, high }: { x: number; y: number; high: boolean }) {
+  const marks = high
+    ? [
+        [-8, 14],
+        [0, 22],
+        [8, 14],
+      ]
+    : [
+        [-6, 9],
+        [6, 9],
+      ];
   return (
     <g className="stroke-attention-600" strokeWidth="2.5" strokeLinecap="round">
-      {high ? (
-        <>
-          <line x1={x - 12} y1={y - 8} x2={x} y2={y - 8} />
-          <line x1={x - 18} y1={y} x2={x} y2={y} />
-          <line x1={x - 12} y1={y + 8} x2={x} y2={y + 8} />
-        </>
-      ) : (
-        <>
-          <line x1={x - 7} y1={y - 6} x2={x} y2={y - 6} />
-          <line x1={x - 7} y1={y + 6} x2={x} y2={y + 6} />
-        </>
-      )}
+      {marks.map(([off, len], i) => (
+        <line key={i} x1={x} y1={y + off} x2={x - len} y2={y + off} />
+      ))}
     </g>
   );
 }
 
-/**
- * En vägremsa med bil, reaktionssträcka, bromssträcka och stopp.
- * `start` är bilens front, där reaktionssträckan börjar.
- */
-function Segments({ start, react, brake, top, height }: { start: number; react: number; brake: number; top: number; height: number }) {
+/** Vågrät stoppsträcka: reaktionsdel, bromsdel och en stopplinje. */
+function SegmentsH({
+  start,
+  react,
+  brake,
+  top,
+  height,
+}: {
+  start: number;
+  react: number;
+  brake: number;
+  top: number;
+  height: number;
+}) {
   const stop = start + react + brake;
   return (
     <g>
       <rect x={start} y={top} width={react} height={height} fill="url(#ss-react)" className="stroke-primary-600" strokeWidth="1.5" />
       <rect x={start + react} y={top} width={brake} height={height} fill="url(#ss-brake)" className="stroke-safety-600" strokeWidth="1.5" />
-      <line x1={stop} y1={top - 6} x2={stop} y2={top + height + 6} className="stroke-safety-600" strokeWidth="3" />
+      <line x1={stop} y1={top - 7} x2={stop} y2={top + height + 7} className="stroke-safety-600" strokeWidth="3" />
     </g>
   );
 }
 
+/** Lodrät stoppsträcka i förklaringsrutan: bilen kör uppåt, sträckorna växer uppåt. */
+function SegmentsV({
+  x,
+  width,
+  start,
+  react,
+  brake,
+}: {
+  x: number;
+  width: number;
+  start: number;
+  react: number;
+  brake: number;
+}) {
+  const stop = start - react - brake;
+  return (
+    <g>
+      <rect x={x} y={start - react} width={width} height={react} fill="url(#ss-react)" className="stroke-primary-600" strokeWidth="1.5" />
+      <rect x={x} y={stop} width={width} height={brake} fill="url(#ss-brake)" className="stroke-safety-600" strokeWidth="1.5" />
+      <line x1={x - 7} y1={stop} x2={x + width + 7} y2={stop} className="stroke-safety-600" strokeWidth="3" />
+    </g>
+  );
+}
+
+const START = 96;
+const LOW = { react: 66, brake: 48 };
+const HIGH = { react: 119, brake: 156 };
+
+/** Förklaringsrutans skala och gemensamma referenslinjer. */
+const K = 0.45;
+const V_START = 708;
+const V_HAZARD = 628;
+
 export function StoppstrackaDiagram() {
-  // Sträckornas längder, gemensamma för huvudfigur och ruta
-  const LOW = { react: 70, brake: 60 };
-  const HIGH = { react: 126, brake: 190 };
-  const START = 80; // bilens front
-  const HAZARD = 334; // farans läge i rutan, mellan de två stoppunkterna
+  const lowStop = START + LOW.react + LOW.brake;
+  const highStop = START + HIGH.react + HIGH.brake;
 
   return (
     <svg
-      viewBox="0 0 480 740"
+      viewBox="0 0 480 842"
       className="w-full max-w-lg mx-auto"
       role="img"
       aria-labelledby="ss-title ss-desc"
     >
       <title id="ss-title">Stoppsträckans två delar</title>
       <desc id="ss-desc">
-        Två vägremsor sedda uppifrån, en för lägre fart och en för högre fart. På varje remsa
-        står din bil, ritad med prickmönster, till vänster och kör åt höger; fartstreck bakom
-        bilen är fler och längre på raden för högre fart. Från den punkt där du ser faran löper
-        stoppsträckan i två delar efter varandra, numrerade ett och två: först
-        reaktionssträckan, ritad med diagonala ränder, som är vägen bilen hinner rulla från att
-        du ser faran tills du trycker på bromsen, och sedan bromssträckan, ritad med rutmönster
-        på röd botten, som är vägen från att du bromsar tills bilen står still. Ett lodrätt
-        streck märkt Stopp avslutar varje remsa. På raden för högre fart är båda delarna längre,
-        men bromssträckan har vuxit betydligt mer än reaktionssträckan och utgör nu den klart
-        största delen av stoppsträckan. Inga mått anges. En ruta längst ned visar samma två
-        farter mot ett och samma avstånd till en fara: vid den lägre farten slutar stoppsträckan
-        före faran, markerat med en bock, vid den högre räcker stoppsträckan förbi faran,
-        markerat med ett kryss. Slutsatsen står under figuren: se stoppunkten tidigt, då hinner
-        du bromsa mjukt.
+        Två vägremsor sedda uppifrån, den ena under den andra, en för lägre fart och en för högre.
+        På båda står din bil, fylld med prickmönster, till vänster och kör åt höger, och båda
+        remsorna har samma startlinje märkt Ser faran, så att längderna går att jämföra. Bakom
+        bilen finns fartstreck: två korta på raden för lägre fart, tre längre på raden för högre.
+        Från startlinjen löper stoppsträckan i två delar efter varandra. Först markering ett,
+        reaktionssträckan, ritad med diagonala ränder: vägen bilen rullar från att du ser faran
+        tills du trycker på bromsen. Sedan markering två, bromssträckan, ritad med rutmönster:
+        vägen från att du börjar bromsa tills bilen står still. Ett lodrätt streck märkt Stopp
+        avslutar varje remsa, och en måttlös hjälplinje under remsan visar hela stoppsträckan. På
+        raden för högre fart är båda delarna längre, men bromssträckan har vuxit betydligt mer än
+        reaktionssträckan och är där den klart största delen. Inga mått anges, varken i meter,
+        sekunder eller multiplar; figuren visar bara förhållandet mellan delarna. En ruta längst
+        ned visar samma två farter en gång till, nu som två lodräta vägremsor bredvid varandra
+        där bilarna kör uppåt. Panelerna delar två vågräta linjer: en prickad startlinje märkt Ser
+        faran vid bilarnas front, och ett kraftigt mörkt streck märkt Fara lika långt fram i båda
+        panelerna. Vid lägre fart slutar stoppsträckan före faran, markerat med en bock. Vid högre
+        fart räcker stoppsträckan förbi faran, markerat med ett kryss. Under rutan står att den
+        som ser stoppunkten tidigt hinner bromsa mjukt hela vägen in.
       </desc>
 
       <defs>
-        {/* Elevens bil: prickar */}
+        {/* Din bil: prickar */}
         <pattern id="ss-car-fill" patternUnits="userSpaceOnUse" width="8" height="8">
-          <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
+          <circle cx="4" cy="4" r="1.6" className="fill-attention-600" />
         </pattern>
         {/* Reaktionssträcka: diagonala ränder */}
         <pattern id="ss-react" patternUnits="userSpaceOnUse" width="8" height="8">
-          <path
-            d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4"
-            className="stroke-primary-600"
-            strokeWidth="1.5"
-          />
+          <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="1.6" />
         </pattern>
-        {/* Bromssträcka: rutmönster på röd botten */}
+        {/* Bromssträcka: rutmönster */}
         <pattern id="ss-brake" patternUnits="userSpaceOnUse" width="12" height="12">
           <rect width="12" height="12" className="fill-safety-200" />
           <path d="M 0 0 L 12 12 M 12 0 L 0 12" className="stroke-safety-600" strokeWidth="1.2" />
         </pattern>
-        {/* Din bil, fronten åt höger, centrerad i origo. Fronten ligger på x = 22. */}
-        <g id="ss-car">
-          <rect x="-16" y="-16" width="10" height="5" rx="1.5" className="fill-text-primary" />
-          <rect x="6" y="-16" width="10" height="5" rx="1.5" className="fill-text-primary" />
-          <rect x="-16" y="11" width="10" height="5" rx="1.5" className="fill-text-primary" />
-          <rect x="6" y="11" width="10" height="5" rx="1.5" className="fill-text-primary" />
-          <rect x="-22" y="-12" width="44" height="24" rx="4" fill="url(#ss-car-fill)" className="stroke-attention-600" strokeWidth="2" />
-          <rect x="6" y="-8" width="8" height="16" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
-          <rect x="-16" y="-7" width="5" height="14" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
+        {/* Din bil, fronten åt höger, centrerad i origo. Fronten ligger på x = 24. */}
+        <g id="ss-car-right">
+          <g className="fill-text-primary">
+            <rect x="-17" y="-17" width="10" height="5" rx="1.5" />
+            <rect x="8" y="-17" width="10" height="5" rx="1.5" />
+            <rect x="-17" y="12" width="10" height="5" rx="1.5" />
+            <rect x="8" y="12" width="10" height="5" rx="1.5" />
+          </g>
+          <rect x="-24" y="-13" width="48" height="26" rx="4" fill="url(#ss-car-fill)" className="stroke-attention-600" strokeWidth="2" />
+          <rect x="7" y="-9" width="9" height="18" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
+          <rect x="-17" y="-8" width="6" height="16" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
+        </g>
+        {/* Samma bil, fronten uppåt, för förklaringsrutan. Fronten ligger på y = −24. */}
+        <g id="ss-car-up">
+          <g className="fill-text-primary">
+            <rect x="-17" y="-17" width="5" height="10" rx="1.5" />
+            <rect x="12" y="-17" width="5" height="10" rx="1.5" />
+            <rect x="-17" y="8" width="5" height="10" rx="1.5" />
+            <rect x="12" y="8" width="5" height="10" rx="1.5" />
+          </g>
+          <rect x="-13" y="-24" width="26" height="48" rx="4" fill="url(#ss-car-fill)" className="stroke-attention-600" strokeWidth="2" />
+          <rect x="-9" y="-16" width="18" height="9" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
+          <rect x="-8" y="11" width="16" height="6" rx="2" className="fill-diagram-marking stroke-attention-600" strokeWidth="1" />
         </g>
       </defs>
 
       {/* Rubrik */}
-      <text x="20" y="32" className="fill-text-primary text-[16px] font-semibold">
+      <text x="20" y="30" className="fill-text-primary text-[16px] font-semibold">
         Stoppsträcka = reaktionssträcka + bromssträcka
       </text>
-      <text x="20" y="52" className="fill-text-secondary text-[13px]">
-        Sedd uppifrån, bilen kör åt höger. Figuren visar förhållandet, inte mått.
+      <text x="20" y="50" className="fill-text-secondary text-[13px]">
+        Sedd uppifrån, du kör åt höger. Figuren visar förhållandet mellan
+      </text>
+      <text x="20" y="66" className="fill-text-secondary text-[13px]">
+        delarna — inga mått anges.
       </text>
 
-      {/* Rad 1: lägre fart */}
-      <g transform="translate(0 96)">
-        <text x="20" y="0" className="fill-text-primary text-[14px] font-semibold">
+      {/* ---- Rad 1: lägre fart ---- */}
+      <g transform="translate(0 92)">
+        <text x="20" y="8" className="fill-text-primary text-[14px] font-semibold">
           Lägre fart
         </text>
-        <text x={START} y="22" className="fill-text-secondary text-[13px]" textAnchor="middle">
-          Ser faran
-        </text>
-        <text x={START + LOW.react} y="22" className="fill-text-secondary text-[13px]" textAnchor="middle">
+        <text x={START + LOW.react} y="8" textAnchor="middle" className="fill-text-secondary text-[13px]">
           Bromsar
         </text>
-        <text x={START + LOW.react + LOW.brake} y="22" className="fill-text-primary text-[13px] font-semibold" textAnchor="middle">
+        <text x={START} y="28" textAnchor="middle" className="fill-text-secondary text-[13px]">
+          Ser faran
+        </text>
+        <text x={lowStop} y="28" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
           Stopp
         </text>
-        <line x1={START} y1="26" x2={START} y2="32" className="stroke-text-tertiary" strokeWidth="1" />
-        <line x1={START + LOW.react} y1="26" x2={START + LOW.react} y2="32" className="stroke-text-tertiary" strokeWidth="1" />
+        <g className="stroke-text-tertiary" strokeWidth="1">
+          <line x1={START} y1="32" x2={START} y2="36" />
+          <line x1={START + LOW.react} y1="12" x2={START + LOW.react} y2="36" />
+        </g>
 
-        <rect x="20" y="32" width="440" height="48" className="fill-diagram-road" />
-        <line x1="20" y1="32" x2="460" y2="32" className="stroke-diagram-edge" strokeWidth="1.5" />
-        <line x1="20" y1="80" x2="460" y2="80" className="stroke-diagram-edge" strokeWidth="1.5" />
+        <rect x="24" y="36" width="432" height="48" className="fill-diagram-road" />
+        <line x1="24" y1="36" x2="456" y2="36" className="stroke-diagram-edge" strokeWidth="1.5" />
+        <line x1="24" y1="84" x2="456" y2="84" className="stroke-diagram-edge" strokeWidth="1.5" />
 
-        <Segments start={START} react={LOW.react} brake={LOW.brake} top={32} height={48} />
-        <Badge cx={START + LOW.react / 2} cy={56} n="1" />
-        <Badge cx={START + LOW.react + LOW.brake / 2} cy={56} n="2" />
+        <SegmentsH start={START} react={LOW.react} brake={LOW.brake} top={36} height={48} />
+        <Badge cx={START + LOW.react / 2} cy={60} n="1" />
+        <Badge cx={START + LOW.react + LOW.brake / 2} cy={60} n="2" />
 
-        <SpeedLines x={34} y={56} high={false} />
-        <use href="#ss-car" transform="translate(58 56)" />
+        <SpeedLines x={46} y={60} high={false} />
+        <use href="#ss-car-right" transform="translate(72 60)" />
 
-        {/* Hela stoppsträckan */}
-        <line x1={START} y1="96" x2={START + LOW.react + LOW.brake} y2="96" className="stroke-text-tertiary" strokeWidth="1" />
-        <line x1={START} y1="91" x2={START} y2="101" className="stroke-text-tertiary" strokeWidth="1" />
-        <line x1={START + LOW.react + LOW.brake} y1="91" x2={START + LOW.react + LOW.brake} y2="101" className="stroke-text-tertiary" strokeWidth="1" />
-        <text x={START + (LOW.react + LOW.brake) / 2} y="114" className="fill-text-secondary text-[13px] font-medium" textAnchor="middle">
+        <g className="stroke-text-tertiary" strokeWidth="1">
+          <line x1={START} y1="100" x2={lowStop} y2="100" />
+          <line x1={START} y1="95" x2={START} y2="105" />
+          <line x1={lowStop} y1="95" x2={lowStop} y2="105" />
+        </g>
+        <text x={START + (LOW.react + LOW.brake) / 2} y="120" textAnchor="middle" className="fill-text-secondary text-[13px] font-medium">
           Stoppsträcka
         </text>
       </g>
 
-      {/* Rad 2: högre fart */}
-      <g transform="translate(0 236)">
-        <text x="20" y="0" className="fill-text-primary text-[14px] font-semibold">
+      {/* ---- Rad 2: högre fart ---- */}
+      <g transform="translate(0 232)">
+        <text x="20" y="8" className="fill-text-primary text-[14px] font-semibold">
           Högre fart
         </text>
-        <text x={START} y="22" className="fill-text-secondary text-[13px]" textAnchor="middle">
-          Ser faran
-        </text>
-        <text x={START + HIGH.react} y="22" className="fill-text-secondary text-[13px]" textAnchor="middle">
+        <text x={START + HIGH.react} y="8" textAnchor="middle" className="fill-text-secondary text-[13px]">
           Bromsar
         </text>
-        <text x={START + HIGH.react + HIGH.brake} y="22" className="fill-text-primary text-[13px] font-semibold" textAnchor="middle">
+        <text x={START} y="28" textAnchor="middle" className="fill-text-secondary text-[13px]">
+          Ser faran
+        </text>
+        <text x={highStop} y="28" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
           Stopp
         </text>
-        <line x1={START} y1="26" x2={START} y2="32" className="stroke-text-tertiary" strokeWidth="1" />
-        <line x1={START + HIGH.react} y1="26" x2={START + HIGH.react} y2="32" className="stroke-text-tertiary" strokeWidth="1" />
+        <g className="stroke-text-tertiary" strokeWidth="1">
+          <line x1={START} y1="32" x2={START} y2="36" />
+          <line x1={START + HIGH.react} y1="12" x2={START + HIGH.react} y2="36" />
+        </g>
 
-        <rect x="20" y="32" width="440" height="48" className="fill-diagram-road" />
-        <line x1="20" y1="32" x2="460" y2="32" className="stroke-diagram-edge" strokeWidth="1.5" />
-        <line x1="20" y1="80" x2="460" y2="80" className="stroke-diagram-edge" strokeWidth="1.5" />
+        <rect x="24" y="36" width="432" height="48" className="fill-diagram-road" />
+        <line x1="24" y1="36" x2="456" y2="36" className="stroke-diagram-edge" strokeWidth="1.5" />
+        <line x1="24" y1="84" x2="456" y2="84" className="stroke-diagram-edge" strokeWidth="1.5" />
 
-        <Segments start={START} react={HIGH.react} brake={HIGH.brake} top={32} height={48} />
-        <Badge cx={START + HIGH.react / 2} cy={56} n="1" />
-        <Badge cx={START + HIGH.react + HIGH.brake / 2} cy={56} n="2" />
+        <SegmentsH start={START} react={HIGH.react} brake={HIGH.brake} top={36} height={48} />
+        <Badge cx={START + HIGH.react / 2} cy={60} n="1" />
+        <Badge cx={START + HIGH.react + HIGH.brake / 2} cy={60} n="2" />
 
-        <SpeedLines x={34} y={56} high />
-        <use href="#ss-car" transform="translate(58 56)" />
+        <SpeedLines x={46} y={60} high />
+        <use href="#ss-car-right" transform="translate(72 60)" />
 
-        <line x1={START} y1="96" x2={START + HIGH.react + HIGH.brake} y2="96" className="stroke-text-tertiary" strokeWidth="1" />
-        <line x1={START} y1="91" x2={START} y2="101" className="stroke-text-tertiary" strokeWidth="1" />
-        <line x1={START + HIGH.react + HIGH.brake} y1="91" x2={START + HIGH.react + HIGH.brake} y2="101" className="stroke-text-tertiary" strokeWidth="1" />
-        <text x={START + (HIGH.react + HIGH.brake) / 2} y="114" className="fill-text-secondary text-[13px] font-medium" textAnchor="middle">
+        <g className="stroke-text-tertiary" strokeWidth="1">
+          <line x1={START} y1="100" x2={highStop} y2="100" />
+          <line x1={START} y1="95" x2={START} y2="105" />
+          <line x1={highStop} y1="95" x2={highStop} y2="105" />
+        </g>
+        <text x={START + (HIGH.react + HIGH.brake) / 2} y="120" textAnchor="middle" className="fill-text-secondary text-[13px] font-medium">
           Stoppsträcka
         </text>
       </g>
 
-      <text x="240" y="382" className="fill-text-primary text-[13px] font-medium" textAnchor="middle">
-        Båda delarna växer med farten — bromssträckan växer snabbast.
+      {/* Slutsats om formen, utan tal */}
+      <text x="240" y="386" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        Båda delarna växer med farten. Bromssträckan växer
+      </text>
+      <text x="240" y="406" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        snabbare och tar över vid högre fart.
       </text>
 
-      {/* Teckenförklaring: de två numrerade delarna */}
-      <Badge cx={30} cy={414} n="1" />
-      <rect x="46" y="407" width="22" height="14" fill="url(#ss-react)" className="stroke-primary-600" strokeWidth="1" />
-      <text x="76" y="418" className="fill-text-primary text-[13px] font-semibold">
+      {/* Teckenförklaring för de två numrerade delarna */}
+      <Badge cx={32} cy={436} n="1" />
+      <rect x="48" y="429" width="24" height="14" fill="url(#ss-react)" className="stroke-primary-600" strokeWidth="1" />
+      <text x="80" y="441" className="fill-text-primary text-[13px] font-semibold">
         Reaktionssträcka
       </text>
-      <text x="76" y="436" className="fill-text-secondary text-[13px]">
+      <text x="80" y="459" className="fill-text-secondary text-[13px]">
         från att du ser faran tills du trycker på bromsen
       </text>
 
-      <Badge cx={30} cy={458} n="2" />
-      <rect x="46" y="451" width="22" height="14" fill="url(#ss-brake)" className="stroke-safety-600" strokeWidth="1" />
-      <text x="76" y="462" className="fill-text-primary text-[13px] font-semibold">
+      <Badge cx={32} cy={484} n="2" />
+      <rect x="48" y="477" width="24" height="14" fill="url(#ss-brake)" className="stroke-safety-600" strokeWidth="1" />
+      <text x="80" y="489" className="fill-text-primary text-[13px] font-semibold">
         Bromssträcka
       </text>
-      <text x="76" y="480" className="fill-text-secondary text-[13px]">
-        från att du bromsar tills bilen står still
+      <text x="80" y="507" className="fill-text-secondary text-[13px]">
+        från att du börjar bromsa tills bilen står still
       </text>
 
-      {/* Förklaringsruta: samma avstånd till faran, två farter */}
-      <rect x="20" y="502" width="440" height="190" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="526" className="fill-text-primary text-[13px] font-semibold">
-        Samma avstånd till faran:
+      {/* ---- Förklaringsruta: samma avstånd till faran, två farter ---- */}
+      <rect x="20" y="528" width="440" height="292" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="34" y="552" className="fill-text-primary text-[13px] font-semibold">
+        Om en fara dyker upp på samma avstånd:
       </text>
 
-      {/* Lägre fart: stoppsträckan slutar före faran */}
-      <g transform="translate(0 546)">
-        <text x={HAZARD} y="-8" className="fill-text-primary text-[13px] font-semibold" textAnchor="middle">
-          Fara
-        </text>
-        <rect x="40" y="0" width="400" height="32" className="fill-diagram-road" />
-        <Segments start={START + 20} react={LOW.react} brake={LOW.brake} top={0} height={32} />
-        <SpeedLines x={54} y={16} high={false} />
-        <use href="#ss-car" transform="translate(78 16)" />
-        <rect x={HAZARD - 4} y="-3" width="8" height="38" className="fill-text-primary" />
-        <path d="M 42 52 l 5 5 l 9 -11" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="64" y="57" className="fill-text-primary text-[13px]">
-          Lägre fart: du stannar före faran
-        </text>
+      {/* Vägremsor, bilarna kör uppåt */}
+      <rect x="118" y="570" width="60" height="190" className="fill-diagram-road" />
+      <rect x="302" y="570" width="60" height="190" className="fill-diagram-road" />
+      <g className="stroke-diagram-edge" strokeWidth="1.5">
+        <line x1="118" y1="570" x2="118" y2="760" />
+        <line x1="178" y1="570" x2="178" y2="760" />
+        <line x1="302" y1="570" x2="302" y2="760" />
+        <line x1="362" y1="570" x2="362" y2="760" />
       </g>
 
-      {/* Högre fart: stoppsträckan räcker förbi faran */}
-      <g transform="translate(0 624)">
-        <rect x="40" y="0" width="400" height="32" className="fill-diagram-road" />
-        <Segments start={START + 20} react={HIGH.react} brake={HIGH.brake} top={0} height={32} />
-        <SpeedLines x={54} y={16} high />
-        <use href="#ss-car" transform="translate(78 16)" />
-        <rect x={HAZARD - 4} y="-3" width="8" height="38" className="fill-text-primary" />
-        <path d="M 42 47 L 54 59 M 54 47 L 42 59" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
-        <text x="64" y="57" className="fill-text-primary text-[13px]">
-          Högre fart: stoppsträckan räcker förbi faran
-        </text>
-      </g>
+      <SegmentsV x={118} width={60} start={V_START} react={LOW.react * K} brake={LOW.brake * K} />
+      <SegmentsV x={302} width={60} start={V_START} react={HIGH.react * K} brake={HIGH.brake * K} />
 
-      <text x="240" y="722" className="fill-text-primary text-[13px] font-medium" textAnchor="middle">
-        Se stoppunkten tidigt — då hinner du bromsa mjukt.
+      {/* Gemensam startlinje: båda bilarnas front */}
+      <text x="34" y="700" className="fill-text-secondary text-[13px]">
+        Ser faran
       </text>
+      <line
+        x1="34"
+        y1={V_START}
+        x2="372"
+        y2={V_START}
+        className="stroke-text-tertiary"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeDasharray="0.5 5"
+      />
+
+      {/* Gemensam fara: samma avstånd i båda panelerna */}
+      <line x1="104" y1={V_HAZARD} x2="376" y2={V_HAZARD} className="stroke-text-primary" strokeWidth="4" />
+      <text x="384" y={V_HAZARD + 5} className="fill-text-primary text-[13px] font-semibold">
+        Fara
+      </text>
+
+      <use href="#ss-car-up" transform="translate(148 732)" />
+      <use href="#ss-car-up" transform="translate(332 732)" />
+
+      <text x="148" y="782" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Lägre fart
+      </text>
+      <text x="148" y="798" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        du stannar före faran
+      </text>
+      <path
+        d="M 141 806 l 5 5 l 10 -11"
+        className="fill-none stroke-progress-600"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      <text x="332" y="782" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Högre fart
+      </text>
+      <text x="332" y="798" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        stoppsträckan räcker förbi
+      </text>
+      <path d="M 326 803 L 338 815 M 338 803 L 326 815" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
 }
