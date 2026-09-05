@@ -151,6 +151,9 @@ export default function UpplaggPage() {
           </ol>
         </section>
 
+        {/* Regelstöd, hålls i kommentar och aldrig i den synliga texten:
+            trafikförordningen 3 kap 16 § (får inte utan giltigt skäl köra med överdrivet låg
+            hastighet, plötsligt bromsa eller på annat sätt hindra andra förares körning). */}
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold text-text-primary">Tveka inte för länge</h2>
           <Card padding="lg" className="space-y-3">
@@ -160,7 +163,7 @@ export default function UpplaggPage() {
               ligger kvar i en för låg växel visar dålig planering snarare än försiktighet.
               Obeslutsamheten blir då ett eget hinder: en förare får inte utan giltigt skäl köra med
               överdrivet låg hastighet, plötsligt bromsa eller på något annat sätt hindra andra
-              förares körning (trafikförordningen 3 kap 16 §). Det kommande körkortsdirektivet byter
+              förares körning. Det kommande körkortsdirektivet byter
               också ut kravet på &quot;tydlig&quot; körning mot &quot;beslutsam&quot; körning (gäller
               från 2029, inte i dag).
             </p>

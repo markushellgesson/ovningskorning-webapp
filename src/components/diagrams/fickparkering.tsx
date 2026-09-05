@@ -1,7 +1,21 @@
 /**
  * Fickparkering (MAN-10) — inparkering mellan två stillastående bilar i tre
- * steg, med de referenspunkter man styr efter, samt väjningsplikten när
+ * steg, med de referenspunkter man styr efter, samt regeln som gäller när
  * bilen sedan lämnar platsen.
+ *
+ * VILKEN REGEL SCENEN LÄR UT, och varför. Bilen står vid trottoarkanten på en
+ * gata, alltså redan på körbanan. TrF 3 kap 21 § andra stycket 1 ger
+ * väjningsplikt för den som kommer in på en väg "från en parkeringsplats, en
+ * fastighet, en bensinstation eller från något annat liknande område i
+ * anslutning till vägen" — den träffar den som kommer in på vägen från ett
+ * område VID SIDAN av den, inte den som redan står på den. För bilen i den här
+ * bilden gäller i stället TrF 3 kap 43 § första stycket: start från vägkanten
+ * får ske endast utan fara eller onödigt hinder för andra vägtrafikanter.
+ * OSÄKERHET: var gränsen exakt går för en anordnad ficka som ligger avskild
+ * från körbanan går inte att avgöra ur lagtexten ensam, och ingen praxis är
+ * läst. Diagrammet påstår därför ingenting om gränsfallen — det visar en gata,
+ * och lär ut 43 §-regeln. Väjningsplikten hör till MAN-10:s parkeringsområden
+ * skilda från körbanan och till MAN-11:s förklaringsruta.
  *
  * Skala 12 px = 1 m. Kaross 22 × 53 px (1,8 × 4,4 m), hjulbas 31 px,
  * bakaxeln 11 px fram om bakre kanten, nosen 42 px fram om bakaxeln.
@@ -199,10 +213,11 @@ export function FickparkeringDiagram() {
         vänstra ytterspegel till den bakre bilens främre hörn: referenspunkten för att lägga om
         ratten. Panel 3: fullt motsatt utslag, en heldragen linje visar bakaxelns väg och bilen
         står till slut parallellt med kantstenen mellan de två bilarna. Under panelerna står
-        regeln: när du sedan kör ut från platsen har du väjningsplikt. Längst ned en ruta med två
-        små bilder av samma gata: till vänster väntar du kvar i luckan med bromsljusen tända medan
-        ett randigt fordon passerar, markerat med en bock; till höger kör du ut framför fordonet
-        och bryter mot väjningsplikten, markerat med ett kryss.
+        regeln: att köra ut härifrån är en start från vägkanten, och den får ske endast utan fara
+        eller onödigt hinder för andra. Längst ned en ruta med två små bilder av samma gata: till
+        vänster väntar du kvar i luckan med bromsljusen tända medan ett randigt fordon passerar,
+        markerat med en bock; till höger kör du ut framför fordonet så att det måste bromsa,
+        markerat med ett kryss.
       </desc>
 
       <defs>
@@ -314,10 +329,10 @@ export function FickparkeringDiagram() {
         Fullt utslag mot kanten och backa
       </text>
       <text x="20" y="389" className="fill-text-secondary text-[13px]">
-        Referenspunkt: bilen bakom syns i vänster
+        Referenspunkt: den bakre bilens främre hörn
       </text>
       <text x="20" y="407" className="fill-text-secondary text-[13px]">
-        ytterspegel — då lägger du om ratten.
+        syns i vänster ytterspegel — lägg om ratten.
       </text>
       <text x="20" y="425" className="fill-text-secondary text-[13px]">
         Framvagnen sveper samtidigt ut åt motsatt håll.
@@ -361,7 +376,7 @@ export function FickparkeringDiagram() {
       {/* ------- Steg 3: fullt motsatt utslag ------- */}
       <Steg x={31} y={622} n={3} />
       <text x="50" y="627" className="fill-text-primary text-[14px] font-semibold">
-        Fullt motsatt utslag — räta upp
+        Fullt motsatt utslag tills bilen står rakt
       </text>
       <text x="20" y="645" className="fill-text-secondary text-[13px]">
         Krypfart hela vägen. Stanna om du
@@ -385,13 +400,13 @@ export function FickparkeringDiagram() {
 
       {/* Regeltext */}
       <text x="200" y="854" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
-        När du sedan kör ut från platsen
+        Att köra ut härifrån är en start från vägkanten:
       </text>
       <text x="200" y="874" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
-        har du väjningsplikt.
+        den får ske endast utan fara eller onödigt hinder.
       </text>
       <text x="200" y="898" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        Visa den genom att sänka farten eller stanna i tid.
+        Vänta in en lucka du kan använda hela.
       </text>
       <text x="200" y="916" textAnchor="middle" className="fill-text-secondary text-[13px]">
         Sikten härifrån är sämre än när du körde in.
@@ -427,7 +442,7 @@ export function FickparkeringDiagram() {
         </text>
       </g>
 
-      {/* Förklaringsruta: väjningsplikten när du lämnar platsen */}
+      {/* Förklaringsruta: kravet utan fara eller onödigt hinder när du lämnar platsen */}
       <rect x="20" y="968" width="360" height="180" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
       <text x="34" y="992" className="fill-text-primary text-[13px] font-semibold">
         När ett fordon närmar sig medan du ska ut:
@@ -448,7 +463,7 @@ export function FickparkeringDiagram() {
         Du kör ut framför det
       </text>
       <text x="290" y="1102" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        bryter mot väjningsplikten
+        det måste bromsa för dig
       </text>
       <Cross x={290} y={1122} />
     </svg>

@@ -1,8 +1,12 @@
 /**
  * Väjningsplikt (B1) mot stopplikt (B2), sida vid sida (INT-01, INT-03).
  * Varje märke visas ovanför en liten korsning som visar vad föraren gör:
- * B1 — ge fri väg, stanna bara om det behövs; B2 — stanna helt vid
- * stopplinjen, inte rullande.
+ * B1 — väj för trafiken på den korsande vägen, stanna bara om det behövs;
+ * B2 — stanna helt vid stopplinjen, inte rullande.
+ *
+ * SPRÅK: väjningsplikt beskrivs som att VÄJA, aldrig som att "ge fri väg".
+ * Lämna fri väg är en annan plikt (utryckningsfordon, spårvagn) och de två
+ * hålls isär i hela appen — se THEORY-UTRYCKNING.
  *
  * Geometri (högertrafik, vy uppifrån), lika i båda panelerna. Panelerna
  * ritas i en grupp förskjuten 36 px nedåt så att rubriken får luft; inget
@@ -270,7 +274,7 @@ function Panel({ cx, idPrefix, variant }: PanelProps) {
 
       {/* Vad märket kräver */}
       <text x={cx} y="386" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
-        {isStop ? 'Stanna helt vid stopplinjen.' : 'Ge fri väg.'}
+        {isStop ? 'Stanna helt vid stopplinjen.' : 'Väj för den korsande trafiken.'}
       </text>
       <text x={cx} y="406" textAnchor="middle" className="fill-text-secondary text-[13px]">
         {isStop ? 'Inte rullande. Sök trafik,' : 'Stanna bara om det behövs.'}
@@ -333,7 +337,8 @@ export function VagmarkenVajningsreglerDiagram() {
         uppifrån. Till vänster B1 väjningsplikt, en nedåtpekande triangel med röd kant. Under
         märket ligger en väjningslinje av små vita trianglar tvärs ditt körfält, markerad 1, och
         din bil, fylld med prickar, kör uppåt mot linjen med en streckad pil framåt och texten
-        vidare om fritt. Väjningsplikt betyder att du ger fri väg och stannar bara om det behövs.
+        vidare om fritt. Väjningsplikt betyder att du ska väja för den korsande trafiken: sänk farten
+        i god tid och stanna om det behövs.
         Till höger B2 stopplikt, en åttakantig röd skylt med texten STOP. Under märket ligger en
         bred vit stopplinje tvärs ditt körfält, markerad 1, och din bil står stilla precis vid
         linjen med bromsljusen tända, en fylld röd kvadrat och texten stanna helt. Stopplikt
@@ -468,7 +473,7 @@ export function VagmarkenVajningsreglerDiagram() {
         Vanligt misstag: att blanda ihop dem.
       </text>
       <text x="260" y="550" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        Väjningsplikt = ge fri väg. Stopplikt = stanna helt.
+        Väjningsplikt = väj för korsande trafik. Stopplikt = stanna helt.
       </text>
       <line x1="260" y1="566" x2="260" y2="722" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 

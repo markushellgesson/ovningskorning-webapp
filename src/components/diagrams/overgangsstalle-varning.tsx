@@ -3,12 +3,15 @@
  * Trafikförordningen 3 kap 61 §: väjningsplikt mot gående som gått ut på
  * eller ska just gå ut på övergångsstället.
  *
+ * A13 heter VARNING FÖR ÖVERGÅNGSSTÄLLE. Märket som heter varning för gående är
+ * A14 — förväxla inte de två; bilden här är A13.
+ *
  * Geometri (högertrafik, vy uppifrån), i scenens koordinater. Scenen ritas
  * i en grupp förskjuten (20, 40) så att rubriken och etiketterna i
  * marginalerna får luft; inget i scenen har flyttats.
  * - Din bil kör uppåt i bilden. Dess högra sida är bildens högra, så den
  *   ligger i den högra halvan av vägen (x 200–260).
- * - Vägmärket A13, varning för gående, står på höger sida av vägen i din
+ * - Vägmärket A13, varning för övergångsställe, står på höger sida av vägen i din
  *   färdriktning, före övergångsstället.
  * - En gående har gått ut på övergångsstället från vänster och går åt höger.
  *   En annan gående står på högra trottoaren och ska just gå ut.
@@ -175,8 +178,8 @@ export function OvergangsstalleVarningDiagram() {
         övergångsställe, markerat med breda vita band i vägbanan. Din bil, fylld med prickar,
         kör uppåt i det högra körfältet mot övergångsstället med bromsljusen tända, en streckad
         pil framåt och texten sänk farten, var beredd att stanna. På höger sida före
-        övergångsstället står vägmärket A13, varning för gående, en triangel med röd kant och en
-        gående figur, markerat 3: det varnar i förväg. Två gående är ritade som streckgubbar:
+        övergångsstället står vägmärket A13, varning för övergångsställe, en triangel med röd kant
+        och en gående figur på ett övergångsställe, markerat 3: det varnar i förväg. Två gående är ritade som streckgubbar:
         den ena, markerad 1, har gått ut på övergångsstället från vänster och går åt höger med
         en heldragen pil; den andra, markerad 2, står på den högra trottoaren och ska just gå
         ut, markerad med en streckad pil in mot vägen. Du har väjningsplikt mot båda: mot den

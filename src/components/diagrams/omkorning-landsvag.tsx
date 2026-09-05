@@ -240,8 +240,8 @@ export function OmkorningLandsvagDiagram() {
         Vägen är avbruten på tvären med en sicksacklinje, och en notis intill säger att avstånden
         är kraftigt förkortade — förloppet ryms inte skalenligt på duken. En prickad linje från
         elevens bil och framåt visar sikten. Markering 1 pekar på den prickade siktlinjen: sikten
-        måste räcka för hela förloppet. Markering 2 pekar på den mötande bilen: ni närmar er med
-        era båda farter. Markering 3 pekar på en grön måttmarkering mellan elevens sista läge och
+        måste räcka för hela förloppet. Markering 2 pekar på den mötande bilen: ni närmar er
+        varandra med bådas fart. Markering 3 pekar på en grön måttmarkering mellan elevens sista läge och
         den mötande: omkörningen ska vara klar med marginal före mötet. En ruta längst ned visar
         samma väg två gånger: eleven ligger kvar bakom det långsammare fordonet och den mötande
         passerar utan konflikt, markerat med en bock, och eleven går ut i den mötandes körfält med
@@ -402,10 +402,10 @@ export function OmkorningLandsvagDiagram() {
           Mötande bil
         </text>
         <text x="16" y="165" className="fill-text-secondary text-[13px]">
-          ni närmar er med
+          ni närmar er
         </text>
         <text x="16" y="183" className="fill-text-secondary text-[13px]">
-          era båda farter
+          varandra med bådas fart
         </text>
         <Pointer x1={112} y1={172} x2={175} y2={188} />
       </g>
@@ -472,10 +472,10 @@ export function OmkorningLandsvagDiagram() {
         Sikten måste räcka för ut, förbi och tillbaka — inte bara för
       </text>
       <text x="220" y="784" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        början. Ni närmar er med era båda farter, så avståndet till den
+        början. Ni närmar er varandra med bådas fart, så avståndet till den
       </text>
       <text x="220" y="802" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        mötande krymper fortare än din egen fart känns. Tveka: ligg kvar.
+        mötande krymper fortare än din egen fart känns. Tvekar du: ligg kvar.
       </text>
 
       {/* Mönsterförklaring */}

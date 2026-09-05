@@ -420,7 +420,7 @@ export function AccelerationsfaltDiagram() {
         redan i accelerationsfältet.
       </text>
       <text x="220" y="696" textAnchor="middle" className="fill-text-secondary text-[13px]">
-        Välj luckan i god tid: blinkers, spegel, axelblick — och väv in
+        Välj luckan i god tid: spegel, tecken, axelblick — och väv in
       </text>
       <text x="220" y="714" textAnchor="middle" className="fill-text-secondary text-[13px]">
         mjukt. Tvinga dig inte in, och bli inte stående i fältets slut.

@@ -129,7 +129,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
               )}
               {skill.continuous && (
                 <StatusBadge variant="neutral" size="md">
-                  Kontinuerligt moment
+                  Tränas löpande
                 </StatusBadge>
               )}
             </div>

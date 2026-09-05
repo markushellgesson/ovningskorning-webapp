@@ -22,8 +22,7 @@ export default function HomePage() {
             <h2 className="text-2xl font-semibold text-text-primary">Vad är detta?</h2>
             <p className="max-w-[var(--measure)] text-lg text-text-primary">
               Ett verktyg för elev och handledare som strukturerar övningskörningen utifrån de
-              kompetenser som krävs för B-körkort. Byggt på Transportstyrelsens kursplan och
-              forskning om hur motoriska färdigheter utvecklas.
+              kompetenser som krävs för B-körkort. Byggt på Transportstyrelsens kursplan.
             </p>
             <p className="max-w-[var(--measure)] text-lg text-text-secondary">
               Den här versionen är en demo som klarar sig utan server och körs direkt i webbläsaren.
@@ -70,11 +69,6 @@ export default function HomePage() {
             </Link>
           </section>
 
-          <footer className="space-y-3 border-t border-border-subtle pt-8">
-            <p className="max-w-[var(--measure)] text-sm text-text-tertiary">
-              Detta är en lokal variant som körs utan server. All data finns bara i din webbläsare.
-            </p>
-          </footer>
         </div>
       </div>
     </main>

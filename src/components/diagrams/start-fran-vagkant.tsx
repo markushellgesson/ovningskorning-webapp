@@ -192,7 +192,7 @@ export function StartFranVagkantDiagram() {
         med prickmönster, står vid kantstenen med nosen uppåt. Tre numrerade hänvisningar i
         vänstermarginalen ger ordningen: 1 pekar på vänster ytterspegel, 2 pekar på tecknet som
         blinkar vid vänster fram- och bakhörn, 3 pekar på axelblicken, en prickad linje snett
-        bakåt åt vänster från förarplatsen. Allt tre sker innan bilen rör sig. En grå skrafferad
+        bakåt åt vänster från förarplatsen. Alla tre sker innan bilen rör sig. En grå skrafferad
         kil bakåt till vänster om bilen visar det som spegeln inte täcker. Inuti kilen kör en
         cyklist, ritad med kryssmönster, som kommit närmast kanten och svängt ut för att passera
         dig; utrymmet mellan din bil och mittlinjen är knappt. En heldragen linje visar cyklistens

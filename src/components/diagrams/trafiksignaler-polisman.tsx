@@ -3,7 +3,13 @@
  * polisman, signal, vägmärke och trafikregel, och framför allt polismans tecken P1 stopp:
  * samma tecken betyder stopp för den som kommer framifrån eller bakifrån men
  * fri väg för den som kommer från sidan.
- * Trafikförordningen 2 kap 2–3 §§, vägmärkesförordningen 3 kap 6 § och 7 kap 2 §.
+ * Regelstöd (hålls i kommentar, aldrig i den synliga texten):
+ * TrF 2 kap 2 § (anvisning genom signal gäller framför trafikregel; fast sken
+ *   framför stopp- eller väjningsplikt genom vägmärke),
+ * TrF 2 kap 3 § (polismans anvisning gäller framför allt annat),
+ * TrF 3 kap 60 § (bevakat övergångsställe),
+ * VMF 3 kap 6 § (signalbildernas innebörd),
+ * VMF 7 kap 2 § (polismans tecken P1).
  *
  * Geometri i korsningen: varje bil ligger i sitt högra körfält. Bilen som kör
  * nedåt har sin högra sida åt väster (bildens vänstra); bilen som kör åt höger
@@ -227,7 +233,7 @@ export function TrafiksignalerPolismanDiagram() {
 
       {/* Del 1: signalbilderna */}
       <text x="20" y="60" className="fill-text-primary text-[14px] font-semibold">
-        Signalbilder (vägmärkesförordningen 3 kap 6 §)
+        Signalbilder
       </text>
       <g transform="translate(0 40)">
         <Lamp x={58} lit={['red']} label={['Rött: stopp', 'före stopplinjen']} />
@@ -244,7 +250,7 @@ export function TrafiksignalerPolismanDiagram() {
         Sök av korsningen, och lämna gående som gått ut på
       </text>
       <text x="20" y="332" className="fill-text-secondary text-[13px]">
-        övergångsstället möjlighet att passera (3 kap 60 §).
+        övergångsstället möjlighet att passera.
       </text>
 
       {/* Del 2: rangordning */}
@@ -252,7 +258,7 @@ export function TrafiksignalerPolismanDiagram() {
         Rangordning
       </text>
       <text x="20" y="384" className="fill-text-secondary text-[13px]">
-        Det överst gäller framför det under (2 kap 2 och 3 §§)
+        Det överst gäller framför det under
       </text>
       <g>
         <rect x="20" y="396" width="210" height="28" rx="6" className="fill-attention-100 stroke-attention-600" strokeWidth="1.5" />
@@ -286,7 +292,7 @@ export function TrafiksignalerPolismanDiagram() {
           trafikreglerna och framför märken
         </text>
         <text x="244" y="436" className="fill-text-secondary text-[13px]">
-          och signaler (2 kap 3 §).
+          och signaler.
         </text>
         <text x="244" y="454" className="fill-text-secondary text-[13px]">
           Fast sken gäller framför stopp- eller
@@ -298,16 +304,13 @@ export function TrafiksignalerPolismanDiagram() {
           vägmärke, men inte framför andra
         </text>
         <text x="244" y="502" className="fill-text-secondary text-[13px]">
-          vägmärken (2 kap 2 § andra stycket).
+          vägmärken.
         </text>
         <text x="244" y="542" className="fill-text-secondary text-[13px]">
           En anvisning som avviker från en
         </text>
         <text x="244" y="558" className="fill-text-secondary text-[13px]">
-          trafikregel gäller framför regeln
-        </text>
-        <text x="244" y="574" className="fill-text-secondary text-[13px]">
-          (2 kap 2 § första stycket).
+          trafikregel gäller framför regeln.
         </text>
       </g>
 
@@ -316,7 +319,7 @@ export function TrafiksignalerPolismanDiagram() {
         Polismans tecken P1 stopp: samma tecken, olika betydelse
       </text>
       <text x="20" y="636" className="fill-text-secondary text-[13px]">
-        Det beror på varifrån du kommer (vägmärkesförordningen 7 kap 2 §)
+        Det beror på varifrån du kommer
       </text>
 
       <g transform="translate(0 214)">

@@ -46,8 +46,10 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
   // Accelerationsfält — 3 kap 21 § och 23 §
   'HWY-01': () => <AccelerationsfaltDiagram />,
 
-  // Döda vinkeln — fysikaliskt förhållande
+  // Döda vinkeln — fysikaliskt förhållande. Delas av VEH-02 (spegelinställningen)
+  // och OBS-03 (att kontrollera vinkeln), som båda handlar om samma yta.
   'VEH-02': () => <DodaVinkelnDiagram />,
+  'OBS-03': () => <DodaVinkelnDiagram />,
 
   // Stoppsträcka — fysik (reaktion + bromsning)
   'MAN-06': () => <StoppstrackaDiagram />,
@@ -56,8 +58,8 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
   'MAN-02': () => <BlickenLangtFramDiagram />,
   'OBS-01': () => <BlickenLangtFramDiagram />,
 
-  // Placering i kurva — sikt och positionering
-  'RUR-01': () => <PlaceringIKurvaDiagram />,
+  // Placering i kurva — sikt och positionering. Hör bara till RUR-02: bilden säger
+  // inget om anslutning eller luckbedömning och illustrerar därför inte RUR-01.
   'RUR-02': () => <PlaceringIKurvaDiagram />,
 
   // Fickparkering — referenspunkter och rattutslag
@@ -82,7 +84,8 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
   // Start från vägkant — kontroller före utfart
   'MAN-11': () => <StartFranVagkantDiagram />,
 
-  // Varning för gående (A13) — sätts ofta upp före övergångsstället
+  // Varning för övergångsställe (A13) — sätts ofta upp före övergångsstället.
+  // A13 är varning för övergångsställe; A14 är varning för gående.
   'VRU-01': () => <OvergangsstalleVarningDiagram />,
 
   // Omkörning på landsväg — sikt, mötande trafik, marginal — 3 kap 31-40 §§
