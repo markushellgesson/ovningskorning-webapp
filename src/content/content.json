@@ -1030,12 +1030,13 @@
       "goals": [
         "Anpassa hastigheten till sikt, väder och trafik",
         "Kunna stanna på synlig vägsträcka",
-        "Sänka farten innan risksituationen uppstår"
+        "Sänka farten innan risksituationen uppstår — och hålla tillräckligt låg fart vid risk för bländning, oavsett om det är mötande helljus eller lågt stående sol som bländar"
       ],
       "practiceSteps": [
         "Ställ frågan: kan jag stanna på det jag ser?",
         "Sänk farten före kurvan, krönet, den trånga passagen",
         "Ge extra marginal vid dålig sikt, halt väglag, tät trafik",
+        "Blir du bländad: sänk farten, sök mot den högra kantlinjen i stället för mot ljuset, och räkna med att du inte ser",
         "Anpassa till din egen erfarenhetsnivå"
       ],
       "commonErrors": [
@@ -1086,14 +1087,31 @@
       "id": "SPD-03",
       "parentId": "SPD-02",
       "category": "SPEED_DISTANCE",
-      "name": "Säkerhetsavstånd",
-      "description": "Hålla tillräckligt avstånd till bilen framför.",
-      "goals": ["Hålla avstånd som ger tid att reagera", "Öka avståndet när hastigheten ökar"],
-      "practiceSteps": [
-        "Välj ett tidsavstånd som ger dig tid att reagera, och öka det vid regn, halka eller dålig sikt"
+      "name": "Säkerhetsavstånd framåt och bakåt",
+      "description": "Avståndet framför dig är din reaktionstid. Ligger någon tätt bakom är det samma avstånd framåt som blir din marginal — inte en högre fart.",
+      "goals": [
+        "Hålla ett tidsavstånd som ger tid att reagera, och öka det när hastigheten stiger eller förhållandena försämras",
+        "Låta den som pressar bakifrån passera i stället för att öka farten. Vilken fart förhållandena tillåter är ditt ansvar, inte hens — men sänk inte heller farten för att markera tillbaka",
+        "Uppmärksammar du att någon avser att köra om: håll så långt till höger som möjligt, och öka inte farten eller försvåra omkörningen på annat sätt"
       ],
-      "commonErrors": ["Följer för nära", "Anpassar inte till förhållandena"],
-      "supervisorObservations": ["Är avståndet tillräckligt?"],
+      "practiceSteps": [
+        "Välj ett tidsavstånd som ger dig tid att reagera, och öka det vid regn, halka eller dålig sikt",
+        "Ligger någon tätt bakom: öka avståndet framåt i stället. Då kan du bromsa mjukare, och den bakom får längre tid på sig",
+        "Släpp förbi där det går säkert — vid en mötesplats, en bred vägren, en avfart eller där körbanan blir bredare. Att aktivt släppa förbi är körteknik, inte en regel",
+        "Säg högt när du känner pressen. Det som blir uttalat styr körningen mindre",
+        "Ta det efteråt, inte i stunden. Någon annans irritation ska inte fatta ditt beslut"
+      ],
+      "commonErrors": [
+        "Följer för nära, eller anpassar inte avståndet till förhållandena",
+        "Ökar farten för att bli av med den som ligger tätt bakom",
+        "Bromsar i markeringssyfte, eller saktar in extra för att markera tillbaka",
+        "Låter sig stressas till ett beslut — svänger ut, kör om eller kör in i en lucka som inte räcker"
+      ],
+      "supervisorObservations": [
+        "Är avståndet tillräckligt, och växer det när förhållandena försämras?",
+        "Vad händer med farten när någon lägger sig tätt bakom?",
+        "Kan eleven peka ut var hen tänkte släppa förbi?"
+      ],
       "continuous": true,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -1108,6 +1126,65 @@
       "theoryRelations": [
         {
           "theoryTopicId": "THEORY-STOPPSTRÄCKA",
+          "relationType": "INTEGRATED"
+        }
+      ]
+    },
+    {
+      "id": "SPD-04",
+      "parentId": "SPD-03",
+      "category": "SPEED_DISTANCE",
+      "name": "Köbildning och tät trafik",
+      "description": "I kö blir allt kortare, senare och trängre. Reglerna ändras inte, men två av dem gäller bara när det står tätt i alla körfält.",
+      "goals": [
+        "Kör inte in i en korsning om du kan bli stående i den. Körsättet ska anpassas så att korsande trafik inte hindras i onödan, och det gäller varje korsning — inte bara den med signal",
+        "Står det tätt i alla körfält får bara den i det högraste körfältet byta fält. Undantag: du som ska stanna eller parkera, eller behöver komma i rätt fält inför en korsning",
+        "Att passera fordon i ett annat körfält är inte en omkörning när det är tät köbildning i alla körfält. Men före ett övergångsställe, en cykelpassage eller en cykelöverfart ska farten vara så låg att du kan stanna omedelbart"
+      ],
+      "practiceSteps": [
+        "Stanna så att du ser bakhjulen på bilen framför mot vägbanan. Då kan du komma runt den om den blir stående",
+        "Läs bromsljus flera bilar fram, inte bara på den närmast dig. Där syns vad kön gör härnäst",
+        "Före varje korsning: titta bortom den och fråga om det finns plats kvar åt dig på andra sidan",
+        "Passerar du en kö i ett annat körfält: ta ned farten mot varje övergångsställe och cykelpassage. Någon kliver ut mellan de stillastående bilarna",
+        "Kör mjukt och jämnt. Gas och broms om vartannat fortplantar sig bakåt genom hela kön"
+      ],
+      "commonErrors": [
+        "Kryper ända fram till bilen framför och har ingen väg ut",
+        "Följer med in i korsningen på slutet av kön och blir stående tvärs över den korsande vägen",
+        "Byter körfält fram och tillbaka i stillastående kö för att komma fortare",
+        "Passerar en stillastående kö i fart förbi ett övergångsställe utan att se in mellan bilarna"
+      ],
+      "supervisorObservations": [
+        "Finns avståndet kvar när kön stannat, eller krymper det?",
+        "Kontrollerar eleven att det finns plats på andra sidan innan hen kör in i korsningen?",
+        "Sänker eleven farten när hen passerar en kö i ett annat körfält?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 320,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "INT-05",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "SPD-03",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-STOPPSTRÄCKA",
+          "relationType": "INTEGRATED"
+        },
+        {
+          "theoryTopicId": "THEORY-TRAFIKSIGNALER",
           "relationType": "INTEGRATED"
         }
       ]
@@ -1442,23 +1519,24 @@
       "goals": [
         "I en cirkulationsplats har du väjningsplikt mot alla fordon som redan är i cirkulationen",
         "Välja rätt körfält vid infarten, och veta vilken utfart du ska ta redan då",
-        "Blinka och uppmärksamma cyklister vid utfart"
+        "Att lämna cirkulationen från ett inre körfält är ett körfältsbyte: spegel, axelblick och en lucka, inte bara blinkers. Blinka höger vid utfart och sök efter cyklister"
       ],
       "practiceSteps": [
         "Läs skyltar och markering innan infarten — de avgör körfältsvalet, inte en tumregel",
         "Sänk farten i god tid och visa tydligt att du tänker väja — men inte mer än situationen kräver. Kryphastighet in mot en fri cirkulation hindrar dem bakom",
         "En rondellformad korsning som inte är en cirkulationsplats är en vanlig korsning — där gäller högerregeln",
+        "I en flerfältig cirkulation: ligger du i det inre fältet, kontrollera det yttre innan du går ut. Någon kan ligga kvar där för att köra ett varv till",
         "Blinka höger vid utfart, sök efter cyklister"
       ],
       "commonErrors": [
         "Väljer körfält för sent — hamnar fel",
         "Planerar inte utfarten i förväg",
-        "Glömmer att blinka vid utfart, eller missar cyklister i högerkant",
+        "Går ut från det inre körfältet på bara blinkers, utan spegel och axelblick — eller missar cyklister i högerkant",
         "Saktar ner till nästan stillastående trots fri cirkulation. Obeslutsamheten blir då ett eget hinder"
       ],
       "supervisorObservations": [
         "Vet eleven redan vid infarten vilken utfart som gäller?",
-        "Är körfältsvalet rätt för den planerade utfarten?",
+        "Är körfältsvalet rätt för den planerade utfarten, och kontrolleras det yttre fältet innan eleven går ut?",
         "Kör eleven in i en lucka som räcker, eller väntar hen bort den?"
       ],
       "continuous": false,
@@ -1561,7 +1639,7 @@
       ],
       "commonErrors": [
         "Ligger tätt bakom fordonet framför och ser därför mötande för sent",
-        "Underskattar hur lång omkörningen blir — tunga fordon tappar fart uppför och tar igen den nedför, och sikten framför dem är ofta skymd",
+        "Underskattar hur lång omkörningen blir — tunga fordon tappar fart uppför och tar igen den nedför, och ett fordon i 30 eller 40 km/h hinner du ikapp långt fortare än det ser ut",
         "Kör om strax före en korsning, en plankorsning eller ett övergångsställe",
         "Går tillbaka till höger för tidigt och tränger den omkörde"
       ],
@@ -1595,6 +1673,10 @@
       ],
       "theoryRelations": [
         {
+          "theoryTopicId": "THEORY-LANGSAMTGAENDE",
+          "relationType": "PREREQUISITE"
+        },
+        {
           "theoryTopicId": "THEORY-OMKÖRNING",
           "relationType": "PREREQUISITE"
         },
@@ -1605,6 +1687,65 @@
         {
           "theoryTopicId": "THEORY-TUNGA-FORDON",
           "relationType": "PREREQUISITE"
+        }
+      ]
+    },
+    {
+      "id": "LANE-04",
+      "parentId": "LANE-02",
+      "category": "LANE_CHANGE",
+      "name": "Körfältsbortfall och sammanflätning",
+      "description": "Två körfält blir ett — vid ett vägarbete, efter en omkörningssträcka, vid en avsmalning. Lagen säger att förarna ska anpassa sig till de nya förhållandena under ömsesidigt hänsynstagande.",
+      "goals": [
+        "Veta vad regeln faktiskt kräver: ömsesidigt hänsynstagande. Den föreskriver ingen turordning, och den säger inte varannan bil — den lägger ansvaret på båda att anpassa sig",
+        "Uppmärksammar du att någon avser att köra in i ditt körfält ska du anpassa hastigheten så att inkörningen underlättas. Det är en skyldighet för dig som redan ligger rätt",
+        "Skilja sammanflätningen från påfarten. Där ett accelerationsfält leder ut på en motorväg gäller en annan regel, och den lär du dig i påfartsmomentet"
+      ],
+      "practiceSteps": [
+        "Läs skyltningen tidigt. Vet du att fältet tar slut kan du lägga dig rätt utan att någon behöver bromsa",
+        "Håll din fart i fältet som försvinner ända fram — kryphastighet långt före tvingar alla bakom att bromsa i onödan",
+        "Sök en lucka i god tid, blinka, axelblick, och gå in mjukt utan att tvinga någon",
+        "Ligger du i det genomgående fältet: lyft foten och gör luckan tydlig i stället för att stänga den",
+        "Byt aldrig över en heldragen linje. Vänta tills markeringen tillåter det"
+      ],
+      "commonErrors": [
+        "Tror att lagen kräver varannan bil, och blir arg när någon annan gör på ett annat sätt",
+        "Går över i det andra fältet långt före sammanflätningen och tappar all fart",
+        "Väntar till sista metern och tvingar sig in",
+        "Ligger tätt bakom bilen framför för att stänga luckan i stället för att underlätta inkörningen"
+      ],
+      "supervisorObservations": [
+        "Fattar eleven beslutet i tid, eller först vid avspärrningen?",
+        "Släpper eleven in den som ska in, eller stängs luckan?",
+        "Kan eleven säga vad regeln kräver — och vad den inte kräver?"
+      ],
+      "continuous": false,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 620,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [
+        {
+          "prerequisiteSkillId": "LANE-02",
+          "minimumState": "INDEPENDENT"
+        },
+        {
+          "prerequisiteSkillId": "OBS-04",
+          "minimumState": "PRACTICING"
+        },
+        {
+          "prerequisiteSkillId": "SPD-03",
+          "minimumState": "PRACTICING"
+        }
+      ],
+      "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-PLACERING",
+          "relationType": "INTEGRATED"
+        },
+        {
+          "theoryTopicId": "THEORY-VÄGARBETE",
+          "relationType": "INTEGRATED"
         }
       ]
     },
@@ -1778,7 +1919,8 @@
         "Titta så långt fram att du hinner planera, inte bara reagera",
         "Sök efter kurvor, krön, vägarbeten",
         "Sänk farten före kurvan, inte i den",
-        "Håll höger men inte helt i kanten — ge marginal till diken och cyklister"
+        "Håll höger men inte helt i kanten — ge marginal till diken och cyklister",
+        "Sök efter långsamtgående fordon: traktor, A-traktor, arbetsredskap. De ligger långt till höger eller på vägrenen, och du hinner ikapp dem långt fortare än det ser ut"
       ],
       "commonErrors": [
         "Kör för fort in i kurvan — måste bromsa mitt i",
@@ -1803,6 +1945,10 @@
         }
       ],
       "theoryRelations": [
+        {
+          "theoryTopicId": "THEORY-LANGSAMTGAENDE",
+          "relationType": "INTEGRATED"
+        },
         {
           "theoryTopicId": "THEORY-SIKT",
           "relationType": "INTEGRATED"
@@ -2239,10 +2385,10 @@
       "id": "VRU-04",
       "parentId": "OBS-01",
       "category": "VULNERABLE_ROAD_USERS",
-      "name": "Buss och hållplats",
+      "name": "Buss, skolskjuts och hållplats",
       "description": "Passagerare kan gå av och gå över vägen. Sänk farten vid buss som står vid hållplats.",
       "goals": [
-        "Identifiera busshållplatser och räkna med passagerare som går över vägen",
+        "Håll tillräckligt låg fart när du närmar dig en spårvagn, en buss eller en skolskjuts som stannat för på- eller avstigning, och räkna med passagerare som går över vägen",
         "Sänka farten och vara beredd att stanna",
         "Där hastigheten är högst 50 km/h: sakta ner och ge bussen möjlighet att lämna hållplatsen när föraren ger tecken för att starta, och stanna om det behövs"
       ],
@@ -2255,7 +2401,8 @@
       "commonErrors": [
         "Kör förbi buss i hög fart",
         "Missar passagerare som går över vägen",
-        "Kör om bussen just när den ger tecken för att starta"
+        "Kör om bussen just när den ger tecken för att starta",
+        "Passerar en stannad skolskjuts i oförändrad fart — barn syns sent och rör sig oförutsägbart"
       ],
       "supervisorObservations": [
         "Upptäcker eleven busshållplatser?",
@@ -2397,16 +2544,31 @@
       "id": "SPEC-03",
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
-      "name": "Regn och låg sikt",
-      "description": "Regn försämrar både grepp och sikt — öka marginalerna.",
-      "goals": ["Öka avståndet vid regn", "Sänka farten", "Förstå att greppet minskar"],
-      "practiceSteps": [
-        "Diskutera hur regn påverkar bromssträcka och sikt",
-        "Träna försiktigt i lätt regn",
-        "Öka avståndet och sänk farten"
+      "name": "Regn och vattenplaning",
+      "description": "Regn tar både grepp och sikt, och vid tillräcklig fart över tillräckligt mycket vatten tappar däcket kontakten med vägen helt. Vattenplaning är körteknik, inte en regel — det finns ingen bestämmelse om den.",
+      "goals": [
+        "Anpassa farten till väglag och sikt: du ska behålla kontrollen och kunna stanna på den vägsträcka du överblickar. Håll tillräckligt låg fart när sikten är nedsatt av vädret och när väglaget är halt",
+        "Veta vad som gör vattenplaning troligare — hög fart, stående vatten i hjulspår, och lite mönster kvar på däcken. Det är teknik, inte en regel",
+        "Kunna vad du gör när det händer: släpp gasen, håll ratten stilla och rakt, bromsa inte hårt, och vänta ut de sekunder det tar innan däcken tar igen"
       ],
-      "commonErrors": ["Kör som vanligt trots regn", "Ökar inte avståndet", "Bromsar för sent"],
-      "supervisorObservations": ["Ökar eleven marginalerna vid regn?"],
+      "practiceSteps": [
+        "Sök vattnet innan du är i det: hjulspår, vägkanten, sänkor och ställen där vattnet blir stående",
+        "Sänk farten före vattensamlingen, inte i den, och kör igenom rakt utan att styra eller bromsa",
+        "Lär dig förvarningen: styrningen blir lätt och ljudet från däcken tystnar. Det är det som händer strax innan",
+        "Kontrollera mönsterdjupet innan regnperioden. Vid sommarväglag ska däcken enligt Transportstyrelsen ha minst 1,6 millimeter — ju mindre mönster, desto mindre vatten leds bort",
+        "Vid omkörning av ett tungt fordon i kraftigt regn: räkna med att sikten försvinner helt i vattendimman. Avstå hellre"
+      ],
+      "commonErrors": [
+        "Kör i oförändrad fart genom stående vatten",
+        "Bromsar eller ryckstyr när bilen börjar plana — då kommer greppet tillbaka åt fel håll",
+        "Kör med för lite mönster kvar och märker det först i regn",
+        "Ökar inte avståndet framåt, trots att både bromssträcka och sikt blivit sämre"
+      ],
+      "supervisorObservations": [
+        "Sänker eleven farten före vattensamlingen eller i den?",
+        "Kan eleven beskriva vad man gör när bilen börjar plana — och vad man inte gör?",
+        "Anpassar eleven fart och avstånd till sikten, inte bara till skylten?"
+      ],
       "continuous": false,
       "safetyCritical": true,
       "applicableTransmissions": [],
@@ -2558,13 +2720,13 @@
       "name": "Vilt och djur på vägen",
       "description": "Det finns ingen väjningsplikt mot djur — före olyckan gäller den allmänna aktsamhetsregeln. Efter en sammanstötning finns däremot tydliga skyldigheter.",
       "goals": [
-        "Anpassa körningen i viltrika områden: iaktta den omsorg och varsamhet som omständigheterna kräver för att undvika trafikolyckor",
+        "Anpassa körningen i viltrika områden: iaktta den omsorg och varsamhet som omständigheterna kräver. Håll tillräckligt låg fart när du närmar dig kreatur på vägen — och för den som rider eller driver kreatur gäller reglerna om trafik med fordon i tillämpliga delar",
         "Efter sammanstötning med björn, varg, järv, lo, älg, hjort, rådjur, utter, vildsvin, mufflonfår eller örn: snarast möjligt märka ut olycksplatsen och underrätta Polismyndigheten. Två åtgärder, och de gäller även om djuret verkar oskadat",
         "Veta att ren, hund, katt, får och nöt är tamdjur och inte omfattas av den regeln — då gäller att stanna kvar, hjälpa skadade, lämna uppgifter och underrätta den som lidit skada eller Polismyndigheten"
       ],
       "practiceSteps": [
         "Läs terrängen: skogsbryn, åkerkant, dike med öppen sikt in i skogen, och ställen där viltstängslet tar slut",
-        "Sänk farten i gryning och skymning och där sikten in mot vägkanten är kort — farten är den enda marginal du har",
+        "Sänk farten i gryning och skymning och där sikten in mot vägkanten är kort — farten är den enda marginal du har. Möter du ridande eller kreatur: passera långsamt och brett, och gasa inte när du kommit förbi",
         "Ser du ett djur: räkna med fler. Rådjur och vildsvin rör sig ofta i flock, och en älgko har ofta kalv med sig",
         "Träna svaret i förväg: att bromsa hårt och rakt ger oftast mest kontroll, medan en undanmanöver i hög fart kan sluta i diket eller i mötande körfält. Det är körteknik, inte en regel",
         "Ha något i bilen att märka ut platsen med, och gå igenom efterspelet innan det händer"
@@ -3005,6 +3167,43 @@
       ]
     },
     {
+      "id": "RISK-07",
+      "parentId": null,
+      "category": "RISK_AWARENESS",
+      "name": "Distraktion under körning",
+      "description": "De andra riskmomenten handlar om vad du bär med dig in i bilen. Det här handlar om det som tar din uppmärksamhet medan du kör: telefonen, skärmen, passagerarna, maten, musiken.",
+      "goals": [
+        "Du får ägna dig åt mobiltelefon och annan kommunikationsutrustning bara om det inte inverkar menligt på förandet av fordonet — och du får aldrig hålla utrustningen i handen",
+        "Veta att första ledet träffar mer än telefonen. Allt som inverkar menligt på körningen är otillåtet, även det som inte är kommunikationsutrustning alls",
+        "Skilja tillåtet från ofarligt. Ett handsfree-samtal är tillåtet och belastar ändå uppmärksamheten"
+      ],
+      "practiceSteps": [
+        "Gör klart allt innan bilen rullar: mål i navigatorn, musik, temperatur, telefonen undanlagd",
+        "Handledaren går först och lägger undan sin egen telefon, högt och tydligt. Det är den vuxnes vana eleven kopierar",
+        "Kom överens om vad som gäller om det ringer, innan det ringer",
+        "Prata om passagerarna: vad eleven ska säga när det blir för högljutt, och att det är tillåtet att säga det",
+        "Behöver något skötas — stanna där det går att stanna säkert, sköt det, kör vidare"
+      ],
+      "commonErrors": [
+        "Håller telefonen i handen för att det bara var en snabb titt",
+        "Ställer in navigatorn eller letar musik under färd i stället för före",
+        "Tror att regeln bara gäller telefonen",
+        "Plockar upp något som ramlat, eller vänder sig om mot baksätet, i stället för att stanna"
+      ],
+      "supervisorObservations": [
+        "Är båda telefonerna undanlagda innan bilen rullar?",
+        "Sköter eleven inställningar före start eller under färd?",
+        "Märks det på körningen när något händer i kupén — fart, placering, blick?"
+      ],
+      "continuous": true,
+      "safetyCritical": true,
+      "applicableTransmissions": [],
+      "sortOrder": 1155,
+      "sourceVersion": "PRODUKT-2026.09",
+      "prerequisites": [],
+      "theoryRelations": []
+    },
+    {
       "id": "EMR-01",
       "parentId": "OBS-02",
       "category": "EMERGENCY",
@@ -3067,7 +3266,7 @@
         "Veta var din kunskap tar slut. Första hjälpen hämtar du från en första hjälpen-utbildning"
       ],
       "practiceSteps": [
-        "Öva inte det här på en olycksplats. Sitt stilla i bilen och prata igenom ordningen: stanna, se efter skadade, varna, larma",
+        "Öva inte det här på en olycksplats. Passerar ni en: håll tillräckligt låg fart förbi, stanna inte för att titta, och prata igenom ordningen efteråt — stanna, se efter skadade, varna, larma",
         "Är någon skadad: larma 112 tidigt. Den som svarar vägleder dig genom det du inte kan",
         "Ta reda på var varningstriangeln ligger i just den här bilen, och vik ut den en gång så du vet hur den fungerar",
         "Repetera vad du säger till 112, och hur du anger din position på en landsväg utan adress",
@@ -3075,7 +3274,7 @@
       ],
       "commonErrors": [
         "Kör vidare för att man inte tror sig ha någon skuld. Skyldigheten gäller med eller utan egen skuld",
-        "Ställer sig mitt i vägbanan bredvid olyckan och skapar en andra olycka",
+        "Bromsar in för att titta på en olycka man passerar, eller ställer sig mitt i vägbanan bredvid den man stannat vid. Båda skapar en andra olycka",
         "Tror att man måste kunna sjukvård för att göra nytta. Att larma och varna är också åtgärder",
         "Flyttar fordon och röjer undan efter en svår olycka — då får fordonet flyttas bara om det utgör en fara för annan trafik"
       ],
@@ -3570,6 +3769,14 @@
       "sourceVersion": "PRODUKT-2026.09"
     },
     {
+      "id": "THEORY-LANGSAMTGAENDE",
+      "category": "TRAFFIC_RULES",
+      "title": "Långsamtgående fordon på landsväg",
+      "summary": "Ett fordon som är konstruerat för högst 40 kilometer i timmen ska föras så nära som möjligt den högra kanten av vägrenen eller av den bana som används, och vägrenen ska användas när den finns. En traktor a är konstruerad för högst 40 km/h; en A-traktor har enligt Transportstyrelsen en konstruktiv hastighet på högst 30 km/tim och ska ha en LGF-skylt baktill, som talar om att fordonet är långsamtgående. Förs ett fordon sakta eller upptar det stort utrymme, och är körbanan smal, krokig eller har inte obetydlig mötande trafik, ska dess förare minska farten och om det behövs föra fordonet åt sidan för att underlätta din omkörning. Det som gör situationen farlig är hastighetsskillnaden: går du i 80 och det i 30 stänger du avståndet i 50 km/h, medan skillnaden mot en bil i 60 bara är 20. Det upptäcks sent. Räkna med det innan du bestämmer dig för en omkörning — det är körteknik, inte en regel.",
+      "sourceId": null,
+      "sourceVersion": "PRODUKT-2026.09"
+    },
+    {
       "id": "THEORY-LIVSFORUTSATTNINGAR",
       "category": "HUMAN_FACTORS",
       "title": "Personliga förutsättningar och viljan att följa regler",
@@ -3900,6 +4107,15 @@
       "requiredEnvironments": ["RURAL"]
     },
     {
+      "id": "EX-LANE-04-01",
+      "skillId": "LANE-04",
+      "title": "Där två fält blir ett",
+      "description": "Öva sammanflätning från båda hållen — den som ska in och den som redan ligger rätt",
+      "difficulty": "INTERMEDIATE",
+      "estimatedMinutes": 30,
+      "requiredEnvironments": ["MULTILANE_URBAN", "ROADWORK", "RURAL"]
+    },
+    {
       "id": "EX-MAN-01-01",
       "skillId": "MAN-01",
       "title": "Mjuka starter och stopp",
@@ -4035,6 +4251,15 @@
       "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
     },
     {
+      "id": "EX-RISK-07-01",
+      "skillId": "RISK-07",
+      "title": "Telefonfri bil",
+      "description": "Ett samtal och en vana — handledaren går först",
+      "difficulty": "BASIC",
+      "estimatedMinutes": 20,
+      "requiredEnvironments": ["RESIDENTIAL", "URBAN"]
+    },
+    {
       "id": "EX-RUR-03-01",
       "skillId": "RUR-03",
       "title": "Möten på smal väg",
@@ -4060,6 +4285,15 @@
       "difficulty": "BASIC",
       "estimatedMinutes": 15,
       "requiredEnvironments": ["RESIDENTIAL", "URBAN", "RURAL"]
+    },
+    {
+      "id": "EX-SPD-04-01",
+      "skillId": "SPD-04",
+      "title": "Kör i rusningen med flit",
+      "description": "Sök upp kön i stället för att undvika den — den är en egen trafikmiljö",
+      "difficulty": "INTERMEDIATE",
+      "estimatedMinutes": 30,
+      "requiredEnvironments": ["URBAN", "MULTILANE_URBAN"]
     },
     {
       "id": "EX-SPEC-02-01",
@@ -4157,6 +4391,11 @@
       "id": "ENV-CLOSED",
       "type": "CLOSED_AREA",
       "description": "Avstängd plats utan trafik — för de allra första manövrarna"
+    },
+    {
+      "id": "ENV-CONGESTED",
+      "type": "OTHER",
+      "description": "Kö och tät trafik — krypande eller stillastående flöde, korta avstånd, täta beslut"
     },
     {
       "id": "ENV-HIGHWAY",
@@ -4604,6 +4843,6 @@
       "sourceVersion": "2026.09.03"
     }
   ],
-  "exportedAt": "2026-09-04T22:33:45.380Z",
+  "exportedAt": "2026-09-05T15:10:50.506Z",
   "databaseVersion": "1.0"
 }
