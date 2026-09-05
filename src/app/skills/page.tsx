@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import content from '@/content';
 import type { Skill } from '@/content/types';
-import { Card } from '@/components/ui/card';
-import { StatusBadge } from '@/components/ui/badge';
 
 const skills = content.skills;
 
@@ -57,11 +55,11 @@ export default function SkillsPage() {
           </Link>
           <h1 className="text-3xl font-semibold text-text-primary">Träningsmoment</h1>
           <p className="max-w-[var(--measure)] text-xl text-text-secondary">
-            {skills.length} moment ordnade efter område och i den ordning ni bör ta dem
+            {skills.length} moment ordnade efter område. Tryck på ett moment för att läsa om det.
           </p>
         </header>
 
-        <div className="mt-12 space-y-14">
+        <div className="mt-10 space-y-8">
           {Object.entries(skillsByCategory)
             .sort((a, b) => {
               const aFirst = a[1][0];
@@ -70,34 +68,33 @@ export default function SkillsPage() {
             })
             .map(([category, categorySkills]) => (
               <section key={category}>
-                <h2 className="border-b border-border-default pb-3 text-2xl font-semibold text-text-primary">
+                {/* Klistrad rubrik: i en lista på {skills.length} rader ska man alltid
+                    kunna se vilket område man skrollat till. */}
+                <h2 className="sticky top-0 z-10 -mx-1 border-b border-border-default bg-surface-overlay px-1 py-3 text-xl font-semibold text-text-primary">
                   {categoryNames[category] || category}
+                  <span className="ml-2 text-base font-normal text-text-tertiary">
+                    {categorySkills.length}
+                  </span>
                 </h2>
-                <ul className="mt-5 space-y-3">
+                {/* Inget säkerhetsmärke i listan: 61 av 72 moment är märkta
+                    säkerhetskritiska, och ett märke på 85 procent av raderna är
+                    brus snarare än signal. Det står kvar på momentets egen sida,
+                    där det har sammanhang. */}
+                <ul className="divide-y divide-border-subtle">
                   {categorySkills
                     .sort((a, b) => a.sortOrder - b.sortOrder)
                     .map((skill) => (
                       <li key={skill.id}>
                         <Link
                           href={`/skills/${skill.id}`}
-                          className="block rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                          className="flex min-h-12 items-center justify-between gap-3 py-3 transition-colors duration-150 hover:text-primary-700 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                         >
-                          <Card
-                            padding="md"
-                            className="min-h-12 transition-colors duration-150 hover:border-primary-400"
-                          >
-                            <div className="flex items-start justify-between gap-4">
-                              <div className="min-w-0 flex-1 space-y-1">
-                                <h3 className="text-lg font-semibold text-text-primary">
-                                  {skill.name}
-                                </h3>
-                                <p className="text-base text-text-secondary">{skill.description}</p>
-                              </div>
-                              {skill.safetyCritical && (
-                                <StatusBadge variant="safety">Säkerhetskritiskt</StatusBadge>
-                              )}
-                            </div>
-                          </Card>
+                          <span className="min-w-0 flex-1 text-base font-medium text-text-primary">
+                            {skill.name}
+                          </span>
+                          <span aria-hidden="true" className="shrink-0 text-text-tertiary">
+                            →
+                          </span>
                         </Link>
                       </li>
                     ))}

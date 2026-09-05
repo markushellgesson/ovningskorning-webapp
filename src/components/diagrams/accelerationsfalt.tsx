@@ -1,104 +1,197 @@
 /**
- * Påfart motorväg (HWY-01) — accelerationsfältet: anpassa farten, välj luckan
- * och fläta in innan fältet tar slut. Trafikförordningen 3 kap 23 § (med
- * accelerationsfält) och 3 kap 21 § (utan).
+ * Påfart med accelerationsfält (HWY-01) — fart, lucka och infogning.
  *
- * Geometri: trafiken kör åt höger i bilden (ökande x). Förarens högra sida är
- * då bildens nedre kant (ökande y). Höger körfält är därför det nedre av de
- * två (y 130–190) och accelerationsfältet ligger under det (y 190–235).
+ * Bilden lär ut körteknik: farten anpassas till trafiken i körfältet redan i
+ * accelerationsfältet, luckan väljs innan fältet tar slut, och infogningen
+ * sker mjukt. Inga regelpåståenden utöver det: vad lagen säger om påfart står
+ * i momentets text.
  *
- * Koordinaterna ovan är scenens egna. Scenen ligger i en grupp med
- * translate(0 50) som bara ger plats för rubriken; inga koordinater inne i
- * gruppen har flyttats.
+ * GEOMETRI (högertrafik, vy uppifrån). Alla koordinater nedan är dukens egna
+ * — scenen ligger inte i någon förskjuten grupp.
  *
- * Vägmärkesbilden B1 i public/signs/ är ett svenskt officiellt vägmärke
- * (allmän handling) och fri att återge.
+ * All trafik i bilden kör UPPÅT (minskande y). För den som kör uppåt är
+ * förarens högra sida bildens högra (hög x). Alltså:
+ * - Genomgående körbana x 140–244. Vänster körfält x 140–192 (mitt 166),
+ *   höger körfält x 192–244 (mitt 218). Körfältslinjen ligger på x 192.
+ * - Accelerationsfältet ligger till HÖGER om höger körfält, x 244–296
+ *   (mitt 270), eftersom en påfart ansluter från förarens högra sida.
+ *   Det är därför elevens bil ligger på x 270 och inte på x 166.
+ * - Elevens bil: (270, 440) — i accelerationsfältet.
+ * - Annan trafik: (166, 170) i vänster körfält, (218, 250) och (218, 470) i
+ *   höger körfält. Alla tre i den genomgående körbanan, alla på väg uppåt.
+ * - Luckan är mellanrummet i höger körfält mellan fordonet på (218, 250),
+ *   vars bakkant ligger på y 272, och fordonet på (218, 470), vars framkant
+ *   ligger på y 448. Luckan markeras mellan y 306 och y 450.
+ * - Fältets slut: accelerationsfältets yttre kant går från (296, 282) till
+ *   (244, 212) — kilen där fältet tar slut. Konfliktytan ligger över kilen.
+ *
+ * MÖNSTER (varje mönster betyder en enda sak i den här bilden):
+ * prickar = elevens bil, diagonala ränder = annan trafik,
+ * krysskraffering = fältets slut, grön måttmarkering = luckan.
+ * Heldragen pil = rör sig nu, streckad grön pil = elevens väg in,
+ * korta parallella streck bakom ett fordon = hög fart.
  */
 
-import { BASE_PATH } from '@/lib/base-path';
+type Heading = 'up' | 'right' | 'down' | 'left';
+const HEADING_DEG: Record<Heading, number> = { up: 0, right: 90, down: 180, left: -90 };
 
-type Heading = 'up' | 'down' | 'left' | 'right';
-
-function nosePoints(x: number, y: number, w: number, h: number, heading: Heading): string {
-  switch (heading) {
-    case 'right':
-      return `${x + w - 9},${y + 4} ${x + w - 2},${y + h / 2} ${x + w - 9},${y + h - 4}`;
-    case 'left':
-      return `${x + 9},${y + 4} ${x + 2},${y + h / 2} ${x + 9},${y + h - 4}`;
-    case 'up':
-      return `${x + 4},${y + 9} ${x + w / 2},${y + 2} ${x + w - 4},${y + 9}`;
-    case 'down':
-      return `${x + 4},${y + h - 9} ${x + w / 2},${y + h - 2} ${x + w - 4},${y + h - 9}`;
-  }
-}
-
-/** Fordon sett uppifrån: mönstrad kropp och en fylld nos som visar färdriktningen. */
-function Car({
-  x,
-  y,
-  w,
-  h,
-  heading,
-  fill,
-  stroke,
-  nose,
-}: {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  heading: Heading;
+interface CarProps {
+  cx: number;
+  cy: number;
+  width: number;
+  length: number;
+  heading: Heading | number;
   fill: string;
   stroke: string;
-  nose: string;
-}) {
+  brakeLights?: boolean;
+}
+
+/**
+ * Bil ritad med fronten uppåt och sedan vriden efter färdriktningen.
+ * Karossen upptar exakt (cx ± width/2, cy ± length/2); hjulen sticker ut 3 px.
+ */
+function Car({ cx, cy, width, length, heading, fill, stroke, brakeLights }: CarProps) {
+  const hw = width / 2;
+  const hl = length / 2;
+  const deg = typeof heading === 'number' ? heading : HEADING_DEG[heading];
+  const glass = `fill-diagram-marking ${stroke}`;
+  return (
+    <g transform={`translate(${cx} ${cy}) rotate(${deg})`}>
+      <g className="fill-text-primary">
+        <rect x={-hw - 3} y={-hl + 5} width="5" height="9" rx="1.5" />
+        <rect x={hw - 2} y={-hl + 5} width="5" height="9" rx="1.5" />
+        <rect x={-hw - 3} y={hl - 14} width="5" height="9" rx="1.5" />
+        <rect x={hw - 2} y={hl - 14} width="5" height="9" rx="1.5" />
+      </g>
+      <rect x={-hw} y={-hl} width={width} height={length} rx="4" fill={fill} className={stroke} strokeWidth="2" />
+      <rect x={-hw + 5} y={-hl + 6} width={width - 10} height="7" rx="2" className={glass} strokeWidth="1" />
+      <rect x={-hw + 5} y={hl - 10} width={width - 10} height="5" rx="2" className={glass} strokeWidth="1" />
+      {brakeLights && (
+        <g className="fill-safety-600">
+          <rect x={-hw + 2} y={hl - 1} width="6" height="3" />
+          <rect x={hw - 8} y={hl - 1} width="6" height="3" />
+        </g>
+      )}
+    </g>
+  );
+}
+
+/** Fartstreck bakom ett fordon som kör uppåt: tre korta streck, olika längd. */
+function SpeedMarks({ cx, y, className }: { cx: number; y: number; className: string }) {
+  return (
+    <g className={className} strokeWidth="2.5" strokeLinecap="round">
+      <line x1={cx - 12} y1={y} x2={cx - 12} y2={y + 16} />
+      <line x1={cx} y1={y} x2={cx} y2={y + 24} />
+      <line x1={cx + 12} y1={y} x2={cx + 12} y2={y + 16} />
+    </g>
+  );
+}
+
+/** Numrerad hänvisning: mörk cirkel med siffra. */
+function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
-      <rect x={x} y={y} width={w} height={h} rx="4" fill={fill} className={stroke} strokeWidth="2" />
-      <polygon points={nosePoints(x, y, w, h, heading)} className={nose} />
-    </g>
-  );
-}
-
-/** Fartstreck bakom ett fordon som kör åt höger: x är bakkanten, cy mittlinjen. */
-function Streaks({ x, cy, stroke }: { x: number; cy: number; stroke: string }) {
-  return (
-    <g className={stroke} strokeWidth="2" strokeLinecap="round">
-      <line x1={x - 6} y1={cy - 6} x2={x - 18} y2={cy - 6} />
-      <line x1={x - 6} y1={cy} x2={x - 26} y2={cy} />
-      <line x1={x - 6} y1={cy + 6} x2={x - 18} y2={cy + 6} />
-    </g>
-  );
-}
-
-/** Bromsljus bak på ett fordon som kör åt höger (bakkanten är vänsterkanten). */
-function BrakeLights({ x, y, h }: { x: number; y: number; h: number }) {
-  return (
-    <g className="fill-safety-600">
-      <rect x={x - 1} y={y + 2} width="3" height="4" />
-      <rect x={x - 1} y={y + h - 6} width="3" height="4" />
-    </g>
-  );
-}
-
-/** Numrerad hänvisning: fylld cirkel med siffra. */
-function Badge({ cx, cy, n }: { cx: number; cy: number; n: number }) {
-  return (
-    <g>
-      <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
-      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-bold">
+      <circle cx={x} cy={y} r="11" className="fill-text-primary" />
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
         {n}
       </text>
     </g>
   );
 }
 
-/** Tunn pekarlinje från etiketten till det den syftar på, med en punkt i änden. */
+/** Tunn pekarlinje från en etikett till det den syftar på, med en punkt i målet. */
 function Pointer({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
   return (
     <g>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-text-secondary" strokeWidth="1.5" />
-      <circle cx={x2} cy={y2} r="3" className="fill-text-secondary" />
+      <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-text-tertiary" strokeWidth="1.5" />
+      <circle cx={x2} cy={y2} r="3" className="fill-text-tertiary" />
+    </g>
+  );
+}
+
+function Check({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 9} ${y} l 6 6 l 12 -13`}
+      className="fill-none stroke-progress-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  );
+}
+
+function Cross({ x, y }: { x: number; y: number }) {
+  return (
+    <path
+      d={`M ${x - 7} ${y - 7} L ${x + 7} ${y + 7} M ${x + 7} ${y - 7} L ${x - 7} ${y + 7}`}
+      className="stroke-safety-600"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  );
+}
+
+/**
+ * Samma påfart i skala 0,45 för förklaringsrutan. Origo mitt i scenen.
+ * Höger körfält x −60–0, accelerationsfält x 0–60 med kilen mellan
+ * (60, −30) och (0, −90): samma sida och samma riktning som i huvudbilden —
+ * all trafik kör uppåt, accelerationsfältet ligger till höger om körfältet.
+ */
+function MiniPafart({ x, y, variant }: { x: number; y: number; variant: 'vaver-in' | 'star-kvar' }) {
+  const merges = variant === 'vaver-in';
+  return (
+    <g transform={`translate(${x} ${y}) scale(0.45)`}>
+      <rect x="-60" y="-110" width="60" height="220" className="fill-diagram-road" />
+      <polygon points="0,110 60,110 60,-30 0,-90" className="fill-diagram-road" />
+      <polygon
+        points="0,-90 60,-30 60,10 0,10"
+        fill="url(#acc-hatch)"
+        className="stroke-safety-600"
+        strokeWidth="2"
+      />
+      <g className="fill-none stroke-diagram-marking" strokeWidth="3">
+        <line x1="-60" y1="-110" x2="-60" y2="110" />
+        <line x1="0" y1="-110" x2="0" y2="-90" />
+        <path d="M 0 -90 L 60 -30 L 60 110" />
+      </g>
+      <line x1="0" y1="-90" x2="0" y2="110" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="14 10" />
+
+      {/* Annan trafik i höger körfält, kör uppåt */}
+      <Car
+        cx={-30}
+        cy={-40}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#acc-stripes)"
+        stroke="stroke-primary-600"
+        brakeLights={!merges}
+      />
+
+      {merges ? (
+        <>
+          <Car cx={30} cy={60} width={26} length={44} heading="up" fill="url(#acc-dots)" stroke="stroke-attention-600" />
+          <path
+            d="M 30 36 C 30 8 -30 20 -30 -4"
+            className="fill-none stroke-progress-600"
+            strokeWidth="5"
+            strokeDasharray="12 9"
+            markerEnd="url(#acc-arrow-plan)"
+          />
+        </>
+      ) : (
+        <Car
+          cx={20}
+          cy={-48}
+          width={26}
+          length={44}
+          heading="up"
+          fill="url(#acc-dots)"
+          stroke="stroke-attention-600"
+          brakeLights
+        />
+      )}
     </g>
   );
 }
@@ -106,332 +199,273 @@ function Pointer({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: n
 export function AccelerationsfaltDiagram() {
   return (
     <svg
-      viewBox="0 0 620 770"
-      className="w-full max-w-2xl mx-auto"
+      viewBox="0 0 440 1030"
+      className="w-full max-w-md mx-auto"
       role="img"
-      aria-labelledby="accel-title accel-desc"
+      aria-labelledby="acc-title acc-desc"
     >
-      <title id="accel-title">Påfart motorväg med accelerationsfält</title>
-      <desc id="accel-desc">
-        Motorväg sedd uppifrån, trafiken kör åt höger. Det högra körfältet är det nedre av de två,
-        och under det ligger accelerationsfältet som en påfartsväg leder in i nedifrån vänster. Din
-        bil har prickmönster och en fylld nos som visar färdriktningen; den visas i tre lägen. Först
-        på påfarten i låg fart, markerad 1. Sedan mitt i accelerationsfältet med en pil framför sig
-        märkt accelerera bestämt. Till sist inflätad i det högra körfältet, markerad 3, mitt i en
-        lucka mellan två bilar med diagonalt randmönster som kör på motorvägen; fartstreck bakom dem
-        visar att de håller hög fart. En klammer ovanför vägen, markerad 2, visar luckan: plats utan
-        att andra måste bromsa. En streckad grön pil med pilspets visar inflätningen från fältet
-        upp i körfältet, och den sker före en röd markering där fältet tar slut. En
-        teckenförklaring nere till höger i bilden: prickmönster är din bil, randmönster är trafik
-        på motorvägen, heldragen pil betyder rör sig nu och streckad pil planerad väg. Text under
-        bilden: med accelerationsfält har du inte väjningsplikt utan anpassar farten till trafiken
-        och flyttar över när det kan ske utan fara eller onödigt hinder (3 kap 23 §). Saknas
-        accelerationsfält har du väjningsplikt (3 kap 21 §), vägmärke B1. En ruta längst ned visar
-        två små scenarier: en lucka som räcker, där trafiken bakom behåller farten, markerad med en
-        bock, och en för liten lucka där bilen bakom måste bromsa, markerad med ett kryss.
+      <title id="acc-title">Påfart med accelerationsfält</title>
+      <desc id="acc-desc">
+        Motorvägens ena körbana sedd uppifrån, med två genomgående körfält och ett
+        accelerationsfält längst till höger. All trafik kör uppåt i bilden. Elevens bil, fylld
+        med prickmönster, ligger i accelerationsfältet och har tre korta parallella streck bakom
+        sig: farten är uppe. Tre andra fordon, fyllda med diagonala ränder, rullar i de
+        genomgående körfälten med samma sorts fartstreck bakom sig. Markering 1 pekar på elevens
+        bil: matcha farten med körfältet. I det högra körfältet, mellan två av de randiga
+        fordonen, är luckan utmärkt med en grön linje mellan två gröna tvärstreck, och markering
+        2 pekar på den: välj luckan innan fältet tar slut. En streckad grön pil visar elevens väg
+        in i just den luckan. Där accelerationsfältet smalnar av mot körfältet ligger en yta med
+        krysskraffering och röd kontur, och markering 3 pekar dit: fältets slut. Nedanför
+        accelerationsfältet fortsätter påfartsrampen snett ned åt höger. En teckenförklaring
+        skiljer på heldragen pil, rör sig nu, streckad grön pil, din väg in, korta parallella
+        streck, hög fart, och grön måttmarkering, luckan. En ruta längst ned visar samma påfart
+        två gånger: eleven har farten uppe och väver in i luckan, markerat med en bock, och
+        eleven har tvekat bort luckan och står i fältets slut medan fordonet i körfältet får
+        bromsa, markerat med ett kryss.
       </desc>
 
       <defs>
-        <pattern id="accel-dots" patternUnits="userSpaceOnUse" width="8" height="8">
-          <circle cx="4" cy="4" r="1.5" className="fill-attention-600" />
+        <pattern id="acc-dots" patternUnits="userSpaceOnUse" width="8" height="8">
+          <circle cx="4" cy="4" r="1.6" className="fill-attention-600" />
         </pattern>
-        <pattern id="accel-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
+        <pattern id="acc-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
           <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
         </pattern>
-        <marker
-          id="accel-arrow"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto"
-        >
+        <pattern id="acc-hatch" patternUnits="userSpaceOnUse" width="10" height="10">
+          <path d="M0,10 l10,-10 M0,0 l10,10" className="stroke-safety-600" strokeWidth="1.3" />
+        </pattern>
+        <marker id="acc-arrow-other" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
+        </marker>
+        <marker id="acc-arrow-plan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-progress-600" />
         </marker>
       </defs>
 
       {/* Rubrik */}
-      <text x="20" y="36" className="fill-text-primary text-[22px] font-bold">
-        Påfart motorväg
+      <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
+        Påfart med accelerationsfält
       </text>
-      <text x="20" y="58" className="fill-text-secondary text-[14px]">
-        Anpassa farten i accelerationsfältet och fläta in i tid
+      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+        Farten, luckan och infogningen
       </text>
 
-      {/* Scenen. Koordinaterna här inne är de verifierade (se filhuvudet). */}
-      <g transform="translate(0 50)">
-        {/* 2. Luckan — klammer ovanför vägen mellan bilen bakom (x 322) och bilen framför (x 540) */}
-        <line x1="322" y1="56" x2="540" y2="56" className="stroke-progress-600" strokeWidth="2" />
-        <line x1="322" y1="50" x2="322" y2="62" className="stroke-progress-600" strokeWidth="2" />
-        <line x1="540" y1="50" x2="540" y2="62" className="stroke-progress-600" strokeWidth="2" />
-        <text x="431" y="46" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
-          Luckan: plats utan att andra måste bromsa
-        </text>
-        <Badge cx={300} cy={56} n={2} />
+      {/* Genomgående körbana: två körfält, all trafik uppåt */}
+      <rect x="140" y="92" width="104" height="448" className="fill-diagram-road" />
 
-        {/* Motorvägen: vänster körfält y 70–130, höger körfält y 130–190 */}
-        <rect x="20" y="70" width="580" height="120" className="fill-diagram-road" />
-        <line x1="20" y1="70" x2="600" y2="70" className="stroke-diagram-edge" strokeWidth="2" />
-        <line
-          x1="20"
-          y1="130"
-          x2="600"
-          y2="130"
-          className="stroke-diagram-marking"
-          strokeWidth="2"
-          strokeDasharray="10 8"
-        />
-        {/* Kantlinje där inget fält finns */}
-        <line x1="20" y1="190" x2="115" y2="190" className="stroke-diagram-edge" strokeWidth="2" />
-        <line x1="480" y1="190" x2="600" y2="190" className="stroke-diagram-edge" strokeWidth="2" />
+      {/* Accelerationsfältet, med kilen där det tar slut */}
+      <polygon points="244,540 296,540 296,282 244,212" className="fill-diagram-road" />
 
-        {/* Accelerationsfältet y 190–235, smalnar av och tar slut vid x 480 */}
-        <polygon points="130,190 480,190 400,235 130,235" className="fill-diagram-road" />
-        <path d="M 130 235 L 400 235 L 480 190" className="fill-none stroke-diagram-edge" strokeWidth="2" />
-        <line
-          x1="130"
-          y1="190"
-          x2="480"
-          y2="190"
-          className="stroke-diagram-marking"
-          strokeWidth="2"
-          strokeDasharray="10 8"
-        />
-        <text x="138" y="218" className="fill-text-secondary text-[13px] font-medium">
-          Accelerationsfält
-        </text>
+      {/* Påfartsrampen fortsätter ned åt höger */}
+      <polygon points="244,540 296,540 328,612 276,612" className="fill-diagram-road" />
 
-        {/* Påfartsvägen: kommer nedifrån (x 45–90) och svänger in i fältets början */}
-        <path
-          d="M 45 330 L 45 260 Q 45 190 115 190 L 130 190 L 130 235 Q 90 235 90 270 L 90 330 Z"
-          className="fill-diagram-road"
-        />
-        <path
-          d="M 45 330 L 45 260 Q 45 190 115 190 L 130 190"
-          className="fill-none stroke-diagram-edge"
-          strokeWidth="2"
-        />
-        <path d="M 90 330 L 90 270 Q 90 235 130 235" className="fill-none stroke-diagram-edge" strokeWidth="2" />
-
-        {/* Fältet tar slut */}
-        <line x1="480" y1="190" x2="480" y2="246" className="stroke-safety-600" strokeWidth="3" />
-        <text x="486" y="262" className="fill-text-primary text-[14px] font-semibold">
-          Fältet tar slut
-        </text>
-
-        {/* Trafik på motorvägen, i hög fart: en bil i vänster körfält, två i höger körfält runt luckan */}
-        <Streaks x={150} cy={104} stroke="stroke-primary-600" />
-        <Car
-          x={150}
-          y={92}
-          w={42}
-          h={24}
-          heading="right"
-          fill="url(#accel-stripes)"
-          stroke="stroke-primary-600"
-          nose="fill-primary-600"
-        />
-        <Streaks x={280} cy={154} stroke="stroke-primary-600" />
-        <Car
-          x={280}
-          y={142}
-          w={42}
-          h={24}
-          heading="right"
-          fill="url(#accel-stripes)"
-          stroke="stroke-primary-600"
-          nose="fill-primary-600"
-        />
-        <Streaks x={540} cy={154} stroke="stroke-primary-600" />
-        <Car
-          x={540}
-          y={142}
-          w={42}
-          h={24}
-          heading="right"
-          fill="url(#accel-stripes)"
-          stroke="stroke-primary-600"
-          nose="fill-primary-600"
-        />
-
-        {/* Inflätningen: från fältet upp i höger körfält, före fältets slut */}
-        <path
-          d="M 300 213 Q 365 213 385 175 L 408 154"
-          className="fill-none stroke-progress-600"
-          strokeWidth="2.5"
-          strokeDasharray="7 5"
-          markerEnd="url(#accel-arrow)"
-        />
-
-        {/* Din bil, tre lägen: på påfarten, i fältet, inflätad */}
-        <Car
-          x={53}
-          y={280}
-          w={28}
-          h={40}
-          heading="up"
-          fill="url(#accel-dots)"
-          stroke="stroke-attention-600"
-          nose="fill-attention-600"
-        />
-        <Car
-          x={258}
-          y={201}
-          w={42}
-          h={24}
-          heading="right"
-          fill="url(#accel-dots)"
-          stroke="stroke-attention-600"
-          nose="fill-attention-600"
-        />
-        <Car
-          x={410}
-          y={142}
-          w={42}
-          h={24}
-          heading="right"
-          fill="url(#accel-dots)"
-          stroke="stroke-attention-600"
-          nose="fill-attention-600"
-        />
-
-        {/* 1. Låg fart på påfarten: kort fartpil */}
-        <line
-          x1="100"
-          y1="326"
-          x2="100"
-          y2="300"
-          className="stroke-progress-600"
-          strokeWidth="2.5"
-          markerEnd="url(#accel-arrow)"
-        />
-        <Badge cx={122} cy={286} n={1} />
-        <text x="140" y="291" className="fill-text-primary text-[14px] font-semibold">
-          Låg fart
-        </text>
-        <Pointer x1={111} y1={288} x2={85} y2={292} />
-
-        {/* Längre fartpil i fältet */}
-        <line
-          x1="258"
-          y1="256"
-          x2="338"
-          y2="256"
-          className="stroke-progress-600"
-          strokeWidth="2.5"
-          markerEnd="url(#accel-arrow)"
-        />
-        <text x="348" y="261" className="fill-text-primary text-[14px] font-semibold">
-          Accelerera bestämt
-        </text>
-
-        {/* 3. Inflätad i luckan */}
-        <Badge cx={470} cy={154} n={3} />
-
-        {/* Teckenförklaring, i eget hörn */}
-        <g transform="translate(430, 280)">
-          <rect width="14" height="14" fill="url(#accel-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-          <text x="22" y="12" className="fill-text-secondary text-[13px]">
-            Din bil
-          </text>
-          <rect
-            y="22"
-            width="14"
-            height="14"
-            fill="url(#accel-stripes)"
-            className="stroke-primary-600"
-            strokeWidth="1.5"
-          />
-          <text x="22" y="34" className="fill-text-secondary text-[13px]">
-            Trafik på motorvägen
-          </text>
-          <line x1="0" y1="51" x2="30" y2="51" className="stroke-progress-600" strokeWidth="2.5" markerEnd="url(#accel-arrow)" />
-          <text x="38" y="56" className="fill-text-secondary text-[13px]">
-            Rör sig nu
-          </text>
-          <line
-            x1="0"
-            y1="73"
-            x2="30"
-            y2="73"
-            className="stroke-progress-600"
-            strokeWidth="2.5"
-            strokeDasharray="7 5"
-            markerEnd="url(#accel-arrow)"
-          />
-          <text x="38" y="78" className="fill-text-secondary text-[13px]">
-            Planerad väg
-          </text>
-        </g>
+      {/* Vägmarkeringar: kantlinjer heldragna, körfältslinjer streckade */}
+      <g className="fill-none stroke-diagram-marking" strokeWidth="2.5">
+        <line x1="140" y1="92" x2="140" y2="540" />
+        <line x1="244" y1="92" x2="244" y2="212" />
+        <path d="M 244 212 L 296 282 L 296 540 L 328 612" />
+        <line x1="244" y1="540" x2="276" y2="612" />
+      </g>
+      <g className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="14 10">
+        <line x1="192" y1="92" x2="192" y2="540" />
+        <line x1="244" y1="218" x2="244" y2="540" />
       </g>
 
-      {/* Steg och regel */}
-      <text x="20" y="436" className="fill-text-primary text-[16px] font-semibold">
-        Så gör du
+      {/* Konfliktyta: fältets slut */}
+      <polygon
+        points="244,212 296,282 296,322 244,322"
+        fill="url(#acc-hatch)"
+        className="stroke-safety-600"
+        strokeWidth="2"
+      />
+
+      {/* Teckenförklaring i högermarginalen, ovanför scenen */}
+      <g>
+        <path d="M 300 104 L 326 104" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#acc-arrow-other)" />
+        <text x="334" y="109" className="fill-text-secondary text-[13px]">
+          Rör sig nu
+        </text>
+        <path
+          d="M 300 126 L 326 126"
+          className="stroke-progress-600"
+          strokeWidth="3"
+          strokeDasharray="8 6"
+          markerEnd="url(#acc-arrow-plan)"
+        />
+        <text x="334" y="131" className="fill-text-secondary text-[13px]">
+          Din väg in
+        </text>
+        <g className="stroke-primary-600" strokeWidth="2.5" strokeLinecap="round">
+          <line x1="302" y1="146" x2="302" y2="158" />
+          <line x1="311" y1="144" x2="311" y2="160" />
+          <line x1="320" y1="146" x2="320" y2="158" />
+        </g>
+        <text x="334" y="157" className="fill-text-secondary text-[13px]">
+          Hög fart
+        </text>
+        <g className="stroke-progress-600" strokeWidth="2.5">
+          <line x1="311" y1="174" x2="311" y2="192" />
+          <line x1="303" y1="174" x2="319" y2="174" />
+          <line x1="303" y1="192" x2="319" y2="192" />
+        </g>
+        <text x="334" y="188" className="fill-text-secondary text-[13px]">
+          Luckan
+        </text>
+      </g>
+
+      {/* Etikett: de genomgående körfälten */}
+      <g>
+        <text x="16" y="112" className="fill-text-primary text-[13px] font-semibold">
+          Genomgående
+        </text>
+        <text x="16" y="130" className="fill-text-secondary text-[13px]">
+          körfält
+        </text>
+        <Pointer x1={100} y1={122} x2={166} y2={124} />
+      </g>
+
+      {/* Annan trafik i vänster körfält */}
+      <SpeedMarks cx={166} y={196} className="stroke-primary-600" />
+      <Car cx={166} cy={170} width={26} length={44} heading="up" fill="url(#acc-stripes)" stroke="stroke-primary-600" />
+
+      {/* Annan trafik i höger körfält, framför luckan */}
+      <SpeedMarks cx={218} y={276} className="stroke-primary-600" />
+      <Car cx={218} cy={250} width={26} length={44} heading="up" fill="url(#acc-stripes)" stroke="stroke-primary-600" />
+
+      {/* Annan trafik i höger körfält, bakom luckan */}
+      <SpeedMarks cx={218} y={496} className="stroke-primary-600" />
+      <Car cx={218} cy={470} width={26} length={44} heading="up" fill="url(#acc-stripes)" stroke="stroke-primary-600" />
+
+      {/* Luckan i höger körfält: mellan y 306 och y 450 */}
+      <g className="stroke-progress-600" strokeWidth="2.5">
+        <line x1="206" y1="306" x2="206" y2="450" />
+        <line x1="198" y1="306" x2="230" y2="306" />
+        <line x1="198" y1="450" x2="230" y2="450" />
+      </g>
+
+      {/* Elevens bil i accelerationsfältet, farten uppe */}
+      <SpeedMarks cx={270} y={466} className="stroke-attention-600" />
+      <Car cx={270} cy={440} width={26} length={44} heading="up" fill="url(#acc-dots)" stroke="stroke-attention-600" />
+
+      {/* Elevens väg in i luckan */}
+      <path
+        d="M 270 414 C 270 388 218 396 218 370"
+        className="fill-none stroke-progress-600"
+        strokeWidth="3"
+        strokeDasharray="8 6"
+        markerEnd="url(#acc-arrow-plan)"
+      />
+
+      {/* 1. Elevens bil: matcha farten */}
+      <g>
+        <Callout x={322} y={452} n={1} />
+        <text x="338" y="457" className="fill-text-primary text-[14px] font-semibold">
+          Du
+        </text>
+        <text x="306" y="477" className="fill-text-secondary text-[13px]">
+          matcha farten
+        </text>
+        <text x="306" y="495" className="fill-text-secondary text-[13px]">
+          med körfältet
+        </text>
+        <Pointer x1={312} y1={441} x2={288} y2={432} />
+      </g>
+
+      {/* 2. Luckan */}
+      <g>
+        <Callout x={26} y={372} n={2} />
+        <text x="42" y="377" className="fill-text-primary text-[13px] font-semibold">
+          Luckan
+        </text>
+        <text x="16" y="397" className="fill-text-secondary text-[13px]">
+          välj den innan
+        </text>
+        <text x="16" y="415" className="fill-text-secondary text-[13px]">
+          fältet tar slut
+        </text>
+        <Pointer x1={104} y1={386} x2={197} y2={378} />
+      </g>
+
+      {/* 3. Fältets slut */}
+      <g>
+        <Callout x={306} y={206} n={3} />
+        <text x="322" y="211" className="fill-text-primary text-[13px] font-semibold">
+          Fältets slut
+        </text>
+        <text x="298" y="231" className="fill-text-secondary text-[13px]">
+          här finns ingen
+        </text>
+        <text x="298" y="249" className="fill-text-secondary text-[13px]">
+          plats att vänta på
+        </text>
+        <Pointer x1={302} y1={262} x2={268} y2={298} />
+      </g>
+
+      {/* Etikett: påfartsrampen */}
+      <g>
+        <text x="16" y="586" className="fill-text-primary text-[13px] font-semibold">
+          Påfartsrampen
+        </text>
+        <text x="16" y="604" className="fill-text-secondary text-[13px]">
+          du kommer härifrån
+        </text>
+        <Pointer x1={152} y1={596} x2={284} y2={594} />
+      </g>
+
+      {/* Vad bilden lär ut */}
+      <text x="220" y="654" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        Farten anpassas till trafiken i körfältet
       </text>
-      <Badge cx={30} cy={464} n={1} />
-      <text x="48" y="469" className="fill-text-primary text-[15px] font-medium">
-        Sök trafik på motorvägen tidigt och accelerera bestämt i fältet
+      <text x="220" y="672" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+        redan i accelerationsfältet.
       </text>
-      <Badge cx={30} cy={494} n={2} />
-      <text x="48" y="499" className="fill-text-primary text-[15px] font-medium">
-        Välj en lucka där du får plats utan att andra måste bromsa
+      <text x="220" y="696" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        Välj luckan i god tid: blinkers, spegel, axelblick — och väv in
       </text>
-      <Badge cx={30} cy={524} n={3} />
-      <text x="48" y="529" className="fill-text-primary text-[15px] font-medium">
-        Blinka, axelblick, fläta in — beslutet fattat innan fältet tar slut
-      </text>
-      <text x="20" y="556" className="fill-text-secondary text-[13px]">
-        Med accelerationsfält har du inte väjningsplikt: anpassa farten till trafiken i körfältet
-      </text>
-      <text x="20" y="574" className="fill-text-secondary text-[13px]">
-        och flytta över när det kan ske utan fara eller onödigt hinder (3 kap 23 §).
-      </text>
-      <image href={`${BASE_PATH}/signs/B1.svg`} x="20" y="586" width="24" height="24" />
-      <text x="52" y="603" className="fill-text-secondary text-[13px]">
-        Saknas accelerationsfält har du väjningsplikt (3 kap 21 §).
+      <text x="220" y="714" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        mjukt. Tvinga dig inte in, och bli inte stående i fältets slut.
       </text>
 
-      {/* Förklaringsruta: vad "plats utan att andra måste bromsa" betyder */}
-      <rect x="20" y="624" width="580" height="130" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="36" y="650" className="fill-text-primary text-[15px] font-semibold">
-        Luckan: plats utan att andra måste bromsa
-      </text>
+      {/* Mönsterförklaring */}
+      <g>
+        <rect x="34" y="740" width="22" height="14" rx="2" fill="url(#acc-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+        <text x="62" y="752" className="fill-text-tertiary text-[13px]">
+          Du
+        </text>
+        <rect x="106" y="740" width="22" height="14" rx="2" fill="url(#acc-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
+        <text x="134" y="752" className="fill-text-tertiary text-[13px]">
+          Annan trafik
+        </text>
+        <rect x="236" y="740" width="22" height="14" rx="2" fill="url(#acc-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
+        <text x="264" y="752" className="fill-text-tertiary text-[13px]">
+          Fältets slut
+        </text>
+      </g>
 
-      {/* Panel A: luckan räcker, trafiken bakom behåller farten */}
-      <rect x="36" y="664" width="250" height="30" className="fill-diagram-road" />
-      <line x1="36" y1="664" x2="286" y2="664" className="stroke-diagram-edge" strokeWidth="1.5" />
-      <line x1="36" y1="694" x2="286" y2="694" className="stroke-diagram-edge" strokeWidth="1.5" />
-      <Streaks x={60} cy={679} stroke="stroke-primary-600" />
-      <Car x={60} y={672} w={30} h={14} heading="right" fill="url(#accel-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
-      <Car x={130} y={672} w={30} h={14} heading="right" fill="url(#accel-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
-      <Streaks x={200} cy={679} stroke="stroke-primary-600" />
-      <Car x={200} y={672} w={30} h={14} heading="right" fill="url(#accel-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
-      <text x="36" y="716" className="fill-text-primary text-[14px] font-semibold">
-        Luckan räcker:
+      {/* Förklaringsruta: vad valet i accelerationsfältet leder till */}
+      <rect x="20" y="778" width="400" height="228" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <text x="34" y="802" className="fill-text-primary text-[13px] font-semibold">
+        När accelerationsfältet börjar ta slut:
       </text>
-      <path d="M 150 712 l 6 6 l 12 -13" className="fill-none stroke-progress-600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="36" y="734" className="fill-text-primary text-[13px]">
-        trafiken bakom behåller farten
-      </text>
+      <line x1="220" y1="818" x2="220" y2="994" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
-      {/* Panel B: luckan för liten, bilen bakom måste bromsa */}
-      <rect x="330" y="664" width="250" height="30" className="fill-diagram-road" />
-      <line x1="330" y1="664" x2="580" y2="664" className="stroke-diagram-edge" strokeWidth="1.5" />
-      <line x1="330" y1="694" x2="580" y2="694" className="stroke-diagram-edge" strokeWidth="1.5" />
-      <Car x={378} y={672} w={30} h={14} heading="right" fill="url(#accel-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
-      <BrakeLights x={378} y={672} h={14} />
-      <Car x={416} y={672} w={30} h={14} heading="right" fill="url(#accel-dots)" stroke="stroke-attention-600" nose="fill-attention-600" />
-      <Streaks x={486} cy={679} stroke="stroke-primary-600" />
-      <Car x={486} y={672} w={30} h={14} heading="right" fill="url(#accel-stripes)" stroke="stroke-primary-600" nose="fill-primary-600" />
-      <text x="330" y="716" className="fill-text-primary text-[14px] font-semibold">
-        Luckan för liten:
+      <MiniPafart x={118} y={880} variant="vaver-in" />
+      <text x="118" y="946" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Farten är uppe
       </text>
-      <path d="M 470 710 L 482 722 M 482 710 L 470 722" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
-      <text x="330" y="734" className="fill-text-primary text-[13px]">
-        bilen bakom måste bromsa
+      <text x="118" y="962" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        du väver in i luckan
       </text>
+      <Check x={118} y={984} />
+
+      <MiniPafart x={322} y={880} variant="star-kvar" />
+      <text x="322" y="946" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        Du tvekar bort luckan
+      </text>
+      <text x="322" y="962" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        och står i fältets slut
+      </text>
+      <Cross x={322} y={984} />
     </svg>
   );
 }
