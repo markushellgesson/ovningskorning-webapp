@@ -49,7 +49,7 @@ export default function SkillsPage() {
         <header className="space-y-3">
           <Link
             href="/"
-            className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+            className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             ← Tillbaka
           </Link>
@@ -87,7 +87,7 @@ export default function SkillsPage() {
                       <li key={skill.id}>
                         <Link
                           href={`/skills/${skill.id}`}
-                          className="flex min-h-12 items-center justify-between gap-3 py-3 transition-colors duration-150 hover:text-primary-700 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                          className="-mx-2 flex min-h-12 items-center justify-between gap-3 rounded-[var(--radius-sm)] px-2 py-3 transition-colors duration-150 hover:text-primary-700 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                         >
                           <span className="min-w-0 flex-1 text-base font-medium text-text-primary">
                             {skill.name}

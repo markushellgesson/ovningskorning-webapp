@@ -36,7 +36,7 @@ export function BottomNav() {
               <Link
                 href={tab.href}
                 aria-current={active ? 'page' : undefined}
-                className={`flex min-h-14 items-center justify-center px-2 text-base transition-colors duration-150 ${
+                className={`flex min-h-14 items-center justify-center px-2 text-base transition-colors duration-150 active:bg-neutral-300 active:duration-0 ${
                   active
                     ? // Aktiv flik markeras med både vikt och en linje, aldrig
                       // med enbart färg (WCAG 2.2 AA, ux-spec kap. 9).

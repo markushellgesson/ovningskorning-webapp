@@ -114,7 +114,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
         <header className="space-y-3">
           <Link
             href="/skills"
-            className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+            className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             ← Alla moment
           </Link>
@@ -152,7 +152,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
                   <li key={prereq.id}>
                     <Link
                       href={`/skills/${prereq.id}`}
-                      className="flex min-h-12 items-center rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised px-4 py-3 text-base font-medium text-text-primary transition-colors duration-150 hover:border-primary-400 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                      className="flex min-h-12 items-center rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised px-4 py-3 text-base font-medium text-text-primary transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                     >
                       {prereq.name}
                     </Link>
@@ -324,7 +324,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
                   <li key={child.id}>
                     <Link
                       href={`/skills/${child.id}`}
-                      className="block min-h-12 rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised p-5 transition-colors duration-150 hover:border-primary-400 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                      className="block min-h-12 rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised p-5 transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                     >
                       <h3 className="text-lg font-semibold text-text-primary">{child.name}</h3>
                       <p className="mt-1 text-base text-text-secondary">{child.description}</p>

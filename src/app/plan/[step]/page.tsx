@@ -46,7 +46,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
     <main className="min-h-dvh bg-surface-overlay p-6 pb-24">
       <div className="max-w-2xl mx-auto space-y-8">
         <header className="space-y-4">
-          <Link href="/plan" className="text-primary-600 hover:underline">
+          <Link href="/plan" className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none">
             ← Alla steg
           </Link>
           <p className="text-base font-medium text-text-tertiary">
@@ -55,7 +55,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
           <div className="flex items-center gap-3">
             <span
               aria-hidden="true"
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-white"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-on-primary"
             >
               {stepNumber}
             </span>
@@ -83,7 +83,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
                       <li key={skillId}>
                         <Link
                           href={`/skills/${skill.id}`}
-                          className="block min-h-12 rounded-[var(--radius-sm)] border border-border-subtle p-3 transition-colors hover:border-primary-500 hover:bg-primary-50"
+                          className="block min-h-12 rounded-[var(--radius-sm)] border border-border-subtle p-3 transition-colors duration-150 hover:border-primary-500 hover:bg-primary-50 active:border-primary-500 active:bg-primary-200 active:duration-0"
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0 flex-1">
@@ -121,7 +121,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
           {previousStepNumber ? (
             <Link
               href={`/plan/${previousStepNumber}`}
-              className="flex min-h-12 flex-1 items-center justify-center rounded-[var(--radius-sm)] border border-border-control px-4 text-base font-medium text-text-primary transition-colors duration-150 hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+              className="flex min-h-12 flex-1 items-center justify-center rounded-[var(--radius-sm)] border border-border-control px-4 text-base font-medium text-text-primary transition-colors duration-150 hover:bg-neutral-100 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               ← Föregående steg
             </Link>
@@ -131,7 +131,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
           {nextStepNumber ? (
             <Link
               href={`/plan/${nextStepNumber}`}
-              className="flex min-h-12 flex-1 items-center justify-center rounded-[var(--radius-sm)] border border-border-control px-4 text-base font-medium text-text-primary transition-colors duration-150 hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+              className="flex min-h-12 flex-1 items-center justify-center rounded-[var(--radius-sm)] border border-border-control px-4 text-base font-medium text-text-primary transition-colors duration-150 hover:bg-neutral-100 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               Nästa steg →
             </Link>

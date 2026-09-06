@@ -19,7 +19,7 @@ export default function PlanPage() {
     <main className="min-h-dvh bg-surface-overlay p-6 pb-24">
       <div className="max-w-2xl mx-auto space-y-8">
         <header className="space-y-4">
-          <Link href="/" className="text-primary-600 hover:underline">
+          <Link href="/" className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none">
             ← Tillbaka
           </Link>
           <h1 className="text-4xl font-bold text-text-primary">Träningskarta</h1>
@@ -46,7 +46,7 @@ export default function PlanPage() {
 
         <Link
           href="/upplagg"
-          className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-5 transition-colors duration-150 hover:bg-primary-100"
+          className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-5 transition-colors duration-150 hover:bg-primary-100 active:bg-primary-200 active:duration-0"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1">
@@ -70,15 +70,15 @@ export default function PlanPage() {
               <li key={level.id}>
                 <Link
                   href={`/plan/${stepNumber}`}
-                  className="flex min-h-12 items-center gap-4 rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                  className="group flex min-h-12 items-center gap-4 rounded-[var(--radius-md)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                 >
                   <Card
                     padding="md"
-                    className="flex w-full items-center gap-4 transition-colors duration-150 hover:border-primary-400"
+                    className="flex w-full items-center gap-4 transition-colors duration-150 hover:border-primary-400 group-active:border-primary-500 group-active:bg-neutral-300 group-active:duration-0"
                   >
                     <span
                       aria-hidden="true"
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-white"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-on-primary"
                     >
                       {stepNumber}
                     </span>
@@ -120,7 +120,7 @@ export default function PlanPage() {
                     <li key={skill.id}>
                       <Link
                         href={`/skills/${skill.id}`}
-                        className="flex min-h-12 items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-border-subtle p-3 transition-colors hover:border-primary-500 hover:bg-primary-50"
+                        className="flex min-h-12 items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-border-subtle p-3 transition-colors duration-150 hover:border-primary-500 hover:bg-primary-50 active:border-primary-500 active:bg-primary-200 active:duration-0"
                       >
                         <span className="text-base font-medium text-text-primary">
                           {skill.name}

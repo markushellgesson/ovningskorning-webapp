@@ -390,3 +390,59 @@ li {
 *::after {
   --tw-ring-offset-color: var(--surface-base);
 }
+
+/* Tryckåterkoppling.
+ *
+ * Telefonen har ingen hover, så sidorna sätter en `active:`-ton på allt som
+ * går att trycka på (Tailwind: `active:bg-… active:duration-0` bredvid
+ * `transition-colors duration-150`). Tonen slår till på 0 ms — det är den
+ * som bevisar att trycket tog — och tonar ut på 150 ms när fingret släpper,
+ * eftersom en transition tar sin längd från det tillstånd den går TILL.
+ * Bara färg ändras, aldrig storlek. Vid reducerad rörelse kortar klämman
+ * ovan uttoningen till 0,01 ms; tonen syns fortfarande medan trycket ligger på.
+ */
+
+/* Mjuk öppning av hopfällbara sektioner (`<details class="disclosure">`).
+ *
+ * Progressiv förbättring i två lager: `@supports` gör att webbläsare utan
+ * `interpolate-size` hoppar över hela blocket, och `::details-content` är
+ * ett okänt pseudoelement i äldre motorer, som då kastar regeln. I båda
+ * fallen öppnar sig sektionen exakt som förut — ett hopp, men fungerande.
+ *
+ * Övergången körs bara som svar på ett tryck: sektioner som är öppna vid
+ * sidladdning startar i sitt slutläge och animeras inte in. Vid reducerad
+ * rörelse finns övergången inte alls.
+ */
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    details.disclosure {
+      interpolate-size: allow-keywords;
+    }
+
+    details.disclosure::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition-property: block-size, content-visibility;
+      transition-duration: 180ms;
+      transition-timing-function: ease-out;
+      /* content-visibility är diskret; utan allow-discrete skulle innehållet
+       * försvinna på första bildrutan vid stängning i stället för att
+       * följa med höjden ner. */
+      transition-behavior: allow-discrete;
+    }
+
+    details.disclosure[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
+/* Den globala klämman ovan träffar `*`, `::before` och `::after` — inte
+ * `::details-content`. Egen regel, så att en okänd pseudoelementselektor
+ * inte ogiltigförklarar klämman i äldre motorer. Blocket ovan är redan
+ * avstängt vid reducerad rörelse; detta är säkerhetsnätet. */
+@media (prefers-reduced-motion: reduce) {
+  ::details-content {
+    transition-duration: 0.01ms !important;
+  }
+}

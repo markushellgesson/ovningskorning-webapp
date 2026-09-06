@@ -59,7 +59,7 @@ export default function UpplaggPage() {
     <main className="min-h-dvh bg-surface-overlay p-6 pb-24">
       <div className="mx-auto max-w-2xl space-y-8">
         <header className="space-y-4">
-          <Link href="/" className="text-primary-600 hover:underline">
+          <Link href="/" className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none">
             ← Tillbaka
           </Link>
           <h1 className="text-4xl font-bold text-text-primary">Upplägg</h1>
@@ -121,11 +121,11 @@ export default function UpplaggPage() {
             {STEPS.map((step, index) => (
               <li key={step.title}>
                 <Card padding="none" className="overflow-hidden">
-                  <details className="group">
-                    <summary className="flex min-h-12 cursor-pointer list-none items-center gap-4 p-4 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
+                  <details className="group disclosure">
+                    <summary className="flex min-h-12 cursor-pointer list-none items-center gap-4 p-4 transition-colors duration-150 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
                       <span
                         aria-hidden="true"
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-white"
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-pill)] bg-primary-600 text-lg font-semibold text-on-primary"
                       >
                         {index + 1}
                       </span>
@@ -183,8 +183,8 @@ export default function UpplaggPage() {
           <h2 className="text-2xl font-semibold text-text-primary">Ett pass, i tre delar</h2>
           <div className="space-y-3">
             <Card padding="none" className="overflow-hidden">
-              <details className="group" open>
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 p-4 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
+              <details className="group disclosure" open>
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 p-4 transition-colors duration-150 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
                   <span className="text-lg font-semibold text-text-primary">Före</span>
                   <span
                     aria-hidden="true"
@@ -205,8 +205,8 @@ export default function UpplaggPage() {
             </Card>
 
             <Card padding="none" className="overflow-hidden">
-              <details className="group" open>
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 p-4 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
+              <details className="group disclosure" open>
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 p-4 transition-colors duration-150 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
                   <span className="text-lg font-semibold text-text-primary">Under</span>
                   <span
                     aria-hidden="true"
@@ -240,8 +240,8 @@ export default function UpplaggPage() {
             </Card>
 
             <Card padding="none" className="overflow-hidden">
-              <details className="group" open>
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 p-4 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
+              <details className="group disclosure" open>
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 p-4 transition-colors duration-150 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
                   <span className="text-lg font-semibold text-text-primary">Efter</span>
                   <span
                     aria-hidden="true"

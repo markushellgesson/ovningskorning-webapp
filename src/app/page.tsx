@@ -35,7 +35,7 @@ export default function HomePage() {
             <h2 className="text-2xl font-semibold text-text-primary">Utforska</h2>
             <Link
               href="/skills"
-              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100"
+              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100 active:bg-primary-200 active:duration-0"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1">
@@ -52,7 +52,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/upplagg"
-              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100"
+              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100 active:bg-primary-200 active:duration-0"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1">
