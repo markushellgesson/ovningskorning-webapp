@@ -406,7 +406,9 @@ export function CirkulationsplatsDiagram() {
           <text x="14" y="84" className="fill-text-secondary text-[14px]">
             sök cyklister
           </text>
-          <Pointer x1={96} y1={60} x2={214} y2={72} />
+          {/* Startar efter etikettens textslut. Vid x=96 löpte linjen rakt
+              genom sista bokstaven i "Blinka höger", som slutar runt x=130. */}
+          <Pointer x1={140} y1={61} x2={214} y2={72} />
         </g>
         <g>
           <circle

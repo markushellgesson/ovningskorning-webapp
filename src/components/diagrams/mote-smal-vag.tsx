@@ -45,7 +45,7 @@
  *
  * MÖNSTER (varje mönster betyder en enda sak i den här bilden):
  * prickar = elevens bil, diagonala ränder = den mötande, vågräta streck =
- * hindret, krysskraffering = utrymmet i den mötandes halva som eleven skulle
+ * hindret, krysskraffering = mötandes utrymme, alltså utrymmet i den mötandes halva som eleven skulle
  * behöva låna för att passera hindret.
  * Heldragen pil = rör sig nu, streckad grön pil = vägen förbi hindret,
  * röda klossar i bakkanten = bromsljus.
@@ -508,21 +508,24 @@ export function MoteSmalVagDiagram() {
 
       {/* Mönsterförklaring */}
       <g>
-        <rect x="24" y="866" width="22" height="14" rx="2" fill="url(#met-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="52" y="878" className="fill-text-tertiary text-[13px]">
+        <rect x="20" y="866" width="22" height="14" rx="2" fill="url(#met-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+        <text x="48" y="878" className="fill-text-tertiary text-[13px]">
           Du
         </text>
-        <rect x="90" y="866" width="22" height="14" rx="2" fill="url(#met-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="118" y="878" className="fill-text-tertiary text-[13px]">
+        <rect x="74" y="866" width="22" height="14" rx="2" fill="url(#met-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
+        <text x="102" y="878" className="fill-text-tertiary text-[13px]">
           Mötande
         </text>
-        <rect x="192" y="866" width="22" height="14" rx="2" fill="url(#met-block)" className="stroke-text-secondary" strokeWidth="1.5" />
-        <text x="220" y="878" className="fill-text-tertiary text-[13px]">
+        <rect x="168" y="866" width="22" height="14" rx="2" fill="url(#met-block)" className="stroke-text-secondary" strokeWidth="1.5" />
+        <text x="196" y="878" className="fill-text-tertiary text-[13px]">
           Hinder
         </text>
-        <rect x="266" y="866" width="22" height="14" rx="2" fill="url(#met-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="294" y="878" className="fill-text-tertiary text-[13px]">
-          Den mötandes utrymme
+        {/* Indragen och kortad: "Den mötandes utrymme" på x=294 gick ut över
+            högerkanten vid viewBox-bredden 440. Ordet "den" bär ingen
+            betydelse i en teckenförklaring. */}
+        <rect x="256" y="866" width="22" height="14" rx="2" fill="url(#met-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
+        <text x="284" y="878" className="fill-text-tertiary text-[13px]">
+          Mötandes utrymme
         </text>
       </g>
 
