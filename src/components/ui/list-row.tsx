@@ -21,7 +21,7 @@ export function RowLink({ href, children, className = '' }: RowLinkProps) {
   return (
     <Link
       href={href}
-      className={`-mx-2 flex min-h-12 items-center rounded-[var(--radius-sm)] px-2 py-3 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none ${className}`}
+      className={`-mx-2 flex min-h-12 items-center rounded-[var(--radius-sm)] px-2 py-3 transition-colors duration-150 hover:bg-neutral-200 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none ${className}`}
     >
       {children}
     </Link>

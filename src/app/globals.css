@@ -1,127 +1,220 @@
 @import 'tailwindcss';
 
 /**
- * Designsystemet (ux-spec kap. 11).
+ * Formspråket "Vägen" (docs/designsprak.md).
  *
- * Uttryck: lugnt, tydligt, vuxet, pedagogiskt, trovärdigt, svenskt.
- * Generöst med luft, tydlig hierarki genom storlek och vikt snarare än färg.
- * Färg som bärare av betydelse, inte dekoration.
+ * Appen är byggd av den svenska vägens egna föremål: skyltar, stolpar och
+ * vägmarkeringar, satta på asfalt eller på ljus vägren. Tre regler bär hela
+ * systemet:
  *
- * Prestandaregler för hela appen:
- * inga gradienter, ingen `backdrop-filter`, inga skuggor som ritas om vid
- * scroll, inga dekorativa animationer. Ytor skiljs åt med en svag
- * bakgrundsskillnad och en tunn ram — det kostar ingenting att komponera och
- * ser lugnare ut än elevation.
+ *   1. Skyltar är föremål. En skylt ser likadan ut i mörker som i dagsljus —
+ *      det är därför den vita bården finns. Skyltkulörerna nedan vänder
+ *      alltså INTE med färgläget. Allt som är text, yta eller linje gör det.
+ *   2. Färg sitter på föremål, aldrig som ton på sidan. Sidan är vägren
+ *      (ljust) eller asfalt (mörkt).
+ *   3. Ett livfullt föremål per skärmhöjd.
+ *
+ * Prestandaregler som gäller vidare: inga gradienter, ingen `backdrop-filter`,
+ * inga skuggor, inga dekorativa animationer. Ytor skiljs åt med ton och en
+ * tunn ram; föremål skiljs ut av sin kulör och sin bård.
+ *
+ * Strukturen är den gamla — de semantiska skalorna (neutral, primary,
+ * attention, safety, progress) står kvar med sina namn så att sidor och
+ * diagram fortsätter kompilera. Det som bytt är värdena och betydelserna,
+ * enligt mappningen i designsprak.md 3.7.
  */
 
 :root {
-  /* Neutralskala — varm gråskala. Basen för det mesta i gränssnittet.
+  /* ------------------------------------------------------------------
+   * Skyltkulörer — konstanta i BÅDA färglägena (designsprak.md 3.1).
    *
-   * Varm i stället för blåtonad: en blåkall gråskala läser som "sjukhus"
-   * och ger dessutom mer upplevd bländning på en telefon i solljus. Kroman
-   * är låg nog att skalan fortfarande läses som neutral bredvid den
-   * slatblå primärfärgen. */
-  --neutral-50: #faf9f8;
-  --neutral-100: #f4f2f0;
-  --neutral-200: #eae7e4;
-  --neutral-300: #ddd9d5;
-  --neutral-400: #c6c1bc;
-  --neutral-500: #a5a09a;
-  --neutral-600: #716d68;
-  --neutral-700: #4f4b47;
-  --neutral-800: #373431;
-  --neutral-900: #242220;
-  --neutral-950: #181614;
+   * De står här utanför `prefers-color-scheme` med flit och skrivs aldrig
+   * över i det mörka blocket: en skylt är ett fysiskt föremål. Det är den
+   * vita bården, inte en ljusare kulör, som gör att den syns i mörker.
+   * ------------------------------------------------------------------ */
+  --sign-green: #00843d; /* Övningskörningsskylten, TSFS 2010:81 — "vi" */
+  --sign-blue: #0b57a4; /* Vägvisare, kilometertavla — "riktning" */
+  --sign-yellow: #f5c400; /* Varningsmärkets gula — "se upp" */
+  --sign-red: #d52b1e; /* Varningsmärkets bård — "livsviktigt", aldrig yta */
+  --sign-white: #ffffff; /* Bård och text på skylt */
 
-  /* Primärfärg — dämpad slatblå, inte startup-blå */
-  --primary-50: #f1f4f8;
-  --primary-100: #e1e7ee;
-  --primary-200: #c8d2dd;
-  --primary-300: #94a3b8;
-  --primary-400: #64748b;
-  --primary-500: #4a5a70;
-  --primary-600: #33425a;
-  --primary-700: #233046;
-  --primary-800: #151f30;
+  /* Mörk text på skyltgult. Kan inte vara --ink: --ink vänder med färgläget
+   * och skylten gör det inte. 10:1 mot --sign-yellow. */
+  --sign-ink: #1c1f24;
 
-  /* Semantiska färger — mättade bara när de betyder något */
-  --attention-50: #fffbeb;
-  --attention-100: #fef3c7;
-  --attention-200: #fde68a;
-  --attention-600: #d97706;
-  --attention-700: #b45309;
-  --attention-800: #92400e;
+  /* ------------------------------------------------------------------
+   * Väg och vägren — vänder med färgläget (designsprak.md 3.2)
+   * ------------------------------------------------------------------ */
+  --ground: #f3f1ea; /* Sidans botten: varm betong/vägren */
+  --surface: #ffffff; /* Kort, figurer, fraser — ett steg upp */
+  --surface-sunken: #e9e7e0; /* Nedsänkta fält och tryckåterkoppling */
+  --asphalt: #1c1f24; /* Hero, vägen, bottennavigering */
+  --marking: #ffffff; /* Text och streck på asfalt */
+  --marking-dim: #e8e6df; /* Sekundär text på asfalt, inaktiva flikar */
 
-  --safety-50: #fef2f2;
-  --safety-100: #fee2e2;
-  --safety-200: #fecaca;
-  --safety-600: #dc2626;
-  --safety-700: #b91c1c;
-  --safety-800: #991b1b;
+  /* ------------------------------------------------------------------
+   * Text och linjer (designsprak.md 3.3)
+   * ------------------------------------------------------------------ */
+  --ink: #1c1f24; /* Primär text — 14,6:1 mot --ground */
+  --ink-2: #4b5158; /* Sekundär text, ingresser — 7,1:1 */
+  --ink-3: #61676f; /* Metadata, källor — 5,05:1. Aldrig innehåll. */
+  --line: #dcd9d1; /* Hårfin avdelare */
+  --line-strong: #b9b6ae; /* Kortram, figurram */
+  --line-control: #7d838b; /* Ram runt kontroller — 3:1 (WCAG 1.4.11) */
 
-  /* Framsteg — övningskörningsskyltens gröna.
+  /* ------------------------------------------------------------------
+   * Kulörer som text och linje (designsprak.md 3.4).
    *
-   * Skylten är reglerad i TSFS 2010:81: vit versaltext på grön botten, och
-   * grönt betyder just PRIVAT övningskörning (trafikskolor kör med röd).
-   * Appen har ingen annan egen kulör, så den gröna som redan betyder något
-   * får vara den som betyder framsteg. 600 är skyltens #00843d rakt av;
-   * de ljusa stegen är samma kulör utspädd mot vitt, 700 och 800 samma
-   * kulör mörkare. Uppmätt: 800 på 100 ger 7,7:1 (text), 600 på vitt 4,8:1
-   * och på --diagram-road 3,3:1 (grafik, krav 3:1). */
-  --progress-50: #eaf5ee;
-  --progress-100: #dbeee3;
+   * Skyltkulörerna fungerar som ytor. Som text eller streck på sidans
+   * botten behöver de egna, lägesanpassade varianter — annars faller
+   * kontrasten så fort botten blir asfalt.
+   * ------------------------------------------------------------------ */
+  --green-text: #006b32; /* Bockar, "Mål", citatlinjen på Upplägg */
+  --blue-text: #0b57a4; /* Länkar, tillbaka, pilar */
+  --red-text: #b8231a; /* Röd text (sällsynt), kryss i diagram */
+  --amber-stroke: #b35600; /* Diagrammens "du" — se avsnitt 9 nedan */
+  --green-tint: #e3f2e8;
+  --blue-tint: #e4eef9;
+  --yellow-tint: #fff4c2;
+  --red-tint: #fbe9e7;
+
+  /* ------------------------------------------------------------------
+   * Diagram (designsprak.md 3.5).
+   *
+   * Vägbanan är ett kallare grått än förut (#dcdcd9 i stället för #d8d4cf)
+   * så att den hör ihop med asfalten. Egna token därför att asfalt och
+   * vägmarkering måste vända åt olika håll i mörkt läge: markeringen ska
+   * vara ljusare än vägen även när vägen är mörk.
+   * ------------------------------------------------------------------ */
+  --diagram-road: #dcdcd9;
+  --diagram-marking: #ffffff;
+  --diagram-edge: #70767e; /* 3,34 mot vägbana · 4,58 mot figurkort */
+
+  /* Fokus (designsprak.md 3.6) — ring 2 px med 2 px offset i --ground */
+  --focus: #0b57a4;
+
+  /* ------------------------------------------------------------------
+   * Nattkörningens glöd (designsprak.md 5.3).
+   *
+   * I mörkt läge är botten asfalt och asfaltbanden nästan osynliga. Vägen
+   * visas av markeringarna. Glöden är statisk (ingen animation) och sitter
+   * BARA på vägmarkeringar — aldrig på brödtext, aldrig på kort. I ljust
+   * läge är den `none`, så samma komponent kan skriva
+   * `text-shadow: var(--glow-text)` utan att fråga efter färgläget.
+   * ------------------------------------------------------------------ */
+  --glow-text: none;
+  --glow-box: none;
+
+  /* Tryckslöja för färgade föremål (vägvisare).
+   *
+   * Ett kort eller en rad tonas med --surface-sunken vid tryck, men en
+   * vägvisare är en blå skylt — dess kulör får inte bytas ut. Slöjan
+   * mörknar fältet ett steg utan att röra kulören eller storleken. */
+  --press-veil: rgb(0 0 0 / 0.18);
+
+  /* ------------------------------------------------------------------
+   * Neutralskala — härledd ur vägren och asfalt.
+   *
+   * 100 är botten, 200 nedsänkt yta, 300/400 linjerna, 600 kontrollramen,
+   * 700–950 textnivåerna. Skalan är alltså inte längre en egen gråskala
+   * utan en vy över samma värden som --ground / --line / --ink, så att
+   * ingenting kan glida isär.
+   * ------------------------------------------------------------------ */
+  --neutral-50: #fbfaf7;
+  --neutral-100: #f3f1ea;
+  --neutral-200: #e9e7e0;
+  --neutral-300: #dcd9d1;
+  --neutral-400: #b9b6ae;
+  --neutral-500: #9a9891;
+  --neutral-600: #7d838b;
+  --neutral-700: #61676f;
+  --neutral-800: #4b5158;
+  --neutral-900: #2f343a;
+  --neutral-950: #1c1f24;
+
+  /* Primärskalan är nu vägvisarblå.
+   *
+   * Den dämpade slatblå skalan är borta: den fanns för att inte konkurrera
+   * med grönt, och nu har blått ett eget skäl att finnas — grönt betyder
+   * "vi" (skylten), blått betyder "riktning". 600 är --blue-text, det vill
+   * säga skyltblått i ljust läge och den ljusa nattvarianten i mörkt. */
+  --primary-50: #e4eef9;
+  --primary-100: #cfe0f3;
+  --primary-200: #a9c6e6;
+  --primary-300: #6f9dd0;
+  --primary-400: #2f74b8;
+  --primary-500: #14619f;
+  --primary-600: #0b57a4;
+  --primary-700: #094a8c;
+  --primary-800: #073b70;
+
+  /* Attention = amber, inte varningsgult.
+   *
+   * Gult som streck på ljusgrå vägbana går inte att se (2,2:1). Gult är en
+   * YTA med röd bård; amber är ett STRECK. Båda hör till "se upp"-familjen.
+   * 600 är --amber-stroke. */
+  --attention-50: #fffaea;
+  --attention-100: #fff4c2;
+  --attention-200: #f0d488;
+  --attention-600: #b35600;
+  --attention-700: #944700;
+  --attention-800: #7a3b00;
+
+  /* Safety = varningsrött som text och kontur. 600 är --red-text. */
+  --safety-50: #fdf2f1;
+  --safety-100: #fbe9e7;
+  --safety-200: #f2c3be;
+  --safety-600: #b8231a;
+  --safety-700: #9c1d15;
+  --safety-800: #7e1710;
+
+  /* Progress = skyltgrönt som text och streck. 600 är --green-text. */
+  --progress-50: #eef7f1;
+  --progress-100: #e3f2e8;
   --progress-200: #b6dcc6;
-  --progress-600: #00843d;
-  --progress-700: #006b32;
-  --progress-800: #00522a;
+  --progress-600: #006b32;
+  --progress-700: #005a2a;
+  --progress-800: #004a23;
 
-  /* Ytfärger */
-  --surface-base: #ffffff;
-  --surface-raised: #ffffff;
-  --surface-overlay: #f6f4f1;
-  --text-primary: #242220;
-  --text-secondary: #4f4b47;
-  --text-tertiary: #6b6660;
-  --border-subtle: #eae7e4;
-  --border-default: #d5d0ca;
-  --border-emphasis: #4f4b47;
+  /* ------------------------------------------------------------------
+   * Vestigiala namn — behålls så att sidor och diagram kompilerar
+   * oförändrade (designsprak.md 3.7). Nya sidor ska använda namnen ovan.
+   *
+   * De pekar med var() i stället för att upprepa värden, så det mörka
+   * blocket längre ner behöver bara skriva om grundtoken.
+   * ------------------------------------------------------------------ */
+  /* Ytor PÅ sidan och i figurkortet — textfält, sekundärknapp,
+   * callout-siffror, bilkarossernas grundfyllning. Pekar på --surface och
+   * inte på --ground: sidan själv är --surface-overlay, och med vägrenens
+   * kulör blir varje sådan fyllning en fläck mot det vita kortet. */
+  --surface-base: var(--surface);
+  --surface-raised: var(--surface);
+  --surface-overlay: var(--ground);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-2);
+  --text-tertiary: var(--ink-3);
+  --border-subtle: var(--line);
+  --border-default: var(--line-strong);
+  --border-emphasis: var(--ink-2);
+  --border-control: var(--line-control);
+  --focus-ring: var(--focus);
 
   /* Textfärg ovanpå en mättad yta.
    *
    * Går inte att hårdkoda till vitt: i mörkt läge är --primary-600 en LJUS
-   * färg (den måste vara det för att fungera som länkfärg), och vit text på
-   * den ytan ger 1,6:1 — långt under WCAG:s 4,5:1. Den här token vänder med
-   * färgläget så att knappetiketten alltid är läsbar. */
+   * blå (den måste vara det för att fungera som länkfärg), och vit text på
+   * den ytan skulle ge 1,6:1. Den här token vänder med färgläget. På
+   * SKYLTAR gäller inte detta — där är texten alltid --sign-white. */
   --on-primary: #ffffff;
   --on-safety: #ffffff;
 
-  /* Ram runt interaktiva kontroller (fält, sekundärknapp).
-   *
-   * Skild från --border-default, som är en dekorativ avdelare. En kontrolls
-   * ram är enda visuella markören för var träffytan börjar och måste därför
-   * klara 3:1 mot ytan bakom (WCAG 1.4.11) — --border-default ligger med
-   * flit under det, eftersom en 3:1-ram runt varje kort skulle bli tung. */
-  --border-control: #8e8880;
+  /* Skuggor används inte alls i formspråket (designsprak.md 5.1). Token
+   * står kvar tomma så att ett kvarglömt var(--shadow-*) inte ritar något
+   * i stället för att krascha. */
+  --shadow-subtle: none;
+  --shadow-moderate: none;
 
-  /* Diagramfärger (src/components/diagrams/).
-   *
-   * Egna token därför att asfalt och vägmarkering måste vända åt olika håll
-   * i mörkt läge: i ljust läge är markeringen ljusare än vägen, och den
-   * relationen måste hålla även när vägen är mörk. En rak inversion av
-   * neutralskalan gav en nästan osynlig markering i mörkt läge. */
-  --diagram-road: #d8d4cf;
-  --diagram-marking: #ffffff;
-  --diagram-edge: #8a847c;
-
-  /* Interaktionsstatus */
-  --focus-ring: #2563eb;
-
-  /* Skuggor — en enda nivå, diskret. Används sparsamt: ytskillnad och ram
-   * bär elevationen i stället, vilket är billigare att rita om. */
-  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-moderate: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-
-  /* Spacing-skala (px) — ux-spec 11.2 */
+  /* Spacing-skala (px) */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md-small: 12px;
@@ -131,116 +224,152 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
 
-  /* Radius — ux-spec 11.3 */
-  --radius-sm: 8px;
-  --radius-md: 12px;
+  /* Radier (designsprak.md 5.4). Skyltar är hårdare i hörnen än kort. */
+  --radius-sign: 6px; /* Varningsmärke, stolpe */
+  --radius-sm: 8px; /* Kontroller, chips, vägvisare */
+  --radius-md: 12px; /* Kort */
+  --radius-band: 14px; /* Vägbandets ändar */
   --radius-lg: 16px;
   --radius-pill: 999px;
 
   /* Radlängd för löpande text. 66 tecken är mitt i det spann (45–75) som
-   * ger minst antal återläsningar. Utan tak blir en sektion på en bred
-   * skärm 120 tecken bred och ögat tappar raden. */
+   * ger minst antal återläsningar. */
   --measure: 66ch;
+
+  /* Talar om för webbläsaren vilket läge sidan faktiskt är i, så att
+   * rullningslister, formulärkontroller och ytan utanför sidan följer med.
+   * Utan detta ritar Chrome dessutom sin egen automatiska mörkläggning
+   * ovanpå den vi själva har ritat, och nattläget blir inverterat två
+   * gånger. */
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Neutralskala inverterad och justerad för mörkt läge — samma varma
-     * ton, så att lägena känns som samma app. */
-    --neutral-50: #181614;
-    --neutral-100: #201e1c;
-    --neutral-200: #2c2a27;
-    --neutral-300: #3d3a36;
-    --neutral-400: #5c5852;
-    --neutral-500: #7d776f;
-    --neutral-600: #968f86;
-    --neutral-700: #b5aea5;
-    --neutral-800: #d4cec6;
-    --neutral-900: #ece8e2;
-    --neutral-950: #f8f6f3;
+    /* Nattkörning: djup asfaltsblå-svart där markeringarna lyser.
+     * Skyltkulörerna ovan skrivs medvetet INTE om här. */
+    --ground: #0f1318;
+    --surface: #171c23;
+    --surface-sunken: #0b0e12;
+    /* Knappt ljusare än botten — det är markeringarna som visar vägen. */
+    --asphalt: #1a2028;
+    --marking: #f4f4ef;
+    --marking-dim: #aeb4bb;
 
-    /* Primärfärg justerad för mörkt läge.
-     *
-     * --primary-50 målas inte längre på någon yta: de blå länkkorten
-     * (förkunskaper, delmoment) blev --surface-raised med en ram som får
-     * primärfärg vid hover och tryck — samma tyngd som alla andra kort, och
-     * länkskapet ligger i ramen i stället för i en egen kulör. Den vägen
-     * valdes framför att värma kulören, eftersom en blå yta i en varm
-     * palett skulle sticka ut hur mycket den än värms: det är kontrasten
-     * mot omgivningen som läser kallt, inte tonen i sig. Token står kvar
-     * för framtida bruk, men på neutralernas varma axel så att den inte
-     * ligger som en fälla — den gamla #161d28 var den enda kalla ytan i
-     * hela mörka paletten. */
-    --primary-50: #1b1f25;
-    --primary-100: #1f2836;
-    --primary-200: #33415a;
-    --primary-300: #4a5a70;
-    --primary-400: #6b7a90;
-    --primary-500: #93a2b6;
-    --primary-600: #c3cddb;
-    --primary-700: #dde4ed;
-    --primary-800: #eef2f7;
+    --ink: #eceee9; /* 16,0:1 mot --ground */
+    --ink-2: #b3b9b1; /* 9,3:1 */
+    --ink-3: #8b928c; /* 5,9:1 */
+    --line: #262c34;
+    --line-strong: #39414b;
+    --line-control: #6b737c;
 
-    /* Semantiska färger justerade för läsbarhet i mörkt läge */
-    --attention-50: #3a2606;
-    --attention-100: #5c3c0a;
-    --attention-200: #7d5310;
-    --attention-600: #f5b942;
-    --attention-700: #facc6b;
-    --attention-800: #fde3a8;
+    --green-text: #3ec472;
+    --blue-text: #8ec0ff;
+    --red-text: #ff7b6e;
+    --amber-stroke: #f0a030;
+    --green-tint: #12301f;
+    --blue-tint: #142338;
+    --yellow-tint: #3a3000;
+    --red-tint: #3a1612;
 
-    --safety-50: #3d0f0f;
-    --safety-100: #5e1a1a;
-    --safety-200: #7f2424;
-    --safety-600: #f28b82;
-    --safety-700: #f7aba4;
-    --safety-800: #fbd0cb;
+    --diagram-road: #2b3138;
+    --diagram-marking: #aeb4bb;
+    --diagram-edge: #7d838b; /* 3,43 mot vägbana · 4,48 mot figurkort */
 
-    /* Skyltgrönt lyft till mörkt läge: samma nyans, ljusare så att streck
-     * och bockar bär mot mörka ytor. Uppmätt: 800 på 100 ger 9,5:1, 600
-     * på --surface-raised 7,2:1 och på --diagram-road 5,6:1. */
-    --progress-50: #0e2a1a;
-    --progress-100: #153d25;
-    --progress-200: #1e5533;
-    --progress-600: #55c07b;
-    --progress-700: #8fdda6;
-    --progress-800: #c2eecf;
+    --focus: #8ec0ff;
 
-    /* Ytfärger för mörkt läge. Varm nästan-svart i stället för ren svart:
-     * ren svart mot ljus text ger halo-effekt och tröttar ögat. */
-    --surface-base: #111110;
-    --surface-raised: #221f1d;
-    --surface-overlay: #191715;
-    --text-primary: #ece8e2;
-    --text-secondary: #b9b2a9;
-    --text-tertiary: #948d84;
-    --border-subtle: #2c2a27;
-    --border-default: #3d3a36;
-    --border-emphasis: #968f86;
+    /* Markeringarnas glöd — statisk, bara på asfaltband och vägen. */
+    --glow-text: 0 0 10px rgb(244 244 239 / 0.35);
+    --glow-box: 0 0 8px rgb(244 244 239 / 0.3);
+
+    --press-veil: rgb(0 0 0 / 0.28);
+
+    --neutral-50: #0f1318;
+    --neutral-100: #171c23;
+    --neutral-200: #1f252d;
+    --neutral-300: #262c34;
+    --neutral-400: #39414b;
+    --neutral-500: #545c66;
+    --neutral-600: #6b737c;
+    --neutral-700: #8b928c;
+    --neutral-800: #b3b9b1;
+    --neutral-900: #d6dad4;
+    --neutral-950: #eceee9;
+
+    --primary-50: #142338;
+    --primary-100: #1b3352;
+    --primary-200: #274b76;
+    --primary-300: #3f6fa8;
+    --primary-400: #6a9ed8;
+    --primary-500: #7db0ee;
+    --primary-600: #8ec0ff;
+    --primary-700: #a9cfff;
+    --primary-800: #c7e0ff;
+
+    --attention-50: #2a2300;
+    --attention-100: #3a3000;
+    --attention-200: #5c4c00;
+    --attention-600: #f0a030;
+    --attention-700: #f5b95e;
+    --attention-800: #fbd79b;
+
+    --safety-50: #2a100d;
+    --safety-100: #3a1612;
+    --safety-200: #5c231c;
+    --safety-600: #ff7b6e;
+    --safety-700: #ffa199;
+    --safety-800: #ffc7c1;
+
+    --progress-50: #0d2417;
+    --progress-100: #12301f;
+    --progress-200: #1d4a30;
+    --progress-600: #3ec472;
+    --progress-700: #6ed897;
+    --progress-800: #a8e9c1;
 
     /* Mörk etikett på ljus knapp — se kommentaren i ljust läge. */
-    --on-primary: #121110;
-    --on-safety: #12100f;
+    --on-primary: #0f1318;
+    --on-safety: #0f1318;
 
-    --border-control: #756f68;
-
-    --diagram-road: #35322e;
-    --diagram-marking: #8f887f;
-    --diagram-edge: #757069;
-
-    /* Interaktionsstatus för mörkt läge */
-    --focus-ring: #7aa7f0;
-
-    /* Skuggor i mörkt läge — ännu mer diskreta */
-    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-moderate: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+    color-scheme: dark;
   }
 }
 
 @theme inline {
   /* Tailwind-mappning via @theme inline (Tailwind 4) */
-  --color-background: var(--surface-base);
-  --color-foreground: var(--text-primary);
+  --color-background: var(--ground);
+  --color-foreground: var(--ink);
+
+  /* Formspråkets egna namn — det sidor och komponenter ska använda. */
+  --color-sign-green: var(--sign-green);
+  --color-sign-blue: var(--sign-blue);
+  --color-sign-yellow: var(--sign-yellow);
+  --color-sign-red: var(--sign-red);
+  --color-sign-white: var(--sign-white);
+  --color-sign-ink: var(--sign-ink);
+
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-asphalt: var(--asphalt);
+  --color-marking: var(--marking);
+  --color-marking-dim: var(--marking-dim);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-control: var(--line-control);
+
+  --color-green-text: var(--green-text);
+  --color-blue-text: var(--blue-text);
+  --color-red-text: var(--red-text);
+  --color-amber-stroke: var(--amber-stroke);
+  --color-green-tint: var(--green-tint);
+  --color-blue-tint: var(--blue-tint);
+  --color-yellow-tint: var(--yellow-tint);
+  --color-red-tint: var(--red-tint);
 
   --color-neutral-50: var(--neutral-50);
   --color-neutral-100: var(--neutral-100);
@@ -285,6 +414,7 @@
   --color-progress-700: var(--progress-700);
   --color-progress-800: var(--progress-800);
 
+  /* Vestigiala namn, se kommentaren i :root */
   --color-surface-base: var(--surface-base);
   --color-surface-raised: var(--surface-raised);
   --color-surface-overlay: var(--surface-overlay);
@@ -305,63 +435,67 @@
 
   --color-focus-ring: var(--focus-ring);
 
-  /* Typografisk skala.
+  /* Typografisk skala (designsprak.md 4.2).
    *
-   * Byggd på 16 px brödtext (aldrig mindre — fältkravet i ux-spec 9.1 och
-   * det som hindrar iOS från att autozooma i inputs). Stegen är medvetet
-   * täta i botten och glesare uppåt: hierarkin ska höras i storlek och vikt
-   * i stället för i färg, men rubrikerna får inte bli så stora att de
-   * dominerar en telefonskärm.
+   * Byggd på 16 px brödtext (aldrig mindre — det som hindrar iOS från att
+   * autozooma i inputs). Radavstånd faller när graden stiger. Negativ
+   * knipning på de stora graderna: Familjen Groteskens 700 sätter tätt och
+   * ser samlad ut, luftig sättning gör stora rubriker osäkra.
    *
-   * Radavstånd faller när graden stiger — 1.65 för löpande text som ska
-   * läsas i rörelse, 1.15 för displayrubriker där tät sättning ser samlad ut.
-   * Negativ knipning på de stora graderna är Inters egen rekommendation;
-   * utan den ser stora rubriker luftiga och osäkra ut. */
-  --text-xs: 0.8125rem; /* 13 px — bara metadata, aldrig innehåll */
+   * Rubriker sätts i 700, inte semibold. Det är i de tunga vikterna
+   * Familjen Grotesk har sin karaktär, och därför används 700 just bara i
+   * rubriker och på skyltar. */
+  --text-xs: 0.8125rem; /* 13 px meta — metadata, källor */
   --text-xs--line-height: 1.5;
-  --text-xs--letter-spacing: 0.005em;
+  --text-xs--letter-spacing: 0.01em;
 
-  --text-sm: 0.875rem; /* 14 px — etiketter, badges, fotnoter */
-  --text-sm--line-height: 1.55;
-  --text-sm--letter-spacing: 0.003em;
+  --text-sm: 0.875rem; /* 14 px label — skylttext, eyebrow */
+  --text-sm--line-height: 1.5;
+  --text-sm--letter-spacing: 0.02em;
 
-  --text-base: 1rem; /* 16 px — brödtext och all fälttext */
+  --text-base: 1rem; /* 16 px body — brödtext, kontroller, listrader */
   --text-base--line-height: 1.6;
   --text-base--letter-spacing: 0em;
 
-  --text-lg: 1.0625rem; /* 17 px — läsläge: mål, övningssteg, vanliga fel */
+  --text-h3: 1.125rem; /* 18 px h3 — egen grad, inte text-lg med fetstil */
+  --text-h3--line-height: 1.35;
+  --text-h3--letter-spacing: -0.005em;
+  --text-h3--font-weight: 600;
+  --text-lg: 1.0625rem; /* 17 px reading — mål, övningssteg, misstag */
   --text-lg--line-height: 1.65;
   --text-lg--letter-spacing: 0em;
 
-  --text-xl: 1.1875rem; /* 19 px — ingress under rubrik */
-  --text-xl--line-height: 1.5;
-  --text-xl--letter-spacing: -0.006em;
+  --text-xl: 1.1875rem; /* 19 px lead — ingress under rubrik */
+  --text-xl--line-height: 1.45;
+  --text-xl--letter-spacing: -0.005em;
 
-  --text-2xl: 1.375rem; /* 22 px — h2 */
-  --text-2xl--line-height: 1.35;
+  --text-2xl: 1.375rem; /* 22 px h2 — avsnitt */
+  --text-2xl--line-height: 1.3;
   --text-2xl--letter-spacing: -0.012em;
 
-  --text-3xl: 1.625rem; /* 26 px — h1 på undersidor */
-  --text-3xl--line-height: 1.25;
-  --text-3xl--letter-spacing: -0.016em;
+  --text-3xl: 1.75rem; /* 28 px h1 — sidrubrik */
+  --text-3xl--line-height: 1.2;
+  --text-3xl--letter-spacing: -0.018em;
 
-  --text-4xl: 1.9375rem; /* 31 px — h1 på startsidan */
-  --text-4xl--line-height: 1.18;
-  --text-4xl--letter-spacing: -0.021em;
+  --text-4xl: 2.25rem; /* 36 px display — startsidans rubrik, på asfalt */
+  --text-4xl--line-height: 1.1;
+  --text-4xl--letter-spacing: -0.025em;
 
   --font-sans:
-    var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    var(--font-familjen-grotesk), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 body {
-  background: var(--surface-base);
-  color: var(--text-primary);
+  /* Sidans botten: vägren i dagsljus, asfaltsblå-svart i nattkörning. */
+  background: var(--ground);
+  color: var(--ink);
   font-family: var(--font-sans);
   line-height: 1.6;
-  /* Inter har alla vikter i viktaxeln. Utan detta syntetiserar vissa
-   * webbläsare fetstil ur regular under `swap`-fönstret, vilket ger ett
-   * synligt hopp när den riktiga filen landar. */
+  /* Familjen Grotesk Variable har hela viktaxeln 400–700 i en fil. Utan
+   * detta syntetiserar vissa webbläsare fetstil ur regular under
+   * `swap`-fönstret, vilket ger ett synligt hopp när filen landar. */
   font-synthesis-weight: none;
   /* Låser inte zoom (det vore ett WCAG-brott) — hindrar bara att iOS
    * skalar upp enstaka textblock i liggande läge och bryter hierarkin. */
@@ -383,8 +517,8 @@ li {
 }
 
 ::selection {
-  background: var(--primary-100);
-  color: var(--primary-800);
+  background: var(--blue-tint);
+  color: var(--ink);
 }
 
 /* Respektera användarens rörelsepreferenser (WCAG 2.3.3) */
@@ -411,7 +545,7 @@ li {
 *,
 *::before,
 *::after {
-  --tw-ring-offset-color: var(--surface-base);
+  --tw-ring-offset-color: var(--ground);
 }
 
 /* Tryckåterkoppling.
@@ -423,6 +557,12 @@ li {
  * eftersom en transition tar sin längd från det tillstånd den går TILL.
  * Bara färg ändras, aldrig storlek. Vid reducerad rörelse kortar klämman
  * ovan uttoningen till 0,01 ms; tonen syns fortfarande medan trycket ligger på.
+ *
+ * Tonen är --surface-sunken (`active:bg-surface-sunken`) — det nedsänkta
+ * fältet i formspråket, samma ton i ljust som i mörkt läge fast åt rätt håll
+ * i vardera. Färgade FÖREMÅL kan inte tonas så: en vägvisare är en blå
+ * skylt och får inte byta kulör. De lägger i stället --press-veil över
+ * fältet, vilket mörknar det ett steg utan att röra skyltkulören.
  */
 
 /* Mjuk öppning av hopfällbara sektioner (`<details class="disclosure">`).

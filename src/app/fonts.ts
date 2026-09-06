@@ -1,39 +1,35 @@
 import localFont from 'next/font/local';
 
 /**
- * Inter Variable — självhostat typsnitt (ADR 0007 uppdaterad: `system-ui`
- * ersatt av ett eget typsnitt).
+ * Familjen Grotesk Variable — appens enda typsnitt (docs/designsprak.md 4.1).
  *
- * Varför Inter och inte systemtypsnittet:
- * appen läses i bil, ofta i motljus, av en handledare som mycket väl kan
- * vara 55+. Inter är ritat för skärm med hög x-höjd, öppna punsar och
- * tydligt åtskilda tecken (I/l/1 skiljer sig, ö och ä har generösa prickar)
- * — det är läsbarhet, inte smak. `system-ui` ger dessutom olika
- * bokstavsbredder på iOS, Android och Windows, vilket gör att radlängd och
- * radbrytningar i långa listor inte går att designa för.
+ * Ritad i Stockholm för skärm, med karaktär i de tunga vikterna: på 700 i
+ * 36 px ser "Övningskörning B" ut som något, på 400 i 17 px läser den lika
+ * lugnt som Inter gjorde. Bokstäverna har lite av vägskyltarnas robusthet
+ * utan att vara ett skylttypsnitt. En familj räcker — hierarkin görs med
+ * vikt, storlek och föremål, inte med typsnittsbyten.
  *
  * Varför självhostat och inte `next/font/google`:
- * appen ska fungera offline och får inte göra tredjepartsanrop.
- * `next/font/google` hämtar filen vid bygget, men källan här är i stället
- * paketet `@fontsource-variable/inter` i node_modules — inget nätanrop alls,
- * varken vid bygge eller i webbläsaren. `next/font/local` hashar filen in i
- * `_next/static/media/`, vilket gör att service workern precachar den
- * automatiskt tillsammans med resten av `out/`.
+ * appen ska fungera offline och får inte göra tredjepartsanrop. Källan är
+ * paketet `@fontsource-variable/familjen-grotesk` i node_modules — inget
+ * nätanrop alls, varken vid bygge eller i webbläsaren. `next/font/local`
+ * hashar filen in i `_next/static/media/`, så service workern precachar
+ * den automatiskt tillsammans med resten av `out/`.
  *
- * En enda fil (latin, viktaxel 100–900, ~48 kB woff2) täcker alla vikter
+ * En enda fil (latin, viktaxel 400–700, ~19 kB woff2) täcker alla vikter
  * appen använder. Svenskans å, ä och ö ligger i latin-subsetet — latin-ext
  * behövs inte.
  */
-export const inter = localFont({
-  src: '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2',
+export const familjenGrotesk = localFont({
+  src: '../../node_modules/@fontsource-variable/familjen-grotesk/files/familjen-grotesk-latin-wght-normal.woff2',
   // Viktaxelns hela spann, så att en enda fil täcker regular till bold.
-  weight: '100 900',
+  weight: '400 700',
   style: 'normal',
-  // `swap`: texten ritas direkt med fallbacken och byts när Inter är laddad.
-  // Aldrig osynlig text i en app som ska kunna läsas i en stillastående bil
-  // med dålig täckning.
+  // `swap`: texten ritas direkt med fallbacken och byts när typsnittet är
+  // laddat. Aldrig osynlig text i en app som ska kunna läsas i en
+  // stillastående bil med dålig täckning.
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-familjen-grotesk',
   // Next genererar en storleksjusterad fallback-face ur Arials metrik, så
   // att bytet vid `swap` inte flyttar texten.
   adjustFontFallback: 'Arial',

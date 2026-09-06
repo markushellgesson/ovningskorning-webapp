@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { inter } from './fonts';
+import { familjenGrotesk } from './fonts';
 import { BottomNav } from '@/components/nav/bottom-nav';
 import { ServiceWorkerRegister } from '@/components/pwa/service-worker-register';
 import { BASE_PATH } from '@/lib/base-path';
@@ -30,11 +30,11 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
   // ALDRIG maximumScale eller userScalable: false — bryter WCAG (ux-spec 9.1)
   themeColor: [
-    // Matchar --surface-base i globals.css för respektive färgläge, så att
-    // systemfältet (statusbar/adressfält) smälter in i appen i stället för
-    // att sticka ut som en egen färgad list.
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#111110' },
+    // Matchar --ground i globals.css för respektive färgläge (vägren
+    // respektive asfalt), så att systemfältet (statusbar/adressfält)
+    // smälter in i appen i stället för att sticka ut som en egen list.
+    { media: '(prefers-color-scheme: light)', color: '#f3f1ea' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f1318' },
   ],
 };
 
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sv" className={`${inter.variable} antialiased`}>
+    <html lang="sv" className={`${familjenGrotesk.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <ServiceWorkerRegister />
         <div className="flex flex-1 flex-col">{children}</div>

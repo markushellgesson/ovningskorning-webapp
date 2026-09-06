@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react';
-import { Card } from '@/components/ui/card';
 import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { Section, SectionTitle } from '@/components/ui/section';
-import { StepMarker } from '@/components/ui/step-marker';
+import { Stolpe } from '@/components/ui/stolpe';
 
 export const metadata = {
   title: 'Upplägg',
@@ -62,27 +61,47 @@ const STEPS = [
 ];
 
 /**
- * Ett citat som citat: svenska citattecken i texten, en tunn linje till
- * vänster, källan i tertiärfärg. Inget kort — ett kort säger "behållare",
- * en linje i marginalen säger "någon annan sa detta".
+ * Ett citat som citat: svenska citattecken i texten, en 3 px GRÖN linje
+ * till vänster, källan i --ink-3 (docs/designsprak.md 7.6).
+ *
+ * Grön därför att citaten är myndighetens röst, och grönt betyder "vi" —
+ * den som är på vår sida. Det är sidans enda gröna, och det är avsikten:
+ * kulören säger vem som talar, inte att raden är viktigare än resten.
+ *
+ * Inget kort — ett kort säger "behållare", en linje i marginalen säger
+ * "någon annan sa detta". Linjen bär alltså citatets betydelse och är
+ * därför inte utbytbar mot en ram.
  */
 function Quote({ children, source }: { children: ReactNode; source: ReactNode }) {
   return (
     <figure className="max-w-[var(--measure)]">
-      <blockquote className="border-l-2 border-border-default pl-4 text-lg text-text-primary">
+      <blockquote className="border-l-[3px] border-green-text pl-4 text-lg text-ink">
         {children}
       </blockquote>
-      <figcaption className="mt-2 pl-4 text-sm text-text-tertiary">{source}</figcaption>
+      <figcaption className="mt-2 pl-4 text-xs text-ink-3">{source}</figcaption>
     </figure>
   );
 }
 
-// Dragspelen är det enda som behåller kortram på sidan: ett hopfällbart
-// avsnitt är faktiskt en behållare, med ett lock man öppnar.
+/**
+ * Dragspelen är det enda som behåller kortram på sidan: ett hopfällbart
+ * avsnitt är faktiskt en behållare, med ett lock man öppnar. Ramen är
+ * 1 px --line-strong enligt formspråkets kortdefinition (5.2) — ett kort
+ * är inte en skylt och får därför ingen bård och ingen skugga.
+ *
+ * Klasserna står här i stället för i den delade Card-komponenten därför
+ * att Card ännu ritar sin ram i den tystare --line; kortet på den här
+ * sidan är sidans enda ram och behöver den starkare.
+ */
+const CARD = 'overflow-hidden rounded-[var(--radius-md)] border border-line-strong bg-surface';
+
+// Öppningen sköts av klassen `disclosure` i globals.css: 180 ms mjuk
+// höjdövergång, avstängd vid reducerad rörelse. Tryckåterkopplingen är
+// --surface-sunken på 0 ms in och 150 ms ut, som överallt annars i appen.
 const SUMMARY =
-  'flex min-h-12 cursor-pointer list-none items-center gap-4 p-4 transition-colors duration-150 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden';
+  'flex min-h-12 cursor-pointer list-none gap-4 p-4 transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden';
 const CHEVRON =
-  'shrink-0 text-xl text-text-tertiary transition-transform duration-150 group-open:rotate-180';
+  'shrink-0 text-xl text-ink-3 transition-transform duration-150 group-open:rotate-180';
 
 function DisclosureCard({
   title,
@@ -94,17 +113,17 @@ function DisclosureCard({
   open?: boolean;
 }) {
   return (
-    <Card padding="none" className="overflow-hidden">
+    <div className={CARD}>
       <details className="group disclosure" open={open}>
-        <summary className={`${SUMMARY} justify-between gap-3`}>
-          <span className="text-lg font-semibold text-text-primary">{title}</span>
+        <summary className={`${SUMMARY} items-center justify-between gap-3`}>
+          <span className="text-lg font-semibold text-ink">{title}</span>
           <span aria-hidden="true" className={CHEVRON}>
             ↓
           </span>
         </summary>
-        <div className="border-t border-border-subtle p-4 pt-3">{children}</div>
+        <div className="border-t border-line p-4 pt-3">{children}</div>
       </details>
-    </Card>
+    </div>
   );
 }
 
@@ -122,7 +141,7 @@ export default function UpplaggPage() {
       />
 
       <PageBody>
-        <p className="max-w-[var(--measure)] text-lg text-text-primary">
+        <p className="max-w-[var(--measure)] text-lg text-ink">
           Allt på den här sidan är råd från Transportstyrelsen och Trafikverket — inte bindande
           regler. Fram till den 1 augusti 2026 fanns en föreskrift om hur handledare och elev skulle
           arbeta tillsammans, TSFS 2010:127. Den är upphävd genom TSFS 2026:57, och sedan dess finns
@@ -134,22 +153,20 @@ export default function UpplaggPage() {
           <SectionTitle>Två råd som gäller genomgående</SectionTitle>
           <div className="mt-5 space-y-8">
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-text-primary">
-                Öva klart innan ni går vidare
-              </h3>
+              <h3 className="text-lg font-semibold text-ink">Öva klart innan ni går vidare</h3>
               <Quote source={SOURCE_PLANERA}>
                 ”Öva på varje moment tills eleven kan genomföra det självständigt innan ni påbörjar
                 nästa övning.”
               </Quote>
             </div>
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-text-primary">
+              <h3 className="text-lg font-semibold text-ink">
                 Kontrollera bilen före varje körning
               </h3>
               <Quote source={SOURCE_BROSCHYR}>
                 ”Gör en säkerhetskontroll eller en del av den före varje körövning.”
               </Quote>
-              <p className="max-w-[var(--measure)] text-lg text-text-primary">
+              <p className="max-w-[var(--measure)] text-lg text-ink">
                 Det behöver inte vara en fullständig kontroll varje gång — men gör alltid något, så
                 blir det naturligt för eleven att göra likadant på egen hand senare.
               </p>
@@ -159,31 +176,44 @@ export default function UpplaggPage() {
 
         <Section>
           <SectionTitle>Stegringsföljd</SectionTitle>
-          <p className="mt-5 max-w-[var(--measure)] text-base text-text-secondary">
+          <p className="mt-5 max-w-[var(--measure)] text-base text-ink-2">
             Ingen enskild källa skriver ut hela kedjan, men de pekar åt samma håll. Öppna ett steg
             för att se varför.
           </p>
           <ol className="mt-5 space-y-3">
             {STEPS.map((step, index) => (
               <li key={step.title}>
-                <Card padding="none" className="overflow-hidden">
+                <div className={CARD}>
                   <details className="group disclosure">
-                    <summary className={SUMMARY}>
-                      <StepMarker number={index + 1} tone="raised" />
+                    {/* items-start, inte items-center: stolpen ska stå vid
+                        stegets rubrik, som en kilometerstolpe vid sträckans
+                        början. Centrerad hamnar den mitt i sammanfattningen
+                        på de kort som har fyra rader, och läser då som en
+                        markör för texten i stället för för steget. */}
+                    <summary className={`${SUMMARY} items-start`}>
+                      {/* Samma stolpe som på Ordning: det är samma slags
+                          steg, och två former för samma sak hade sagt att
+                          de vore olika saker. Sidans enda livfulla föremål. */}
+                      <Stolpe number={index + 1} />
                       <div className="min-w-0 flex-1">
-                        <p className="text-lg font-semibold text-text-primary">{step.title}</p>
-                        <p className="mt-1 text-sm text-text-secondary">{step.summary}</p>
+                        <p className="text-lg font-semibold text-ink">{step.title}</p>
+                        <p className="mt-1 text-sm text-ink-2">{step.summary}</p>
                       </div>
-                      <span aria-hidden="true" className={CHEVRON}>
+                      {/* Radad mot rubriken, inte mot kortets mitt. Centrerad
+                          hamnade pilen bredvid sammanfattningen medan
+                          Före/Under/Efter har sin i rubrikraden — två
+                          öppningsidiom på samma sida. Samma skäl som stolpen
+                          står vid rubriken: markören hör till steget. */}
+                      <span aria-hidden="true" className={`${CHEVRON} self-start`}>
                         ↓
                       </span>
                     </summary>
-                    <div className="space-y-2 border-t border-border-subtle p-4 pt-3">
-                      <p className="text-base text-text-primary">{step.why}</p>
-                      <p className="text-sm text-text-tertiary">{step.source}</p>
+                    <div className="space-y-2 border-t border-line p-4 pt-3">
+                      <p className="text-base text-ink">{step.why}</p>
+                      <p className="text-xs text-ink-3">{step.source}</p>
                     </div>
                   </details>
-                </Card>
+                </div>
               </li>
             ))}
           </ol>
@@ -195,7 +225,7 @@ export default function UpplaggPage() {
         <Section>
           <SectionTitle>Tveka inte för länge</SectionTitle>
           <div className="mt-5 max-w-[var(--measure)] space-y-4">
-            <p className="text-lg text-text-primary">
+            <p className="text-lg text-ink">
               Källorna handlar lika mycket om att inte tveka som om att hålla marginaler.
               Trafikverket skriver, om körning i cirkulationsplats, att den som kör för sakta eller
               ligger kvar i en för låg växel visar dålig planering snarare än försiktighet.
@@ -204,12 +234,12 @@ export default function UpplaggPage() {
               förares körning. Det kommande körkortsdirektivet byter också ut kravet på ”tydlig”
               körning mot ”beslutsam” körning (gäller från 2029, inte i dag).
             </p>
-            <p className="text-lg text-text-primary">
+            <p className="text-lg text-ink">
               Det är inget skäl att chansa. Målet är fortfarande marginaler och säkerhet — men
               beslutsamt utförda. Att vänta för länge med att bestämma sig är i sig en risk, precis
               som att köra för nära eller för fort.
             </p>
-            <p className="text-sm text-text-tertiary">
+            <p className="text-xs text-ink-3">
               Trafikverkets svar om cirkulationsplats i körprovet; Direktiv (EU) 2025/2205 om
               körkort, bilaga II punkt 9.2 (tillämpligt från 2029-11-26, inte i dag)
             </p>
@@ -220,7 +250,7 @@ export default function UpplaggPage() {
           <SectionTitle>Ett pass, i tre delar</SectionTitle>
           <div className="mt-5 space-y-3">
             <DisclosureCard title="Före" open>
-              <p className="text-base text-text-primary">
+              <p className="text-lg text-ink">
                 Bestäm i förväg vad ni ska öva på och var. Kontrollera innan ni kör:
                 körkortstillstånd och legitimation tillgängliga i bilen, giltigt
                 handledargodkännande tillgängligt i bilen, och att bilen är säker och har den gröna
@@ -237,10 +267,10 @@ export default function UpplaggPage() {
                   'Öva på varje moment tills eleven kan göra det självständigt innan ni går vidare till nästa övning.',
                   'Ta regelbundna pauser, och låt eleven reflektera över hur övningen går.',
                 ].map((tip, i) => (
-                  <li key={i} className="flex gap-3 text-base text-text-primary">
+                  <li key={i} className="flex gap-3 text-lg text-ink">
                     <span
                       aria-hidden="true"
-                      className="w-5 shrink-0 select-none font-medium text-text-tertiary tabular-nums"
+                      className="w-5 shrink-0 select-none font-medium text-ink-3 tabular-nums"
                     >
                       {i + 1}.
                     </span>
@@ -257,11 +287,8 @@ export default function UpplaggPage() {
                   'Låt eleven göra en egen bedömning av sina körkunskaper.',
                   'Kom överens om vad ni ska öva nästa gång, och boka in tillfället.',
                 ].map((tip, i) => (
-                  <li key={i} className="flex gap-3 text-base text-text-primary">
-                    <span
-                      aria-hidden="true"
-                      className="w-5 shrink-0 select-none text-text-tertiary"
-                    >
+                  <li key={i} className="flex gap-3 text-lg text-ink">
+                    <span aria-hidden="true" className="w-5 shrink-0 select-none text-ink-3">
                       •
                     </span>
                     <span>{tip}</span>
@@ -270,7 +297,7 @@ export default function UpplaggPage() {
               </ul>
             </DisclosureCard>
           </div>
-          <p className="mt-4 max-w-[var(--measure)] text-sm text-text-tertiary">
+          <p className="mt-4 max-w-[var(--measure)] text-xs text-ink-3">
             {SOURCE_PLANERA} och {SOURCE_BROSCHYR.replace('Transportstyrelsen, ', '')}
           </p>
           <div className="mt-8">
@@ -283,7 +310,7 @@ export default function UpplaggPage() {
 
         <Section>
           <SectionTitle>Källor</SectionTitle>
-          <ul className="mt-5 max-w-[var(--measure)] space-y-1.5 text-sm text-text-tertiary">
+          <ul className="mt-5 max-w-[var(--measure)] space-y-1.5 text-xs text-ink-3">
             <li>{SOURCE_PLANERA}</li>
             <li>{SOURCE_BROSCHYR}</li>
             <li>Trafikverket, ”Så går körprovet till” (behörighet B)</li>

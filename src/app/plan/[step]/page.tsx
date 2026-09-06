@@ -1,9 +1,10 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { RowLink } from '@/components/ui/list-row';
 import { Meta, Section, Subheading } from '@/components/ui/section';
+import { Stolpe } from '@/components/ui/stolpe';
+import { Vagvisare } from '@/components/ui/vagvisare';
 import { skillsById, progressionMap, stepTitle } from '../plan-data';
 
 export async function generateStaticParams() {
@@ -30,12 +31,47 @@ export async function generateMetadata(props: PlanStepPageProps): Promise<Metada
   return { title: `Steg ${found.stepNumber} — ${stepTitle(found.level)}` };
 }
 
-// Samma stil som stegknapparna hade innan sidskalet, men med samma linje
-// och luft ovanför som avsnitten — så att navigeringen sitter i rytmen i
-// stället för att bryta den.
-const STEP_NAV_LINK =
-  'flex min-h-12 flex-1 items-center justify-center rounded-[var(--radius-sm)] border border-border-control px-4 text-base font-medium text-text-primary transition-colors duration-150 hover:bg-neutral-100 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none';
+/**
+ * Sträckindikatorn (docs/designsprak.md 7.4) — vägsträckan sedd uppifrån.
+ *
+ * Femton korta streck i rad, 4 px höga med radius 2, där det aktuella är
+ * --sign-blue och de andra --line-strong. Den säger var i följden man är
+ * utan att räkna, och den är det enda stället på sidan där stegets nummer
+ * finns som form i stället för som siffra.
+ *
+ * Dekorativ: stolpen och "av 15" ovanför säger redan samma sak i text, och
+ * femton likadana streck i en skärmläsare är brus.
+ */
+function Strackindikator({ step, total }: { step: number; total: number }) {
+  return (
+    <span aria-hidden="true" className="flex max-w-[var(--measure)] gap-1">
+      {Array.from({ length: total }, (_, index) => (
+        <span
+          key={index}
+          className={`h-1 flex-1 rounded-[2px] ${
+            index + 1 === step ? 'bg-sign-blue' : 'bg-line-strong'
+          }`}
+        />
+      ))}
+    </span>
+  );
+}
 
+/**
+ * Stegsidan (docs/designsprak.md 7.4) — en sträcka.
+ *
+ * Eyebrow är en STOLPE med stegnumret följt av "av 15" i label-grad: samma
+ * stolpe som står på vägen på Ordning, för det är samma slags steg, och
+ * siffran står aldrig naken i rubriktext. Stolpen är dekorativ i
+ * uppmärkningen, så hela strängen "Steg 3 av 15" ligger kvar för
+ * skärmläsare i etiketten bredvid.
+ *
+ * Sidan i övrigt är lugn — grupperna, momentraderna, förkunskaperna. Det
+ * livfulla sitter nederst: Föregående och Nästa som två vägvisare, spetsade
+ * åt var sitt håll. Därför bär de inga typografiska pilar längre; riktningen
+ * är vägvisarens form, och en pil intill spetsen hade sagt samma sak två
+ * gånger. På steg 1 och 15 står den saknade riktningen tom.
+ */
 export default async function PlanStepPage({ params }: PlanStepPageProps) {
   const { step } = await params;
   const found = levelForParam(step);
@@ -53,9 +89,18 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
     <PageShell>
       <PageHeader
         back={{ href: '/plan', label: 'Alla steg' }}
-        eyebrow={`Steg ${stepNumber} av ${totalSteps}`}
+        mast={
+          <p className="flex items-center gap-3">
+            <Stolpe number={stepNumber} />
+            <span className="text-sm font-semibold tracking-wide text-ink-3 uppercase">
+              <span className="sr-only">{`Steg ${stepNumber} `}</span>av {totalSteps}
+            </span>
+          </p>
+        }
         title={stepTitle(level)}
-      />
+      >
+        <Strackindikator step={stepNumber} total={totalSteps} />
+      </PageHeader>
 
       <PageBody>
         {level.groups.map((group) => {
@@ -72,30 +117,25 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
                 <Subheading as="h2">Hör ihop — kan tränas i samma pass</Subheading>
               )}
 
-              <ul
-                className={`divide-y divide-border-subtle ${group.skillIds.length > 1 ? 'mt-2' : ''}`}
-              >
+              <ul className={`divide-y divide-line ${group.skillIds.length > 1 ? 'mt-2' : ''}`}>
                 {group.skillIds.map((skillId) => {
                   const skill = skillsById.get(skillId);
                   if (!skill) return null;
-                  // Egenskaperna som metarad i tertiärfärg. Det fyllda
-                  // pillret finns bara på momentsidan, där det har
-                  // sammanhang.
-                  const meta = [
-                    skill.continuous ? 'Tränas löpande' : null,
-                    skill.safetyCritical ? 'Säkerhetskritiskt' : null,
-                  ].filter((label): label is string => label !== null);
                   return (
                     <li key={skillId}>
                       <RowLink href={`/skills/${skill.id}`}>
                         <span className="min-w-0 flex-1">
-                          <span className="block text-base font-semibold text-text-primary">
+                          <span className="block text-base font-semibold text-ink">
                             {skill.name}
                           </span>
-                          <span className="mt-0.5 block max-w-[var(--measure)] text-base text-text-secondary">
+                          <span className="mt-0.5 block max-w-[var(--measure)] text-base text-ink-2">
                             {skill.description}
                           </span>
-                          {meta.length > 0 && <Meta>{meta.join(' · ')}</Meta>}
+                          {/* Bara "Tränas löpande". Säkerhetskritiskt satt på
+                              64 av 75 moment märkte normalfallet, inte
+                              undantaget — märkningen står nu ensam på
+                              momentets egen sida, där den har sammanhang. */}
+                          {skill.continuous && <Meta>Tränas löpande</Meta>}
                         </span>
                       </RowLink>
                     </li>
@@ -103,8 +143,12 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
                 })}
               </ul>
 
+              {/* Förkunskaperna gäller gruppen, inte ett enskilt moment, och
+                  står därför utanför listan. Raden hålls tätt mot listan
+                  (8 px) i stället för mitt i luckan: nästa avsnitts pt-7 ger
+                  avståndet nedåt, och raden läses uppåt dit den hör. */}
               {prerequisiteNames.length > 0 && (
-                <p className="mt-4 max-w-[var(--measure)] text-sm text-text-tertiary">
+                <p className="mt-2 max-w-[var(--measure)] text-sm text-ink-3">
                   Bygger på {prerequisiteNames.join(', ')}
                 </p>
               )}
@@ -112,18 +156,19 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
           );
         })}
 
-        <nav aria-label="Steg" className="flex gap-3 border-t border-border-subtle pt-8">
+        <nav aria-label="Steg" className="flex gap-3 border-t border-line pt-8">
           {previousStepNumber ? (
-            <Link href={`/plan/${previousStepNumber}`} className={STEP_NAV_LINK}>
-              ← Föregående
-            </Link>
+            <Vagvisare
+              href={`/plan/${previousStepNumber}`}
+              title="Föregående"
+              direction="left"
+              className="flex-1"
+            />
           ) : (
             <span className="flex-1" />
           )}
           {nextStepNumber ? (
-            <Link href={`/plan/${nextStepNumber}`} className={STEP_NAV_LINK}>
-              Nästa →
-            </Link>
+            <Vagvisare href={`/plan/${nextStepNumber}`} title="Nästa" className="flex-1" />
           ) : (
             <span className="flex-1" />
           )}

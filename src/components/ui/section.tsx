@@ -11,13 +11,46 @@ import type { ReactNode } from 'react';
  */
 export function Section({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <section className={`border-t border-border-subtle pt-8 ${className}`}>{children}</section>
+    <section className={`border-t border-border-subtle pt-7 ${className}`}>{children}</section>
   );
 }
 
-/** Avsnittsrubrik — h2 på 22 px, semibold. */
-export function SectionTitle({ children }: { children: ReactNode }) {
-  return <h2 className="text-2xl font-semibold text-text-primary">{children}</h2>;
+interface SectionTitleProps {
+  children: ReactNode;
+  /**
+   * Körfältsstrecket framför rubriken (docs/designsprak.md 6, 7.5): 28 × 4 px
+   * i avsnittets kulör, 10 px ovanför. Sex färgade streck på en sida låter
+   * mycket; på skärmen syns ett i taget, och det säger vilket avsnitt man är i.
+   *
+   * Strecket är en prop och inte ett eget element bredvid rubriken, för att
+   * de två inte ska kunna glida isär — samma skäl som Section samlar sina
+   * klasser. Dekorativt: rubriken säger redan vilket avsnitt det är.
+   */
+  accent?: string;
+  /**
+   * Röd kontur runt strecket. Gult är alltid gult fält med röd bård, aldrig
+   * gult ensamt — så `accent="var(--sign-yellow)"` kräver den här.
+   */
+  accentBorder?: boolean;
+}
+
+/** Avsnittsrubrik — h2 på 22 px, 700, med valfritt körfältsstreck framför. */
+export function SectionTitle({ children, accent, accentBorder = false }: SectionTitleProps) {
+  return (
+    <>
+      {accent && (
+        <span
+          aria-hidden="true"
+          className="mb-2.5 block h-1 w-7 rounded-[2px]"
+          style={{
+            background: accent,
+            boxShadow: accentBorder ? '0 0 0 1.5px var(--sign-red)' : undefined,
+          }}
+        />
+      )}
+      <h2 className="text-2xl font-bold text-text-primary">{children}</h2>
+    </>
+  );
 }
 
 interface SubheadingProps {

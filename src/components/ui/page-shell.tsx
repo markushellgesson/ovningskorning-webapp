@@ -27,8 +27,14 @@ export function PageShell({ children }: { children: ReactNode }) {
  * som avsnitten på momentsidan (se section.tsx), så att en sida som blandar
  * fri text, listor och avsnitt ändå har en enda rytm.
  */
-export function PageBody({ children }: { children: ReactNode }) {
-  return <div className="mt-8 space-y-8">{children}</div>;
+export function PageBody({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={`mt-8 space-y-8 ${className}`}>{children}</div>;
 }
 
 interface BackLinkProps {
@@ -45,7 +51,7 @@ export function BackLink({ href, children }: BackLinkProps) {
   return (
     <Link
       href={href}
-      className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+      className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
     >
       ← {children}
     </Link>
@@ -56,7 +62,8 @@ interface PageHeaderProps {
   /** Utelämnas bara på startsidan, som inte har någon nivå ovanför sig. */
   back?: { href: string; label: string };
   /** Kort etikett ovanför rubriken, t.ex. "Steg 3 av 15". */
-  eyebrow?: string;
+  /** ReactNode, inte string: stegsidan sätter en stolpe här. */
+  eyebrow?: ReactNode;
   /** Mastodon ovanför rubriken — startsidans skylt. */
   mast?: ReactNode;
   title: string;
@@ -97,7 +104,7 @@ export function PageHeader({
           {eyebrow}
         </p>
       )}
-      <h1 className={`${display ? 'text-4xl' : 'text-3xl'} font-semibold text-text-primary`}>
+      <h1 className={`${display ? 'text-4xl' : 'text-3xl'} font-bold text-text-primary`}>
         {title}
       </h1>
       {lead && <p className="max-w-[var(--measure)] text-xl text-text-secondary">{lead}</p>}
