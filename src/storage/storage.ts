@@ -226,6 +226,36 @@ export function clearAllData(): boolean {
   }
 }
 
+// Aktuellt steg
+
+/**
+ * Vilket av de femton stegen paret övar på just nu.
+ *
+ * Det här är hela appens tillstånd. Startsidan visar det steget och inget
+ * annat, och knappen "Vi har övat det här" räknar upp det. Utan lagrat
+ * värde är svaret steg 1 — ingen onboarding, ingen fråga.
+ *
+ * `null` betyder att lagringen inte gick att läsa (privat läge, blockerade
+ * kakor, full kvot). Det skiljer sig från "har inte börjat än": anroparen
+ * ska visa steg 1 i båda fallen, men bara säga till om sparandet i det
+ * första. Därför går skillnaden inte att slå ihop.
+ */
+export function getCurrentStep(): number | null {
+  try {
+    const raw = localStorage.getItem(`${PREFIX}:currentStep`);
+    if (raw === null) return 1;
+    const step = Number(JSON.parse(raw));
+    return Number.isInteger(step) && step >= 1 ? step : 1;
+  } catch (error) {
+    console.warn('Failed to read currentStep from localStorage:', error);
+    return null;
+  }
+}
+
+export function saveCurrentStep(step: number): boolean {
+  return safeSet('currentStep', step);
+}
+
 export function exportData(): Record<string, any> {
   return {
     profile: getProfile(),

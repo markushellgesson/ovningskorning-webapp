@@ -53,6 +53,56 @@ export function SectionTitle({ children, accent, accentBorder = false }: Section
   );
 }
 
+/**
+ * Hopfällt avsnitt — samma rytm som Section, men stängt när sidan öppnas.
+ *
+ * Momentsidan visade åtta avsnitt och 402 ord i median. Det som behövs före
+ * ett pass är hur man övar och vad som brukar gå fel; Mål och handledarens
+ * blick hör till samtalet efteråt. De ligger därför här, en rad var, och
+ * kostar en knapptryckning i stället för en halv skärm.
+ *
+ * Nativ `<details>` och inte egen state: den fungerar utan JavaScript, går
+ * att söka i med webbläsarens sidsökning, och har tangentbord och
+ * skärmläsarstöd färdigt. Klassen `disclosure` ger den mjuka öppningen som
+ * globals.css definierar, med reducerad rörelse redan hanterad.
+ *
+ * Öppningsläget minns inte mellan besök. Ett avsnitt som är öppet för att
+ * man öppnade det i förrgår är inte längre ett hopfällt avsnitt.
+ */
+export function Hopfallbart({
+  title,
+  accent,
+  accentBorder = false,
+  children,
+}: {
+  title: string;
+  accent?: string;
+  accentBorder?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <section className="border-t border-border-subtle">
+      <details className="group disclosure">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center gap-3 pt-7 pb-1 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none [&::-webkit-details-marker]:hidden">
+          <span className="min-w-0 flex-1">
+            <SectionTitle accent={accent} accentBorder={accentBorder}>
+              {title}
+            </SectionTitle>
+          </span>
+          {/* Pilar är typografiska — appen har inga ikoner. */}
+          <span
+            aria-hidden="true"
+            className="shrink-0 self-end pb-1 text-xl text-ink-3 transition-transform duration-150 group-open:rotate-180"
+          >
+            ↓
+          </span>
+        </summary>
+        {children}
+      </details>
+    </section>
+  );
+}
+
 interface SubheadingProps {
   children: ReactNode;
   /** h3 som standard; h2 där underrubriken är avsnittets enda rubrik. */

@@ -2,9 +2,9 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
-import { Section, SectionTitle, Subheading } from '@/components/ui/section';
+import { Hopfallbart, Section, SectionTitle } from '@/components/ui/section';
 import content from '@/content';
-import type { DifficultyLevel, PhraseType, Skill, TheoryRelationType } from '@/content/types';
+import type { PhraseType, Skill } from '@/content/types';
 import { StatusBadge, Varningstriangel } from '@/components/ui/badge';
 import { Stolpe } from '@/components/ui/stolpe';
 import { getDiagramForSkill } from '@/components/diagrams/registry';
@@ -22,23 +22,6 @@ const PHRASE_TYPE_LABELS: Record<PhraseType, string> = {
   REFLECTION: 'Reflektion',
   SAFETY_INTERVENTION: 'Säkerhetsingripande',
 };
-
-const DIFFICULTY_LABELS: Record<DifficultyLevel, string> = {
-  INTRODUCTION: 'Introduktion',
-  BASIC: 'Grundnivå',
-  INTERMEDIATE: 'Mellannivå',
-  ADVANCED: 'Avancerad',
-};
-
-const THEORY_RELATION_LABELS: Record<TheoryRelationType, string> = {
-  PREREQUISITE: 'Bra att kunna innan',
-  INTEGRATED: 'Hör ihop med momentet',
-  DEEP_DIVE: 'För den som vill fördjupa sig',
-};
-
-// Ordningen sektionerna grupperas i under "Teoriämnen" — förkunskap före
-// fördjupning, så läsordningen följer var man befinner sig i inlärningen.
-const THEORY_RELATION_ORDER: TheoryRelationType[] = ['PREREQUISITE', 'INTEGRATED', 'DEEP_DIVE'];
 
 export async function generateStaticParams() {
   return skills.map((skill) => ({
@@ -91,9 +74,6 @@ const MARKER = 'flex w-[26px] shrink-0 justify-center pt-0.5 select-none';
 // Kort är inte skyltar: ram och ton, radius 12, ingen bård och ingen skugga.
 const CARD = 'rounded-[var(--radius-md)] border border-line-strong bg-surface p-4';
 const CARD_LIST = 'mt-[18px] space-y-3 max-w-[var(--measure)]';
-// Tryck på ett länkkort: ramen går blå, ytan sjunker. 0 ms in, 150 ms ut.
-const CARD_LINK =
-  'transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none';
 
 export default async function SkillPage({ params }: SkillPageProps) {
   const { skillId } = await params;
@@ -113,16 +93,6 @@ export default async function SkillPage({ params }: SkillPageProps) {
   // Fraser med skillId: null är allmänna mönster, inte knutna till just
   // detta moment — de visas inte här (se content/types.ts).
   const supervisorPhrases = content.supervisorPhrases.filter((p) => p.skillId === skill.id);
-  const exercises = content.exercises.filter((e) => e.skillId === skill.id);
-
-  const theoryTopicsById = new Map(content.theoryTopics.map((t) => [t.id, t]));
-  const theoryGroups = THEORY_RELATION_ORDER.map((relationType) => ({
-    relationType,
-    topics: skill.theoryRelations
-      .filter((r) => r.relationType === relationType)
-      .map((r) => theoryTopicsById.get(r.theoryTopicId))
-      .filter((t): t is (typeof content.theoryTopics)[number] => t !== undefined),
-  })).filter((group) => group.topics.length > 0);
 
   return (
     <PageShell>
@@ -131,22 +101,15 @@ export default async function SkillPage({ params }: SkillPageProps) {
         title={skill.name}
         lead={skill.description}
       >
-        {/* Etiketterna är skyltar: Säkerhetskritiskt är varningsmärket (gult
-            fält, röd bård), Tränas löpande den neutrala chippen med heldragen
-            blå linje. Se badge.tsx. Märket syns men tar inte över — det är
-            diagrammet som ska dra blicken på den här sidan. */}
-        {(skill.safetyCritical || skill.continuous) && (
-          <div className="flex flex-wrap gap-2 pt-1">
-            {skill.safetyCritical && (
-              <StatusBadge variant="safety" size="md">
-                Säkerhetskritiskt
-              </StatusBadge>
-            )}
-            {skill.continuous && (
-              <StatusBadge variant="continuous" size="md">
-                Tränas löpande
-              </StatusBadge>
-            )}
+        {/* Bara "Tränas löpande". Varningsmärket "Säkerhetskritiskt" satt
+            på 64 av 75 moment och märkte alltså normalfallet, inte
+            undantaget — det säger ingenting och är borta ur appen. Flaggan
+            finns kvar i innehållsdatan. */}
+        {skill.continuous && (
+          <div className="pt-1">
+            <StatusBadge variant="continuous" size="md">
+              Tränas löpande
+            </StatusBadge>
           </div>
         )}
       </PageHeader>
@@ -157,6 +120,24 @@ export default async function SkillPage({ params }: SkillPageProps) {
           ett visst avsnitt — vilket avsnitt som kommer först beror på
           momentet, och saknas figuren gäller regeln inte alls. */}
       <PageBody className="[&>figure+section]:border-t-0 [&>figure+section]:pt-0">
+        {/* En rad, inte ett avsnitt med sju kort. Namnen som blå länkar:
+            blått som text betyder länk (designsprak.md 3.4), så raden bär
+            sin affordans utan ram. Står före diagrammet: den säger vad man
+            bör kunna innan man tittar. */}
+        {prerequisites.length > 0 && (
+          <p className="max-w-[var(--measure)] text-base text-ink-2">
+            Bygger på:{' '}
+            {prerequisites.map((prereq, i) => (
+              <span key={prereq.id}>
+                {i > 0 && ', '}
+                <Link href={`/skills/${prereq.id}`} className="font-semibold text-blue-text">
+                  {prereq.name}
+                </Link>
+              </span>
+            ))}
+          </p>
+        )}
+
         {/* Figurkortet: --surface med 1 px --line-strong och radius 12. Ingen
             bård — ett diagram är inte en skylt — och ingen skugga.
 
@@ -171,49 +152,6 @@ export default async function SkillPage({ params }: SkillPageProps) {
           <figure className="-mx-5 rounded-none border border-x-0 border-line-strong bg-surface px-2 py-6 sm:mx-0 sm:rounded-[var(--radius-md)] sm:border-x sm:px-6">
             {diagram}
           </figure>
-        )}
-
-        {prerequisites.length > 0 && (
-          <Section>
-            <SectionTitle accent="var(--blue-text)">Förkunskaper</SectionTitle>
-            {/* Lugna rader, inte kort. Sidan hade sju kort i samma ram —
-                tre förkunskaper, en fras, en övning, två teori — men bara de
-                tre första var länkar, och inget skilde dem åt. Blått som text
-                betyder länk (designsprak.md 3.4), så affordansen bärs av
-                kulören och pilen i stället för av en ram. */}
-            <ul className="mt-[18px] max-w-[var(--measure)] divide-y divide-line">
-              {prerequisites.map((prereq) => (
-                <li key={prereq.id}>
-                  <Link
-                    href={`/skills/${prereq.id}`}
-                    className="flex min-h-14 items-center gap-3 text-base font-semibold text-blue-text transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:outline-none"
-                  >
-                    <span className="min-w-0 flex-1">{prereq.name}</span>
-                    <span aria-hidden="true" className="shrink-0 text-lg">
-                      →
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Section>
-        )}
-
-        {skill.goals.length > 0 && (
-          <Section>
-            <SectionTitle accent="var(--green-text)">Mål</SectionTitle>
-            <ul className={LIST}>
-              {skill.goals.map((goal, i) => (
-                <li key={i} className={LIST_ITEM}>
-                  {/* Grön punkt: grönt betyder vi, och målet är dit vi ska. */}
-                  <span aria-hidden="true" className={MARKER}>
-                    <span className="mt-[9px] block size-[9px] rounded-full bg-green-text" />
-                  </span>
-                  <span>{goal}</span>
-                </li>
-              ))}
-            </ul>
-          </Section>
         )}
 
         {skill.practiceSteps.length > 0 && (
@@ -253,116 +191,85 @@ export default async function SkillPage({ params }: SkillPageProps) {
           </Section>
         )}
 
-        {skill.supervisorObservations.length > 0 && (
-          <Section>
-            <SectionTitle accent="var(--blue-text)">Vad handledaren tittar efter</SectionTitle>
+        {skill.goals.length > 0 && (
+          <Hopfallbart title="Mål" accent="var(--green-text)">
             <ul className={LIST}>
-              {skill.supervisorObservations.map((obs, i) => (
+              {skill.goals.map((goal, i) => (
                 <li key={i} className={LIST_ITEM}>
-                  {/* Pilar är typografiska — appen har inga ikoner. */}
-                  <span aria-hidden="true" className={`${MARKER} font-semibold text-blue-text`}>
-                    →
+                  {/* Grön punkt: grönt betyder vi, och målet är dit vi ska. */}
+                  <span aria-hidden="true" className={MARKER}>
+                    <span className="mt-[9px] block size-[9px] rounded-full bg-green-text" />
                   </span>
-                  <span>{obs}</span>
+                  <span>{goal}</span>
                 </li>
               ))}
             </ul>
-          </Section>
+          </Hopfallbart>
         )}
 
-        {supervisorPhrases.length > 0 && (
-          <Section>
-            {/* Asfalt: fraserna är handledarens röst i bilen. I nattläge är
-                strecket nästan osynligt, precis som asfaltbanden — det är
-                avsikten (designsprak.md 5.1). */}
-            {/* --ink och inte --asphalt: asfaltskulören ligger på #1a2028 mot
-                botten #0f1318 i mörkt läge, alltså under 3:1, och strecket
-                hade försvunnit just där det behövs. --ink är asfalt i
-                dagsljus och vägmarkering i nattkörning. */}
-            <SectionTitle accent="var(--ink)">Handledarfraser</SectionTitle>
-            <ul className={CARD_LIST}>
-              {supervisorPhrases.map((phrase) => (
-                <li key={phrase.id} className={CARD}>
-                  <StatusBadge
-                    variant={phrase.type === 'SAFETY_INTERVENTION' ? 'safety' : 'neutral'}
-                    size="sm"
-                  >
-                    {PHRASE_TYPE_LABELS[phrase.type]}
-                  </StatusBadge>
-                  <p className="mt-2 text-lg text-ink">{phrase.text}</p>
-                  {phrase.context && <p className="mt-1.5 text-sm text-ink-3">{phrase.context}</p>}
-                </li>
-              ))}
-            </ul>
-          </Section>
-        )}
+        {/* Två avsnitt blev ett: vad handledaren tittar efter och vad hen
+            kan säga är samma sak sedd från två håll, och de lästes aldrig
+            var för sig. Hopfällt eftersom det hör till samtalet efter
+            passet, inte till förberedelsen före. */}
+        {(skill.supervisorObservations.length > 0 || supervisorPhrases.length > 0) && (
+          <Hopfallbart title="För handledaren" accent="var(--ink)">
+            {skill.supervisorObservations.length > 0 && (
+              <ul className={LIST}>
+                {skill.supervisorObservations.map((obs, i) => (
+                  <li key={i} className={LIST_ITEM}>
+                    {/* Pilar är typografiska — appen har inga ikoner. */}
+                    <span aria-hidden="true" className={`${MARKER} font-semibold text-blue-text`}>
+                      →
+                    </span>
+                    <span>{obs}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
 
-        {exercises.length > 0 && (
-          <Section>
-            <SectionTitle accent="var(--line-strong)">Övningar</SectionTitle>
-            <ul className={CARD_LIST}>
-              {exercises.map((exercise) => (
-                <li key={exercise.id} className={CARD}>
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="text-lg font-semibold text-ink">{exercise.title}</h3>
-                    <StatusBadge variant="neutral" size="sm">
-                      {DIFFICULTY_LABELS[exercise.difficulty]}
+            {supervisorPhrases.length > 0 && (
+              <ul className={CARD_LIST}>
+                {supervisorPhrases.map((phrase) => (
+                  <li key={phrase.id} className={CARD}>
+                    <StatusBadge
+                      variant={phrase.type === 'SAFETY_INTERVENTION' ? 'safety' : 'neutral'}
+                      size="sm"
+                    >
+                      {PHRASE_TYPE_LABELS[phrase.type]}
                     </StatusBadge>
-                  </div>
-                  <p className="mt-1 text-base text-ink-2">{exercise.description}</p>
-                  {exercise.estimatedMinutes !== null && (
-                    <p className="mt-2 text-sm text-ink-3">
-                      Cirka {exercise.estimatedMinutes} minuter
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Section>
+                    <p className="mt-2 text-lg text-ink">{phrase.text}</p>
+                    {phrase.context && (
+                      <p className="mt-1.5 text-sm text-ink-3">{phrase.context}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Hopfallbart>
         )}
 
-        {theoryGroups.length > 0 && (
-          <Section>
-            <SectionTitle accent="var(--line-strong)">Teori kopplad till momentet</SectionTitle>
-            <div className="mt-[18px] space-y-6">
-              {theoryGroups.map((group) => (
-                <div key={group.relationType} className="space-y-2.5">
-                  <Subheading>{THEORY_RELATION_LABELS[group.relationType]}</Subheading>
-                  <ul className="max-w-[var(--measure)] space-y-3">
-                    {group.topics.map((topic) => (
-                      <li key={topic.id} className={CARD}>
-                        <h4 className="text-base font-semibold text-ink">{topic.title}</h4>
-                        {topic.summary && (
-                          <p className="mt-1 text-sm text-ink-2">{topic.summary}</p>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
+        {/* Samma lugna rader som Bygger på hade som avsnitt. Barnens
+            beskrivningar ryker: de står på barnets egen sida. */}
         {children.length > 0 && (
           <Section>
             <SectionTitle accent="var(--line-strong)">Delmoment</SectionTitle>
-            <ul className={CARD_LIST}>
+            <ul className="mt-[18px] max-w-[var(--measure)] divide-y divide-line">
               {children.map((child) => (
                 <li key={child.id}>
-                  <Link href={`/skills/${child.id}`} className={`block ${CARD} ${CARD_LINK}`}>
-                    <h3 className="text-lg font-semibold text-ink">{child.name}</h3>
-                    <p className="mt-1 text-base text-ink-2">{child.description}</p>
+                  <Link
+                    href={`/skills/${child.id}`}
+                    className="flex min-h-14 items-center gap-3 text-base font-semibold text-blue-text transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:outline-none"
+                  >
+                    <span className="min-w-0 flex-1">{child.name}</span>
+                    <span aria-hidden="true" className="shrink-0 text-lg">
+                      →
+                    </span>
                   </Link>
                 </li>
               ))}
             </ul>
           </Section>
         )}
-
-        <footer className="border-t border-line pt-5">
-          <p className="text-sm text-ink-3">Version: {skill.sourceVersion}</p>
-        </footer>
       </PageBody>
     </PageShell>
   );

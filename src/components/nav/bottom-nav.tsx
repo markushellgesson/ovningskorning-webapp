@@ -6,8 +6,8 @@
  * Huvudappens nav har fem flikar (Hem, Kör, Träning, Framsteg, Profil) och
  * ett inloggningsberoende. Den lokala varianten saknar konto och har bara
  * tre sidor i navigationen — startsida, träningsmoment och ordning — så
- * navigationen begränsas till det som faktiskt finns. Upplägg nås från
- * startsidan och från ordningssidan.
+ * navigationen begränsas till det som faktiskt finns. Råden till
+ * handledaren nås som extern länk från Ordning.
  *
  * "Ordning" är sidans namn överallt: här, i sidhuvudet och på startsidan.
  * Den hette en tid "Träningskarta" i sidhuvudet men "Ordning" här, och ett
@@ -31,7 +31,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const TABS = [
-  { href: '/', label: 'Hem' },
+  { href: '/', label: 'Nästa pass' },
   { href: '/skills', label: 'Träningsmoment' },
   { href: '/plan', label: 'Ordning' },
 ] as const;

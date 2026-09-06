@@ -1,11 +1,8 @@
-import Link from 'next/link';
 import { CATEGORY_LABELS } from '@/content/category-labels';
-import { Vag, Vagstation } from '@/components/ui/asfaltband';
 import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { RowLink } from '@/components/ui/list-row';
-import { Meta, Section, SectionTitle } from '@/components/ui/section';
-import { Stolpe } from '@/components/ui/stolpe';
-import { Vagvisare } from '@/components/ui/vagvisare';
+import { Hopfallbart } from '@/components/ui/section';
+import { OrdningLista, type OrdningSteg } from '@/components/pass/ordning-lista';
 import {
   skills,
   progressionMap,
@@ -13,6 +10,14 @@ import {
   countSkillsInLevel,
   stepTitle,
 } from './plan-data';
+
+const steg: OrdningSteg[] = progressionMap.levels.map((level, index) => ({
+  nummer: index + 1,
+  titel: stepTitle(level),
+  antalMoment: countSkillsInLevel(level),
+}));
+
+const antalLopande = [...continuousByCategory.values()].reduce((n, v) => n + v.length, 0);
 
 export const metadata = {
   title: 'Ordning',
@@ -43,13 +48,16 @@ export const metadata = {
  * 72 px hög över hela bredden, alltså långt över 48 px träffyta: det går
  * att träffa med tummen utan att sikta.
  *
- * Det lugna: allt utanför bandet. Ingressen, Upplägg som vägvisare (vägen
- * leder vidare dit) och "Tränas löpande" med en 3 px HELDRAGEN blå linje
+ * Det lugna: allt utanför bandet. Den enda raden text ovanför vägen, och
+ * "Tränas löpande" hopfälld bakom en rubrik, med en 3 px HELDRAGEN blå linje
  * till vänster — heldragen linje betyder att man inte lämnar den. Det är
  * samma grammatik som vägens streckade mittlinje, bara i motsats.
  *
- * Ingen progress ritas: den lokala appen har ingen status att visa, och ett
- * påhittat "du är här" hade varit ljug (designsprak.md 10).
+ * Progress ritas nu, till skillnad från förut. Beslutet att låta bli
+ * (designsprak.md 10) byggde på att appen saknade status att visa. Den har
+ * en nu: knappen på Nästa pass sätter vilket steg paret är på, och den är
+ * därför sann och inte påhittad. Stolparna bär den — passerat grönt med
+ * bock, nästa med grön bård.
  */
 export default function PlanPage() {
   return (
@@ -62,69 +70,16 @@ export default function PlanPage() {
 
       <PageBody>
         <div>
-          <div className="max-w-[var(--measure)] space-y-3">
-            <p className="text-lg text-ink">
-              Varje steg bygger vidare på det föregående. Moment i samma grupp hör ihop och passar
-              att öva under samma pass.
-            </p>
-            <p className="text-base text-ink-2">
-              Ordningen är pedagogisk, inte en regel — den visar vad som är rimligt att kunna innan
-              man går vidare. Vissa moment, märkta ”tränas löpande”, introduceras här men övas sedan
-              vidare genom hela utbildningen i stället för att checkas av och lämnas bakom.
-            </p>
-          </div>
-
-          <Vag className="mt-6">
-            <ol>
-              {progressionMap.levels.map((level, index) => {
-                const stepNumber = index + 1;
-                const momentCount = countSkillsInLevel(level);
-                return (
-                  <Vagstation key={level.id}>
-                    <Link
-                      href={`/plan/${stepNumber}`}
-                      className="group relative flex min-h-[72px] items-center gap-[18px] rounded-[var(--radius-sm)] py-2.5 pr-2 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
-                    >
-                      {/* Tryckslöjan börjar där stolpen slutar, så att den
-                          aldrig lägger sig över asfaltbandet. */}
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-y-0 -right-2 left-10 rounded-[var(--radius-sm)] bg-surface-sunken opacity-0 transition-opacity duration-150 group-active:opacity-100 group-active:duration-0"
-                      />
-                      <Stolpe number={stepNumber} />
-                      <span className="relative min-w-0 flex-1">
-                        <span className="block text-lg leading-[1.3] font-semibold text-ink">
-                          {stepTitle(level)}
-                        </span>
-                        <Meta>{momentCount} moment</Meta>
-                      </span>
-                    </Link>
-                  </Vagstation>
-                );
-              })}
-            </ol>
-          </Vag>
-
-          {/* Vägen leder vidare till Upplägg, och därför är raden en
-              vägvisare i stället för en listrad. */}
-          <div className="mt-5">
-            <Vagvisare
-              href="/upplagg"
-              title="Upplägg"
-              description="Hur ni lägger upp ett pass, och vad ni gör före varje körning"
-            />
-          </div>
-        </div>
-
-        <Section>
-          {/* Blått streck, som den heldragna linjen i listorna under. */}
-          <SectionTitle accent="var(--blue-text)">Tränas löpande</SectionTitle>
-          <p className="mt-3.5 max-w-[var(--measure)] text-base text-ink-2">
-            De här momenten har redan sin plats i ordningen ovan. De introduceras vid sitt steg
-            precis som andra moment, men slutar inte där — de vävs in i övningen genomgående, från
-            första passet till sista.
+          <p className="max-w-[var(--measure)] text-lg text-ink">
+            Femton steg. Öva klart ett innan ni går vidare.
           </p>
 
+          <OrdningLista steg={steg} />
+        </div>
+
+        {/* Hopfälld: 32 momentnamn i tio kategorier är en lista man slår
+            upp, inte en man läser. Rubriken säger vad som finns bakom. */}
+        <Hopfallbart title={`Tränas löpande — ${antalLopande} moment`} accent="var(--blue-text)">
           <div className="mt-6 space-y-6">
             {[...continuousByCategory.entries()].map(([category, categorySkills]) => (
               <div key={category}>
@@ -149,7 +104,23 @@ export default function PlanPage() {
               </div>
             ))}
           </div>
-        </Section>
+        </Hopfallbart>
+
+        {/* Råden om hur man lägger upp ett pass fanns som en egen sida på
+            tusen ord. De står hos myndigheten, är korrekta där, och behöver
+            inte hysas i appen. */}
+        <p className="border-t border-line pt-7">
+          <a
+            href="https://www.transportstyrelsen.se/sv/vagtrafik/Korkort/ta-korkort/ovningskorning/planera-ovningskorningen/"
+            className="text-base font-semibold text-blue-text"
+          >
+            Råd till handledaren — Transportstyrelsen → (öppnas på transportstyrelsen.se)
+          </a>
+        </p>
+
+        <footer className="border-t border-line pt-5">
+          <p className="text-sm text-ink-3">Framstegen sparas bara i den här webbläsaren.</p>
+        </footer>
       </PageBody>
     </PageShell>
   );
