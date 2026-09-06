@@ -67,7 +67,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -227,7 +227,7 @@ export function HogerregelnDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Högerregeln
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Oreglerad korsning — ingen skylt, ingen signal
       </text>
 
@@ -259,7 +259,7 @@ export function HogerregelnDiagram() {
         {/* Teckenförklaring, övre vänstra hörnet */}
         <g>
           <path d="M 14 66 L 40 66" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#hr-arrow-other)" />
-          <text x="50" y="71" className="fill-text-secondary text-[13px]">
+          <text x="50" y="71" className="fill-text-secondary text-[14px]">
             Rör sig nu
           </text>
           <path
@@ -269,7 +269,7 @@ export function HogerregelnDiagram() {
             strokeDasharray="8 6"
             markerEnd="url(#hr-arrow-you)"
           />
-          <text x="50" y="93" className="fill-text-secondary text-[13px]">
+          <text x="50" y="93" className="fill-text-secondary text-[14px]">
             Din planerade väg
           </text>
           <line
@@ -282,7 +282,7 @@ export function HogerregelnDiagram() {
             strokeLinecap="round"
             strokeDasharray="0.5 6"
           />
-          <text x="50" y="115" className="fill-text-secondary text-[13px]">
+          <text x="50" y="115" className="fill-text-secondary text-[14px]">
             Sök åt båda håll
           </text>
         </g>
@@ -332,7 +332,7 @@ export function HogerregelnDiagram() {
           <text x="42" y="377" className="fill-text-primary text-[14px] font-semibold">
             Du
           </text>
-          <text x="15" y="396" className="fill-text-secondary text-[13px]">
+          <text x="15" y="396" className="fill-text-secondary text-[14px]">
             väntar tills det är fritt
           </text>
           <Pointer x1={62} y1={368} x2={203} y2={326} />
@@ -349,7 +349,7 @@ export function HogerregelnDiagram() {
             strokeWidth="1.5"
             markerEnd="url(#hr-arrow-note)"
           />
-          <text x="140" y="321" textAnchor="end" className="fill-text-secondary text-[13px]">
+          <text x="140" y="321" textAnchor="end" className="fill-text-secondary text-[14px]">
             din vänster
           </text>
           <line
@@ -361,7 +361,7 @@ export function HogerregelnDiagram() {
             strokeWidth="1.5"
             markerEnd="url(#hr-arrow-note)"
           />
-          <text x="300" y="321" className="fill-text-secondary text-[13px]">
+          <text x="300" y="321" className="fill-text-secondary text-[14px]">
             din höger
           </text>
         </g>
@@ -372,7 +372,7 @@ export function HogerregelnDiagram() {
             motsade hela poängen. */}
         <g>
           <Callout x={258} y={394} n={3} />
-          <text x="274" y="399" className="fill-text-primary text-[13px] font-semibold">
+          <text x="274" y="399" className="fill-text-primary text-[14px] font-semibold">
             Din väjningsplikt
           </text>
         </g>
@@ -387,13 +387,13 @@ export function HogerregelnDiagram() {
       >
         Ingen skylt, ingen signal — högerregeln gäller.
       </text>
-      <text x="200" y="498" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="498" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Du har väjningsplikt mot fordon som närmar sig
       </text>
-      <text x="200" y="516" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="516" textAnchor="middle" className="fill-text-secondary text-[14px]">
         från höger. Sänk farten, sök åt båda hållen
       </text>
-      <text x="200" y="534" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="534" textAnchor="middle" className="fill-text-secondary text-[14px]">
         och vänta tills det är fritt.
       </text>
 
@@ -409,7 +409,7 @@ export function HogerregelnDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="90" y="570" className="fill-text-tertiary text-[13px]">
+        <text x="90" y="570" className="fill-text-tertiary text-[14px]">
           Du (prickar)
         </text>
         <rect
@@ -422,32 +422,32 @@ export function HogerregelnDiagram() {
           className="stroke-primary-600"
           strokeWidth="1.5"
         />
-        <text x="230" y="570" className="fill-text-tertiary text-[13px]">
+        <text x="230" y="570" className="fill-text-tertiary text-[14px]">
           Annat fordon (ränder)
         </text>
       </g>
 
       {/* Förklaringsruta: vad väjningsplikten innebär i praktiken */}
       <rect x="20" y="590" width="360" height="212" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="614" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="614" className="fill-text-primary text-[14px] font-semibold">
         Om ett fordon närmar sig från höger:
       </text>
       <line x1="200" y1="632" x2="200" y2="796" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniKorsning x={100} y={690} variant="vantar" />
-      <text x="100" y="758" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="100" y="758" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du väntar
       </text>
-      <text x="100" y="774" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="100" y="774" textAnchor="middle" className="fill-text-secondary text-[14px]">
         det passerar först
       </text>
       <Check x={100} y={790} />
 
       <MiniKorsning x={290} y={690} variant="kor-ut" />
-      <text x="290" y="758" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="758" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du kör ut före det
       </text>
-      <text x="290" y="774" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="774" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bryter mot väjningsplikten
       </text>
       <Cross x={290} y={790} />

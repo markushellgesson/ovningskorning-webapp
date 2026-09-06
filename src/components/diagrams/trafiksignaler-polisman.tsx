@@ -70,7 +70,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -157,7 +157,7 @@ function Lamp({
       {blinking ? (
         <g>
           <path d={`M ${x} 150 L ${x - 11} 170 L ${x + 11} 170 Z`} className="fill-none stroke-attention-600" strokeWidth="2" strokeLinejoin="round" />
-          <text x={x} y="168" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+          <text x={x} y="168" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
             !
           </text>
         </g>
@@ -243,13 +243,13 @@ export function TrafiksignalerPolismanDiagram() {
         <Lamp x={442} lit={['yellow']} blinking label={['Blinkande gult:', 'särskild', 'försiktighet']} />
       </g>
 
-      <text x="20" y="300" className="fill-text-secondary text-[13px]">
+      <text x="20" y="300" className="fill-text-secondary text-[14px]">
         Grönt säger när du får köra, inte att vägen är fri.
       </text>
-      <text x="20" y="316" className="fill-text-secondary text-[13px]">
+      <text x="20" y="316" className="fill-text-secondary text-[14px]">
         Sök av korsningen, och lämna gående som gått ut på
       </text>
-      <text x="20" y="332" className="fill-text-secondary text-[13px]">
+      <text x="20" y="332" className="fill-text-secondary text-[14px]">
         övergångsstället möjlighet att passera.
       </text>
 
@@ -257,7 +257,7 @@ export function TrafiksignalerPolismanDiagram() {
       <text x="20" y="366" className="fill-text-primary text-[14px] font-semibold">
         Rangordning
       </text>
-      <text x="20" y="384" className="fill-text-secondary text-[13px]">
+      <text x="20" y="384" className="fill-text-secondary text-[14px]">
         Det överst gäller framför det under
       </text>
       <g>
@@ -288,28 +288,28 @@ export function TrafiksignalerPolismanDiagram() {
         <text x="244" y="404" className="fill-text-secondary text-[13px]">
           Polismans anvisning gäller framför
         </text>
-        <text x="244" y="420" className="fill-text-secondary text-[13px]">
+        <text x="244" y="420" className="fill-text-secondary text-[14px]">
           trafikreglerna och framför märken
         </text>
-        <text x="244" y="436" className="fill-text-secondary text-[13px]">
+        <text x="244" y="436" className="fill-text-secondary text-[14px]">
           och signaler.
         </text>
-        <text x="244" y="454" className="fill-text-secondary text-[13px]">
+        <text x="244" y="454" className="fill-text-secondary text-[14px]">
           Fast sken gäller framför stopp- eller
         </text>
-        <text x="244" y="470" className="fill-text-secondary text-[13px]">
+        <text x="244" y="470" className="fill-text-secondary text-[14px]">
           väjningsplikt som meddelas genom
         </text>
-        <text x="244" y="486" className="fill-text-secondary text-[13px]">
+        <text x="244" y="486" className="fill-text-secondary text-[14px]">
           vägmärke, men inte framför andra
         </text>
-        <text x="244" y="502" className="fill-text-secondary text-[13px]">
+        <text x="244" y="502" className="fill-text-secondary text-[14px]">
           vägmärken.
         </text>
-        <text x="244" y="542" className="fill-text-secondary text-[13px]">
+        <text x="244" y="542" className="fill-text-secondary text-[14px]">
           En anvisning som avviker från en
         </text>
-        <text x="244" y="558" className="fill-text-secondary text-[13px]">
+        <text x="244" y="558" className="fill-text-secondary text-[14px]">
           trafikregel gäller framför regeln.
         </text>
       </g>
@@ -318,7 +318,7 @@ export function TrafiksignalerPolismanDiagram() {
       <text x="20" y="618" className="fill-text-primary text-[14px] font-semibold">
         Polismans tecken P1 stopp: samma tecken, olika betydelse
       </text>
-      <text x="20" y="636" className="fill-text-secondary text-[13px]">
+      <text x="20" y="636" className="fill-text-secondary text-[14px]">
         Det beror på varifrån du kommer
       </text>
 
@@ -346,15 +346,15 @@ export function TrafiksignalerPolismanDiagram() {
         {/* Teckenförklaring, övre vänstra hörnet */}
         <g>
           <path d="M 40 452 L 66 452" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#signals-arrow-neutral)" />
-          <text x="74" y="457" className="fill-text-secondary text-[13px]">
+          <text x="74" y="457" className="fill-text-secondary text-[14px]">
             Rör sig nu
           </text>
           <Cross x={53} y={474} />
-          <text x="74" y="479" className="fill-text-secondary text-[13px]">
+          <text x="74" y="479" className="fill-text-secondary text-[14px]">
             Stopp
           </text>
           <Check x={53} y={496} />
-          <text x="74" y="501" className="fill-text-secondary text-[13px]">
+          <text x="74" y="501" className="fill-text-secondary text-[14px]">
             Vägen är fri
           </text>
         </g>
@@ -366,10 +366,10 @@ export function TrafiksignalerPolismanDiagram() {
           <line x1="238" y1="610" x2="262" y2="610" className="stroke-attention-600" strokeWidth="6" strokeLinecap="round" />
           <circle cx="250" cy="610" r="9" className="fill-attention-600" />
           <path d="M 250 589 L 243 600 L 257 600 Z" className="fill-attention-600" />
-          <text x="322" y="520" className="fill-text-primary text-[13px] font-semibold">
+          <text x="322" y="520" className="fill-text-primary text-[14px] font-semibold">
             Polisman ger P1 stopp,
           </text>
-          <text x="322" y="537" className="fill-text-secondary text-[13px]">
+          <text x="322" y="537" className="fill-text-secondary text-[14px]">
             vänd uppåt i bilden
           </text>
           <Pointer x1={318} y1={532} x2={262} y2={598} />
@@ -382,7 +382,7 @@ export function TrafiksignalerPolismanDiagram() {
           <Cross x={225} y={522} />
           <line x1="202" y1="538" x2="248" y2="538" className="stroke-safety-600" strokeWidth="4" />
           <Callout x={322} y={452} n={1} />
-          <text x="338" y="457" className="fill-text-primary text-[13px] font-semibold">
+          <text x="338" y="457" className="fill-text-primary text-[14px] font-semibold">
             Framifrån: stopp
           </text>
           <Pointer x1={318} y1={462} x2={243} y2={465} />
@@ -395,7 +395,7 @@ export function TrafiksignalerPolismanDiagram() {
           <Cross x={275} y={688} />
           <line x1="252" y1="672" x2="298" y2="672" className="stroke-safety-600" strokeWidth="4" />
           <Callout x={30} y={742} n={2} />
-          <text x="46" y="747" className="fill-text-primary text-[13px] font-semibold">
+          <text x="46" y="747" className="fill-text-primary text-[14px] font-semibold">
             Bakifrån: stopp
           </text>
           <Pointer x1={150} y1={742} x2={257} y2={745} />
@@ -407,10 +407,10 @@ export function TrafiksignalerPolismanDiagram() {
           <path d="M 105 635 L 160 635" className="stroke-progress-600" strokeWidth="3" markerEnd="url(#signals-arrow-go)" />
           <Check x={181} y={636} />
           <Callout x={30} y={528} n={3} />
-          <text x="46" y="533" className="fill-text-primary text-[13px] font-semibold">
+          <text x="46" y="533" className="fill-text-primary text-[14px] font-semibold">
             Från sidan:
           </text>
-          <text x="46" y="550" className="fill-text-primary text-[13px] font-semibold">
+          <text x="46" y="550" className="fill-text-primary text-[14px] font-semibold">
             vägen är fri
           </text>
           <Pointer x1={60} y1={558} x2={80} y2={617} />
@@ -422,10 +422,10 @@ export function TrafiksignalerPolismanDiagram() {
           <path d="M 395 585 L 340 585" className="stroke-progress-600" strokeWidth="3" markerEnd="url(#signals-arrow-go)" />
           <Check x={321} y={586} />
           <Callout x={330} y={712} n={4} />
-          <text x="346" y="717" className="fill-text-primary text-[13px] font-semibold">
+          <text x="346" y="717" className="fill-text-primary text-[14px] font-semibold">
             Från sidan:
           </text>
-          <text x="346" y="734" className="fill-text-primary text-[13px] font-semibold">
+          <text x="346" y="734" className="fill-text-primary text-[14px] font-semibold">
             vägen är fri
           </text>
           <Pointer x1={356} y1={702} x2={420} y2={603} />

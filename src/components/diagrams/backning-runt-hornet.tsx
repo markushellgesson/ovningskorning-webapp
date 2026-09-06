@@ -74,7 +74,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -220,7 +220,7 @@ export function BackningRuntHornetDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Backning runt hörn
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Bakhjulen skär hörnet, framvagnen sveper ut
       </text>
 
@@ -247,7 +247,7 @@ export function BackningRuntHornetDiagram() {
         {/* Teckenförklaring i den fria ytan ovanför sidogatan */}
         <g>
           <line x1="238" y1="96" x2="266" y2="96" className="stroke-attention-600" strokeWidth="3" />
-          <text x="274" y="101" className="fill-text-secondary text-[13px]">
+          <text x="274" y="101" className="fill-text-secondary text-[14px]">
             Bakhjulets väg
           </text>
           <line
@@ -259,7 +259,7 @@ export function BackningRuntHornetDiagram() {
             strokeWidth="3"
             strokeDasharray="7 5"
           />
-          <text x="274" y="123" className="fill-text-secondary text-[13px]">
+          <text x="274" y="123" className="fill-text-secondary text-[14px]">
             Framvagnens svep
           </text>
           <line
@@ -272,7 +272,7 @@ export function BackningRuntHornetDiagram() {
             strokeLinecap="round"
             strokeDasharray="0.5 6"
           />
-          <text x="274" y="145" className="fill-text-secondary text-[13px]">
+          <text x="274" y="145" className="fill-text-secondary text-[14px]">
             Blicken
           </text>
         </g>
@@ -322,67 +322,67 @@ export function BackningRuntHornetDiagram() {
         />
 
         {/* Slutläget i sidogatan */}
-        <text x="308" y="256" className="fill-text-primary text-[13px] font-semibold">
+        <text x="308" y="256" className="fill-text-primary text-[14px] font-semibold">
           Slut
         </text>
-        <text x="308" y="274" className="fill-text-secondary text-[13px]">
+        <text x="308" y="274" className="fill-text-secondary text-[14px]">
           höger körfält
         </text>
         <Pekare x1={322} y1={282} x2={292} y2={306} />
 
         {/* Hörnet */}
         <circle cx="220" cy="290" r="4" className="fill-text-primary" />
-        <text x="228" y="284" className="fill-text-primary text-[13px] font-medium">
+        <text x="228" y="284" className="fill-text-primary text-[14px] font-medium">
           Hörnet
         </text>
 
         {/* Startläget */}
-        <text x="126" y="86" textAnchor="end" className="fill-text-primary text-[13px] font-semibold">
+        <text x="126" y="86" textAnchor="end" className="fill-text-primary text-[14px] font-semibold">
           Start
         </text>
-        <text x="126" y="104" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <text x="126" y="104" textAnchor="end" className="fill-text-secondary text-[14px]">
           i höger körfält.
         </text>
-        <text x="126" y="122" textAnchor="end" className="fill-text-secondary text-[13px]">
+        <text x="126" y="122" textAnchor="end" className="fill-text-secondary text-[14px]">
           Backa rakt först
         </text>
         <Pekare x1={130} y1={116} x2={182} y2={110} />
 
         {/* 1. Bakhjulen skär hörnet */}
         <Callout x={244} y={218} n={1} />
-        <text x="260" y="223" className="fill-text-primary text-[13px] font-semibold">
+        <text x="260" y="223" className="fill-text-primary text-[14px] font-semibold">
           Bakhjulen går tätt
         </text>
-        <text x="234" y="241" className="fill-text-secondary text-[13px]">
+        <text x="234" y="241" className="fill-text-secondary text-[14px]">
           intill hörnet
         </text>
         <Pekare x1={268} y1={250} x2={219} y2={283} />
 
         {/* 2. Framvagnen sveper ut över mittlinjen */}
         <Callout x={22} y={228} n={2} />
-        <text x="38" y="233" className="fill-text-primary text-[13px] font-semibold">
+        <text x="38" y="233" className="fill-text-primary text-[14px] font-semibold">
           Framvagnen
         </text>
-        <text x="8" y="251" className="fill-text-secondary text-[13px]">
+        <text x="8" y="251" className="fill-text-secondary text-[14px]">
           sveper ut åt
         </text>
-        <text x="8" y="269" className="fill-text-secondary text-[13px]">
+        <text x="8" y="269" className="fill-text-secondary text-[14px]">
           motsatt håll —
         </text>
-        <text x="8" y="287" className="fill-text-secondary text-[13px]">
+        <text x="8" y="287" className="fill-text-secondary text-[14px]">
           över mittlinjen.
         </text>
-        <text x="8" y="305" className="fill-text-secondary text-[13px]">
+        <text x="8" y="305" className="fill-text-secondary text-[14px]">
           Det överraskar
         </text>
         <Pekare x1={112} y1={282} x2={171} y2={262} />
 
         {/* 3. Blicken bakåt över axeln */}
         <Callout x={246} y={398} n={3} />
-        <text x="262" y="403" className="fill-text-primary text-[13px] font-semibold">
+        <text x="262" y="403" className="fill-text-primary text-[14px] font-semibold">
           Blicken över axeln
         </text>
-        <text x="236" y="421" className="fill-text-secondary text-[13px]">
+        <text x="236" y="421" className="fill-text-secondary text-[14px]">
           speglarna räcker inte
         </text>
         <Pekare x1={252} y1={386} x2={213} y2={303} />
@@ -395,16 +395,16 @@ export function BackningRuntHornetDiagram() {
       <text x="220" y="544" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         eller hinder för andra vägtrafikanter.
       </text>
-      <text x="220" y="568" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="568" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Skyldigheten ligger på dig som backar,
       </text>
-      <text x="220" y="586" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="586" textAnchor="middle" className="fill-text-secondary text-[14px]">
         inte på dem som kommer.
       </text>
-      <text x="220" y="610" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="610" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Krypfart. Tappar du överblicken:
       </text>
-      <text x="220" y="628" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="628" textAnchor="middle" className="fill-text-secondary text-[14px]">
         stanna helt och titta om.
       </text>
 
@@ -420,7 +420,7 @@ export function BackningRuntHornetDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="108" y="664" className="fill-text-tertiary text-[13px]">
+        <text x="108" y="664" className="fill-text-tertiary text-[14px]">
           Du (prickar)
         </text>
         <rect
@@ -433,32 +433,32 @@ export function BackningRuntHornetDiagram() {
           className="stroke-primary-600"
           strokeWidth="1.5"
         />
-        <text x="234" y="664" className="fill-text-tertiary text-[13px]">
+        <text x="234" y="664" className="fill-text-tertiary text-[14px]">
           Mötande fordon
         </text>
       </g>
 
       {/* Förklaringsruta: svepet mot mötande körfält */}
       <rect x="20" y="684" width="400" height="242" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="708" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="708" className="fill-text-primary text-[14px] font-semibold">
         Framvagnen sveper in i det mötande körfältet:
       </text>
       <line x1="220" y1="722" x2="220" y2="918" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniHorn x={80} y={724} motande={false} />
-      <text x="129" y="870" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="129" y="870" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Körbanan är fri
       </text>
-      <text x="129" y="886" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="129" y="886" textAnchor="middle" className="fill-text-secondary text-[14px]">
         svepet får plats
       </text>
       <Check x={129} y={906} />
 
       <MiniHorn x={270} y={724} motande />
-      <text x="319" y="870" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="319" y="870" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Ett fordon kommer emot
       </text>
-      <text x="319" y="886" className="fill-text-secondary text-[13px]" textAnchor="middle">
+      <text x="319" y="886" className="fill-text-secondary text-[14px]" textAnchor="middle">
         då får du inte backa
       </text>
       <Cross x={319} y={906} />

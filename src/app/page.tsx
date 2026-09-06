@@ -1,6 +1,7 @@
 import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { RowLink } from '@/components/ui/list-row';
 import { Section, SectionTitle } from '@/components/ui/section';
+import { Skylt } from '@/components/ui/skylt';
 import content from '@/content';
 import { progressionMap } from './plan/plan-data';
 
@@ -40,6 +41,7 @@ export default function HomePage() {
     <PageShell>
       <PageHeader
         display
+        mast={<Skylt />}
         title="Övningskörning B"
         lead="Strukturerat stöd för privat övningskörning till B-körkort"
       />

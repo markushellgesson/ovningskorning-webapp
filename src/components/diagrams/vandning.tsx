@@ -116,7 +116,7 @@ function Steg({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -210,14 +210,14 @@ export function VandningDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Trepunktsvändning i tre steg
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Tecken först — och utslaget hålls hela backningen
       </text>
 
       {/* Teckenförklaring */}
       <g>
         <path d="M 20 76 L 48 76" className="stroke-attention-600" strokeWidth="3" markerEnd="url(#vd-arrow)" />
-        <text x="56" y="81" className="fill-text-secondary text-[13px]">
+        <text x="56" y="81" className="fill-text-secondary text-[14px]">
           Nosens väg
         </text>
         <g transform="translate(176 76)">
@@ -225,7 +225,7 @@ export function VandningDiagram() {
           <rect x="-9" y="-9" width="3" height="6" rx="1" className="fill-text-primary" transform="rotate(-28 -7.5 -6)" />
           <rect x="6" y="-9" width="3" height="6" rx="1" className="fill-text-primary" transform="rotate(-28 7.5 -6)" />
         </g>
-        <text x="192" y="81" className="fill-text-secondary text-[13px]">
+        <text x="192" y="81" className="fill-text-secondary text-[14px]">
           Framhjulen visar utslaget
         </text>
       </g>
@@ -235,13 +235,13 @@ export function VandningDiagram() {
       <text x="50" y="109" className="fill-text-primary text-[14px] font-semibold">
         Tecken först — sedan fram åt vänster
       </text>
-      <text x="20" y="128" className="fill-text-secondary text-[13px]">
+      <text x="20" y="128" className="fill-text-secondary text-[14px]">
         Fullt vänsterutslag. Titta runt hela bilen innan
       </text>
-      <text x="20" y="146" className="fill-text-secondary text-[13px]">
+      <text x="20" y="146" className="fill-text-secondary text-[14px]">
         den rör sig, och kör i krypfart tills framvagnen
       </text>
-      <text x="20" y="164" className="fill-text-secondary text-[13px]">
+      <text x="20" y="164" className="fill-text-secondary text-[14px]">
         närmar sig den motsatta kanten.
       </text>
       <g transform="translate(92 140)">
@@ -261,10 +261,10 @@ export function VandningDiagram() {
       <text x="50" y="311" className="fill-text-primary text-[14px] font-semibold">
         Backa med fullt utslag åt motsatt håll
       </text>
-      <text x="20" y="330" className="fill-text-secondary text-[13px]">
+      <text x="20" y="330" className="fill-text-secondary text-[14px]">
         Ratten hålls kvar åt det hållet hela backningen.
       </text>
-      <text x="20" y="348" className="fill-text-secondary text-[13px]">
+      <text x="20" y="348" className="fill-text-secondary text-[14px]">
         Ingenting rätas upp här. Vrid dig om och titta.
       </text>
       <g transform="translate(92 322)">
@@ -284,10 +284,10 @@ export function VandningDiagram() {
       <text x="50" y="493" className="fill-text-primary text-[14px] font-semibold">
         Fram med utslag åt första hållet igen
       </text>
-      <text x="20" y="512" className="fill-text-secondary text-[13px]">
+      <text x="20" y="512" className="fill-text-secondary text-[14px]">
         Ratten rätas upp först nu, när bilen körs ut.
       </text>
-      <text x="20" y="530" className="fill-text-secondary text-[13px]">
+      <text x="20" y="530" className="fill-text-secondary text-[14px]">
         Vänta tills körbanan är fri åt båda håll.
       </text>
       <g transform="translate(92 504)">
@@ -309,37 +309,37 @@ export function VandningDiagram() {
       <text x="200" y="696" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         eller hinder för andra vägtrafikanter.
       </text>
-      <text x="200" y="720" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="720" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Skyldigheten ligger på dig som vänder.
       </text>
-      <text x="200" y="738" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="738" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Tecknet befriar dig inte från att försäkra dig.
       </text>
-      <text x="200" y="756" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="756" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Välj plats med fri sikt och håll krypfart.
       </text>
 
       {/* Förklaringsruta: utslaget under backningen */}
       <rect x="20" y="780" width="360" height="196" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="804" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="804" className="fill-text-primary text-[14px] font-semibold">
         Under backningen i steg 2:
       </text>
       <line x1="200" y1="818" x2="200" y2="968" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniVag x={40} y={824} variant="hallet" />
-      <text x="110" y="916" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="110" y="916" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Utslaget hålls kvar
       </text>
-      <text x="110" y="932" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="110" y="932" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bilen kommer tvärs
       </text>
       <Check x={110} y={954} />
 
       <MiniVag x={220} y={824} variant="uppriktat" />
-      <text x="290" y="916" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="916" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Ratten rätas upp här
       </text>
-      <text x="290" y="932" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="932" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bilen backar mot kanten
       </text>
       <Cross x={290} y={954} />

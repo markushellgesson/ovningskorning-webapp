@@ -45,7 +45,7 @@ function Badge({ cx, cy, n }: { cx: number; cy: number; n: string }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
-      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -151,14 +151,14 @@ export function BlickenLangtFramDiagram() {
       <text x="20" y="30" className="fill-text-primary text-[16px] font-semibold">
         Blicken långt fram styr bilen
       </text>
-      <text x="20" y="50" className="fill-text-secondary text-[13px]">
+      <text x="20" y="50" className="fill-text-secondary text-[14px]">
         Sedd uppifrån. Du kör uppåt i högra körfältet.
       </text>
 
       {/* Teckenförklaring */}
       <g>
         <path d="M 20 74 L 44 74" className="stroke-text-primary" strokeWidth="4" markerEnd="url(#bl-arrow-key)" />
-        <text x="56" y="79" className="fill-text-secondary text-[13px]">
+        <text x="56" y="79" className="fill-text-secondary text-[14px]">
           Bilens väg
         </text>
         <line
@@ -171,12 +171,12 @@ export function BlickenLangtFramDiagram() {
           strokeLinecap="round"
           strokeDasharray="0.5 6"
         />
-        <text x="186" y="79" className="fill-text-secondary text-[13px]">
+        <text x="186" y="79" className="fill-text-secondary text-[14px]">
           Din blick
         </text>
         <circle cx="278" cy="74" r="8" className="fill-surface-base stroke-text-primary" strokeWidth="2.5" />
         <circle cx="278" cy="74" r="3" className="fill-text-primary" />
-        <text x="292" y="79" className="fill-text-secondary text-[13px]">
+        <text x="292" y="79" className="fill-text-secondary text-[14px]">
           Blickpunkt
         </text>
       </g>
@@ -209,34 +209,34 @@ export function BlickenLangtFramDiagram() {
       </g>
 
       <Badge cx={222} cy={196} n="1" />
-      <text x="238" y="200" className="fill-text-primary text-[13px] font-semibold">
+      <text x="238" y="200" className="fill-text-primary text-[14px] font-semibold">
         Blicken hit
       </text>
-      <text x="214" y="218" className="fill-text-secondary text-[13px]">
+      <text x="214" y="218" className="fill-text-secondary text-[14px]">
         dit bilen ska vara
       </text>
-      <text x="214" y="234" className="fill-text-secondary text-[13px]">
+      <text x="214" y="234" className="fill-text-secondary text-[14px]">
         om en stund
       </text>
       <Pointer x1={210} y1={196} x2={150} y2={194} />
 
       <Badge cx={222} cy={268} n="2" />
-      <text x="238" y="272" className="fill-text-primary text-[13px] font-semibold">
+      <text x="238" y="272" className="fill-text-primary text-[14px] font-semibold">
         Bilens väg
       </text>
-      <text x="214" y="290" className="fill-text-secondary text-[13px]">
+      <text x="214" y="290" className="fill-text-secondary text-[14px]">
         en enda mjuk båge —
       </text>
-      <text x="214" y="306" className="fill-text-secondary text-[13px]">
+      <text x="214" y="306" className="fill-text-secondary text-[14px]">
         små rattrörelser räcker
       </text>
       <Pointer x1={210} y1={270} x2={134} y2={262} />
 
       <Badge cx={222} cy={330} n="3" />
-      <text x="238" y="334" className="fill-text-primary text-[13px] font-semibold">
+      <text x="238" y="334" className="fill-text-primary text-[14px] font-semibold">
         Du
       </text>
-      <text x="214" y="352" className="fill-text-secondary text-[13px]">
+      <text x="214" y="352" className="fill-text-secondary text-[14px]">
         i högra körfältet
       </text>
       <Pointer x1={210} y1={332} x2={146} y2={326} />
@@ -272,34 +272,34 @@ export function BlickenLangtFramDiagram() {
       </g>
 
       <Badge cx={222} cy={470} n="2" />
-      <text x="238" y="474" className="fill-text-primary text-[13px] font-semibold">
+      <text x="238" y="474" className="fill-text-primary text-[14px] font-semibold">
         Bilens väg
       </text>
-      <text x="214" y="492" className="fill-text-secondary text-[13px]">
+      <text x="214" y="492" className="fill-text-secondary text-[14px]">
         slingrar i filen —
       </text>
-      <text x="214" y="508" className="fill-text-secondary text-[13px]">
+      <text x="214" y="508" className="fill-text-secondary text-[14px]">
         ratten korrigerar
       </text>
-      <text x="214" y="524" className="fill-text-secondary text-[13px]">
+      <text x="214" y="524" className="fill-text-secondary text-[14px]">
         hela tiden
       </text>
       <Pointer x1={210} y1={470} x2={146} y2={464} />
 
       <Badge cx={222} cy={546} n="1" />
-      <text x="238" y="550" className="fill-text-primary text-[13px] font-semibold">
+      <text x="238" y="550" className="fill-text-primary text-[14px] font-semibold">
         Blicken fastnar
       </text>
-      <text x="214" y="568" className="fill-text-secondary text-[13px]">
+      <text x="214" y="568" className="fill-text-secondary text-[14px]">
         strax framför bilen
       </text>
       <Pointer x1={210} y1={548} x2={142} y2={546} />
 
       <Badge cx={222} cy={600} n="3" />
-      <text x="238" y="604" className="fill-text-primary text-[13px] font-semibold">
+      <text x="238" y="604" className="fill-text-primary text-[14px] font-semibold">
         Du
       </text>
-      <text x="214" y="622" className="fill-text-secondary text-[13px]">
+      <text x="214" y="622" className="fill-text-secondary text-[14px]">
         i högra körfältet
       </text>
       <Pointer x1={210} y1={600} x2={146} y2={596} />
@@ -312,7 +312,7 @@ export function BlickenLangtFramDiagram() {
       <text x="230" y="712" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         blicken drar styrningen med sig.
       </text>
-      <text x="230" y="733" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="230" y="733" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Ligger blicken långt fram räcker små justeringar i ratten.
       </text>
     </svg>

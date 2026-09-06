@@ -77,7 +77,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -255,7 +255,7 @@ export function CirkulationsplatsDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Cirkulationsplats — trafiken kör moturs
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Infart, placering och utfart
       </text>
 
@@ -326,7 +326,7 @@ export function CirkulationsplatsDiagram() {
         {/* Teckenförklaring, högerkanten ovanför östra armen */}
         <g>
           <path d="M 292 100 L 318 100" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#rab-arrow-other)" />
-          <text x="324" y="105" className="fill-text-secondary text-[13px]">
+          <text x="324" y="105" className="fill-text-secondary text-[14px]">
             Rör sig nu
           </text>
           <path
@@ -336,7 +336,7 @@ export function CirkulationsplatsDiagram() {
             strokeDasharray="8 6"
             markerEnd="url(#rab-arrow-plan)"
           />
-          <text x="324" y="127" className="fill-text-secondary text-[13px]">
+          <text x="324" y="127" className="fill-text-secondary text-[14px]">
             Din väg
           </text>
         </g>
@@ -365,10 +365,10 @@ export function CirkulationsplatsDiagram() {
             markerEnd="url(#rab-arrow-other)"
           />
           <Callout x={24} y={318} n={1} />
-          <text x="40" y="323" className="fill-text-primary text-[13px] font-semibold">
+          <text x="40" y="323" className="fill-text-primary text-[14px] font-semibold">
             I cirkulationen
           </text>
-          <text x="14" y="342" className="fill-text-secondary text-[13px]">
+          <text x="14" y="342" className="fill-text-secondary text-[14px]">
             från din vänster
           </text>
           <Pointer x1={60} y1={306} x2={112} y2={262} />
@@ -381,7 +381,7 @@ export function CirkulationsplatsDiagram() {
           <text x="40" y="377" className="fill-text-primary text-[14px] font-semibold">
             Du
           </text>
-          <text x="14" y="396" className="fill-text-secondary text-[13px]">
+          <text x="14" y="396" className="fill-text-secondary text-[14px]">
             väntar vid väjningslinjen
           </text>
           <Pointer x1={58} y1={368} x2={203} y2={352} />
@@ -390,20 +390,20 @@ export function CirkulationsplatsDiagram() {
         {/* Vägmärken vid infarten: B1 väjningsplikt över D3 cirkulationsplats */}
         <image href={`${BASE_PATH}/signs/B1.svg`} x="262" y="304" width="36" height="32" />
         <image href={`${BASE_PATH}/signs/D3.svg`} x="262" y="342" width="36" height="36" />
-        <text x="304" y="326" className="fill-text-secondary text-[13px]">
+        <text x="304" y="326" className="fill-text-secondary text-[14px]">
           B1
         </text>
-        <text x="304" y="366" className="fill-text-secondary text-[13px]">
+        <text x="304" y="366" className="fill-text-secondary text-[14px]">
           D3
         </text>
 
         {/* 3. Utfart: blinka höger, sök cyklister */}
         <g>
           <Callout x={24} y={60} n={3} />
-          <text x="40" y="65" className="fill-text-primary text-[13px] font-semibold">
+          <text x="40" y="65" className="fill-text-primary text-[14px] font-semibold">
             Blinka höger
           </text>
-          <text x="14" y="84" className="fill-text-secondary text-[13px]">
+          <text x="14" y="84" className="fill-text-secondary text-[14px]">
             sök cyklister
           </text>
           <Pointer x1={96} y1={60} x2={214} y2={72} />
@@ -425,7 +425,7 @@ export function CirkulationsplatsDiagram() {
             strokeWidth="2"
             markerEnd="url(#rab-arrow-cyclist)"
           />
-          <text x="266" y="81" className="fill-text-primary text-[13px] font-medium">
+          <text x="266" y="81" className="fill-text-primary text-[14px] font-medium">
             Cyklist
           </text>
         </g>
@@ -448,10 +448,10 @@ export function CirkulationsplatsDiagram() {
       >
         som redan är i cirkulationen.
       </text>
-      <text x="200" y="516" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="516" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Grön streckad linje: din planerade väg. Bestäm utfarten
       </text>
-      <text x="200" y="534" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="534" textAnchor="middle" className="fill-text-secondary text-[14px]">
         redan vid infarten. Blinka höger vid utfart, sök cyklister.
       </text>
 
@@ -467,7 +467,7 @@ export function CirkulationsplatsDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="68" y="570" className="fill-text-tertiary text-[13px]">
+        <text x="68" y="570" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect
@@ -480,36 +480,36 @@ export function CirkulationsplatsDiagram() {
           className="stroke-primary-600"
           strokeWidth="1.5"
         />
-        <text x="138" y="570" className="fill-text-tertiary text-[13px]">
+        <text x="138" y="570" className="fill-text-tertiary text-[14px]">
           I cirkulationen
         </text>
         <circle cx="260" cy="565" r="6" className="fill-none stroke-safety-600" strokeWidth="2" />
-        <text x="272" y="570" className="fill-text-tertiary text-[13px]">
+        <text x="272" y="570" className="fill-text-tertiary text-[14px]">
           Cyklist
         </text>
       </g>
 
       {/* Förklaringsruta: vad väjningsplikten innebär i praktiken */}
       <rect x="20" y="590" width="360" height="238" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="614" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="614" className="fill-text-primary text-[14px] font-semibold">
         När ett fordon redan är i cirkulationen:
       </text>
       <line x1="200" y1="632" x2="200" y2="822" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniInfart x={100} y={690} variant="vantar" />
-      <text x="100" y="782" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="100" y="782" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du väntar
       </text>
-      <text x="100" y="798" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="100" y="798" textAnchor="middle" className="fill-text-secondary text-[14px]">
         det passerar först
       </text>
       <Check x={100} y={814} />
 
       <MiniInfart x={290} y={690} variant="kor-in" />
-      <text x="290" y="782" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="782" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du kör in framför det
       </text>
-      <text x="290" y="798" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="798" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bryter mot väjningsplikten
       </text>
       <Cross x={290} y={814} />

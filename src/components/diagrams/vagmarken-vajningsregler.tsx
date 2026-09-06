@@ -75,7 +75,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -180,7 +180,7 @@ function Panel({ cx, idPrefix, variant }: PanelProps) {
         </g>
       )}
       <Callout x={cx - 106} y={252} n={1} />
-      <text x={cx - 118} y="274" className="fill-text-primary text-[13px] font-semibold">
+      <text x={cx - 118} y="274" className="fill-text-primary text-[14px] font-semibold">
         {isStop ? 'Stopplinje' : 'Väjningslinje'}
       </text>
       <Pointer x1={cx - 94} y1={252} x2={cx + 4} y2={229} />
@@ -221,7 +221,7 @@ function Panel({ cx, idPrefix, variant }: PanelProps) {
           />
           {/* Stoppsymbol: fylld kvadrat, och vad du gör */}
           <rect x={cx - 52} y="346" width="14" height="14" rx="2" className="fill-safety-600" />
-          <text x={cx + 6} y="358" textAnchor="middle" className="fill-text-primary text-[13px] font-medium">
+          <text x={cx + 6} y="358" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
             Stanna helt
           </text>
         </g>
@@ -258,7 +258,7 @@ function Panel({ cx, idPrefix, variant }: PanelProps) {
             strokeDasharray="6 4"
             markerEnd={`url(#${idPrefix}-arrow-go)`}
           />
-          <text x={cx + 10} y="358" textAnchor="middle" className="fill-text-primary text-[13px] font-medium">
+          <text x={cx + 10} y="358" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
             Vidare om fritt
           </text>
         </g>
@@ -276,10 +276,10 @@ function Panel({ cx, idPrefix, variant }: PanelProps) {
       <text x={cx} y="386" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         {isStop ? 'Stanna helt vid stopplinjen.' : 'Väj för den korsande trafiken.'}
       </text>
-      <text x={cx} y="406" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x={cx} y="406" textAnchor="middle" className="fill-text-secondary text-[14px]">
         {isStop ? 'Inte rullande. Sök trafik,' : 'Stanna bara om det behövs.'}
       </text>
-      <text x={cx} y="424" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x={cx} y="424" textAnchor="middle" className="fill-text-secondary text-[14px]">
         {isStop ? 'fortsätt när det är säkert.' : 'Sök trafik, fortsätt när det är fritt.'}
       </text>
     </g>
@@ -430,7 +430,7 @@ export function VagmarkenVajningsreglerDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="58" y="490" className="fill-text-tertiary text-[13px]">
+        <text x="58" y="490" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect
@@ -443,11 +443,11 @@ export function VagmarkenVajningsreglerDiagram() {
           className="stroke-primary-600"
           strokeWidth="1.5"
         />
-        <text x="118" y="490" className="fill-text-tertiary text-[13px]">
+        <text x="118" y="490" className="fill-text-tertiary text-[14px]">
           Annan trafik
         </text>
         <path d="M 230 485 L 256 485" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#vs-arrow-other)" />
-        <text x="264" y="490" className="fill-text-tertiary text-[13px]">
+        <text x="264" y="490" className="fill-text-tertiary text-[14px]">
           Rör sig nu
         </text>
         <path
@@ -457,7 +457,7 @@ export function VagmarkenVajningsreglerDiagram() {
           strokeDasharray="6 4"
           markerEnd="url(#vs-arrow-go)"
         />
-        <text x="384" y="490" className="fill-text-tertiary text-[13px]">
+        <text x="384" y="490" className="fill-text-tertiary text-[14px]">
           Din väg
         </text>
       </g>
@@ -472,25 +472,25 @@ export function VagmarkenVajningsreglerDiagram() {
       >
         Vanligt misstag: att blanda ihop dem.
       </text>
-      <text x="260" y="550" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="260" y="550" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Väjningsplikt = väj för korsande trafik. Stopplikt = stanna helt.
       </text>
       <line x1="260" y1="566" x2="260" y2="722" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniKorfalt x={130} y={620} variant="vajningsplikt" />
-      <text x="130" y="674" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="130" y="674" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Vid B1: rullar vidare
       </text>
-      <text x="130" y="690" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="130" y="690" textAnchor="middle" className="fill-text-secondary text-[14px]">
         när det är fritt
       </text>
       <Check x={130} y={708} />
 
       <MiniKorfalt x={390} y={620} variant="stopplikt" />
-      <text x="390" y="674" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="390" y="674" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Vid B2: rullar över linjen
       </text>
-      <text x="390" y="690" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="390" y="690" textAnchor="middle" className="fill-text-secondary text-[14px]">
         utan att stanna helt
       </text>
       <Cross x={390} y={708} />

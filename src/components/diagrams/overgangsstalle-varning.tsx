@@ -89,7 +89,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -233,14 +233,14 @@ export function OvergangsstalleVarningDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Obevakat övergångsställe
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Sänk farten, var beredd att stanna
       </text>
 
       {/* Teckenförklaring, övre högra hörnet */}
       <g>
         <path d="M 300 22 L 326 22" className="stroke-text-primary" strokeWidth="3" markerEnd="url(#ovg-arrow-neutral)" />
-        <text x="334" y="27" className="fill-text-secondary text-[13px]">
+        <text x="334" y="27" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
         <path
@@ -250,7 +250,7 @@ export function OvergangsstalleVarningDiagram() {
           strokeDasharray="6 5"
           markerEnd="url(#ovg-arrow-neutral)"
         />
-        <text x="334" y="49" className="fill-text-secondary text-[13px]">
+        <text x="334" y="49" className="fill-text-secondary text-[14px]">
           Planerad väg
         </text>
       </g>
@@ -298,7 +298,7 @@ export function OvergangsstalleVarningDiagram() {
             markerEnd="url(#ovg-arrow-ped)"
           />
           <Callout x={-4} y={150} n={1} />
-          <text x="12" y="155" className="fill-text-primary text-[13px] font-semibold">
+          <text x="12" y="155" className="fill-text-primary text-[14px] font-semibold">
             Har gått ut
           </text>
           <Pointer x1={60} y1={160} x2={161} y2={178} />
@@ -318,10 +318,10 @@ export function OvergangsstalleVarningDiagram() {
             markerEnd="url(#ovg-arrow-ped)"
           />
           <Callout x={326} y={150} n={2} />
-          <text x="342" y="155" className="fill-text-primary text-[13px] font-semibold">
+          <text x="342" y="155" className="fill-text-primary text-[14px] font-semibold">
             Just ska
           </text>
-          <text x="342" y="172" className="fill-text-primary text-[13px] font-semibold">
+          <text x="342" y="172" className="fill-text-primary text-[14px] font-semibold">
             gå ut
           </text>
           <Pointer x1={322} y1={160} x2={293} y2={176} />
@@ -331,10 +331,10 @@ export function OvergangsstalleVarningDiagram() {
         <g>
           <image href={`${BASE_PATH}/signs/A13.svg`} x="282" y="290" width="48" height="43" />
           <Callout x={338} y={360} n={3} />
-          <text x="354" y="365" className="fill-text-primary text-[13px] font-semibold">
+          <text x="354" y="365" className="fill-text-primary text-[14px] font-semibold">
             A13
           </text>
-          <text x="322" y="383" className="fill-text-secondary text-[13px]">
+          <text x="322" y="383" className="fill-text-secondary text-[14px]">
             varnar i förväg
           </text>
           <Pointer x1={338} y1={348} x2={326} y2={334} />
@@ -353,7 +353,7 @@ export function OvergangsstalleVarningDiagram() {
           <text x="-8" y="396" className="fill-text-primary text-[14px] font-semibold">
             Du
           </text>
-          <g className="fill-text-secondary text-[13px]">
+          <g className="fill-text-secondary text-[14px]">
             <text x="-8" y="414">
               sänk farten,
             </text>
@@ -385,34 +385,34 @@ export function OvergangsstalleVarningDiagram() {
       >
         eller ska just gå ut på övergångsstället.
       </text>
-      <text x="220" y="552" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="552" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Sänk farten, ge marginal, var beredd att stanna.
       </text>
-      <text x="220" y="570" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="570" textAnchor="middle" className="fill-text-secondary text-[14px]">
         A13 varnar i förväg för platsen.
       </text>
 
       {/* Förklaringsruta: vad väjningsplikten innebär i praktiken */}
       <rect x="20" y="594" width="400" height="228" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="618" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="618" className="fill-text-primary text-[14px] font-semibold">
         När en gående gått ut på övergångsstället:
       </text>
       <line x1="220" y1="636" x2="220" y2="816" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniGata x={120} y={700} variant="stannar" />
-      <text x="120" y="768" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="120" y="768" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Sänker farten i tid,
       </text>
-      <text x="120" y="784" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="120" y="784" textAnchor="middle" className="fill-text-secondary text-[14px]">
         stannar om det behövs
       </text>
       <Check x={120} y={802} />
 
       <MiniGata x={320} y={700} variant="kor-forbi" />
-      <text x="320" y="768" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="320" y="768" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Kör förbi framför
       </text>
-      <text x="320" y="784" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="320" y="784" textAnchor="middle" className="fill-text-secondary text-[14px]">
         den gående
       </text>
       <Cross x={320} y={802} />

@@ -55,7 +55,7 @@ function Badge({ cx, cy, n }: { cx: number; cy: number; n: string }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
-      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -136,7 +136,7 @@ export function PlaceringIKurvaDiagram() {
       <text x="20" y="30" className="fill-text-primary text-[16px] font-semibold">
         Placering i kurva — hur långt in du ser
       </text>
-      <text x="20" y="50" className="fill-text-secondary text-[13px]">
+      <text x="20" y="50" className="fill-text-secondary text-[14px]">
         Sedd uppifrån. Du kör uppåt i högra körfältet. Samma radie i båda.
       </text>
 
@@ -227,39 +227,39 @@ export function PlaceringIKurvaDiagram() {
 
       {/* Etiketter panel 1 */}
       <Badge cx={256} cy={206} n="1" />
-      <text x="272" y="210" className="fill-text-primary text-[13px] font-semibold">
+      <text x="272" y="210" className="fill-text-primary text-[14px] font-semibold">
         Ser du inte
       </text>
-      <text x="248" y="228" className="fill-text-secondary text-[13px]">
+      <text x="248" y="228" className="fill-text-secondary text-[14px]">
         kurvans insida skymmer
       </text>
       <Pointer x1={244} y1={208} x2={200} y2={214} />
 
       <Badge cx={256} cy={268} n="2" />
-      <text x="272" y="272" className="fill-text-primary text-[13px] font-semibold">
+      <text x="272" y="272" className="fill-text-primary text-[14px] font-semibold">
         Så långt ser du
       </text>
-      <text x="248" y="290" className="fill-text-secondary text-[13px]">
+      <text x="248" y="290" className="fill-text-secondary text-[14px]">
         av ditt eget körfält
       </text>
       <Pointer x1={244} y1={272} x2={178} y2={232} />
 
       <Badge cx={256} cy={340} n="3" />
-      <text x="272" y="344" className="fill-text-primary text-[13px] font-semibold">
+      <text x="272" y="344" className="fill-text-primary text-[14px] font-semibold">
         Placeringen
       </text>
-      <text x="248" y="362" className="fill-text-secondary text-[13px]">
+      <text x="248" y="362" className="fill-text-secondary text-[14px]">
         heldragen linje: mitt i
       </text>
-      <text x="248" y="378" className="fill-text-secondary text-[13px]">
+      <text x="248" y="378" className="fill-text-secondary text-[14px]">
         filen. Streckad: helt ute
       </text>
-      <text x="248" y="394" className="fill-text-secondary text-[13px]">
+      <text x="248" y="394" className="fill-text-secondary text-[14px]">
         i kanten — kortare sikt
       </text>
       <Pointer x1={244} y1={346} x2={136} y2={368} />
 
-      <text x="20" y="400" className="fill-text-primary text-[13px] font-semibold">
+      <text x="20" y="400" className="fill-text-primary text-[14px] font-semibold">
         Du
       </text>
       <line x1="42" y1="396" x2="106" y2="396" className="stroke-text-tertiary" strokeWidth="1.5" />
@@ -315,34 +315,34 @@ export function PlaceringIKurvaDiagram() {
 
       {/* Etiketter panel 2 */}
       <Badge cx={256} cy={506} n="1" />
-      <text x="272" y="510" className="fill-text-primary text-[13px] font-semibold">
+      <text x="272" y="510" className="fill-text-primary text-[14px] font-semibold">
         Sikten räcker
       </text>
-      <text x="248" y="528" className="fill-text-secondary text-[13px]">
+      <text x="248" y="528" className="fill-text-secondary text-[14px]">
         förbi hela den ritade
       </text>
-      <text x="248" y="544" className="fill-text-secondary text-[13px]">
+      <text x="248" y="544" className="fill-text-secondary text-[14px]">
         sträckan
       </text>
       <Pointer x1={244} y1={512} x2={160} y2={528} />
 
       <Badge cx={256} cy={574} n="2" />
-      <text x="272" y="578" className="fill-text-primary text-[13px] font-semibold">
+      <text x="272" y="578" className="fill-text-primary text-[14px] font-semibold">
         Bara en smal remsa
       </text>
-      <text x="248" y="596" className="fill-text-secondary text-[13px]">
+      <text x="248" y="596" className="fill-text-secondary text-[14px]">
         är dold här
       </text>
       <Pointer x1={244} y1={580} x2={122} y2={582} />
 
       <Badge cx={256} cy={706} n="3" />
-      <text x="272" y="710" className="fill-text-primary text-[13px] font-semibold">
+      <text x="272" y="710" className="fill-text-primary text-[14px] font-semibold">
         Du
       </text>
-      <text x="248" y="728" className="fill-text-secondary text-[13px]">
+      <text x="248" y="728" className="fill-text-secondary text-[14px]">
         samma körfält som ovan,
       </text>
-      <text x="248" y="744" className="fill-text-secondary text-[13px]">
+      <text x="248" y="744" className="fill-text-secondary text-[14px]">
         men nu på kurvans utsida
       </text>
       <Pointer x1={244} y1={710} x2={222} y2={714} />
@@ -352,16 +352,16 @@ export function PlaceringIKurvaDiagram() {
       <text x="240" y="792" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Ju längre från insidan du är, desto längre ser du.
       </text>
-      <text x="240" y="814" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="240" y="814" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Skillnaden mellan höger- och vänsterkurva är stor,
       </text>
-      <text x="240" y="830" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="240" y="830" textAnchor="middle" className="fill-text-secondary text-[14px]">
         skillnaden inom det egna körfältet liten men verklig.
       </text>
       <text x="240" y="854" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         Sänk farten före kurvan.
       </text>
-      <text x="240" y="872" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="240" y="872" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Du måste kunna stanna på den sträcka du ser.
       </text>
     </svg>

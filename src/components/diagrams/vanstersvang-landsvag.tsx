@@ -130,7 +130,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -293,7 +293,7 @@ export function VanstersvangLandsvagDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Vänstersväng på landsväg
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Vy uppifrån. Du kör uppåt i bilden och väntar.
       </text>
 
@@ -325,10 +325,10 @@ export function VanstersvangLandsvagDiagram() {
         <line x1="0" y1="276" x2="138" y2="276" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="10 10" />
 
         {/* Vägnamn — det enda som får ligga på vägbanan */}
-        <text x="175" y="548" textAnchor="middle" className="fill-diagram-marking text-[13px] font-semibold">
+        <text x="175" y="548" textAnchor="middle" className="fill-diagram-marking text-[14px] font-semibold">
           Landsväg
         </text>
-        <text x="12" y="300" className="fill-diagram-marking text-[13px] font-semibold">
+        <text x="12" y="300" className="fill-diagram-marking text-[14px] font-semibold">
           Mindre väg
         </text>
 
@@ -374,37 +374,37 @@ export function VanstersvangLandsvagDiagram() {
         <line x1="175" y1="104" x2="175" y2="176" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#vsv-arrow-other)" />
 
         <Callout x={24} y={64} n={1} />
-        <text x="40" y="69" className="fill-text-primary text-[13px] font-semibold">
+        <text x="40" y="69" className="fill-text-primary text-[14px] font-semibold">
           Mötande bil
         </text>
-        <text x="14" y="88" className="fill-text-secondary text-[13px]">
+        <text x="14" y="88" className="fill-text-secondary text-[14px]">
           i landsvägsfart
         </text>
-        <text x="14" y="104" className="fill-text-secondary text-[13px]">
+        <text x="14" y="104" className="fill-text-secondary text-[14px]">
           bedöm farten,
         </text>
-        <text x="14" y="120" className="fill-text-secondary text-[13px]">
+        <text x="14" y="120" className="fill-text-secondary text-[14px]">
           inte bara avståndet
         </text>
         <Pointer x1={100} y1={76} x2={158} y2={72} />
 
         {/* Titta förbi den mötande */}
-        <text x="264" y="196" className="fill-text-primary text-[13px] font-semibold">
+        <text x="264" y="196" className="fill-text-primary text-[14px] font-semibold">
           Titta förbi den:
         </text>
-        <text x="264" y="214" className="fill-text-secondary text-[13px]">
+        <text x="264" y="214" className="fill-text-secondary text-[14px]">
           bakom kan en
         </text>
-        <text x="264" y="230" className="fill-text-secondary text-[13px]">
+        <text x="264" y="230" className="fill-text-secondary text-[14px]">
           motorcykel ligga
         </text>
         <Pointer x1={262} y1={190} x2={198} y2={40} />
 
         {/* Svängen korsar mötande körfält */}
-        <text x="14" y="192" className="fill-text-primary text-[13px] font-semibold">
+        <text x="14" y="192" className="fill-text-primary text-[14px] font-semibold">
           Svängen korsar
         </text>
-        <text x="14" y="208" className="fill-text-primary text-[13px] font-semibold">
+        <text x="14" y="208" className="fill-text-primary text-[14px] font-semibold">
           mötande körfält
         </text>
         <Pointer x1={114} y1={202} x2={166} y2={250} />
@@ -435,17 +435,17 @@ export function VanstersvangLandsvagDiagram() {
         <text x="14" y="338" className="fill-text-primary text-[15px] font-semibold">
           Du
         </text>
-        <text x="14" y="356" className="fill-text-secondary text-[13px]">
+        <text x="14" y="356" className="fill-text-secondary text-[14px]">
           står stilla, väntar
         </text>
         <Pointer x1={114} y1={342} x2={202} y2={358} />
 
-        <text x="14" y="388" className="fill-text-primary text-[13px] font-semibold">
+        <text x="14" y="388" className="fill-text-primary text-[14px] font-semibold">
           Nära vägmitten
         </text>
         <Pointer x1={108} y1={384} x2={198} y2={378} />
 
-        <text x="14" y="424" className="fill-text-primary text-[13px] font-semibold">
+        <text x="14" y="424" className="fill-text-primary text-[14px] font-semibold">
           Blinkar vänster
         </text>
         <Pointer x1={114} y1={420} x2={204} y2={394} />
@@ -461,7 +461,7 @@ export function VanstersvangLandsvagDiagram() {
         <Pointer x1={262} y1={404} x2={236} y2={366} />
 
         {/* Vägrenen */}
-        <text x="272" y="550" className="fill-text-tertiary text-[13px]">
+        <text x="272" y="550" className="fill-text-tertiary text-[14px]">
           vägren
         </text>
         <Pointer x1={270} y1={546} x2={255} y2={546} />
@@ -471,13 +471,13 @@ export function VanstersvangLandsvagDiagram() {
         <line x1="225" y1="470" x2="225" y2="436" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#vsv-arrow-other)" />
 
         <Callout x={274} y={486} n={2} />
-        <text x="290" y="491" className="fill-text-primary text-[13px] font-semibold">
+        <text x="290" y="491" className="fill-text-primary text-[14px] font-semibold">
           Bakom dig
         </text>
-        <text x="264" y="510" className="fill-text-secondary text-[13px]">
+        <text x="264" y="510" className="fill-text-secondary text-[14px]">
           väntar sig ingen
         </text>
-        <text x="264" y="526" className="fill-text-secondary text-[13px]">
+        <text x="264" y="526" className="fill-text-secondary text-[14px]">
           inbromsning här
         </text>
         <Pointer x1={262} y1={496} x2={242} y2={496} />
@@ -487,75 +487,75 @@ export function VanstersvangLandsvagDiagram() {
       <text x="20" y="652" className="fill-text-primary text-[14px] font-semibold">
         Ingen uttrycklig väjningsplikt mot mötande.
       </text>
-      <text x="20" y="674" className="fill-text-secondary text-[13px]">
+      <text x="20" y="674" className="fill-text-secondary text-[14px]">
         Du ska förvissa dig om att svängen kan ske utan hinder
       </text>
-      <text x="20" y="690" className="fill-text-secondary text-[13px]">
+      <text x="20" y="690" className="fill-text-secondary text-[14px]">
         för mötande och för dem på körbanan du kör in på.
       </text>
 
-      <text x="20" y="720" className="fill-text-primary text-[13px] font-semibold">
+      <text x="20" y="720" className="fill-text-primary text-[14px] font-semibold">
         Avtömning
       </text>
-      <text x="20" y="738" className="fill-text-secondary text-[13px]">
+      <text x="20" y="738" className="fill-text-secondary text-[14px]">
         Ligger många bakom dig kan du dra ut på vägrenen och
       </text>
-      <text x="20" y="754" className="fill-text-secondary text-[13px]">
+      <text x="20" y="754" className="fill-text-secondary text-[14px]">
         släppa förbi dem. Svängen görs sedan från körbanans
       </text>
-      <text x="20" y="770" className="fill-text-secondary text-[13px]">
+      <text x="20" y="770" className="fill-text-secondary text-[14px]">
         mitt — aldrig från vägrenen.
       </text>
 
       {/* Mönsterförklaring */}
       <g>
         <rect x="30" y="792" width="22" height="14" rx="2" fill="url(#vsv-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="58" y="804" className="fill-text-tertiary text-[13px]">
+        <text x="58" y="804" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect x="120" y="792" width="22" height="14" rx="2" fill="url(#vsv-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="148" y="804" className="fill-text-tertiary text-[13px]">
+        <text x="148" y="804" className="fill-text-tertiary text-[14px]">
           Andra fordon
         </text>
         <rect x="252" y="792" width="22" height="14" rx="2" fill="url(#vsv-conflict)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="280" y="804" className="fill-text-tertiary text-[13px]">
+        <text x="280" y="804" className="fill-text-tertiary text-[14px]">
           Konfliktyta
         </text>
       </g>
 
       {/* Förklaringsruta: varför hjulen ska stå raka medan du väntar */}
       <rect x="20" y="826" width="360" height="252" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="850" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="850" className="fill-text-primary text-[14px] font-semibold">
         Om du blir påkörd bakifrån medan du väntar:
       </text>
       <line x1="200" y1="862" x2="200" y2="1068" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
-      <text x="86" y="866" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+      <text x="86" y="866" textAnchor="middle" className="fill-text-tertiary text-[14px]">
         mötande
       </text>
       <MiniVantan x={104} y={938} variant="raka" />
-      <text x="104" y="1006" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="104" y="1006" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Hjulen raka
       </text>
-      <text x="104" y="1022" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="104" y="1022" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bilen knuffas
       </text>
-      <text x="104" y="1038" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="104" y="1038" textAnchor="middle" className="fill-text-secondary text-[14px]">
         rakt fram
       </text>
       <Check x={104} y={1060} />
 
-      <text x="272" y="866" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+      <text x="272" y="866" textAnchor="middle" className="fill-text-tertiary text-[14px]">
         mötande
       </text>
       <MiniVantan x={290} y={938} variant="vridna" />
-      <text x="290" y="1006" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="1006" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Hjulen vridna
       </text>
-      <text x="290" y="1022" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="1022" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bilen knuffas ut i
       </text>
-      <text x="290" y="1038" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="1038" textAnchor="middle" className="fill-text-secondary text-[14px]">
         mötande körfält
       </text>
       <Cross x={290} y={1060} />

@@ -123,7 +123,7 @@ function Steg({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -245,14 +245,14 @@ export function FickparkeringDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Fickparkering i tre steg
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Teknik i tre steg — och regeln när du kör ut igen
       </text>
 
       {/* Teckenförklaring */}
       <g>
         <path d="M 20 76 L 48 76" className="stroke-attention-600" strokeWidth="3" markerEnd="url(#fp-arrow-you)" />
-        <text x="56" y="81" className="fill-text-secondary text-[13px]">
+        <text x="56" y="81" className="fill-text-secondary text-[14px]">
           Bakaxelns väg
         </text>
         <path
@@ -262,7 +262,7 @@ export function FickparkeringDiagram() {
           strokeDasharray="7 5"
           markerEnd="url(#fp-arrow-sweep)"
         />
-        <text x="204" y="81" className="fill-text-secondary text-[13px]">
+        <text x="204" y="81" className="fill-text-secondary text-[14px]">
           Framvagnens svep
         </text>
         <line
@@ -275,10 +275,10 @@ export function FickparkeringDiagram() {
           strokeLinecap="round"
           strokeDasharray="0.5 6"
         />
-        <text x="56" y="101" className="fill-text-secondary text-[13px]">
+        <text x="56" y="101" className="fill-text-secondary text-[14px]">
           Referenspunkt
         </text>
-        <text x="272" y="101" className="fill-text-secondary text-[13px]">
+        <text x="272" y="101" className="fill-text-secondary text-[14px]">
           Färdriktning
         </text>
         <line
@@ -297,10 +297,10 @@ export function FickparkeringDiagram() {
       <text x="50" y="133" className="fill-text-primary text-[14px] font-semibold">
         Ställ dig jämsides med bilen framför
       </text>
-      <text x="20" y="151" className="fill-text-secondary text-[13px]">
+      <text x="20" y="151" className="fill-text-secondary text-[14px]">
         Litet mellanrum. Referenspunkt: ditt bakhjul mitt
       </text>
-      <text x="20" y="169" className="fill-text-secondary text-[13px]">
+      <text x="20" y="169" className="fill-text-secondary text-[14px]">
         för den framförvarande bilens bakre hörn.
       </text>
       <g transform="translate(20 180)">
@@ -328,13 +328,13 @@ export function FickparkeringDiagram() {
       <text x="50" y="371" className="fill-text-primary text-[14px] font-semibold">
         Fullt utslag mot kanten och backa
       </text>
-      <text x="20" y="389" className="fill-text-secondary text-[13px]">
+      <text x="20" y="389" className="fill-text-secondary text-[14px]">
         Referenspunkt: den bakre bilens främre hörn
       </text>
-      <text x="20" y="407" className="fill-text-secondary text-[13px]">
+      <text x="20" y="407" className="fill-text-secondary text-[14px]">
         syns i vänster ytterspegel — lägg om ratten.
       </text>
-      <text x="20" y="425" className="fill-text-secondary text-[13px]">
+      <text x="20" y="425" className="fill-text-secondary text-[14px]">
         Framvagnen sveper samtidigt ut åt motsatt håll.
       </text>
       <g transform="translate(20 436)">
@@ -378,10 +378,10 @@ export function FickparkeringDiagram() {
       <text x="50" y="627" className="fill-text-primary text-[14px] font-semibold">
         Fullt motsatt utslag tills bilen står rakt
       </text>
-      <text x="20" y="645" className="fill-text-secondary text-[13px]">
+      <text x="20" y="645" className="fill-text-secondary text-[14px]">
         Krypfart hela vägen. Stanna om du
       </text>
-      <text x="20" y="663" className="fill-text-secondary text-[13px]">
+      <text x="20" y="663" className="fill-text-secondary text-[14px]">
         tappar överblicken.
       </text>
       <g transform="translate(20 674)">
@@ -405,10 +405,10 @@ export function FickparkeringDiagram() {
       <text x="200" y="874" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         den får ske endast utan fara eller onödigt hinder.
       </text>
-      <text x="200" y="898" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="898" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Vänta in en lucka du kan använda hela.
       </text>
-      <text x="200" y="916" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="916" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Sikten härifrån är sämre än när du körde in.
       </text>
 
@@ -424,7 +424,7 @@ export function FickparkeringDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="102" y="956" className="fill-text-tertiary text-[13px]">
+        <text x="102" y="956" className="fill-text-tertiary text-[14px]">
           Du (prickar)
         </text>
         <rect
@@ -437,32 +437,32 @@ export function FickparkeringDiagram() {
           className="stroke-primary-600"
           strokeWidth="1.5"
         />
-        <text x="240" y="956" className="fill-text-tertiary text-[13px]">
+        <text x="240" y="956" className="fill-text-tertiary text-[14px]">
           Andra fordon
         </text>
       </g>
 
       {/* Förklaringsruta: kravet utan fara eller onödigt hinder när du lämnar platsen */}
       <rect x="20" y="968" width="360" height="180" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="992" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="992" className="fill-text-primary text-[14px] font-semibold">
         När ett fordon närmar sig medan du ska ut:
       </text>
       <line x1="200" y1="1006" x2="200" y2="1140" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniUtfart x={35} y={990} variant="vantar" />
-      <text x="110" y="1086" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="110" y="1086" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du väntar
       </text>
-      <text x="110" y="1102" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="110" y="1102" textAnchor="middle" className="fill-text-secondary text-[14px]">
         det passerar först
       </text>
       <Check x={110} y={1122} />
 
       <MiniUtfart x={215} y={990} variant="kor-ut" />
-      <text x="290" y="1086" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="1086" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du kör ut framför det
       </text>
-      <text x="290" y="1102" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="1102" textAnchor="middle" className="fill-text-secondary text-[14px]">
         det måste bromsa för dig
       </text>
       <Cross x={290} y={1122} />

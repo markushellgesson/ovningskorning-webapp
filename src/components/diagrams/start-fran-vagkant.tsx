@@ -104,7 +104,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -236,7 +236,7 @@ export function StartFranVagkantDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Start från vägkant
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Spegel, tecken, axelblick — innan bilen rör sig
       </text>
 
@@ -312,7 +312,7 @@ export function StartFranVagkantDiagram() {
         <text x="38" y="257" className="fill-text-primary text-[14px] font-semibold">
           Spegel
         </text>
-        <text x="10" y="275" className="fill-text-secondary text-[13px]">
+        <text x="10" y="275" className="fill-text-secondary text-[14px]">
           först av allt
         </text>
         <Pekare x1={112} y1={252} x2={202} y2={263} />
@@ -322,10 +322,10 @@ export function StartFranVagkantDiagram() {
         <text x="38" y="309" className="fill-text-primary text-[14px] font-semibold">
           Tecken
         </text>
-        <text x="10" y="327" className="fill-text-secondary text-[13px]">
+        <text x="10" y="327" className="fill-text-secondary text-[14px]">
           i god tid, före
         </text>
-        <text x="10" y="345" className="fill-text-secondary text-[13px]">
+        <text x="10" y="345" className="fill-text-secondary text-[14px]">
           rörelsen
         </text>
         <Pekare x1={100} y1={310} x2={196} y2={299} />
@@ -335,37 +335,37 @@ export function StartFranVagkantDiagram() {
         <text x="38" y="397" className="fill-text-primary text-[14px] font-semibold">
           Axelblick
         </text>
-        <text x="10" y="415" className="fill-text-secondary text-[13px]">
+        <text x="10" y="415" className="fill-text-secondary text-[14px]">
           åt vänster — det
         </text>
-        <text x="10" y="433" className="fill-text-secondary text-[13px]">
+        <text x="10" y="433" className="fill-text-secondary text-[14px]">
           spegeln missar
         </text>
         <Pekare x1={112} y1={408} x2={178} y2={342} />
 
         {/* Cyklisten */}
-        <text x="252" y="340" className="fill-text-primary text-[13px] font-semibold">
+        <text x="252" y="340" className="fill-text-primary text-[14px] font-semibold">
           Cyklist närmast
         </text>
-        <text x="252" y="358" className="fill-text-secondary text-[13px]">
+        <text x="252" y="358" className="fill-text-secondary text-[14px]">
           kanten, svänger
         </text>
-        <text x="252" y="376" className="fill-text-secondary text-[13px]">
+        <text x="252" y="376" className="fill-text-secondary text-[14px]">
           ut för att passera
         </text>
         <Pekare x1={248} y1={346} x2={206} y2={352} />
 
         {/* Döda vinkeln */}
-        <text x="252" y="424" className="fill-text-primary text-[13px] font-semibold">
+        <text x="252" y="424" className="fill-text-primary text-[14px] font-semibold">
           Döda vinkeln
         </text>
-        <text x="252" y="442" className="fill-text-secondary text-[13px]">
+        <text x="252" y="442" className="fill-text-secondary text-[14px]">
           utanför spegeln
         </text>
         <Pekare x1={248} y1={430} x2={196} y2={370} />
 
         {/* Fordonet bakifrån */}
-        <text x="252" y="480" className="fill-text-primary text-[13px] font-semibold">
+        <text x="252" y="480" className="fill-text-primary text-[14px] font-semibold">
           Fordon bakifrån
         </text>
         <Pekare x1={248} y1={476} x2={223} y2={440} />
@@ -380,11 +380,11 @@ export function StartFranVagkantDiagram() {
           strokeDasharray="8 6"
           markerEnd="url(#sv-arrow-you)"
         />
-        <text x="60" y="579" className="fill-text-secondary text-[13px]">
+        <text x="60" y="579" className="fill-text-secondary text-[14px]">
           Din planerade väg
         </text>
         <path d="M 210 574 L 238 574" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#sv-arrow-other)" />
-        <text x="246" y="579" className="fill-text-secondary text-[13px]">
+        <text x="246" y="579" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
         <line
@@ -397,7 +397,7 @@ export function StartFranVagkantDiagram() {
           strokeLinecap="round"
           strokeDasharray="0.5 6"
         />
-        <text x="60" y="603" className="fill-text-secondary text-[13px]">
+        <text x="60" y="603" className="fill-text-secondary text-[14px]">
           Axelblick
         </text>
         <rect
@@ -409,7 +409,7 @@ export function StartFranVagkantDiagram() {
           className="stroke-text-tertiary"
           strokeWidth="1.5"
         />
-        <text x="246" y="603" className="fill-text-secondary text-[13px]">
+        <text x="246" y="603" className="fill-text-secondary text-[14px]">
           Syns inte i spegeln
         </text>
       </g>
@@ -424,13 +424,13 @@ export function StartFranVagkantDiagram() {
       <text x="200" y="678" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         onödigt hinder för andra.
       </text>
-      <text x="200" y="702" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="702" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Tecknet befriar dig inte från att försäkra dig.
       </text>
-      <text x="200" y="720" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="720" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Vänta in en lucka du kan använda hela,
       </text>
-      <text x="200" y="738" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="738" textAnchor="middle" className="fill-text-secondary text-[14px]">
         och kör sedan ut bestämt.
       </text>
 
@@ -446,7 +446,7 @@ export function StartFranVagkantDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="70" y="778" className="fill-text-tertiary text-[13px]">
+        <text x="70" y="778" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect
@@ -459,7 +459,7 @@ export function StartFranVagkantDiagram() {
           className="stroke-primary-600"
           strokeWidth="1.5"
         />
-        <text x="140" y="778" className="fill-text-tertiary text-[13px]">
+        <text x="140" y="778" className="fill-text-tertiary text-[14px]">
           Andra fordon
         </text>
         <rect
@@ -472,37 +472,37 @@ export function StartFranVagkantDiagram() {
           className="stroke-safety-600"
           strokeWidth="1.5"
         />
-        <text x="276" y="778" className="fill-text-tertiary text-[13px]">
+        <text x="276" y="778" className="fill-text-tertiary text-[14px]">
           Cyklist
         </text>
       </g>
 
       {/* Förklaringsruta: gränsen mot utfart från parkeringsplats */}
       <rect x="20" y="800" width="360" height="214" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="824" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="824" className="fill-text-primary text-[14px] font-semibold">
         Två utfarter — två olika regler:
       </text>
       <line x1="200" y1="838" x2="200" y2="1006" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniUtfart x={78} y={844} variant="vagkant" />
-      <text x="110" y="958" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="110" y="958" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Från vägkanten
       </text>
-      <text x="110" y="976" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="110" y="976" textAnchor="middle" className="fill-text-secondary text-[14px]">
         endast utan fara
       </text>
-      <text x="110" y="994" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="110" y="994" textAnchor="middle" className="fill-text-secondary text-[14px]">
         eller onödigt hinder
       </text>
 
       <MiniUtfart x={245} y={844} variant="parkering" />
-      <text x="290" y="958" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="958" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Från parkeringsplats
       </text>
-      <text x="290" y="976" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="976" textAnchor="middle" className="fill-text-secondary text-[14px]">
         eller fastighet:
       </text>
-      <text x="290" y="994" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="994" textAnchor="middle" className="fill-text-secondary text-[14px]">
         du har väjningsplikt
       </text>
     </svg>

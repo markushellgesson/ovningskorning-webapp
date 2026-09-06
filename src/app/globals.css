@@ -59,12 +59,21 @@
   --safety-700: #b91c1c;
   --safety-800: #991b1b;
 
-  --progress-50: #f0fdf4;
-  --progress-100: #dcfce7;
-  --progress-200: #bbf7d0;
-  --progress-600: #16a34a;
-  --progress-700: #15803d;
-  --progress-800: #166534;
+  /* Framsteg — övningskörningsskyltens gröna.
+   *
+   * Skylten är reglerad i TSFS 2010:81: vit versaltext på grön botten, och
+   * grönt betyder just PRIVAT övningskörning (trafikskolor kör med röd).
+   * Appen har ingen annan egen kulör, så den gröna som redan betyder något
+   * får vara den som betyder framsteg. 600 är skyltens #00843d rakt av;
+   * de ljusa stegen är samma kulör utspädd mot vitt, 700 och 800 samma
+   * kulör mörkare. Uppmätt: 800 på 100 ger 7,7:1 (text), 600 på vitt 4,8:1
+   * och på --diagram-road 3,3:1 (grafik, krav 3:1). */
+  --progress-50: #eaf5ee;
+  --progress-100: #dbeee3;
+  --progress-200: #b6dcc6;
+  --progress-600: #00843d;
+  --progress-700: #006b32;
+  --progress-800: #00522a;
 
   /* Ytfärger */
   --surface-base: #ffffff;
@@ -150,8 +159,19 @@
     --neutral-900: #ece8e2;
     --neutral-950: #f8f6f3;
 
-    /* Primärfärg justerad för mörkt läge */
-    --primary-50: #161d28;
+    /* Primärfärg justerad för mörkt läge.
+     *
+     * --primary-50 målas inte längre på någon yta: de blå länkkorten
+     * (förkunskaper, delmoment) blev --surface-raised med en ram som får
+     * primärfärg vid hover och tryck — samma tyngd som alla andra kort, och
+     * länkskapet ligger i ramen i stället för i en egen kulör. Den vägen
+     * valdes framför att värma kulören, eftersom en blå yta i en varm
+     * palett skulle sticka ut hur mycket den än värms: det är kontrasten
+     * mot omgivningen som läser kallt, inte tonen i sig. Token står kvar
+     * för framtida bruk, men på neutralernas varma axel så att den inte
+     * ligger som en fälla — den gamla #161d28 var den enda kalla ytan i
+     * hela mörka paletten. */
+    --primary-50: #1b1f25;
     --primary-100: #1f2836;
     --primary-200: #33415a;
     --primary-300: #4a5a70;
@@ -176,10 +196,13 @@
     --safety-700: #f7aba4;
     --safety-800: #fbd0cb;
 
-    --progress-50: #0b2b17;
-    --progress-100: #14411f;
-    --progress-200: #1d5a2c;
-    --progress-600: #5fc97e;
+    /* Skyltgrönt lyft till mörkt läge: samma nyans, ljusare så att streck
+     * och bockar bär mot mörka ytor. Uppmätt: 800 på 100 ger 9,5:1, 600
+     * på --surface-raised 7,2:1 och på --diagram-road 5,6:1. */
+    --progress-50: #0e2a1a;
+    --progress-100: #153d25;
+    --progress-200: #1e5533;
+    --progress-600: #55c07b;
     --progress-700: #8fdda6;
     --progress-800: #c2eecf;
 

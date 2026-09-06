@@ -100,7 +100,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -289,7 +289,7 @@ export function MoteSmalVagDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Möte vid hinder på smal väg
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Vem som ska stanna — och att det är villkorat
       </text>
 
@@ -332,10 +332,10 @@ export function MoteSmalVagDiagram() {
       {/* 1. Hindret står på din sida */}
       <g>
         <Callout x={296} y={166} n={1} />
-        <text x="312" y="171" className="fill-text-primary text-[13px] font-semibold">
+        <text x="312" y="171" className="fill-text-primary text-[14px] font-semibold">
           Hindret
         </text>
-        <text x="284" y="191" className="fill-text-secondary text-[13px]">
+        <text x="284" y="191" className="fill-text-secondary text-[14px]">
           står på din sida
         </text>
         <Pointer x1={290} y1={182} x2={261} y2={190} />
@@ -343,10 +343,10 @@ export function MoteSmalVagDiagram() {
 
       {/* Etikett: den mötande */}
       <g>
-        <text x="284" y="112" className="fill-text-primary text-[13px] font-semibold">
+        <text x="284" y="112" className="fill-text-primary text-[14px] font-semibold">
           Mötande
         </text>
-        <text x="284" y="130" className="fill-text-secondary text-[13px]">
+        <text x="284" y="130" className="fill-text-secondary text-[14px]">
           kommer emot
         </text>
         <Pointer x1={280} y1={122} x2={212} y2={122} />
@@ -354,13 +354,13 @@ export function MoteSmalVagDiagram() {
 
       {/* Etikett: vägen förbi hindret */}
       <g>
-        <text x="16" y="246" className="fill-text-primary text-[13px] font-semibold">
+        <text x="16" y="246" className="fill-text-primary text-[14px] font-semibold">
           Din väg förbi
         </text>
-        <text x="16" y="264" className="fill-text-secondary text-[13px]">
+        <text x="16" y="264" className="fill-text-secondary text-[14px]">
           går ut på den
         </text>
-        <text x="16" y="282" className="fill-text-secondary text-[13px]">
+        <text x="16" y="282" className="fill-text-secondary text-[14px]">
           mötandes halva
         </text>
         <Pointer x1={130} y1={264} x2={191} y2={258} />
@@ -369,16 +369,16 @@ export function MoteSmalVagDiagram() {
       {/* 2. Du stannar om det behövs */}
       <g>
         <Callout x={26} y={320} n={2} />
-        <text x="42" y="325" className="fill-text-primary text-[13px] font-semibold">
+        <text x="42" y="325" className="fill-text-primary text-[14px] font-semibold">
           Du stannar
         </text>
-        <text x="16" y="345" className="fill-text-secondary text-[13px]">
+        <text x="16" y="345" className="fill-text-secondary text-[14px]">
           om det behövs för
         </text>
-        <text x="16" y="363" className="fill-text-secondary text-[13px]">
+        <text x="16" y="363" className="fill-text-secondary text-[14px]">
           att den mötande
         </text>
-        <text x="16" y="381" className="fill-text-secondary text-[13px]">
+        <text x="16" y="381" className="fill-text-secondary text-[14px]">
           ska komma förbi
         </text>
         <Pointer x1={120} y1={330} x2={228} y2={324} />
@@ -387,7 +387,7 @@ export function MoteSmalVagDiagram() {
       {/* Teckenförklaring i högermarginalen, mellan fallen */}
       <g>
         <path d="M 284 244 L 310 244" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#met-arrow-other)" />
-        <text x="318" y="249" className="fill-text-secondary text-[13px]">
+        <text x="318" y="249" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
         <path
@@ -397,14 +397,14 @@ export function MoteSmalVagDiagram() {
           strokeDasharray="8 6"
           markerEnd="url(#met-arrow-plan)"
         />
-        <text x="318" y="271" className="fill-text-secondary text-[13px]">
+        <text x="318" y="271" className="fill-text-secondary text-[14px]">
           Väg förbi
         </text>
         <g className="fill-safety-600">
           <rect x="286" y="284" width="8" height="4" />
           <rect x="300" y="284" width="8" height="4" />
         </g>
-        <text x="318" y="291" className="fill-text-secondary text-[13px]">
+        <text x="318" y="291" className="fill-text-secondary text-[14px]">
           Bromsljus
         </text>
         <line
@@ -416,7 +416,7 @@ export function MoteSmalVagDiagram() {
           strokeWidth="1.5"
           strokeDasharray="10 8"
         />
-        <text x="318" y="317" className="fill-text-secondary text-[13px]">
+        <text x="318" y="317" className="fill-text-secondary text-[14px]">
           Vägens mitt
         </text>
       </g>
@@ -445,10 +445,10 @@ export function MoteSmalVagDiagram() {
 
       {/* Etikett: den mötande har stannat */}
       <g>
-        <text x="16" y="458" className="fill-text-primary text-[13px] font-semibold">
+        <text x="16" y="458" className="fill-text-primary text-[14px] font-semibold">
           Den mötande
         </text>
-        <text x="16" y="476" className="fill-text-secondary text-[13px]">
+        <text x="16" y="476" className="fill-text-secondary text-[14px]">
           har stannat
         </text>
         <Pointer x1={120} y1={470} x2={184} y2={476} />
@@ -457,16 +457,16 @@ export function MoteSmalVagDiagram() {
       {/* 3. Hindret på den mötandes sida */}
       <g>
         <Callout x={26} y={556} n={3} />
-        <text x="42" y="561" className="fill-text-primary text-[13px] font-semibold">
+        <text x="42" y="561" className="fill-text-primary text-[14px] font-semibold">
           Hindret är på
         </text>
-        <text x="16" y="581" className="fill-text-secondary text-[13px]">
+        <text x="16" y="581" className="fill-text-secondary text-[14px]">
           den mötandes sida
         </text>
-        <text x="16" y="599" className="fill-text-secondary text-[13px]">
+        <text x="16" y="599" className="fill-text-secondary text-[14px]">
           då är det den som
         </text>
-        <text x="16" y="617" className="fill-text-secondary text-[13px]">
+        <text x="16" y="617" className="fill-text-secondary text-[14px]">
           stannar om det behövs
         </text>
         <Pointer x1={134} y1={568} x2={180} y2={556} />
@@ -474,16 +474,16 @@ export function MoteSmalVagDiagram() {
 
       {/* Etikett: eleven i fall 2 */}
       <g>
-        <text x="284" y="660" className="fill-text-primary text-[13px] font-semibold">
+        <text x="284" y="660" className="fill-text-primary text-[14px] font-semibold">
           Du
         </text>
-        <text x="284" y="678" className="fill-text-secondary text-[13px]">
+        <text x="284" y="678" className="fill-text-secondary text-[14px]">
           håller till höger
         </text>
-        <text x="284" y="696" className="fill-text-secondary text-[13px]">
+        <text x="284" y="696" className="fill-text-secondary text-[14px]">
           och är beredd att
         </text>
-        <text x="284" y="714" className="fill-text-secondary text-[13px]">
+        <text x="284" y="714" className="fill-text-secondary text-[14px]">
           stanna ändå
         </text>
         <Pointer x1={280} y1={670} x2={256} y2={674} />
@@ -496,13 +496,13 @@ export function MoteSmalVagDiagram() {
       <text x="220" y="782" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         om det behövs för att den mötande ska komma förbi.
       </text>
-      <text x="220" y="806" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="806" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Villkoret är avgörande: plikten att stanna gäller när utrymmet
       </text>
-      <text x="220" y="824" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="824" textAnchor="middle" className="fill-text-secondary text-[14px]">
         inte räcker. Sänk farten i god tid, håll till höger och lämna
       </text>
-      <text x="220" y="842" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="842" textAnchor="middle" className="fill-text-secondary text-[14px]">
         avstånd i sidled. Stanna där den mötande ser dig.
       </text>
 
@@ -528,25 +528,25 @@ export function MoteSmalVagDiagram() {
 
       {/* Förklaringsruta: fall 1, med och utan stopp */}
       <rect x="20" y="898" width="400" height="212" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="922" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="922" className="fill-text-primary text-[14px] font-semibold">
         När hindret är på din sida:
       </text>
       <line x1="220" y1="938" x2="220" y2="1098" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniMote x={118} y={994} variant="du-stannar" />
-      <text x="118" y="1060" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="118" y="1060" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du stannar först
       </text>
-      <text x="118" y="1076" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="118" y="1076" textAnchor="middle" className="fill-text-secondary text-[14px]">
         den mötande kommer förbi
       </text>
       <Check x={118} y={1096} />
 
       <MiniMote x={322} y={994} variant="ni-mots" />
-      <text x="322" y="1060" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="322" y="1060" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Ni möts vid hindret
       </text>
-      <text x="322" y="1076" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="322" y="1076" textAnchor="middle" className="fill-text-secondary text-[14px]">
         ingen kommer förbi
       </text>
       <Cross x={322} y={1096} />

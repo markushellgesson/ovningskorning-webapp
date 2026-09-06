@@ -93,7 +93,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -228,7 +228,7 @@ export function AvfartMotorvagDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Avfart från motorväg
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Farten tas ned i retardationsfältet
       </text>
 
@@ -257,7 +257,7 @@ export function AvfartMotorvagDiagram() {
       {/* Teckenförklaring i vänstermarginalen */}
       <g>
         <path d="M 14 104 L 40 104" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#exit-arrow-other)" />
-        <text x="48" y="109" className="fill-text-secondary text-[13px]">
+        <text x="48" y="109" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
         <path
@@ -267,7 +267,7 @@ export function AvfartMotorvagDiagram() {
           strokeDasharray="8 6"
           markerEnd="url(#exit-arrow-plan)"
         />
-        <text x="48" y="131" className="fill-text-secondary text-[13px]">
+        <text x="48" y="131" className="fill-text-secondary text-[14px]">
           Din väg
         </text>
         <g className="stroke-primary-600" strokeWidth="2.5" strokeLinecap="round">
@@ -275,14 +275,14 @@ export function AvfartMotorvagDiagram() {
           <line x1="25" y1="144" x2="25" y2="160" />
           <line x1="34" y1="146" x2="34" y2="158" />
         </g>
-        <text x="48" y="157" className="fill-text-secondary text-[13px]">
+        <text x="48" y="157" className="fill-text-secondary text-[14px]">
           Hög fart
         </text>
         <g className="fill-safety-600">
           <rect x="16" y="176" width="8" height="4" />
           <rect x="30" y="176" width="8" height="4" />
         </g>
-        <text x="48" y="183" className="fill-text-secondary text-[13px]">
+        <text x="48" y="183" className="fill-text-secondary text-[14px]">
           Bromsljus
         </text>
       </g>
@@ -321,10 +321,10 @@ export function AvfartMotorvagDiagram() {
       {/* 1. Behåll farten fram till fältet */}
       <g>
         <Callout x={26} y={452} n={1} />
-        <text x="42" y="457" className="fill-text-primary text-[13px] font-semibold">
+        <text x="42" y="457" className="fill-text-primary text-[14px] font-semibold">
           Behåll farten
         </text>
-        <text x="16" y="477" className="fill-text-secondary text-[13px]">
+        <text x="16" y="477" className="fill-text-secondary text-[14px]">
           fram till fältet
         </text>
         <Pointer x1={104} y1={466} x2={202} y2={470} />
@@ -333,13 +333,13 @@ export function AvfartMotorvagDiagram() {
       {/* 2. Bromsa i retardationsfältet */}
       <g>
         <Callout x={318} y={400} n={2} />
-        <text x="334" y="405" className="fill-text-primary text-[13px] font-semibold">
+        <text x="334" y="405" className="fill-text-primary text-[14px] font-semibold">
           Bromsa här
         </text>
-        <text x="302" y="425" className="fill-text-secondary text-[13px]">
+        <text x="302" y="425" className="fill-text-secondary text-[14px]">
           först när hela bilen
         </text>
-        <text x="302" y="443" className="fill-text-secondary text-[13px]">
+        <text x="302" y="443" className="fill-text-secondary text-[14px]">
           är i fältet
         </text>
         <Pointer x1={310} y1={389} x2={285} y2={350} />
@@ -348,13 +348,13 @@ export function AvfartMotorvagDiagram() {
       {/* 3. Avfartskurvan */}
       <g>
         <Callout x={306} y={104} n={3} />
-        <text x="322" y="109" className="fill-text-primary text-[13px] font-semibold">
+        <text x="322" y="109" className="fill-text-primary text-[14px] font-semibold">
           Avfartskurvan
         </text>
-        <text x="298" y="129" className="fill-text-secondary text-[13px]">
+        <text x="298" y="129" className="fill-text-secondary text-[14px]">
           farten nere innan
         </text>
-        <text x="298" y="147" className="fill-text-secondary text-[13px]">
+        <text x="298" y="147" className="fill-text-secondary text-[14px]">
           kurvan börjar
         </text>
         <Pointer x1={330} y1={158} x2={352} y2={193} />
@@ -362,10 +362,10 @@ export function AvfartMotorvagDiagram() {
 
       {/* Etikett: retardationsfältet börjar vid kilen */}
       <g>
-        <text x="302" y="490" className="fill-text-primary text-[13px] font-semibold">
+        <text x="302" y="490" className="fill-text-primary text-[14px] font-semibold">
           Retardationsfältet
         </text>
-        <text x="302" y="508" className="fill-text-secondary text-[13px]">
+        <text x="302" y="508" className="fill-text-secondary text-[14px]">
           börjar vid kilen
         </text>
         <Pointer x1={300} y1={498} x2={253} y2={459} />
@@ -373,10 +373,10 @@ export function AvfartMotorvagDiagram() {
 
       {/* Etikett: trafiken bakom */}
       <g>
-        <text x="16" y="536" className="fill-text-primary text-[13px] font-semibold">
+        <text x="16" y="536" className="fill-text-primary text-[14px] font-semibold">
           Trafiken bakom
         </text>
-        <text x="16" y="554" className="fill-text-secondary text-[13px]">
+        <text x="16" y="554" className="fill-text-secondary text-[14px]">
           ligger tätt
         </text>
         <Pointer x1={110} y1={546} x2={202} y2={542} />
@@ -389,46 +389,46 @@ export function AvfartMotorvagDiagram() {
       <text x="220" y="672" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         inte i det genomgående körfältet.
       </text>
-      <text x="220" y="696" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="696" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Det är körteknik, inte en regel: trafiken bakom ligger tätt och
       </text>
-      <text x="220" y="714" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="714" textAnchor="middle" className="fill-text-secondary text-[14px]">
         räknar med att du håller farten fram till fältet. Ha farten nere
       </text>
-      <text x="220" y="732" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="732" textAnchor="middle" className="fill-text-secondary text-[14px]">
         innan avfartskurvan börjar.
       </text>
 
       {/* Notis: avstånden ryms inte skalenligt */}
-      <text x="220" y="756" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+      <text x="220" y="756" textAnchor="middle" className="fill-text-tertiary text-[14px]">
         Avstånden mellan fordonen är förkortade för att rymmas i bilden.
       </text>
 
       {/* Mönsterförklaring */}
       <g>
         <rect x="46" y="778" width="22" height="14" rx="2" fill="url(#exit-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="74" y="790" className="fill-text-tertiary text-[13px]">
+        <text x="74" y="790" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect x="118" y="778" width="22" height="14" rx="2" fill="url(#exit-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="146" y="790" className="fill-text-tertiary text-[13px]">
+        <text x="146" y="790" className="fill-text-tertiary text-[14px]">
           Annan trafik
         </text>
         <rect x="248" y="778" width="22" height="14" rx="2" fill="url(#exit-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="276" y="790" className="fill-text-tertiary text-[13px]">
+        <text x="276" y="790" className="fill-text-tertiary text-[14px]">
           Konflikt
         </text>
       </g>
 
       {/* Förklaringsruta: var farten tas ned */}
       <rect x="20" y="812" width="400" height="200" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="836" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="836" className="fill-text-primary text-[14px] font-semibold">
         Var du bromsar ned:
       </text>
       <line x1="220" y1="852" x2="220" y2="1000" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniAvfart x={118} y={908} variant="i-faltet" />
-      <text x="118" y="962" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="118" y="962" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         I retardationsfältet
       </text>
       <text x="118" y="978" textAnchor="middle" className="fill-text-secondary text-[13px]">
@@ -437,7 +437,7 @@ export function AvfartMotorvagDiagram() {
       <Check x={118} y={996} />
 
       <MiniAvfart x={322} y={908} variant="i-korfaltet" />
-      <text x="322" y="962" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="322" y="962" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         I körfältet
       </text>
       <text x="322" y="978" textAnchor="middle" className="fill-text-secondary text-[13px]">

@@ -57,6 +57,8 @@ interface PageHeaderProps {
   back?: { href: string; label: string };
   /** Kort etikett ovanför rubriken, t.ex. "Steg 3 av 15". */
   eyebrow?: string;
+  /** Mastodon ovanför rubriken — startsidans skylt. */
+  mast?: ReactNode;
   title: string;
   /** Ingressen — en rad eller två, aldrig löpande text. */
   lead?: ReactNode;
@@ -80,6 +82,7 @@ interface PageHeaderProps {
 export function PageHeader({
   back,
   eyebrow,
+  mast,
   title,
   lead,
   display = false,
@@ -88,6 +91,7 @@ export function PageHeader({
   return (
     <header className={`space-y-3 ${back ? '' : 'pt-6 sm:pt-10'}`}>
       {back && <BackLink href={back.href}>{back.label}</BackLink>}
+      {mast && <div className="pb-1">{mast}</div>}
       {eyebrow && (
         <p className="text-sm font-semibold tracking-wide text-text-tertiary uppercase">
           {eyebrow}

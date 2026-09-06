@@ -92,7 +92,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -246,7 +246,7 @@ export function AccelerationsfaltDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Påfart med accelerationsfält
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Farten, luckan och infogningen
       </text>
 
@@ -282,7 +282,7 @@ export function AccelerationsfaltDiagram() {
       {/* Teckenförklaring i högermarginalen, ovanför scenen */}
       <g>
         <path d="M 300 104 L 326 104" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#acc-arrow-other)" />
-        <text x="334" y="109" className="fill-text-secondary text-[13px]">
+        <text x="334" y="109" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
         <path
@@ -292,7 +292,7 @@ export function AccelerationsfaltDiagram() {
           strokeDasharray="8 6"
           markerEnd="url(#acc-arrow-plan)"
         />
-        <text x="334" y="131" className="fill-text-secondary text-[13px]">
+        <text x="334" y="131" className="fill-text-secondary text-[14px]">
           Din väg in
         </text>
         <g className="stroke-primary-600" strokeWidth="2.5" strokeLinecap="round">
@@ -300,7 +300,7 @@ export function AccelerationsfaltDiagram() {
           <line x1="311" y1="144" x2="311" y2="160" />
           <line x1="320" y1="146" x2="320" y2="158" />
         </g>
-        <text x="334" y="157" className="fill-text-secondary text-[13px]">
+        <text x="334" y="157" className="fill-text-secondary text-[14px]">
           Hög fart
         </text>
         <g className="stroke-progress-600" strokeWidth="2.5">
@@ -308,17 +308,17 @@ export function AccelerationsfaltDiagram() {
           <line x1="303" y1="174" x2="319" y2="174" />
           <line x1="303" y1="192" x2="319" y2="192" />
         </g>
-        <text x="334" y="188" className="fill-text-secondary text-[13px]">
+        <text x="334" y="188" className="fill-text-secondary text-[14px]">
           Luckan
         </text>
       </g>
 
       {/* Etikett: de genomgående körfälten */}
       <g>
-        <text x="16" y="112" className="fill-text-primary text-[13px] font-semibold">
+        <text x="16" y="112" className="fill-text-primary text-[14px] font-semibold">
           Genomgående
         </text>
-        <text x="16" y="130" className="fill-text-secondary text-[13px]">
+        <text x="16" y="130" className="fill-text-secondary text-[14px]">
           körfält
         </text>
         <Pointer x1={100} y1={122} x2={166} y2={124} />
@@ -362,10 +362,10 @@ export function AccelerationsfaltDiagram() {
         <text x="338" y="457" className="fill-text-primary text-[14px] font-semibold">
           Du
         </text>
-        <text x="306" y="477" className="fill-text-secondary text-[13px]">
+        <text x="306" y="477" className="fill-text-secondary text-[14px]">
           matcha farten
         </text>
-        <text x="306" y="495" className="fill-text-secondary text-[13px]">
+        <text x="306" y="495" className="fill-text-secondary text-[14px]">
           med körfältet
         </text>
         <Pointer x1={312} y1={441} x2={288} y2={432} />
@@ -374,13 +374,13 @@ export function AccelerationsfaltDiagram() {
       {/* 2. Luckan */}
       <g>
         <Callout x={26} y={372} n={2} />
-        <text x="42" y="377" className="fill-text-primary text-[13px] font-semibold">
+        <text x="42" y="377" className="fill-text-primary text-[14px] font-semibold">
           Luckan
         </text>
-        <text x="16" y="397" className="fill-text-secondary text-[13px]">
+        <text x="16" y="397" className="fill-text-secondary text-[14px]">
           välj den innan
         </text>
-        <text x="16" y="415" className="fill-text-secondary text-[13px]">
+        <text x="16" y="415" className="fill-text-secondary text-[14px]">
           fältet tar slut
         </text>
         <Pointer x1={104} y1={386} x2={197} y2={378} />
@@ -389,13 +389,13 @@ export function AccelerationsfaltDiagram() {
       {/* 3. Fältets slut */}
       <g>
         <Callout x={306} y={206} n={3} />
-        <text x="322" y="211" className="fill-text-primary text-[13px] font-semibold">
+        <text x="322" y="211" className="fill-text-primary text-[14px] font-semibold">
           Fältets slut
         </text>
-        <text x="298" y="231" className="fill-text-secondary text-[13px]">
+        <text x="298" y="231" className="fill-text-secondary text-[14px]">
           här finns ingen
         </text>
-        <text x="298" y="249" className="fill-text-secondary text-[13px]">
+        <text x="298" y="249" className="fill-text-secondary text-[14px]">
           plats att vänta på
         </text>
         <Pointer x1={302} y1={262} x2={268} y2={298} />
@@ -403,10 +403,10 @@ export function AccelerationsfaltDiagram() {
 
       {/* Etikett: påfartsrampen */}
       <g>
-        <text x="16" y="586" className="fill-text-primary text-[13px] font-semibold">
+        <text x="16" y="586" className="fill-text-primary text-[14px] font-semibold">
           Påfartsrampen
         </text>
-        <text x="16" y="604" className="fill-text-secondary text-[13px]">
+        <text x="16" y="604" className="fill-text-secondary text-[14px]">
           du kommer härifrån
         </text>
         <Pointer x1={152} y1={596} x2={284} y2={594} />
@@ -419,55 +419,55 @@ export function AccelerationsfaltDiagram() {
       <text x="220" y="672" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         redan i accelerationsfältet.
       </text>
-      <text x="220" y="696" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="696" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Välj luckan i god tid: spegel, tecken, axelblick — och väv in
       </text>
-      <text x="220" y="714" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="220" y="714" textAnchor="middle" className="fill-text-secondary text-[14px]">
         mjukt. Tvinga dig inte in, och bli inte stående i fältets slut.
       </text>
 
       {/* Notis: avstånden ryms inte skalenligt */}
-      <text x="220" y="736" textAnchor="middle" className="fill-text-tertiary text-[13px]">
+      <text x="220" y="736" textAnchor="middle" className="fill-text-tertiary text-[14px]">
         Avstånden mellan fordonen är förkortade för att rymmas i bilden.
       </text>
 
       {/* Mönsterförklaring */}
       <g>
         <rect x="34" y="760" width="22" height="14" rx="2" fill="url(#acc-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="62" y="772" className="fill-text-tertiary text-[13px]">
+        <text x="62" y="772" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect x="106" y="760" width="22" height="14" rx="2" fill="url(#acc-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="134" y="772" className="fill-text-tertiary text-[13px]">
+        <text x="134" y="772" className="fill-text-tertiary text-[14px]">
           Annan trafik
         </text>
         <rect x="236" y="760" width="22" height="14" rx="2" fill="url(#acc-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="264" y="772" className="fill-text-tertiary text-[13px]">
+        <text x="264" y="772" className="fill-text-tertiary text-[14px]">
           Fältets slut
         </text>
       </g>
 
       {/* Förklaringsruta: vad valet i accelerationsfältet leder till */}
       <rect x="20" y="796" width="400" height="228" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="820" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="820" className="fill-text-primary text-[14px] font-semibold">
         När accelerationsfältet börjar ta slut:
       </text>
       <line x1="220" y1="836" x2="220" y2="1012" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniPafart x={118} y={898} variant="vaver-in" />
-      <text x="118" y="964" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="118" y="964" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Farten är uppe
       </text>
-      <text x="118" y="980" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="118" y="980" textAnchor="middle" className="fill-text-secondary text-[14px]">
         du väver in i luckan
       </text>
       <Check x={118} y={1002} />
 
       <MiniPafart x={322} y={898} variant="star-kvar" />
-      <text x="322" y="964" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="322" y="964" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du tvekar bort luckan
       </text>
-      <text x="322" y="980" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="322" y="980" textAnchor="middle" className="fill-text-secondary text-[14px]">
         och står i fältets slut
       </text>
       <Cross x={322} y={1002} />

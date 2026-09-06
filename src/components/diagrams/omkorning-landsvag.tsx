@@ -111,7 +111,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -270,7 +270,7 @@ export function OmkorningLandsvagDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Omkörning på landsväg
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Sikten, mötet och marginalen
       </text>
 
@@ -293,7 +293,7 @@ export function OmkorningLandsvagDiagram() {
       {/* Teckenförklaring i högermarginalen, ovanför mätmarkeringen */}
       <g>
         <path d="M 300 104 L 326 104" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#ovt-arrow-other)" />
-        <text x="334" y="109" className="fill-text-secondary text-[13px]">
+        <text x="334" y="109" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
         <path
@@ -303,7 +303,7 @@ export function OmkorningLandsvagDiagram() {
           strokeDasharray="8 6"
           markerEnd="url(#ovt-arrow-plan)"
         />
-        <text x="334" y="131" className="fill-text-secondary text-[13px]">
+        <text x="334" y="131" className="fill-text-secondary text-[14px]">
           Din väg
         </text>
         <line
@@ -316,7 +316,7 @@ export function OmkorningLandsvagDiagram() {
           strokeLinecap="round"
           strokeDasharray="0.5 6"
         />
-        <text x="334" y="153" className="fill-text-secondary text-[13px]">
+        <text x="334" y="153" className="fill-text-secondary text-[14px]">
           Sikt
         </text>
         <g className="stroke-primary-600" strokeWidth="2.5" strokeLinecap="round">
@@ -324,7 +324,7 @@ export function OmkorningLandsvagDiagram() {
           <line x1="311" y1="164" x2="311" y2="180" />
           <line x1="320" y1="166" x2="320" y2="178" />
         </g>
-        <text x="334" y="177" className="fill-text-secondary text-[13px]">
+        <text x="334" y="177" className="fill-text-secondary text-[14px]">
           Hög fart
         </text>
       </g>
@@ -383,13 +383,13 @@ export function OmkorningLandsvagDiagram() {
       {/* 1. Sikten */}
       <g>
         <Callout x={26} y={458} n={1} />
-        <text x="42" y="463" className="fill-text-primary text-[13px] font-semibold">
+        <text x="42" y="463" className="fill-text-primary text-[14px] font-semibold">
           Sikten
         </text>
-        <text x="16" y="483" className="fill-text-secondary text-[13px]">
+        <text x="16" y="483" className="fill-text-secondary text-[14px]">
           måste räcka för
         </text>
-        <text x="16" y="501" className="fill-text-secondary text-[13px]">
+        <text x="16" y="501" className="fill-text-secondary text-[14px]">
           hela förloppet
         </text>
         <Pointer x1={116} y1={480} x2={210} y2={473} />
@@ -398,13 +398,13 @@ export function OmkorningLandsvagDiagram() {
       {/* 2. Den mötande */}
       <g>
         <Callout x={26} y={140} n={2} />
-        <text x="42" y="145" className="fill-text-primary text-[13px] font-semibold">
+        <text x="42" y="145" className="fill-text-primary text-[14px] font-semibold">
           Mötande bil
         </text>
-        <text x="16" y="165" className="fill-text-secondary text-[13px]">
+        <text x="16" y="165" className="fill-text-secondary text-[14px]">
           ni närmar er
         </text>
-        <text x="16" y="183" className="fill-text-secondary text-[13px]">
+        <text x="16" y="183" className="fill-text-secondary text-[14px]">
           varandra med bådas fart
         </text>
         <Pointer x1={112} y1={172} x2={175} y2={188} />
@@ -413,13 +413,13 @@ export function OmkorningLandsvagDiagram() {
       {/* 3. Marginalen före mötet */}
       <g>
         <Callout x={318} y={250} n={3} />
-        <text x="334" y="255" className="fill-text-primary text-[13px] font-semibold">
+        <text x="334" y="255" className="fill-text-primary text-[14px] font-semibold">
           Marginal
         </text>
-        <text x="306" y="275" className="fill-text-secondary text-[13px]">
+        <text x="306" y="275" className="fill-text-secondary text-[14px]">
           omkörningen klar
         </text>
-        <text x="306" y="293" className="fill-text-secondary text-[13px]">
+        <text x="306" y="293" className="fill-text-secondary text-[14px]">
           före mötet
         </text>
         <Pointer x1={304} y1={286} x2={293} y2={306} />
@@ -427,13 +427,13 @@ export function OmkorningLandsvagDiagram() {
 
       {/* Notis om den brutna skalan */}
       <g>
-        <text x="296" y="430" className="fill-text-primary text-[13px] font-semibold">
+        <text x="296" y="430" className="fill-text-primary text-[14px] font-semibold">
           Bruten skala
         </text>
-        <text x="296" y="448" className="fill-text-secondary text-[13px]">
+        <text x="296" y="448" className="fill-text-secondary text-[14px]">
           avstånden är
         </text>
-        <text x="296" y="466" className="fill-text-secondary text-[13px]">
+        <text x="296" y="466" className="fill-text-secondary text-[14px]">
           kraftigt förkortade
         </text>
         <Pointer x1={292} y1={440} x2={278} y2={436} />
@@ -441,10 +441,10 @@ export function OmkorningLandsvagDiagram() {
 
       {/* Etikett: det långsammare fordonet */}
       <g>
-        <text x="296" y="524" className="fill-text-primary text-[13px] font-semibold">
+        <text x="296" y="524" className="fill-text-primary text-[14px] font-semibold">
           Långsammare
         </text>
-        <text x="296" y="542" className="fill-text-secondary text-[13px]">
+        <text x="296" y="542" className="fill-text-secondary text-[14px]">
           fordon
         </text>
         <Pointer x1={292} y1={534} x2={266} y2={532} />
@@ -452,10 +452,10 @@ export function OmkorningLandsvagDiagram() {
 
       {/* Etikett: elevens nuvarande läge */}
       <g>
-        <text x="296" y="624" className="fill-text-primary text-[13px] font-semibold">
+        <text x="296" y="624" className="fill-text-primary text-[14px] font-semibold">
           Du, nu
         </text>
-        <text x="296" y="642" className="fill-text-secondary text-[13px]">
+        <text x="296" y="642" className="fill-text-secondary text-[14px]">
           bakom fordonet
         </text>
         <Pointer x1={292} y1={634} x2={266} y2={630} />
@@ -510,25 +510,25 @@ export function OmkorningLandsvagDiagram() {
 
       {/* Förklaringsruta: vad beslutet leder till */}
       <rect x="20" y="856" width="400" height="204" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="880" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="880" className="fill-text-primary text-[14px] font-semibold">
         När sikten inte räcker hela vägen:
       </text>
       <line x1="220" y1="896" x2="220" y2="1048" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniOmkorning x={118} y={950} variant="ligger-kvar" />
-      <text x="118" y="1010" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="118" y="1010" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du ligger kvar
       </text>
-      <text x="118" y="1026" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="118" y="1026" textAnchor="middle" className="fill-text-secondary text-[14px]">
         mötet passerar lugnt
       </text>
       <Check x={118} y={1046} />
 
       <MiniOmkorning x={322} y={950} variant="gar-ut" />
-      <text x="322" y="1010" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="322" y="1010" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du går ut ändå
       </text>
-      <text x="322" y="1026" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="322" y="1026" textAnchor="middle" className="fill-text-secondary text-[14px]">
         mötet kommer emot dig
       </text>
       <Cross x={322} y={1046} />

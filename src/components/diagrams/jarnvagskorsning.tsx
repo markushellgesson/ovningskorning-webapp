@@ -82,7 +82,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -257,7 +257,7 @@ export function JarnvagskorsningDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Järnvägskorsning med bommar
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Stanna före. Läs spåret själv. Kontrollera platsen efter.
       </text>
 
@@ -311,7 +311,7 @@ export function JarnvagskorsningDiagram() {
             <line x1="382" y1="165" x2="396" y2="165" />
             <line x1="384" y1="173" x2="394" y2="173" />
           </g>
-          <text x="340" y="200" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+          <text x="340" y="200" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
             Tåg
           </text>
         </g>
@@ -339,10 +339,10 @@ export function JarnvagskorsningDiagram() {
           />
           <circle cx="261" cy="234" r="8" className="fill-safety-600 stroke-text-primary" strokeWidth="1" />
           <Cross x={287} y={234} />
-          <text x="300" y="228" className="fill-text-primary text-[13px] font-semibold">
+          <text x="300" y="228" className="fill-text-primary text-[14px] font-semibold">
             Rött sken:
           </text>
-          <text x="300" y="244" className="fill-text-primary text-[13px] font-semibold">
+          <text x="300" y="244" className="fill-text-primary text-[14px] font-semibold">
             kör inte in
           </text>
         </g>
@@ -356,7 +356,7 @@ export function JarnvagskorsningDiagram() {
 
         {/* Stopplats i ditt körfält, före signal och bom */}
         <line x1="207" y1="278" x2="243" y2="278" className="stroke-progress-600" strokeWidth="4" />
-        <text x="250" y="282" className="fill-text-primary text-[13px] font-semibold">
+        <text x="250" y="282" className="fill-text-primary text-[14px] font-semibold">
           Stopplats
         </text>
 
@@ -365,16 +365,16 @@ export function JarnvagskorsningDiagram() {
         <text x="250" y="312" className="fill-text-primary text-[14px] font-semibold">
           Du
         </text>
-        <text x="250" y="328" className="fill-text-secondary text-[13px]">
+        <text x="250" y="328" className="fill-text-secondary text-[14px]">
           står stilla
         </text>
 
         {/* Kön bortom spåret, samma körfält som du */}
         <Car cx={225} cy={72} width={28} length={44} heading="up" fill="url(#rail-stripes)" stroke="stroke-primary-600" brakeLights />
-        <text x="250" y="44" className="fill-text-secondary text-[13px]">
+        <text x="250" y="44" className="fill-text-secondary text-[14px]">
           Kö framför korsningen
         </text>
-        <text x="250" y="60" className="fill-text-secondary text-[13px]">
+        <text x="250" y="60" className="fill-text-secondary text-[14px]">
           står stilla
         </text>
 
@@ -397,45 +397,45 @@ export function JarnvagskorsningDiagram() {
           strokeWidth="2"
           strokeDasharray="5 4"
         />
-        <text x="288" y="110" className="fill-text-primary text-[13px] font-semibold">
+        <text x="288" y="110" className="fill-text-primary text-[14px] font-semibold">
           Bilens längd
         </text>
-        <text x="288" y="126" className="fill-text-primary text-[13px] font-semibold">
+        <text x="288" y="126" className="fill-text-primary text-[14px] font-semibold">
           får inte plats
         </text>
 
         {/* 3. Plats efter spåret */}
         <Callout x={24} y={52} n={3} />
-        <text x="40" y="57" className="fill-text-primary text-[13px] font-semibold">
+        <text x="40" y="57" className="fill-text-primary text-[14px] font-semibold">
           Plats efter spåret?
         </text>
-        <text x="14" y="76" className="fill-text-secondary text-[13px]">
+        <text x="14" y="76" className="fill-text-secondary text-[14px]">
           Kör inte in om luckan
         </text>
-        <text x="14" y="92" className="fill-text-secondary text-[13px]">
+        <text x="14" y="92" className="fill-text-secondary text-[14px]">
           är kortare än bilen
         </text>
         <Pointer x1={140} y1={64} x2={206} y2={102} />
 
         {/* 2. Läs spåret själv */}
         <Callout x={24} y={112} n={2} />
-        <text x="40" y="117" className="fill-text-primary text-[13px] font-semibold">
+        <text x="40" y="117" className="fill-text-primary text-[14px] font-semibold">
           Titta längs spåret
         </text>
-        <text x="14" y="136" className="fill-text-secondary text-[13px]">
+        <text x="14" y="136" className="fill-text-secondary text-[14px]">
           åt båda håll
         </text>
         <Pointer x1={96} y1={130} x2={124} y2={160} />
 
         {/* 1. Stopplatsen */}
         <Callout x={24} y={276} n={1} />
-        <text x="40" y="281" className="fill-text-primary text-[13px] font-semibold">
+        <text x="40" y="281" className="fill-text-primary text-[14px] font-semibold">
           Stanna här
         </text>
-        <text x="14" y="300" className="fill-text-secondary text-[13px]">
+        <text x="14" y="300" className="fill-text-secondary text-[14px]">
           på betryggande
         </text>
-        <text x="14" y="316" className="fill-text-secondary text-[13px]">
+        <text x="14" y="316" className="fill-text-secondary text-[14px]">
           avstånd
         </text>
         <Pointer x1={108} y1={290} x2={152} y2={258} />
@@ -443,13 +443,13 @@ export function JarnvagskorsningDiagram() {
         {/* Vägmärket A35 vid högra vägkanten, en bit före korsningen */}
         <line x1="270" y1="382" x2="270" y2="392" className="stroke-text-tertiary" strokeWidth="2" />
         <image href={`${BASE_PATH}/signs/A35.svg`} x="252" y="350" width="36" height="32" />
-        <text x="252" y="410" className="fill-text-primary text-[13px] font-semibold">
+        <text x="252" y="410" className="fill-text-primary text-[14px] font-semibold">
           A35
         </text>
-        <text x="252" y="426" className="fill-text-secondary text-[13px]">
+        <text x="252" y="426" className="fill-text-secondary text-[14px]">
           Varning för korsning
         </text>
-        <text x="252" y="442" className="fill-text-secondary text-[13px]">
+        <text x="252" y="442" className="fill-text-secondary text-[14px]">
           med bommar
         </text>
       </g>
@@ -461,50 +461,50 @@ export function JarnvagskorsningDiagram() {
       <text x="200" y="552" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         stående i korsningen.
       </text>
-      <text x="200" y="576" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="576" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Sänk farten så att bilen kan stannas före korsningen.
       </text>
-      <text x="200" y="594" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="594" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Läs korsningen själv: titta längs spåret åt båda håll.
       </text>
 
       {/* Mönsterförklaring */}
       <g>
         <rect x="30" y="616" width="22" height="14" rx="2" fill="url(#rail-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="58" y="628" className="fill-text-tertiary text-[13px]">
+        <text x="58" y="628" className="fill-text-tertiary text-[14px]">
           Du
         </text>
         <rect x="110" y="616" width="22" height="14" rx="2" fill="url(#rail-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
-        <text x="138" y="628" className="fill-text-tertiary text-[13px]">
+        <text x="138" y="628" className="fill-text-tertiary text-[14px]">
           Kö framför
         </text>
         <rect x="240" y="616" width="22" height="14" rx="2" fill="url(#rail-train)" className="stroke-safety-600" strokeWidth="1.5" />
-        <text x="268" y="628" className="fill-text-tertiary text-[13px]">
+        <text x="268" y="628" className="fill-text-tertiary text-[14px]">
           Tåg
         </text>
       </g>
 
       {/* Förklaringsruta: vad luckan på andra sidan avgör */}
       <rect x="20" y="650" width="360" height="234" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="674" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="674" className="fill-text-primary text-[14px] font-semibold">
         Om luckan efter spåret är kortare än bilen:
       </text>
       <line x1="200" y1="686" x2="200" y2="874" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniPlankorsning x={104} y={750} variant="vantar" />
-      <text x="104" y="828" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="104" y="828" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du väntar före spåret
       </text>
-      <text x="104" y="844" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="104" y="844" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bilen står fri från spåret
       </text>
       <Check x={104} y={866} />
 
       <MiniPlankorsning x={290} y={750} variant="kor-in" />
-      <text x="290" y="828" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="828" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du kör in ändå
       </text>
-      <text x="290" y="844" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="844" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bilen blir stående på spåret
       </text>
       <Cross x={290} y={866} />

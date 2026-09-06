@@ -59,7 +59,7 @@ function Badge({ cx, cy, n }: { cx: number; cy: number; n: string }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
-      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -198,22 +198,22 @@ export function DodaVinkelnDiagram() {
       <text x="20" y="30" className="fill-text-primary text-[16px] font-semibold">
         Döda vinkeln — och varför speglarna inte räcker
       </text>
-      <text x="20" y="50" className="fill-text-secondary text-[13px]">
+      <text x="20" y="50" className="fill-text-secondary text-[14px]">
         Bilen sedd uppifrån. Du kör uppåt och sitter till vänster.
       </text>
 
       {/* Teckenförklaring */}
       <g>
         <rect x="20" y="66" width="24" height="14" fill="url(#dv-direct)" className="stroke-primary-400" strokeWidth="1" />
-        <text x="52" y="78" className="fill-text-secondary text-[13px]">
+        <text x="52" y="78" className="fill-text-secondary text-[14px]">
           Ser du direkt genom rutorna
         </text>
         <rect x="20" y="88" width="24" height="14" fill="url(#dv-mirror)" className="stroke-primary-600" strokeWidth="1" />
-        <text x="52" y="100" className="fill-text-secondary text-[13px]">
+        <text x="52" y="100" className="fill-text-secondary text-[14px]">
           Ser du i speglarna
         </text>
         <rect x="20" y="110" width="24" height="14" fill="url(#dv-dead)" className="stroke-safety-600" strokeWidth="1" />
-        <text x="52" y="122" className="fill-text-secondary text-[13px]">
+        <text x="52" y="122" className="fill-text-secondary text-[14px]">
           Döda vinkeln — syns varken direkt eller i spegel
         </text>
       </g>
@@ -252,70 +252,70 @@ export function DodaVinkelnDiagram() {
 
       {/* ---- Numrerade hänvisningar, alla i marginalerna ---- */}
       <Badge cx={26} cy={186} n="1" />
-      <text x="42" y="190" className="fill-text-primary text-[13px] font-semibold">
+      <text x="42" y="190" className="fill-text-primary text-[14px] font-semibold">
         Direkt sikt
       </text>
-      <text x="14" y="208" className="fill-text-secondary text-[13px]">
+      <text x="14" y="208" className="fill-text-secondary text-[14px]">
         genom rutorna,
       </text>
-      <text x="14" y="224" className="fill-text-secondary text-[13px]">
+      <text x="14" y="224" className="fill-text-secondary text-[14px]">
         utan att vrida
       </text>
-      <text x="14" y="240" className="fill-text-secondary text-[13px]">
+      <text x="14" y="240" className="fill-text-secondary text-[14px]">
         på huvudet
       </text>
       <Pointer x1={100} y1={196} x2={161} y2={206} />
 
       <Badge cx={26} cy={318} n="2" />
-      <text x="42" y="322" className="fill-text-primary text-[13px] font-semibold">
+      <text x="42" y="322" className="fill-text-primary text-[14px] font-semibold">
         Speglarna
       </text>
-      <text x="14" y="340" className="fill-text-secondary text-[13px]">
+      <text x="14" y="340" className="fill-text-secondary text-[14px]">
         tre smala kilar
       </text>
-      <text x="14" y="356" className="fill-text-secondary text-[13px]">
+      <text x="14" y="356" className="fill-text-secondary text-[14px]">
         rakt bakåt
       </text>
       <Pointer x1={100} y1={328} x2={200} y2={346} />
 
       {/* Vänstra fältet är mindre — samma geometri, kortare avstånd till spegeln */}
-      <text x="14" y="398" className="fill-text-primary text-[13px] font-semibold">
+      <text x="14" y="398" className="fill-text-primary text-[14px] font-semibold">
         Smalare fält
       </text>
-      <text x="14" y="414" className="fill-text-primary text-[13px] font-semibold">
+      <text x="14" y="414" className="fill-text-primary text-[14px] font-semibold">
         till vänster
       </text>
-      <text x="14" y="432" className="fill-text-secondary text-[13px]">
+      <text x="14" y="432" className="fill-text-secondary text-[14px]">
         du sitter närmare
       </text>
-      <text x="14" y="448" className="fill-text-secondary text-[13px]">
+      <text x="14" y="448" className="fill-text-secondary text-[14px]">
         den sidan
       </text>
       <Pointer x1={100} y1={396} x2={148} y2={388} />
 
       <Badge cx={408} cy={286} n="3" />
-      <text x="424" y="290" className="fill-text-primary text-[13px] font-semibold">
+      <text x="424" y="290" className="fill-text-primary text-[14px] font-semibold">
         Döda vinkeln
       </text>
-      <text x="396" y="308" className="fill-text-secondary text-[13px]">
+      <text x="396" y="308" className="fill-text-secondary text-[14px]">
         varken direkt
       </text>
-      <text x="396" y="324" className="fill-text-secondary text-[13px]">
+      <text x="396" y="324" className="fill-text-secondary text-[14px]">
         eller i spegel
       </text>
-      <text x="396" y="340" className="fill-text-secondary text-[13px]">
+      <text x="396" y="340" className="fill-text-secondary text-[14px]">
         Störst till höger
       </text>
       <Pointer x1={392} y1={296} x2={366} y2={306} />
 
       <Badge cx={408} cy={392} n="4" />
-      <text x="424" y="396" className="fill-text-primary text-[13px] font-semibold">
+      <text x="424" y="396" className="fill-text-primary text-[14px] font-semibold">
         Cyklist
       </text>
-      <text x="396" y="414" className="fill-text-secondary text-[13px]">
+      <text x="396" y="414" className="fill-text-secondary text-[14px]">
         du ser hen inte
       </text>
-      <text x="396" y="430" className="fill-text-secondary text-[13px]">
+      <text x="396" y="430" className="fill-text-secondary text-[14px]">
         någonstans
       </text>
       <Pointer x1={392} y1={392} x2={356} y2={374} />
@@ -323,11 +323,11 @@ export function DodaVinkelnDiagram() {
       {/* Mönsterförklaring */}
       <g>
         <rect x="132" y="452" width="24" height="14" rx="2" fill="url(#dv-car)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="164" y="464" className="fill-text-tertiary text-[13px]">
+        <text x="164" y="464" className="fill-text-tertiary text-[14px]">
           Du (prickar)
         </text>
         <circle cx="272" cy="459" r="7" className="fill-surface-base stroke-safety-600" strokeWidth="2.5" />
-        <text x="286" y="464" className="fill-text-tertiary text-[13px]">
+        <text x="286" y="464" className="fill-text-tertiary text-[14px]">
           Cyklist (ring)
         </text>
       </g>
@@ -342,7 +342,7 @@ export function DodaVinkelnDiagram() {
 
       {/* ---- Förklaringsruta ---- */}
       <rect x="20" y="546" width="500" height="266" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="570" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="570" className="fill-text-primary text-[14px] font-semibold">
         Cyklisten ligger i högra döda vinkeln:
       </text>
       <line x1="270" y1="586" x2="270" y2="800" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
@@ -357,10 +357,10 @@ export function DodaVinkelnDiagram() {
         <use href="#dv-body" />
         <Cyclist x={120} y={150} r={14} />
       </g>
-      <text x="150" y="736" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="150" y="736" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Bara speglarna
       </text>
-      <text x="150" y="754" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="150" y="754" textAnchor="middle" className="fill-text-secondary text-[14px]">
         cyklisten ligger utanför kilen
       </text>
       <path d="M 143 772 L 157 786 M 157 772 L 143 786" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />
@@ -384,10 +384,10 @@ export function DodaVinkelnDiagram() {
         />
         <Cyclist x={120} y={150} r={14} />
       </g>
-      <text x="390" y="736" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="390" y="736" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Blick över axeln
       </text>
-      <text x="390" y="754" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="390" y="754" textAnchor="middle" className="fill-text-secondary text-[14px]">
         bakre sidorutan täcker fältet
       </text>
       <path
@@ -398,7 +398,7 @@ export function DodaVinkelnDiagram() {
         strokeLinejoin="round"
       />
 
-      <text x="270" y="846" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="270" y="846" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Testa: låt någon gå runt bilen och säg till när hen försvinner.
       </text>
     </svg>

@@ -134,9 +134,15 @@ export default async function SkillPage({ params }: SkillPageProps) {
       </PageHeader>
 
       <PageBody>
-        {/* Diagram om det finns för detta moment */}
+        {/* Diagram om det finns för detta moment.
+            På telefon går figuren kant i kant: sidmarginalen (20 px) och
+            kortets egen indragning gav diagrammet 316 av skärmens 390 px.
+            Utan sidoramar och med 8 px indrag får det 374 — en sjättedel
+            mer, och det är bredden som avgör om etiketterna går att läsa.
+            Från surfplatta finns bredden ändå, så kortet får tillbaka sina
+            hörn och ramar. */}
         {diagram && (
-          <figure className="rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised px-4 py-6 sm:px-6">
+          <figure className="-mx-5 rounded-none border border-x-0 border-border-subtle bg-surface-raised px-2 py-6 sm:mx-0 sm:rounded-[var(--radius-md)] sm:border-x sm:px-6">
             {diagram}
           </figure>
         )}
@@ -149,6 +155,9 @@ export default async function SkillPage({ params }: SkillPageProps) {
                 <li key={prereq.id}>
                   <Link
                     href={`/skills/${prereq.id}`}
+                    // Länkkort på samma yta som alla andra kort; länkskapet
+                    // sitter i ramen (primärfärg vid hover och tryck), inte i
+                    // en egen blå yta — se --primary-50 i globals.css.
                     className="flex min-h-12 items-center rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised px-4 py-3 text-base font-medium text-text-primary transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                   >
                     {prereq.name}

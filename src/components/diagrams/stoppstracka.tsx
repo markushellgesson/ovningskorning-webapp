@@ -38,7 +38,7 @@ function Badge({ cx, cy, n }: { cx: number; cy: number; n: string }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="11" className="fill-text-primary" />
-      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={cx} y={cy + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -200,10 +200,10 @@ export function StoppstrackaDiagram() {
       <text x="20" y="30" className="fill-text-primary text-[16px] font-semibold">
         Stoppsträcka = reaktionssträcka + bromssträcka
       </text>
-      <text x="20" y="50" className="fill-text-secondary text-[13px]">
+      <text x="20" y="50" className="fill-text-secondary text-[14px]">
         Sedd uppifrån, du kör åt höger. Figuren visar förhållandet mellan
       </text>
-      <text x="20" y="66" className="fill-text-secondary text-[13px]">
+      <text x="20" y="66" className="fill-text-secondary text-[14px]">
         delarna — inga mått anges.
       </text>
 
@@ -212,13 +212,13 @@ export function StoppstrackaDiagram() {
         <text x="20" y="8" className="fill-text-primary text-[14px] font-semibold">
           Lägre fart
         </text>
-        <text x={START + LOW.react} y="8" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        <text x={START + LOW.react} y="8" textAnchor="middle" className="fill-text-secondary text-[14px]">
           Bromsar
         </text>
-        <text x={START} y="28" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        <text x={START} y="28" textAnchor="middle" className="fill-text-secondary text-[14px]">
           Ser faran
         </text>
-        <text x={lowStop} y="28" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        <text x={lowStop} y="28" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
           Stopp
         </text>
         <g className="stroke-text-tertiary" strokeWidth="1">
@@ -242,7 +242,7 @@ export function StoppstrackaDiagram() {
           <line x1={START} y1="95" x2={START} y2="105" />
           <line x1={lowStop} y1="95" x2={lowStop} y2="105" />
         </g>
-        <text x={START + (LOW.react + LOW.brake) / 2} y="120" textAnchor="middle" className="fill-text-secondary text-[13px] font-medium">
+        <text x={START + (LOW.react + LOW.brake) / 2} y="120" textAnchor="middle" className="fill-text-secondary text-[14px] font-medium">
           Stoppsträcka
         </text>
       </g>
@@ -252,13 +252,13 @@ export function StoppstrackaDiagram() {
         <text x="20" y="8" className="fill-text-primary text-[14px] font-semibold">
           Högre fart
         </text>
-        <text x={START + HIGH.react} y="8" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        <text x={START + HIGH.react} y="8" textAnchor="middle" className="fill-text-secondary text-[14px]">
           Bromsar
         </text>
-        <text x={START} y="28" textAnchor="middle" className="fill-text-secondary text-[13px]">
+        <text x={START} y="28" textAnchor="middle" className="fill-text-secondary text-[14px]">
           Ser faran
         </text>
-        <text x={highStop} y="28" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+        <text x={highStop} y="28" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
           Stopp
         </text>
         <g className="stroke-text-tertiary" strokeWidth="1">
@@ -282,7 +282,7 @@ export function StoppstrackaDiagram() {
           <line x1={START} y1="95" x2={START} y2="105" />
           <line x1={highStop} y1="95" x2={highStop} y2="105" />
         </g>
-        <text x={START + (HIGH.react + HIGH.brake) / 2} y="120" textAnchor="middle" className="fill-text-secondary text-[13px] font-medium">
+        <text x={START + (HIGH.react + HIGH.brake) / 2} y="120" textAnchor="middle" className="fill-text-secondary text-[14px] font-medium">
           Stoppsträcka
         </text>
       </g>
@@ -298,25 +298,25 @@ export function StoppstrackaDiagram() {
       {/* Teckenförklaring för de två numrerade delarna */}
       <Badge cx={32} cy={436} n="1" />
       <rect x="48" y="429" width="24" height="14" fill="url(#ss-react)" className="stroke-primary-600" strokeWidth="1" />
-      <text x="80" y="441" className="fill-text-primary text-[13px] font-semibold">
+      <text x="80" y="441" className="fill-text-primary text-[14px] font-semibold">
         Reaktionssträcka
       </text>
-      <text x="80" y="459" className="fill-text-secondary text-[13px]">
+      <text x="80" y="459" className="fill-text-secondary text-[14px]">
         från att du ser faran tills du trycker på bromsen
       </text>
 
       <Badge cx={32} cy={484} n="2" />
       <rect x="48" y="477" width="24" height="14" fill="url(#ss-brake)" className="stroke-safety-600" strokeWidth="1" />
-      <text x="80" y="489" className="fill-text-primary text-[13px] font-semibold">
+      <text x="80" y="489" className="fill-text-primary text-[14px] font-semibold">
         Bromssträcka
       </text>
-      <text x="80" y="507" className="fill-text-secondary text-[13px]">
+      <text x="80" y="507" className="fill-text-secondary text-[14px]">
         från att du börjar bromsa tills bilen står still
       </text>
 
       {/* ---- Förklaringsruta: samma avstånd till faran, två farter ---- */}
       <rect x="20" y="528" width="440" height="292" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="552" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="552" className="fill-text-primary text-[14px] font-semibold">
         Om en fara dyker upp på samma avstånd:
       </text>
 
@@ -334,7 +334,7 @@ export function StoppstrackaDiagram() {
       <SegmentsV x={302} width={60} start={V_START} react={HIGH.react * K} brake={HIGH.brake * K} />
 
       {/* Gemensam startlinje: båda bilarnas front */}
-      <text x="34" y="700" className="fill-text-secondary text-[13px]">
+      <text x="34" y="700" className="fill-text-secondary text-[14px]">
         Ser faran
       </text>
       <line
@@ -350,17 +350,17 @@ export function StoppstrackaDiagram() {
 
       {/* Gemensam fara: samma avstånd i båda panelerna */}
       <line x1="104" y1={V_HAZARD} x2="376" y2={V_HAZARD} className="stroke-text-primary" strokeWidth="4" />
-      <text x="384" y={V_HAZARD + 5} className="fill-text-primary text-[13px] font-semibold">
+      <text x="384" y={V_HAZARD + 5} className="fill-text-primary text-[14px] font-semibold">
         Fara
       </text>
 
       <use href="#ss-car-up" transform="translate(148 732)" />
       <use href="#ss-car-up" transform="translate(332 732)" />
 
-      <text x="148" y="782" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="148" y="782" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Lägre fart
       </text>
-      <text x="148" y="798" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="148" y="798" textAnchor="middle" className="fill-text-secondary text-[14px]">
         du stannar före faran
       </text>
       <path
@@ -371,10 +371,10 @@ export function StoppstrackaDiagram() {
         strokeLinejoin="round"
       />
 
-      <text x="332" y="782" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="332" y="782" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Högre fart
       </text>
-      <text x="332" y="798" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="332" y="798" textAnchor="middle" className="fill-text-secondary text-[14px]">
         stoppsträckan räcker förbi
       </text>
       <path d="M 326 803 L 338 815 M 338 803 L 326 815" className="stroke-safety-600" strokeWidth="3" strokeLinecap="round" />

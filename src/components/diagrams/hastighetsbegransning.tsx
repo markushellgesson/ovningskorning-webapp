@@ -68,7 +68,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[13px] font-semibold">
+      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
         {n}
       </text>
     </g>
@@ -188,7 +188,7 @@ export function HastighetsbegransningDiagram() {
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
         Hastighetsgränser
       </text>
-      <text x="20" y="48" className="fill-text-secondary text-[13px]">
+      <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Skylten är ett tak. Saknas skylt gäller bashastigheten.
       </text>
 
@@ -197,7 +197,7 @@ export function HastighetsbegransningDiagram() {
       <text x="48" y="89" className="fill-text-primary text-[14px] font-semibold">
         Ny skylt betyder ny gräns
       </text>
-      <text x="300" y="112" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="300" y="112" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Här ändras gränsen
       </text>
 
@@ -224,13 +224,13 @@ export function HastighetsbegransningDiagram() {
         strokeDasharray="6 5"
       />
       <image href={`${BASE_PATH}/signs/C31-5.svg`} x="287" y="196" width="26" height="26" />
-      <text x="300" y="238" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="300" y="238" textAnchor="middle" className="fill-text-secondary text-[14px]">
         C31
       </text>
-      <text x="20" y="212" className="fill-text-secondary text-[13px]">
+      <text x="20" y="212" className="fill-text-secondary text-[14px]">
         Gränsen gäller från skylten
       </text>
-      <text x="20" y="230" className="fill-text-secondary text-[13px]">
+      <text x="20" y="230" className="fill-text-secondary text-[14px]">
         och framåt.
       </text>
 
@@ -241,7 +241,7 @@ export function HastighetsbegransningDiagram() {
       </text>
 
       <image href={`${BASE_PATH}/signs/C31-5.svg`} x="287" y="286" width="26" height="26" />
-      <text x="20" y="314" className="fill-text-tertiary text-[13px]">
+      <text x="20" y="314" className="fill-text-tertiary text-[14px]">
         Hastighet
       </text>
       <rect x="20" y="320" width="280" height="28" className="fill-progress-100 stroke-progress-600" strokeWidth="1.5" />
@@ -249,21 +249,21 @@ export function HastighetsbegransningDiagram() {
       <line x1="300" y1="314" x2="300" y2="354" className="stroke-safety-600" strokeWidth="3" />
       <Check x={46} y={334} />
       <Cross x={340} y={334} />
-      <text x="20" y="370" className="fill-text-tertiary text-[13px]">
+      <text x="20" y="370" className="fill-text-tertiary text-[14px]">
         0
       </text>
-      <text x="120" y="370" textAnchor="middle" className="fill-text-primary text-[13px] font-medium">
+      <text x="120" y="370" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         Tillåtet
       </text>
-      <text x="340" y="370" textAnchor="middle" className="fill-text-primary text-[13px] font-medium">
+      <text x="340" y="370" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         Förbjudet
       </text>
 
       <line x1="200" y1="406" x2="200" y2="354" className="stroke-attention-600" strokeWidth="2.5" markerEnd="url(#spd-arrow)" />
-      <text x="200" y="424" textAnchor="middle" className="fill-text-primary text-[13px] font-medium">
+      <text x="200" y="424" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
         Lämplig fart kan ligga lägre
       </text>
-      <text x="200" y="440" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="440" textAnchor="middle" className="fill-text-secondary text-[14px]">
         vid dålig sikt, väder eller halt väglag
       </text>
 
@@ -308,39 +308,39 @@ export function HastighetsbegransningDiagram() {
         </text>
       </g>
 
-      <text x="200" y="624" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="200" y="624" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Fråga dig: vilken hastighet gäller här?
       </text>
 
       {/* Mönsterförklaring */}
       <g>
         <rect x="146" y="642" width="22" height="14" rx="2" fill="url(#spd-dots)" className="stroke-attention-600" strokeWidth="1.5" />
-        <text x="174" y="654" className="fill-text-tertiary text-[13px]">
+        <text x="174" y="654" className="fill-text-tertiary text-[14px]">
           Du (prickar)
         </text>
       </g>
 
       {/* Förklaringsruta: att upptäcka skylten i tid */}
       <rect x="20" y="672" width="360" height="184" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
-      <text x="34" y="696" className="fill-text-primary text-[13px] font-semibold">
+      <text x="34" y="696" className="fill-text-primary text-[14px] font-semibold">
         Om du upptäcker den nya skylten för sent:
       </text>
       <line x1="200" y1="708" x2="200" y2="846" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
 
       <MiniRemsa x={104} y={734} variant="i-tid" />
-      <text x="104" y="796" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="104" y="796" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du ser skylten i tid
       </text>
-      <text x="104" y="812" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="104" y="812" textAnchor="middle" className="fill-text-secondary text-[14px]">
         farten är rätt vid skylten
       </text>
       <Check x={104} y={834} />
 
       <MiniRemsa x={290} y={734} variant="for-sent" />
-      <text x="290" y="796" textAnchor="middle" className="fill-text-primary text-[13px] font-semibold">
+      <text x="290" y="796" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
         Du ser den för sent
       </text>
-      <text x="290" y="812" textAnchor="middle" className="fill-text-secondary text-[13px]">
+      <text x="290" y="812" textAnchor="middle" className="fill-text-secondary text-[14px]">
         för fort på sträckan efter
       </text>
       <Cross x={290} y={834} />
