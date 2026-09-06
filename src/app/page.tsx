@@ -1,76 +1,84 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/card';
+import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
+import { RowLink } from '@/components/ui/list-row';
+import { Section, SectionTitle } from '@/components/ui/section';
 import content from '@/content';
+import { progressionMap } from './plan/plan-data';
 
 export const metadata = {
   title: 'Hem',
 };
 
+/**
+ * Startsidan: åtgärder före förklaring. Den som öppnar appen vill någonstans
+ * — de tre destinationerna står först, som listrader, i samma ordning som
+ * bottennavigeringen. "Vad är detta?" står kvar, men sist och utan kort.
+ *
+ * Antalen räknas ur innehållet i stället för att stå i klartext: sidan sa
+ * en gång 47 moment när det var 57, och ingen märkte det.
+ */
+const DESTINATIONS = [
+  {
+    href: '/skills',
+    title: 'Träningsmoment',
+    description: `${content.skills.length} moment med mål, övningssteg och vanliga misstag, ordnade efter område`,
+  },
+  {
+    href: '/plan',
+    title: 'Ordning',
+    description: `En möjlig väg genom momenten, i ${progressionMap.levels.length} steg som bygger på varandra`,
+  },
+  {
+    href: '/upplagg',
+    title: 'Upplägg',
+    description:
+      'Hur ni lägger upp ett pass, i vilken ordning ni går vidare, och vad ni gör före varje körning',
+  },
+] as const;
+
 export default function HomePage() {
   return (
-    <main className="min-h-dvh bg-surface-overlay">
-      <div className="mx-auto w-full max-w-2xl px-5 pt-12 pb-28 sm:px-8 sm:pt-20">
-        <div className="space-y-12">
-          <header className="space-y-3">
-            <h1 className="text-4xl font-semibold text-text-primary">Övningskörning B</h1>
-            <p className="max-w-[var(--measure)] text-xl text-text-secondary">
-              Strukturerat stöd för privat övningskörning till B-körkort
-            </p>
-          </header>
+    <PageShell>
+      <PageHeader
+        display
+        title="Övningskörning B"
+        lead="Strukturerat stöd för privat övningskörning till B-körkort"
+      />
 
-          <Card padding="lg" className="space-y-5">
-            <h2 className="text-2xl font-semibold text-text-primary">Vad är detta?</h2>
-            <p className="max-w-[var(--measure)] text-lg text-text-primary">
+      <PageBody>
+        <nav aria-label="Innehåll">
+          <ul className="divide-y divide-border-subtle border-t border-border-subtle">
+            {DESTINATIONS.map((destination) => (
+              <li key={destination.href}>
+                <RowLink href={destination.href} className="py-4">
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-lg font-semibold text-text-primary">
+                      {destination.title}
+                    </span>
+                    <span className="mt-0.5 block max-w-[var(--measure)] text-base text-text-secondary">
+                      {destination.description}
+                    </span>
+                  </span>
+                </RowLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <Section>
+          <SectionTitle>Vad är detta?</SectionTitle>
+          <div className="mt-5 max-w-[var(--measure)] space-y-4">
+            <p className="text-lg text-text-primary">
               Ett verktyg för elev och handledare som strukturerar övningskörningen utifrån de
               kompetenser som krävs för B-körkort. Byggt på Transportstyrelsens kursplan.
             </p>
-            <p className="max-w-[var(--measure)] text-lg text-text-secondary">
+            <p className="text-lg text-text-secondary">
               Den här versionen är en demo som klarar sig utan server och körs direkt i webbläsaren.
-              All data lagras lokalt på din enhet — ingen server, inget konto, ingen inloggning. Data
-              stannar kvar tills du rensar webbläsardata.
+              All data lagras lokalt på din enhet — ingen server, inget konto, ingen inloggning.
+              Data stannar kvar tills du rensar webbläsardata.
             </p>
-          </Card>
-
-          <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-text-primary">Utforska</h2>
-            <Link
-              href="/skills"
-              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100 active:bg-primary-200 active:duration-0"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <h3 className="text-xl font-semibold text-primary-800">Träningsmoment</h3>
-                  <p className="text-base text-primary-700">
-                    {content.skills.length} moment att träna, ordnade efter område och i den ordning ni
-                    bör ta dem
-                  </p>
-                </div>
-                <span aria-hidden="true" className="mt-0.5 shrink-0 text-xl text-primary-600">
-                  →
-                </span>
-              </div>
-            </Link>
-            <Link
-              href="/upplagg"
-              className="block min-h-12 rounded-[var(--radius-md)] border border-primary-200 bg-primary-50 p-6 transition-colors duration-150 hover:bg-primary-100 active:bg-primary-200 active:duration-0"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <h3 className="text-xl font-semibold text-primary-800">Upplägg</h3>
-                  <p className="text-base text-primary-700">
-                    Hur ni lägger upp ett pass, i vilken ordning ni går vidare, och vad ni gör
-                    före varje körning
-                  </p>
-                </div>
-                <span aria-hidden="true" className="mt-0.5 shrink-0 text-xl text-primary-600">
-                  →
-                </span>
-              </div>
-            </Link>
-          </section>
-
-        </div>
-      </div>
-    </main>
+          </div>
+        </Section>
+      </PageBody>
+    </PageShell>
   );
 }

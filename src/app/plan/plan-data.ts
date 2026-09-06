@@ -60,11 +60,24 @@ const MAX_NAMES_SHOWN = 2;
  */
 const MAX_TITLE_LENGTH = 44;
 
-/** Slår ihop visade namn till text. "med flera" bara om något utelämnas. */
+/** Gemen begynnelsebokstav — momentnamn är vanliga substantiv, inte egennamn. */
+function lowerFirst(name: string): string {
+  return `${name.charAt(0).toLowerCase()}${name.slice(1)}`;
+}
+
+/**
+ * Slår ihop visade namn till text. "m.fl." bara om något utelämnas.
+ *
+ * Bara det första namnet behåller versal: "Spegelinställning, Ljus och
+ * signaler m.fl." har en versal mitt i rubriken, vilket är det som får den
+ * att se maskingjord ut. Samma regel som categoryTitle nedan använder.
+ */
 function formatNames(shown: string[], hasMore: boolean): string {
-  if (shown.length === 1) return hasMore ? `${shown[0]} m.fl.` : shown[0];
-  if (hasMore) return `${shown.join(', ')} m.fl.`;
-  return `${shown.slice(0, -1).join(', ')} och ${shown[shown.length - 1]}`;
+  const [first, ...rest] = shown;
+  const names = [first, ...rest.map(lowerFirst)];
+  if (names.length === 1) return hasMore ? `${names[0]} m.fl.` : names[0];
+  if (hasMore) return `${names.join(', ')} m.fl.`;
+  return `${names.slice(0, -1).join(', ')} och ${names[names.length - 1]}`;
 }
 
 /**
@@ -163,10 +176,33 @@ const stepTitles = new Map<string, string>();
 }
 
 /**
- * Härleder en kort rubrik för ett steg ur dess faktiska momentnamn, i
- * stället för en handskriven lista eller kategorinamnet — antalet steg och
- * moment växer i takt med innehållet (se plan/[step]/page.tsx), och
- * kategorin ensam räcker inte för att skilja steg åt.
+ * Härleder en kort rubrik för ett steg ur dess kategori eller momentnamn.
+ *
+ * BESLUT: härledda namn, inte handskrivna. Formgivningsgranskningen
+ * föreslog handskrivna stegnamn ("Förarställning m.fl." ser genererat ut)
+ * med härledningen som reserv. Det valdes bort, av två skäl:
+ *
+ * 1. Stegen är inte författade objekt utan utdata från build-map.ts. De
+ *    bytte antal tre gånger på en dag (12, 14, 15) i takt med att innehållet
+ *    växte, och de flyttar även när ett enda förkunskapskrav ändras eller
+ *    MAX_STEP_SIZE justeras. Ett handskrivet namn beskriver då en gruppering
+ *    som inte längre finns — och ett namn som nästan stämmer är värre än
+ *    ett fult, eftersom det ser rätt ut. Appen har redan haft den buggen i
+ *    en annan skepnad: antalet moment stod i klartext som 47 när det var 57.
+ * 2. Ett handskrivet namn hade dessutom kunnat dölja att algoritmen grupperat
+ *    konstigt (t.ex. att "Stopplikt" hamnar i grundstegen därför att det
+ *    saknar förkunskapskrav). Det härledda namnet visar grupperingen som den
+ *    är, så att felet syns och kan rättas i innehållet, där det hör hemma.
+ *
+ * Om handskrivna namn ändå införs någon gång: nyckla dem på stegets
+ * uppsättning moment-id (inte på stegnummer eller level-id), och låt ett
+ * test fallera när en nyckel inte längre matchar något steg — annars ruttnar
+ * de tyst, precis som 47:an.
+ *
+ * Det som gjordes i stället är typografiskt: sammanhållna steg heter det
+ * kategorin heter, blandade steg får momentnamn med bara första namnet i
+ * versal (se formatNames), och stegsidan visar hela momentlistan så att
+ * rubriken bara behöver vara igenkännbar, inte fullständig.
  */
 export function stepTitle(level: SkillMapLevel): string {
   return stepTitles.get(level.id) ?? 'Steg';

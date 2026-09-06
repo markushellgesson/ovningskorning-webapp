@@ -5,8 +5,15 @@
  *
  * Huvudappens nav har fem flikar (Hem, Kör, Träning, Framsteg, Profil) och
  * ett inloggningsberoende. Den lokala varianten saknar konto och har bara
- * tre sidor byggda — startsida, kompetensbibliotek och träningskarta — så
- * navigationen begränsas till det som faktiskt finns.
+ * tre sidor i navigationen — startsida, träningsmoment och ordning — så
+ * navigationen begränsas till det som faktiskt finns. Upplägg nås från
+ * startsidan och från ordningssidan.
+ *
+ * "Ordning" är sidans namn överallt: här, i sidhuvudet och på startsidan.
+ * Den hette en tid "Träningskarta" i sidhuvudet men "Ordning" här, och ett
+ * namn som byter mellan flik och rubrik ser ut som två olika sidor. Ordning
+ * vann därför att det är frågan sidan svarar på — i vilken ordning tar vi
+ * momenten? — medan "karta" lovar geografi som sidan inte har.
  */
 
 import Link from 'next/link';
@@ -30,7 +37,8 @@ export function BottomNav() {
     >
       <ul className="mx-auto flex max-w-md">
         {TABS.map((tab) => {
-          const active = pathname === tab.href || (tab.href !== '/' && pathname.startsWith(`${tab.href}/`));
+          const active =
+            pathname === tab.href || (tab.href !== '/' && pathname.startsWith(`${tab.href}/`));
           return (
             <li key={tab.href} className="flex-1">
               <Link

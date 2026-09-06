@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
+import { Section, SectionTitle } from '@/components/ui/section';
 import content from '@/content';
 import type { DifficultyLevel, PhraseType, Skill, TheoryRelationType } from '@/content/types';
 import { StatusBadge } from '@/components/ui/badge';
@@ -71,10 +73,10 @@ export async function generateMetadata(props: SkillPageProps): Promise<Metadata>
  * fast bredd så att texten radbryts mot en rak vänsterkant.
  */
 
-// Klassnamn som återkommer i varje avsnitt. Samlade här för att avsnitten
-// ska vara garanterat identiska — rytmen faller om ett av dem glider.
-const SECTION = 'border-t border-border-subtle pt-8';
-const SECTION_HEADING = 'text-2xl font-semibold text-text-primary';
+// Avsnittens linje, luft och rubrik kommer från components/ui/section.tsx,
+// som alla sidor delar. Klassnamnen för listorna återkommer i varje avsnitt
+// och är samlade här för att avsnitten ska vara garanterat identiska —
+// rytmen faller om ett av dem glider.
 const LIST = 'mt-5 space-y-3 max-w-[var(--measure)]';
 const LIST_ITEM = 'flex gap-3 text-lg text-text-primary';
 const MARKER = 'w-5 shrink-0 select-none';
@@ -109,237 +111,226 @@ export default async function SkillPage({ params }: SkillPageProps) {
   })).filter((group) => group.topics.length > 0);
 
   return (
-    <main className="min-h-dvh bg-surface-overlay">
-      <div className="mx-auto w-full max-w-2xl px-5 pt-6 pb-28 sm:px-8 sm:pt-10">
-        <header className="space-y-3">
-          <Link
-            href="/skills"
-            className="-ml-3 inline-flex min-h-12 items-center rounded-[var(--radius-sm)] px-3 text-base font-medium text-primary-600 transition-colors duration-150 hover:bg-neutral-200 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
-          >
-            ← Alla moment
-          </Link>
-          <h1 className="text-3xl font-semibold text-text-primary">{skill.name}</h1>
-          <p className="max-w-[var(--measure)] text-xl text-text-secondary">{skill.description}</p>
-          {(skill.safetyCritical || skill.continuous) && (
-            <div className="flex flex-wrap gap-2 pt-1">
-              {skill.safetyCritical && (
-                <StatusBadge variant="safety" size="md">
-                  Säkerhetskritiskt
-                </StatusBadge>
-              )}
-              {skill.continuous && (
-                <StatusBadge variant="neutral" size="md">
-                  Tränas löpande
-                </StatusBadge>
-              )}
-            </div>
-          )}
-        </header>
+    <PageShell>
+      <PageHeader
+        back={{ href: '/skills', label: 'Alla moment' }}
+        title={skill.name}
+        lead={skill.description}
+      >
+        {(skill.safetyCritical || skill.continuous) && (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {skill.safetyCritical && (
+              <StatusBadge variant="safety" size="md">
+                Säkerhetskritiskt
+              </StatusBadge>
+            )}
+            {skill.continuous && (
+              <StatusBadge variant="neutral" size="md">
+                Tränas löpande
+              </StatusBadge>
+            )}
+          </div>
+        )}
+      </PageHeader>
 
-        <div className="mt-8 space-y-8">
-          {/* Diagram om det finns för detta moment */}
-          {diagram && (
-            <figure className="rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised px-4 py-6 sm:px-6">
-              {diagram}
-            </figure>
-          )}
+      <PageBody>
+        {/* Diagram om det finns för detta moment */}
+        {diagram && (
+          <figure className="rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised px-4 py-6 sm:px-6">
+            {diagram}
+          </figure>
+        )}
 
-          {prerequisites.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Förkunskaper</h2>
-              <ul className="mt-5 space-y-2">
-                {prerequisites.map((prereq) => (
-                  <li key={prereq.id}>
-                    <Link
-                      href={`/skills/${prereq.id}`}
-                      className="flex min-h-12 items-center rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised px-4 py-3 text-base font-medium text-text-primary transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
-                    >
-                      {prereq.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+        {prerequisites.length > 0 && (
+          <Section>
+            <SectionTitle>Förkunskaper</SectionTitle>
+            <ul className="mt-5 space-y-2">
+              {prerequisites.map((prereq) => (
+                <li key={prereq.id}>
+                  <Link
+                    href={`/skills/${prereq.id}`}
+                    className="flex min-h-12 items-center rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised px-4 py-3 text-base font-medium text-text-primary transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                  >
+                    {prereq.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
 
-          {skill.goals.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Mål</h2>
-              <ul className={LIST}>
-                {skill.goals.map((goal, i) => (
-                  <li key={i} className={LIST_ITEM}>
-                    <span aria-hidden="true" className={`${MARKER} text-text-tertiary`}>
-                      •
-                    </span>
-                    <span>{goal}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+        {skill.goals.length > 0 && (
+          <Section>
+            <SectionTitle>Mål</SectionTitle>
+            <ul className={LIST}>
+              {skill.goals.map((goal, i) => (
+                <li key={i} className={LIST_ITEM}>
+                  <span aria-hidden="true" className={`${MARKER} text-text-tertiary`}>
+                    •
+                  </span>
+                  <span>{goal}</span>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
 
-          {skill.practiceSteps.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Hur ni övar</h2>
-              <ol className={LIST}>
-                {skill.practiceSteps.map((step, i) => (
-                  <li key={i} className={LIST_ITEM}>
-                    {/* tabular-nums håller siffrorna i lod när listan går
+        {skill.practiceSteps.length > 0 && (
+          <Section>
+            <SectionTitle>Hur ni övar</SectionTitle>
+            <ol className={LIST}>
+              {skill.practiceSteps.map((step, i) => (
+                <li key={i} className={LIST_ITEM}>
+                  {/* tabular-nums håller siffrorna i lod när listan går
                         förbi tio steg. */}
-                    <span
-                      aria-hidden="true"
-                      className={`${MARKER} font-medium text-text-tertiary tabular-nums`}
-                    >
-                      {i + 1}.
-                    </span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          )}
-
-          {skill.commonErrors.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Vanliga misstag</h2>
-              <ul className={LIST}>
-                {skill.commonErrors.map((error, i) => (
-                  <li key={i} className={LIST_ITEM}>
-                    <span
-                      aria-hidden="true"
-                      className={`${MARKER} font-semibold text-attention-700`}
-                    >
-                      !
-                    </span>
-                    <span>{error}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {skill.supervisorObservations.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Vad handledaren tittar efter</h2>
-              <ul className={LIST}>
-                {skill.supervisorObservations.map((obs, i) => (
-                  <li key={i} className={LIST_ITEM}>
-                    <span aria-hidden="true" className={`${MARKER} text-primary-600`}>
-                      →
-                    </span>
-                    <span>{obs}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {supervisorPhrases.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Handledarfraser</h2>
-              <ul className="mt-5 space-y-3 max-w-[var(--measure)]">
-                {supervisorPhrases.map((phrase) => (
-                  <li
-                    key={phrase.id}
-                    className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                  <span
+                    aria-hidden="true"
+                    className={`${MARKER} font-medium text-text-tertiary tabular-nums`}
                   >
-                    <StatusBadge
-                      variant={phrase.type === 'SAFETY_INTERVENTION' ? 'safety' : 'neutral'}
-                      size="sm"
-                    >
-                      {PHRASE_TYPE_LABELS[phrase.type]}
+                    {i + 1}.
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </Section>
+        )}
+
+        {skill.commonErrors.length > 0 && (
+          <Section>
+            <SectionTitle>Vanliga misstag</SectionTitle>
+            <ul className={LIST}>
+              {skill.commonErrors.map((error, i) => (
+                <li key={i} className={LIST_ITEM}>
+                  <span aria-hidden="true" className={`${MARKER} font-semibold text-attention-700`}>
+                    !
+                  </span>
+                  <span>{error}</span>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        {skill.supervisorObservations.length > 0 && (
+          <Section>
+            <SectionTitle>Vad handledaren tittar efter</SectionTitle>
+            <ul className={LIST}>
+              {skill.supervisorObservations.map((obs, i) => (
+                <li key={i} className={LIST_ITEM}>
+                  <span aria-hidden="true" className={`${MARKER} text-primary-600`}>
+                    →
+                  </span>
+                  <span>{obs}</span>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        {supervisorPhrases.length > 0 && (
+          <Section>
+            <SectionTitle>Handledarfraser</SectionTitle>
+            <ul className="mt-5 space-y-3 max-w-[var(--measure)]">
+              {supervisorPhrases.map((phrase) => (
+                <li
+                  key={phrase.id}
+                  className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                >
+                  <StatusBadge
+                    variant={phrase.type === 'SAFETY_INTERVENTION' ? 'safety' : 'neutral'}
+                    size="sm"
+                  >
+                    {PHRASE_TYPE_LABELS[phrase.type]}
+                  </StatusBadge>
+                  <p className="mt-2 text-lg text-text-primary">{phrase.text}</p>
+                  {phrase.context && (
+                    <p className="mt-2 text-sm text-text-tertiary">{phrase.context}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        {exercises.length > 0 && (
+          <Section>
+            <SectionTitle>Övningar</SectionTitle>
+            <ul className="mt-5 space-y-3 max-w-[var(--measure)]">
+              {exercises.map((exercise) => (
+                <li
+                  key={exercise.id}
+                  className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-lg font-semibold text-text-primary">{exercise.title}</h3>
+                    <StatusBadge variant="neutral" size="sm">
+                      {DIFFICULTY_LABELS[exercise.difficulty]}
                     </StatusBadge>
-                    <p className="mt-2 text-lg text-text-primary">{phrase.text}</p>
-                    {phrase.context && (
-                      <p className="mt-2 text-sm text-text-tertiary">{phrase.context}</p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {exercises.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Övningar</h2>
-              <ul className="mt-5 space-y-3 max-w-[var(--measure)]">
-                {exercises.map((exercise) => (
-                  <li
-                    key={exercise.id}
-                    className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
-                  >
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="text-lg font-semibold text-text-primary">{exercise.title}</h3>
-                      <StatusBadge variant="neutral" size="sm">
-                        {DIFFICULTY_LABELS[exercise.difficulty]}
-                      </StatusBadge>
-                    </div>
-                    <p className="mt-1 text-base text-text-secondary">{exercise.description}</p>
-                    {exercise.estimatedMinutes !== null && (
-                      <p className="mt-2 text-sm text-text-tertiary">
-                        Cirka {exercise.estimatedMinutes} minuter
-                      </p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {theoryGroups.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Teori kopplad till momentet</h2>
-              <div className="mt-5 space-y-6">
-                {theoryGroups.map((group) => (
-                  <div key={group.relationType} className="space-y-3">
-                    <h3 className="text-sm font-semibold tracking-wide text-text-tertiary uppercase">
-                      {THEORY_RELATION_LABELS[group.relationType]}
-                    </h3>
-                    <ul className="space-y-3 max-w-[var(--measure)]">
-                      {group.topics.map((topic) => (
-                        <li
-                          key={topic.id}
-                          className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
-                        >
-                          <h4 className="text-base font-semibold text-text-primary">
-                            {topic.title}
-                          </h4>
-                          {topic.summary && (
-                            <p className="mt-1 text-sm text-text-secondary">{topic.summary}</p>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                ))}
-              </div>
-            </section>
-          )}
+                  <p className="mt-1 text-base text-text-secondary">{exercise.description}</p>
+                  {exercise.estimatedMinutes !== null && (
+                    <p className="mt-2 text-sm text-text-tertiary">
+                      Cirka {exercise.estimatedMinutes} minuter
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
 
-          {children.length > 0 && (
-            <section className={SECTION}>
-              <h2 className={SECTION_HEADING}>Delmoment</h2>
-              <ul className="mt-5 space-y-3">
-                {children.map((child) => (
-                  <li key={child.id}>
-                    <Link
-                      href={`/skills/${child.id}`}
-                      className="block min-h-12 rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised p-5 transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
-                    >
-                      <h3 className="text-lg font-semibold text-text-primary">{child.name}</h3>
-                      <p className="mt-1 text-base text-text-secondary">{child.description}</p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+        {theoryGroups.length > 0 && (
+          <Section>
+            <SectionTitle>Teori kopplad till momentet</SectionTitle>
+            <div className="mt-5 space-y-6">
+              {theoryGroups.map((group) => (
+                <div key={group.relationType} className="space-y-3">
+                  <h3 className="text-sm font-semibold tracking-wide text-text-tertiary uppercase">
+                    {THEORY_RELATION_LABELS[group.relationType]}
+                  </h3>
+                  <ul className="space-y-3 max-w-[var(--measure)]">
+                    {group.topics.map((topic) => (
+                      <li
+                        key={topic.id}
+                        className="rounded-[var(--radius-sm)] border border-border-subtle bg-surface-raised p-4"
+                      >
+                        <h4 className="text-base font-semibold text-text-primary">{topic.title}</h4>
+                        {topic.summary && (
+                          <p className="mt-1 text-sm text-text-secondary">{topic.summary}</p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
 
-          <footer className="border-t border-border-subtle pt-8">
-            <p className="text-sm text-text-tertiary">Version: {skill.sourceVersion}</p>
-          </footer>
-        </div>
-      </div>
-    </main>
+        {children.length > 0 && (
+          <Section>
+            <SectionTitle>Delmoment</SectionTitle>
+            <ul className="mt-5 space-y-3">
+              {children.map((child) => (
+                <li key={child.id}>
+                  <Link
+                    href={`/skills/${child.id}`}
+                    className="block min-h-12 rounded-[var(--radius-md)] border border-border-subtle bg-surface-raised p-5 transition-colors duration-150 hover:border-primary-400 active:border-primary-500 active:bg-neutral-300 active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                  >
+                    <h3 className="text-lg font-semibold text-text-primary">{child.name}</h3>
+                    <p className="mt-1 text-base text-text-secondary">{child.description}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        <footer className="border-t border-border-subtle pt-8">
+          <p className="text-sm text-text-tertiary">Version: {skill.sourceVersion}</p>
+        </footer>
+      </PageBody>
+    </PageShell>
   );
 }
