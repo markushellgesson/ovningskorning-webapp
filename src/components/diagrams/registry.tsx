@@ -35,6 +35,10 @@ import {
   KobildningKorsningDiagram,
   HogersvangCyklistDiagram,
   SakerhetsavstandDiagram,
+  UrstigningCyklistDiagram,
+  BarnSkolaDiagram,
+  BussHallplatsDiagram,
+  SvangIKorsningDiagram,
 } from './index';
 
 /**
@@ -123,6 +127,18 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
 
   // Säkerhetsavstånd — vid press bakifrån: öka luckan framåt, inte farten
   'SPD-03': () => <SakerhetsavstandDiagram />,
+
+  // Urstigning mot cykelfält — dörren når in i cykelfältet även från parkeringsfickan
+  'VEH-03': () => <UrstigningCyklistDiagram />,
+
+  // Barn och skolor — förvarningen (boll, vält cykel, skymd sikt) utlöser fartsänkningen
+  'VRU-03': () => <BarnSkolaDiagram />,
+
+  // Buss vid hållplats — passagerare korsar både framför och bakom
+  'VRU-04': () => <BussHallplatsDiagram />,
+
+  // Vänstersväng — svängen slutar i högra körfältet på den nya vägen
+  'INT-04': () => <SvangIKorsningDiagram />,
 
   // Avfart från motorväg — retardationsfältet, motstycke till HWY-01
   'HWY-02': () => <AvfartMotorvagDiagram />,

@@ -29,3 +29,7 @@ export { InfartLandsvagDiagram } from './infart-landsvag';
 export { KobildningKorsningDiagram } from './kobildning-korsning';
 export { HogersvangCyklistDiagram } from './hogersvang-cyklist';
 export { SakerhetsavstandDiagram } from './sakerhetsavstand';
+export { UrstigningCyklistDiagram } from './urstigning-cyklist';
+export { BarnSkolaDiagram } from './barn-skola';
+export { BussHallplatsDiagram } from './buss-hallplats';
+export { SvangIKorsningDiagram } from './svang-i-korsning';

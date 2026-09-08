@@ -2,20 +2,20 @@
  * Urstigning mot cykelfält (VEH-03) — blicken bakåt innan dörren öppnas.
  *
  * Vad bilden lär ut: innan dörren öppnas ska föraren titta bakåt genom rutan
- * och i spegeln efter cyklister och mopeder. Bilen står lagligt parkerad i en
- * ficka innanför cykelfältet — faran finns kvar ändå, eftersom dörren svänger
- * rakt ut i cykelfältet. Bilden handlar bara om dörren, inte om bältet och
- * inte om passagerarnas eget ansvar, och den säger ingenting om var man får
- * eller inte får stanna.
+ * och i spegeln efter cyklister och mopeder. Bilen står i en parkeringsficka
+ * innanför cykelfältet — faran finns kvar ändå, eftersom dörren svänger ut i
+ * cykelfältet där cyklisten kommer bakifrån. Bilden handlar bara om dörren,
+ * inte om bältet och inte om passagerarnas eget ansvar, och den säger
+ * ingenting om var man får eller inte får stanna.
  *
- * Regelstöd i momentet (prisma/seed/skills.ts, VEH-03): TrF 3 kap 50 §
- * tredje stycket om dörröppning, målet "öppna dem så att ingen kommer till
- * skada" och övningssteget "innan du öppnar dörren: titta bakåt genom rutan
- * och i spegeln efter cyklister och mopeder". Inga andra regelpåståenden.
+ * Regelstöd i momentet (prisma/seed/skills.ts, VEH-03): målet "öppna dem så
+ * att ingen kommer till skada" och övningssteget "innan du öppnar dörren:
+ * titta bakåt genom rutan och i spegeln efter cyklister och mopeder". Inga
+ * andra regelpåståenden.
  *
- * Skala 12 px = 1 m, samma som övriga diagram. Kaross 22 × 53 px. Scenen
- * ligger i en grupp med translate(0 56); koordinaterna nedan är gruppens
- * lokala. Alla värden är efterräknade i skript, inte uppskattade.
+ * Skala 12 px = 1 m, samma som övriga diagram. Kaross 22 × 53 px (1,83 × 4,4
+ * m). Scenen ligger i en grupp med translate(0 56); koordinaterna nedan är
+ * gruppens lokala. Alla värden är efterräknade i skript, inte uppskattade.
  *
  * ---- Geometri (högertrafik, vy uppifrån) ----
  * Gatan går lodrätt. Tvärsnitt från vänster till höger:
@@ -25,41 +25,53 @@
  *
  * - Din bil och cyklisten färdas båda UPPÅT i bilden (minskande y). Kör man
  *   uppåt ligger den egna högra sidan mot bildens höga x. Därför ligger ditt
- *   körfält i x 168–210, cykelfältet ytterligare till höger i x 210–238, och
- *   det mötande körfältet i x 132–168 lämnas tomt.
- * - Din bil står i parkeringsfickan: kaross x 240–262, y 145,5–198,5 (mitt
- *   251, 172). 240 ≥ 238, alltså helt utanför cykelfältet, med 2 px marginal
- *   till fickans linje och 2 px till kantstenen.
- * - Föraren sitter till vänster, mot låga x: öga (245, 164), vänster
- *   ytterspegel x 234–240 — den sticker ut över cykelfältet.
- * - Förardörren är hängd fram, gångjärn (240, 160), dörrblad 22 px. Öppnad
- *   60° från karossen når spetsen (220,95, 171). Svepytan spänner x 218–240,
- *   y 160–182. Kontrollerat: 218 < 238, så dörren når 20 px in i det 28 px
- *   breda cykelfältet — nästan hela fältets bredd. 218 > 210, så den når inte
- *   ut i körfältet, och 218 > mittlinjen 168.
- * - Cyklisten kör i cykelfältet: kropp x 217–227, y 291–313, mitt i fältet
- *   210–238. Korridoren 217–227 skär svepytan 218–240 i x 218–227. Det är
- *   konflikten bilden bygger på — och den uppstår trots att bilen står rätt.
- * - I huvudscenen är cyklistens front y 291 och svepytan slutar y 182: gott
- *   avstånd kvar. Faran är förebyggd, inte pågående.
- * - Blicken bakåt går från ögat (245, 164) till (232, 262). Vid y 182 ligger
- *   den i x 246,6, alltså utanför svepytan (max x 240), och som närmast 10 px
- *   från cyklistens rörelselinje i x 222.
+ *   körfält i x 168–210, cykelfältet ytterligare till höger i x 210–238 och
+ *   parkeringsfickan ytterst i x 238–264. Det mötande körfältet x 132–168
+ *   lämnas tomt.
+ * - Din bil står i fickan: kaross x 240–262, y 145,5–198,5 (mitt 251, 172).
+ *   240 ≥ 238, alltså helt utanför cykelfältet, med 2 px marginal åt vardera
+ *   hållet (fickans linje 238, kantstenen 264).
+ * - Föraren sitter till vänster, mot låga x: öga (245, 162), vänster
+ *   ytterspegel x 234–240, y 148–152 — den sticker ut 4 px över cykelfältet
+ *   och ligger framför gångjärnet, alltså utanför dörrbladets svepyta.
+ * - Förardörren är hängd fram, gångjärn (240, 158), dörrblad 13 px = 1,08 m
+ *   (ett verkligt framdörrsblad, inte ett förstorat). Öppnad 70° når spetsen
+ *   (227,78 | 162,45). Svepytan spänner x 227,78–240, y 158–171.
+ *   Kontrollerat: 227,78 < 238, alltså når dörren 10,2 px = 0,85 m in i det
+ *   28 px (2,33 m) breda cykelfältet — den inre delen närmast bilen.
+ *   227,78 > 210, så den når inte ut i körfältet, och långt från mittlinjen
+ *   168. Effekten är visuellt liten men sann; bilden överdriver den inte.
+ * - Cyklisten kör i cykelfältet: kropp x 223–233, y 289–311. 223 > 210 och
+ *   233 < 238, alltså helt i sitt eget fält, en bit åt höger i det så som
+ *   cyklister ofta ligger. Korridoren 223–233 skär svepytan 227,78–240 i
+ *   x 227,78–233, alltså 5,2 px överlapp. Det är konflikten bilden bygger på
+ *   — och den uppstår trots att bilen står i fickan.
+ * - I huvudscenen är cyklistens front y 289 och svepytan slutar y 171: 118 px
+ *   kvar. Faran är förebyggd, inte pågående.
+ * - Blicken bakåt går från ögat (245, 162) till (237, 252). Vid y 171 ligger
+ *   den i x 244,2, alltså utanför svepytans max x 240, och som närmast 9 px
+ *   från cyklistens rörelselinje i x 228. Inga linjer korsar varandra.
+ * - Hänvisningslinjerna 1 och 2 utgår från x 124 (y 124 respektive 220) och
+ *   slutar i (244, 152) och (229, 168). Linje 2 ligger under linje 1 vid varje
+ *   gemensamt x (vid x 229: y 168 mot y 148,5), alltså korsar de inte, och
+ *   måltavlorna ligger 24 px isär.
  *
  * ---- Förklaringsrutan ----
  * Samma lokala koordinater i skala 0,7, samma körfält, samma ficka och samma
  * färdriktningar som huvudscenen. Bilen och dörrgeometrin är identiska,
- * flyttade till mitt (251, 45) med gångjärn (240, 33) och svepyta y 33–55;
- * bara blicken och cyklistens läge skiljer. Rätt: cyklisten y 89–111, utanför
- * svepytan, dörren stängd. Fel: cyklisten y 36–58, inuti svepytan, dörren
- * öppen. Överlappen är räknade, inte antagna.
+ * flyttade till mitt (251, 45) med gångjärn (240, 31), svepyta x 227,78–240
+ * och y 31–44; bara blicken och cyklistens läge skiljer. Rätt: cyklisten
+ * y 89–111, utanför svepytan i y, dörren stängd. Fel: cyklisten x 223–233,
+ * y 29–51, alltså inne i svepytan i både x och y. Överlappen är räknade.
  *
  * ---- Kodning ----
  * Mönster: prickar = din bil, kryss = cyklist, diagonala ränder = dörrens
  * svepyta. Inget mönster används till två saker. Bock och kryss i rutan är
  * fristående symboler, inte fyllningsmönster. Färg bär ingen betydelse
  * ensam — varje element har mönster eller form och en etikett.
- * Linjer: heldragen = rör sig nu, prickad = blicken bakåt.
+ * Linjer: heldragen med pil = rör sig nu, prickad med pil = blicken bakåt,
+ * tjockt streck längs karossen = dörren stängd, tjockt streck ut från
+ * gångjärnet = dörrbladet i öppet läge (samma spets som svepytans).
  */
 
 /** Bil ritad med fronten uppåt. Kaross 22 × 53. */
@@ -85,7 +97,7 @@ function Bil({ cx, cy }: { cx: number; cy: number }) {
       />
       <polygon points="-7,-17 0,-24 7,-17" className="fill-attention-600" />
       {/* Vänster ytterspegel, ut över cykelfältet */}
-      <rect x="-17" y="-16" width="6" height="4" rx="1" className="fill-text-primary" />
+      <rect x="-17" y="-24" width="6" height="4" rx="1" className="fill-text-primary" />
     </g>
   );
 }
@@ -161,31 +173,31 @@ function MiniDorr({ x, y, variant }: { x: number; y: number; variant: 'ratt' | '
 
       {open && (
         <g>
-          {/* Dörrens svepyta: gångjärn (240,33), dörrblad 22, öppen 60° */}
+          {/* Svepyta: gångjärn (240,31), dörrblad 13, öppen 70° -> spets (227,78 | 35,45) */}
           <path
-            d="M 240 33 L 240 55 A 22 22 0 0 1 220.95 44 Z"
+            d="M 240 31 L 240 44 A 13 13 0 0 1 227.78 35.45 Z"
             fill="url(#uc-hatch)"
             className="stroke-safety-600"
             strokeWidth="2"
           />
-          <line x1="240" y1="33" x2="220.95" y2="44" className="stroke-safety-600" strokeWidth="4" strokeLinecap="round" />
+          <line x1="240" y1="31" x2="227.78" y2="35.45" className="stroke-safety-600" strokeWidth="4" strokeLinecap="round" />
         </g>
       )}
 
       <Bil cx={251} cy={45} />
       {!open && (
-        <line x1="240" y1="33" x2="240" y2="55" className="stroke-progress-600" strokeWidth="4" strokeLinecap="round" />
+        <line x1="240" y1="31" x2="240" y2="44" className="stroke-attention-600" strokeWidth="4" strokeLinecap="round" />
       )}
 
       {variant === 'ratt' ? (
         <g>
-          <Cyklist cx={222} cy={100} />
+          <Cyklist cx={228} cy={100} />
           <line
             x1="245"
-            y1="37"
-            x2="234"
+            y1="35"
+            x2="236"
             y2="84"
-            className="stroke-text-primary"
+            className="stroke-progress-600"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeDasharray="0.5 6"
@@ -193,7 +205,7 @@ function MiniDorr({ x, y, variant }: { x: number; y: number; variant: 'ratt' | '
           />
         </g>
       ) : (
-        <Cyklist cx={222} cy={47} />
+        <Cyklist cx={228} cy={40} />
       )}
     </g>
   );
@@ -211,22 +223,24 @@ export function UrstigningCyklistDiagram() {
       <desc id="uc-desc">
         Vy uppifrån av en lodrät gata. Från vänster: mötande körfält, streckad mittlinje, ditt
         körfält, en heldragen vit linje, ett cykelfält med målade cykelsymboler, en parkeringsficka
-        markerad med vita linjer, kantsten och trottoar. Din bil, fylld med prickmönster, står
-        parkerad i fickan med nosen uppåt, alltså utanför cykelfältet. Föraren sitter mot
-        gatusidan; en liten mörk rektangel är vänster ytterspegel, som skjuter ut över cykelfältet.
-        En prickad linje med pilspets går snett bakåt från förarplatsen: blicken genom rutan och i
-        spegeln. En kilformad yta med diagonala ränder och röd kontur, utgående från dörrens
-        gångjärn, visar hur långt förardörren når när den öppnas: nästan tvärs över cykelfältet,
-        men inte ut i körfältet. En cyklist, ritad med kryssmönster, kommer bakifrån i cykelfältet;
-        en heldragen linje med pilspets framför cyklisten visar färden uppåt. Avståndet fram till
-        dörrens yta är stort: faran är förebyggd, inte pågående. Tre numrerade hänvisningar i
-        marginalerna: 1 pekar på förarplatsen och blicken bakåt, 2 pekar på dörrens yta i
-        cykelfältet, 3 pekar på cykelfältet som ligger precis utanför dörren. Längst ned en ruta
-        som jämför två fall med samma gata, samma parkeringsficka och samma färdriktningar. Till
-        vänster, märkt med en grön bock: dörren är stängd, markerad med ett grönt streck längs
-        karossen, föraren tittar bakåt och cyklisten har gott om utrymme. Till höger, märkt med ett
-        rött kryss: dörren är öppen, den röda ytan ligger tvärs över cykelfältet och cyklisten är
-        redan inne i den.
+        markerad med vita linjer, kantsten och trottoar. Din bil, fylld med prickmönster, står i
+        fickan med nosen uppåt, alltså utanför cykelfältet. Föraren sitter mot gatusidan; en liten
+        mörk rektangel är vänster ytterspegel, som skjuter ut över cykelfältet. En prickad linje med
+        pilspets går snett bakåt från förarplatsen: blicken genom rutan och i spegeln. En kilformad
+        yta med diagonala ränder och röd kontur, utgående från dörrens gångjärn, visar hur långt
+        förardörren når när den öppnas: in i den del av cykelfältet som ligger närmast bilen, men
+        inte ut i körfältet. Ett tjockt streck ut från gångjärnet är dörrbladet i öppet läge, och
+        ett tjockt streck längs karossen är dörren så som den står nu, stängd. En cyklist, ritad med kryssmönster, kommer bakifrån i sitt eget fält,
+        en bit åt höger i det, så att färdvägen går genom dörrens yta; en heldragen linje med
+        pilspets framför cyklisten visar färden uppåt. Avståndet fram till dörrens yta är stort:
+        faran är förebyggd, inte pågående. Tre numrerade hänvisningar i marginalerna: 1 pekar på
+        förarplatsen och blicken bakåt, 2 pekar på dörrens yta i cykelfältet, 3 pekar på cykelfältet
+        som ligger precis utanför dörren. Längst ned en ruta som jämför två fall med samma gata,
+        samma parkeringsficka och samma färdriktningar. Till vänster, märkt med en bock: dörren är
+        stängd, markerad med ett streck längs karossen, föraren tittar bakåt med samma prickade
+        linje som i huvudbilden och cyklisten har gott om utrymme. Till höger, märkt med ett kryss:
+        ingen prickad blicklinje alls, dörrbladet är utsvängt, den randiga ytan ligger i cykelfältet
+        och cyklisten är redan inne i den.
       </desc>
 
       <defs>
@@ -243,7 +257,7 @@ export function UrstigningCyklistDiagram() {
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
         </marker>
         <marker id="uc-arrow-look" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-primary" />
+          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-progress-600" />
         </marker>
       </defs>
 
@@ -266,33 +280,37 @@ export function UrstigningCyklistDiagram() {
 
         {/* Parkeringsfickans markering */}
         <g className="stroke-diagram-marking" strokeWidth="2">
-          <line x1="238" y1="132" x2="238" y2="216" />
-          <line x1="238" y1="132" x2="264" y2="132" />
+          <line x1="238" y1="130" x2="238" y2="216" />
+          <line x1="238" y1="130" x2="264" y2="130" />
           <line x1="238" y1="216" x2="264" y2="216" />
         </g>
 
         <Cykelsymbol cx={224} cy={44} />
+        <Cykelsymbol cx={224} cy={120} />
+        <Cykelsymbol cx={224} cy={340} />
         <Cykelsymbol cx={224} cy={376} />
 
-        {/* 2. Dörrens svepyta: gångjärn (240,160), dörrblad 22, öppningsvinkel 60° */}
+        {/* 2. Dörrens svepyta: gångjärn (240,158), dörrblad 13, öppen 70° */}
         <path
-          d="M 240 160 L 240 182 A 22 22 0 0 1 220.95 171 Z"
+          d="M 240 158 L 240 171 A 13 13 0 0 1 227.78 162.45 Z"
           fill="url(#uc-hatch)"
           className="stroke-safety-600"
           strokeWidth="2"
         />
+        {/* Dörrbladet i sitt öppna läge, samma spets som svepytans */}
+        <line x1="240" y1="158" x2="227.78" y2="162.45" className="stroke-safety-600" strokeWidth="4" strokeLinecap="round" />
 
         {/* Din bil i parkeringsfickan, dörren fortfarande stängd */}
         <Bil cx={251} cy={172} />
-        <line x1="240" y1="160" x2="240" y2="182" className="stroke-attention-600" strokeWidth="4" strokeLinecap="round" />
+        <line x1="240" y1="158" x2="240" y2="171" className="stroke-attention-600" strokeWidth="4" strokeLinecap="round" />
 
         {/* 1. Blicken bakåt: genom rutan och i spegeln, innan handtaget dras */}
         <line
           x1="245"
-          y1="164"
-          x2="232"
-          y2="262"
-          className="stroke-text-primary"
+          y1="162"
+          x2="237"
+          y2="252"
+          className="stroke-progress-600"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeDasharray="0.5 6"
@@ -300,8 +318,8 @@ export function UrstigningCyklistDiagram() {
         />
 
         {/* Cyklisten bakifrån i cykelfältet, med gott avstånd kvar */}
-        <Cyklist cx={222} cy={302} />
-        <line x1="222" y1="287" x2="222" y2="222" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#uc-arrow-cyclist)" />
+        <Cyklist cx={228} cy={300} />
+        <line x1="228" y1="285" x2="228" y2="220" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#uc-arrow-cyclist)" />
 
         {/* 1. Titta bakåt */}
         <Callout x={22} y={120} n={1} />
@@ -320,7 +338,7 @@ export function UrstigningCyklistDiagram() {
         <text x="10" y="197" className="fill-text-secondary text-[14px]">
           i handtaget
         </text>
-        <Pekare x1={124} y1={124} x2={243} y2={160} />
+        <Pekare x1={124} y1={124} x2={244} y2={152} />
 
         {/* 2. Dörrens väg */}
         <Callout x={22} y={220} n={2} />
@@ -328,12 +346,12 @@ export function UrstigningCyklistDiagram() {
           Dörrens väg
         </text>
         <text x="10" y="243" className="fill-text-secondary text-[14px]">
-          tvärs över
+          in i cykelfältet,
         </text>
         <text x="10" y="261" className="fill-text-secondary text-[14px]">
-          cykelfältet
+          där cyklisten kör
         </text>
-        <Pekare x1={124} y1={220} x2={222} y2={171} />
+        <Pekare x1={124} y1={220} x2={229} y2={168} />
 
         {/* Cyklisten */}
         <text x="10" y="302" className="fill-text-primary text-[14px] font-semibold">
@@ -342,7 +360,7 @@ export function UrstigningCyklistDiagram() {
         <text x="10" y="320" className="fill-text-secondary text-[14px]">
           i sitt eget fält
         </text>
-        <Pekare x1={124} y1={298} x2={216} y2={302} />
+        <Pekare x1={124} y1={298} x2={222} y2={300} />
 
         {/* 3. Cykelfältet */}
         <Callout x={292} y={126} n={3} />
@@ -364,7 +382,7 @@ export function UrstigningCyklistDiagram() {
         <text x="282" y="229" className="fill-text-secondary text-[14px]">
           du öppnar
         </text>
-        <Pekare x1={280} y1={126} x2={228} y2={126} />
+        <Pekare x1={280} y1={126} x2={232} y2={126} />
       </g>
 
       {/* Teckenförklaring */}
@@ -378,7 +396,8 @@ export function UrstigningCyklistDiagram() {
           y1="528"
           x2="234"
           y2="528"
-          className="stroke-text-primary"
+          className="stroke-progress-600"
+          markerEnd="url(#uc-arrow-look)"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeDasharray="0.5 6"
@@ -411,10 +430,10 @@ export function UrstigningCyklistDiagram() {
         cyklister och mopeder.
       </text>
       <text x="200" y="658" textAnchor="middle" className="fill-text-secondary text-[14px]">
-        Bilen står rätt parkerad — dörren når ändå
+        Bilen står i parkeringsfickan — dörren når
       </text>
       <text x="200" y="676" textAnchor="middle" className="fill-text-secondary text-[14px]">
-        tvärs över cykelfältet. Öppna lite i taget,
+        ändå in i cykelfältet. Öppna lite i taget,
       </text>
       <text x="200" y="694" textAnchor="middle" className="fill-text-secondary text-[14px]">
         och stig ut vänd mot trafiken.

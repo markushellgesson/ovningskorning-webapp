@@ -5,11 +5,11 @@
       "parentId": null,
       "category": "VEHICLE_CONTROL",
       "name": "Förarställning",
-      "description": "Rätt ställd stol, ratt och speglar ger bättre kontroll och minskar risken för skador vid olycka.",
+      "description": "Stolen, ratten och speglarna ställs för kontroll och för skydd vid en olycka.",
       "goals": [
-        "Ställa in förarplatsen själv utan hjälp",
-        "Förklara varför varje del är viktig för säkerheten",
-        "Känna igen en dåligt inställd position"
+        "Eleven ställer in förarplatsen själv, utan hjälp.",
+        "Eleven säger varför varje del ställs in.",
+        "Eleven pekar ut vad som är fel i en dålig inställning."
       ],
       "practiceSteps": [
         "Ställ stolen så att du når pedalerna med lätt böjda ben",
@@ -46,11 +46,11 @@
       "parentId": null,
       "category": "VEHICLE_CONTROL",
       "name": "Spegelinställning",
-      "description": "Rätt inställda speglar ger så stor sikt som möjligt bakåt och åt sidorna.",
+      "description": "Speglarna ger sikt bakåt och åt sidorna — och en död vinkel de inte täcker.",
       "goals": [
-        "Ställa in alla tre speglar själv",
-        "Förstå varför döda vinkeln finns",
-        "Veta hur man kompenserar för den"
+        "Eleven ställer in alla tre speglar själv, varje gång.",
+        "Eleven kan visa var döda vinkeln sitter.",
+        "Eleven tar axelblick där speglarna inte räcker."
       ],
       "practiceSteps": [
         "Innerspegeln: hela bakrutan ska synas, horisonten i mitten",
@@ -91,11 +91,11 @@
       "parentId": null,
       "category": "VEHICLE_CONTROL",
       "name": "Bälte, passagerare och i- och urstigning",
-      "description": "Alla som färdas i en bil med bälten ska sitta på en plats med bälte och använda det. För vuxna är det var och ens eget ansvar; förarens skyldighet gäller passagerare under femton år.",
+      "description": "Alla sitter där det finns bälte och använder det — under femton år svarar föraren.",
       "goals": [
-        "Se till att passagerare under femton år använder bälte eller annan särskild skyddsanordning",
-        "Veta att barn kortare än 135 centimeter ska ha bilbarnstol, bälteskudde eller annan skyddsanordning",
-        "Kontrollera att dörrarna är stängda före start, och öppna dem så att ingen kommer till skada"
+        "Eleven ser till att passagerare under femton år har bältet på.",
+        "Barn under 135 centimeter sitter i bilbarnstol, kudde eller annan skyddsanordning.",
+        "Eleven stänger dörrarna före start och öppnar dem utan att skada någon."
       ],
       "practiceSteps": [
         "Dra åt bältet så det ligger tätt mot kroppen, med höftdelen lågt över höftbenen",
@@ -133,10 +133,10 @@
       "parentId": null,
       "category": "VEHICLE_CONTROL",
       "name": "Grundläggande reglage",
-      "description": "Hitta och använda reglage utan att behöva leta eller titta bort från vägen.",
+      "description": "Hitta reglagen utan att titta bort från vägen.",
       "goals": [
-        "Lokalisera och använda reglage utan att titta",
-        "Kunna fokusera på trafiken i stället för att söka reglage"
+        "Eleven hittar reglagen med handen, utan att titta.",
+        "Blicken stannar i trafiken medan reglaget ställs."
       ],
       "practiceSteps": [
         "Gå igenom alla reglage när bilen står stilla",
@@ -160,8 +160,11 @@
       "parentId": "VEH-04",
       "category": "VEHICLE_CONTROL",
       "name": "Ljus och signaler",
-      "description": "Använda rätt ljus och signaler för att synas och kommunicera.",
-      "goals": ["Välja rätt ljus för ljusförhållanden och väder", "Använda blinkers i god tid"],
+      "description": "Rätt ljus för att se och synas, och blinkers för att säga till.",
+      "goals": [
+        "Eleven väljer rätt ljus för ljusförhållanden och väder.",
+        "Eleven blinkar i god tid, före manövern."
+      ],
       "practiceSteps": [
         "Halvljus är normalläget. Helljus när synfältet annars är otillräckligt, dimljus får ersätta halvljus i dimma, och dimbakljus bara i dimma eller kraftig nederbörd",
         "Ställ dig utanför bilen och låt handledaren växla mellan lägena, så att du ser skillnaden på vägbanan i stället för bara på symbolen",
@@ -194,11 +197,11 @@
       "parentId": null,
       "category": "VEHICLE_CONTROL",
       "name": "Säkerhetskontroll",
-      "description": "Körprovet börjar med en säkerhetskontroll inom ett av sju områden: belysning och signal, torkare och spolare, styrning, bromsar, däck och fälg, vätskor och varningssystem. Att hitta bristen räcker inte — du ska kunna säga vad som ska göras åt den.",
+      "description": "Körprovet börjar med en säkerhetskontroll inom ett av sju områden.",
       "goals": [
-        "Kontrollera belysning och signal, torkare och spolare, styrning, bromsar, däck och fälg, vätskor och varningssystem",
-        "Föreslå en åtgärd för varje brist du hittar",
-        "Klara kontrollen utan att läsa innantill, och kunna säga varför du kontrollerar det du gör"
+        "Eleven klarar de sju kontrollområdena utan att läsa innantill.",
+        "Eleven föreslår en åtgärd för varje brist.",
+        "Eleven säger varför just den kontrollen görs."
       ],
       "practiceSteps": [
         "Gör kontrollen i samma ordning varje gång. Då märks det när något fattas",
@@ -245,11 +248,11 @@
       "parentId": null,
       "category": "MANEUVERING",
       "name": "Start och stopp",
-      "description": "Mjuk start och kontrollerat stopp utan ryck eller motorstopp.",
+      "description": "Starta mjukt och stanna kontrollerat, utan ryck och utan motorstopp.",
       "goals": [
-        "Starta bilen mjukt utan ryck eller motor som dör",
-        "Stanna kontrollerat utan ryck",
-        "Hålla bilen stilla på plan mark"
+        "Bilen rullar igång mjukt, utan ryck och utan att motorn dör.",
+        "Eleven stannar kontrollerat, utan ryck i slutet.",
+        "Bilen står stilla på plan mark utan att krypa."
       ],
       "practiceSteps": [
         "Manuell: fotbromsen nedtryckt, kopplingen i botten, ettans växel i",
@@ -287,11 +290,11 @@
       "parentId": "MAN-01",
       "category": "MANEUVERING",
       "name": "Styrning",
-      "description": "Kontrollerad styrning med blicken långt fram ger jämn körning och rätt placering.",
+      "description": "Blicken långt fram gör styrningen jämn och placeringen rätt.",
       "goals": [
-        "Hålla bilen i sin fil utan att korrigera hela tiden",
-        "Styra mjukt genom kurvor",
-        "Hålla blicken där bilen ska vara om några sekunder, inte strax framför den"
+        "Eleven håller bilen i sin fil utan ständiga korrigeringar.",
+        "Eleven styr mjukt genom kurvan.",
+        "Blicken ligger där bilen ska vara om några sekunder."
       ],
       "practiceSteps": [
         "Titta dit du vill att bilen ska åka — blicken drar styrningen med sig",
@@ -333,11 +336,11 @@
       "parentId": "MAN-01",
       "category": "MANEUVERING",
       "name": "Koppling och växling",
-      "description": "Smidig växling utan att blicken lämnar vägen. Endast manuell växellåda. Halva momentet är NÄR man växlar: växeln ska vara vald före kurvan, korsningen och backen — inte mitt i dem.",
+      "description": "Manuell växellåda: växla smidigt, och välj växeln före kurvan — inte i den.",
       "goals": [
-        "Växla mjukt utan ryck",
-        "Hitta rätt växel utan att titta",
-        "Välja växel efter vad som kommer: upp när motorn går lätt, ned innan den börjar arbeta trögt, och rätt växel lagd före kurvan i stället för i den"
+        "Eleven växlar mjukt, utan ryck.",
+        "Eleven hittar växeln utan att titta.",
+        "Växeln är vald före kurvan, korsningen och backen."
       ],
       "practiceSteps": [
         "Öva växelmönstret när bilen står still",
@@ -375,11 +378,11 @@
       "parentId": "MAN-01",
       "category": "MANEUVERING",
       "name": "Krypkörning",
-      "description": "Hålla bilen i jämn, mycket låg fart och kunna styra oberoende av fotarbetet. Utan krypkörning blir backning, vändning och parkering ryckiga.",
+      "description": "Hålla mycket låg, jämn fart och kunna styra oberoende av fötterna.",
       "goals": [
-        "Hålla jämn gångfart utan att bilen hackar eller rusar",
-        "Styra fritt medan farten hålls konstant — händer och fötter arbetar oberoende av varandra",
-        "Manuell: hitta dragläget och ligga kvar i det. Automat: dosera farten med bromsfoten"
+        "Bilen håller jämn gångfart utan att hacka eller rusa.",
+        "Eleven styr fritt medan farten står still.",
+        "Manuell: dragläget hålls kvar. Automat: bromsfoten doserar farten."
       ],
       "practiceSteps": [
         "Välj en tom parkering eller avstängd plats utan trafik",
@@ -417,11 +420,11 @@
       "parentId": "MAN-01",
       "category": "MANEUVERING",
       "name": "Start i med- och motlut",
-      "description": "Medlut är inte motlut spegelvänt: i motlut kämpar du mot att bilen rullar bakåt, i medlut mot att den rullar iväg av sig själv innan du är beredd.",
+      "description": "Medlut är inte motlut spegelvänt — bilen rullar iväg i stället för bakåt.",
       "goals": [
-        "Starta i motlut utan att rulla bakåt",
-        "Starta i medlut utan att bilen tar fart innan du har kontroll",
-        "Kunna tekniken som gäller din bil — den skiljer sig mellan manuell och automat"
+        "Eleven startar i motlut utan att rulla bakåt.",
+        "Eleven startar i medlut utan att bilen tar fart först.",
+        "Eleven använder tekniken som gäller just den här bilen."
       ],
       "practiceSteps": [
         "Hitta en lugn lutning och öva åt båda hållen",
@@ -459,11 +462,11 @@
       "parentId": "MAN-01",
       "category": "MANEUVERING",
       "name": "Normal bromsning",
-      "description": "Progressiv, förutsägbar bromsning som ger tid åt trafiken bakom och komfort åt passagerarna. Färdbromsen är ett sätt att bromsa; motorbromsning och växelval är ett annat.",
+      "description": "Bromsa tidigt och mjukt, så att varken bilen bakom eller passagerarna märker det.",
       "goals": [
-        "Planera inbromsningen i god tid och stanna där du tänkt utan att passagerarna kastas framåt",
-        "Bromsa mjukare mot slutet av inbromsningen",
-        "Motorbromsa: släppa gasen tidigt och välja växel efter lutningen i stället för att ligga och bromsa utför"
+        "Eleven ser stoppunkten tidigt och bromsar mest i början.",
+        "Bilen glider in i stoppet utan att nicka.",
+        "I utförslut håller motorn farten, inte bromsen."
       ],
       "practiceSteps": [
         "Se stoppunkten tidigt — planera inbromsningen",
@@ -514,11 +517,11 @@
       "parentId": "MAN-06",
       "category": "MANEUVERING",
       "name": "Effektiv bromsning",
-      "description": "Kraftig, kontrollerad inbromsning när situationen kräver det. Provets bromsprov görs från minst 50 km/h — öva progressionen från låg fart upp mot den farten på en plats där det går att göra säkert.",
+      "description": "Full bromskraft med behållen styrförmåga — provets bromsprov görs från minst 50 km/h.",
       "goals": [
-        "Bromsa med full kraft, behålla styrförmågan och stanna på kortast möjliga sträcka",
-        "Klara samma inbromsning från högre fart som från låg",
-        "Veta hur bilen beter sig när ABS griper in: håll kvar trycket och styr — det är körteknik, inte en regel"
+        "Eleven bromsar med full kraft och kan fortfarande styra.",
+        "Bilen stannar lika säkert från hög fart som från låg.",
+        "När ABS griper in håller eleven kvar trycket och styr."
       ],
       "practiceSteps": [
         "Välj en säker, avskild plats med fri sikt bakåt och ingen trafik",
@@ -569,11 +572,11 @@
       "parentId": "MAN-02",
       "category": "MANEUVERING",
       "name": "Backning",
-      "description": "Att titta sig omkring är teknik, men att få backa alls är en regel: du får backa endast om det kan ske utan fara eller hinder för andra vägtrafikanter. Skyldigheten ligger på dig som backar — inte på dem som kommer.",
+      "description": "Du får backa bara om det kan ske utan fara eller hinder.",
       "goals": [
-        "Backa endast när det kan ske utan fara eller hinder för andra vägtrafikanter. Kan det inte ske så — backa inte",
-        "Backar du ut på en väg från en parkeringsplats, en fastighet eller ett liknande område har du dessutom väjningsplikt, och ska visa den genom att i god tid sänka farten eller stanna",
-        "Backa rakt och med sväng i låg fart, och veta vilken väg bakvagnen går när ratten vrids — framvagnen svänger då ut åt motsatt håll"
+        "Eleven backar bara när det går utan fara eller hinder.",
+        "Ut på vägen från parkering, tomt eller liknande har eleven väjningsplikt.",
+        "Eleven backar i låg fart och vaktar framvagnen som svänger ut."
       ],
       "practiceSteps": [
         "Planera backningen innan du lägger i backen: vart ska bilen, hur långt, och varifrån kan någon komma?",
@@ -624,11 +627,11 @@
       "parentId": "MAN-08",
       "category": "MANEUVERING",
       "name": "Vändning",
-      "description": "Du får vända endast om det kan ske utan fara eller hinder för andra vägtrafikanter, och skyldigheten ligger på dig som vänder. Själva vändningstekniken står inte i någon författning — den är körteknik, inte en regel.",
+      "description": "Du får vända bara om det kan ske utan fara eller hinder.",
       "goals": [
-        "Vända endast när det kan ske utan fara eller hinder för andra vägtrafikanter",
-        "Ge tecken i god tid innan du vänder — men veta att tecknet inte befriar dig från att själv försäkra dig om att manövern går",
-        "Välja plats, hålla krypfart, och kunna avbryta och köra vidare när platsen visar sig olämplig"
+        "Eleven vänder bara när det går utan fara eller hinder.",
+        "Eleven ger tecken i god tid och försäkrar sig ändå själv.",
+        "Eleven avbryter och kör vidare när platsen är olämplig."
       ],
       "practiceSteps": [
         "Leta upp en plats med fri sikt åt båda håll — inte vid backkrön, i kurva eller nära korsning",
@@ -679,11 +682,11 @@
       "parentId": "MAN-02",
       "category": "MANEUVERING",
       "name": "Parkering och att lämna parkeringsplatsen",
-      "description": "Valet av plats är en del av momentet — vissa platser är förbjudna att stanna eller parkera på. Att lämna platsen är en egen övning, och vad som gäller beror på var du står: från ett parkeringsområde vid sidan av körbanan har du väjningsplikt ut mot vägen, medan du från en plats vid vägkanten startar från vägkanten och får göra det endast utan fara eller onödigt hinder.",
+      "description": "Var du får stå, och vad som gäller när du kör därifrån.",
       "goals": [
-        "Parkera på plan mark och i lutning — parallellt, snett och vinkelrätt, framåt och bakåt — med kontroll över omgivningen under hela manövern",
-        "Veta var det är förbjudet att stanna och parkera: korsning, övergångsställe, cykelpassage, backkrön, kurva med skymd sikt, hållplats, plankorsning, tunnel och cirkulationsplats",
-        "Veta att du har väjningsplikt när du kör ut på vägen från ett parkeringsområde vid sidan av körbanan eller från en fastighet, och mot gående när bilen förs ut från en fastighetsutfart. Visa den genom att i god tid sänka farten eller stanna"
+        "Eleven parkerar på plan mark och i lutning, med kontroll runt om.",
+        "Eleven parkerar inte i korsning, vid övergångsställe, backkrön eller liknande.",
+        "Ut på vägen från parkering eller tomt väjer eleven, också för gående på trottoaren."
       ],
       "practiceSteps": [
         "Innan du väljer plats: är det tillåtet att stanna och parkera här?",
@@ -738,11 +741,11 @@
       "parentId": "MAN-01",
       "category": "MANEUVERING",
       "name": "Start från vägkant",
-      "description": "Det här handlar om beslutet att köra ut. Du får starta från vägkanten endast om det kan ske utan fara eller onödigt hinder för andra — något annat än väjningsplikten, som gäller när du kör ut från en parkeringsplats eller en fastighet.",
+      "description": "Att köra ut från vägkanten får bara ske utan fara eller onödigt hinder.",
       "goals": [
-        "Starta från vägkanten endast när det kan ske utan fara eller onödigt hinder för andra vägtrafikanter",
-        "Ge tecken i god tid — men veta att tecknet inte befriar dig från att själv försäkra dig",
-        "Bestämma dig i tid och accelerera upp till trafikens fart. Att tveka bort en lucka som räcker är också ett fel"
+        "Eleven startar från vägkanten bara utan fara eller onödigt hinder.",
+        "Eleven ger tecken i god tid och försäkrar sig ändå själv.",
+        "Eleven accelererar upp till trafikens fart och tvekar inte bort luckan."
       ],
       "practiceSteps": [
         "Innan bilen rör sig: spegel, tecken, axelblick åt vänster — i den ordningen",
@@ -801,11 +804,11 @@
       "parentId": null,
       "category": "OBSERVATION",
       "name": "Blick långt fram",
-      "description": "Att titta långt fram ger tid att planera och reagera. Blick nära bilen skapar stress och sena reaktioner.",
+      "description": "Blicken långt fram ger tid att planera — nära bilen ger bara stress.",
       "goals": [
-        "Titta så långt fram att du hinner planera, inte bara reagera",
-        "Läsa av situationen tidigt",
-        "Undvika att stirra på bilen framför"
+        "Eleven tittar så långt fram att det finns tid att planera.",
+        "Eleven läser situationen tidigt, inte när den är framme.",
+        "Blicken fastnar inte på bilen framför."
       ],
       "practiceSteps": [
         "Träna på att flytta blicken från nära till långt bort",
@@ -841,11 +844,11 @@
       "parentId": "VEH-02",
       "category": "OBSERVATION",
       "name": "Spegelrutin",
-      "description": "Systematisk spegelkoll före varje beslut som påverkar andra trafikanter.",
+      "description": "Spegelkoll före varje beslut som påverkar någon annan.",
       "goals": [
-        "Kolla speglar innan fartändring, körfältsbyte, sväng",
-        "Förstå vad du letar efter i speglarna",
-        "Göra det till en vana, inte bara en ritual"
+        "Eleven kollar speglarna före fartändring, körfältsbyte och sväng.",
+        "Eleven säger vad som fanns i spegeln.",
+        "Spegelkollen är en vana, inte en ritual."
       ],
       "practiceSteps": [
         "Innan fartändring: innerspegeln — hur nära är bilen bakom?",
@@ -886,10 +889,10 @@
       "parentId": "OBS-02",
       "category": "OBSERVATION",
       "name": "Döda vinkeln",
-      "description": "Aktiv kontroll av området som inte syns i speglarna.",
+      "description": "Området som speglarna inte täcker kontrolleras med huvudet.",
       "goals": [
-        "Veta var döda vinkeln ligger i just den här bilen, mätt och inte gissat",
-        "Alltid kolla döda vinkeln vid körfältsbyte"
+        "Eleven har mätt upp döda vinkeln i just den här bilen.",
+        "Eleven tar axelblick vid varje körfältsbyte."
       ],
       "practiceSteps": [
         "Sitt i förarplatsen med bilen stilla och låt handledaren gå långsamt bakifrån och fram längs sidan. Säg exakt när hen försvinner ur ytterspegeln och när hen dyker upp i sidorutan — mellan de två punkterna ligger din döda vinkel",
@@ -932,11 +935,11 @@
       "parentId": "OBS-01",
       "category": "OBSERVATION",
       "name": "Aktiv risksökning och att läsa andras tecken",
-      "description": "Söka efter möjliga faror innan de blir akuta — och läsa vad andra trafikanter visar. Ett tecken från en annan förare är en avsikt, inte ett löfte.",
+      "description": "Ett tecken från en annan förare är en avsikt, inte ett löfte.",
       "goals": [
-        "Läsa andras tecken: körriktningsvisare, stopplyktor, armtecken och ögonkontakt",
-        "Läsa farten och framhjulen, inte bara blinkersen. Ett fordon som saktar in och vars framhjul börjar vridas säger mer än en lampa",
-        "Känna igen tecknet att någon tänker väja: den som har väjningsplikt sänker farten i god tid eller stannar"
+        "Eleven läser andras tecken: blinkers, stopplyktor eller ögonkontakt.",
+        "Eleven läser farten och framhjulen, inte bara blinkersen.",
+        "Den som ska väja sänker farten i god tid eller stannar."
       ],
       "practiceSteps": [
         "Sök efter ledtrådar: parkerade bilar, cyklister, busshållplatser, barn",
@@ -979,11 +982,11 @@
       "parentId": "OBS-04",
       "category": "OBSERVATION",
       "name": "Riskförutsägelse",
-      "description": "Förutse hur en situation kan utvecklas — och väga hur allvarliga de olika utfallen är. Det är konsekvensernas allvar som ska styra valet, inte hur troliga de är.",
+      "description": "Det är hur allvarligt det kan bli som styr valet, inte hur troligt.",
       "goals": [
-        "Förutsäga troliga händelser och planera flera steg framåt",
-        "Bedöma konsekvenserna av olika händelseförlopp och väga dem mot varandra",
-        "Välja den åtgärd som ger minst allvarligt utfall om det ändå går fel"
+        "Eleven planerar flera steg framåt, inte bara nästa.",
+        "Eleven väger de olika utfallen mot varandra.",
+        "Eleven väljer det som ger minst skada om det ändå går fel."
       ],
       "practiceSteps": [
         "Diskutera efteråt: vad kunde ha hänt?",
@@ -1021,11 +1024,10 @@
       "parentId": null,
       "category": "SPEED_DISTANCE",
       "name": "Hastighetsgränser",
-      "description": "Känna igen och följa hastighetsbegränsningar, och upptäcka när de ändras.",
+      "description": "Skylten anger högsta tillåtna fart, inte den fart du ska hålla.",
       "goals": [
-        "Hålla koll på gällande hastighetsgräns och upptäcka när den ändras",
-        "Förstå att skylten är ett maxvärde, inte ett mål",
-        "Känna till bashastigheten när skyltning saknas: högst 50 km/h inom tättbebyggt område, högst 70 km/h utanför"
+        "Eleven säger vilken hastighetsgräns som gäller och märker när den ändras.",
+        "Utan skylt: högst 50 km/h inom tättbebyggt område, 70 utanför."
       ],
       "practiceSteps": [
         "Leta aktivt efter hastighetsskyltar",
@@ -1062,11 +1064,11 @@
       "parentId": "SPD-01",
       "category": "SPEED_DISTANCE",
       "name": "Situationsanpassad hastighet",
-      "description": "Skylten anger maxhastighet. Vilken hastighet som faktiskt är säker beror på sikt, väder, trafik och din egen förmåga.",
+      "description": "Skylten anger maxfarten. Vad som är säkert avgörs av sikt, väder och trafik.",
       "goals": [
-        "Anpassa hastigheten till sikt, väder och trafik",
-        "Kunna stanna på synlig vägsträcka",
-        "Sänka farten innan risksituationen uppstår — och hålla tillräckligt låg fart vid risk för bländning, oavsett om det är mötande helljus eller lågt stående sol som bländar"
+        "Eleven anpassar farten till sikt, väder och trafik.",
+        "Eleven stannar inom den sträcka som går att överblicka.",
+        "Eleven sänker farten vid risk för bländning, från helljus eller sol."
       ],
       "practiceSteps": [
         "Ställ frågan: kan jag stanna på det jag ser?",
@@ -1124,11 +1126,11 @@
       "parentId": "SPD-02",
       "category": "SPEED_DISTANCE",
       "name": "Säkerhetsavstånd framåt och bakåt",
-      "description": "Avståndet framför dig är din reaktionstid. Ligger någon tätt bakom är det avståndet framåt som är din marginal — inte en högre fart.",
+      "description": "Avståndet framåt är din marginal — också när någon ligger tätt bakom.",
       "goals": [
-        "Hålla ett tidsavstånd som ger tid att reagera, och öka det när hastigheten stiger eller förhållandena försämras",
-        "Låta den som pressar bakifrån passera i stället för att öka farten. Vilken fart förhållandena tillåter är ditt ansvar, inte hens — men sänk inte heller farten för att markera tillbaka",
-        "Uppmärksammar du att någon avser att köra om: håll så långt till höger som möjligt, och öka inte farten eller försvåra omkörningen på annat sätt"
+        "Eleven håller ett tidsavstånd som räcker, och ökar det när farten stiger.",
+        "Eleven låter den som pressar passera i stället för att öka farten.",
+        "Ska någon köra om håller eleven höger och ökar inte farten."
       ],
       "practiceSteps": [
         "Välj ett tidsavstånd som ger dig tid att reagera, och öka det vid regn, halka eller dålig sikt",
@@ -1171,11 +1173,11 @@
       "parentId": "SPD-03",
       "category": "SPEED_DISTANCE",
       "name": "Köbildning och tät trafik",
-      "description": "I kö blir allt kortare, senare och trängre. Reglerna ändras inte, men två av dem gäller bara när det står tätt i alla körfält.",
+      "description": "I kö blir allt trängre — men reglerna ändras inte.",
       "goals": [
-        "Inte köra in i en korsning där du kan bli stående. Körsättet ska anpassas så att korsande trafik inte hindras i onödan, och det gäller varje korsning — inte bara den med signal",
-        "Veta att bara den som kör i körfältet längst till höger får byta fält när det står tätt i alla körfält. Undantag: du som ska stanna eller parkera, eller behöver komma i rätt fält inför en korsning",
-        "Att passera fordon i ett annat körfält är inte en omkörning när det är tät köbildning i alla körfält. Men före ett övergångsställe, en cykelpassage eller en cykelöverfart ska farten vara så låg att du kan stanna omedelbart"
+        "Eleven kör inte in i en korsning där bilen kan bli stående.",
+        "Står det tätt i alla körfält byter bara den i högerfältet — utom den som ska stanna, parkera eller ligga rätt inför korsningen.",
+        "Före övergångsställe, cykelpassage eller cykelöverfart: fart nog att stanna omedelbart."
       ],
       "practiceSteps": [
         "Stanna så att du ser bakhjulen på bilen framför mot vägbanan. Då kan du komma runt den om den blir stående",
@@ -1230,11 +1232,11 @@
       "parentId": "MAN-02",
       "category": "POSITIONING",
       "name": "Grundplacering",
-      "description": "Rätt placering i körfältet — höger, men med marginal till kanten. Placeringen avgör också hur du passerar det som står stilla längs vägen.",
+      "description": "Höger i körfältet, men med marginal till kanten och till det som står stilla.",
       "goals": [
-        "Hålla högerplacering med marginal till vägkant, dike och cyklister",
-        "Hålla sidoavstånd till parkerade och stillastående fordon, så att en dörr som öppnas inte når bilen",
-        "Veta att ett körfält för fordon i linjetrafik bara får användas av dem — och av cykel och moped klass II när fältet ligger till höger i färdriktningen"
+        "Eleven håller höger med marginal till vägkant, dike och cyklister.",
+        "Eleven håller sidoavstånd så att en dörr som öppnas inte når bilen.",
+        "Eleven kör inte i körfältet för linjetrafik."
       ],
       "practiceSteps": [
         "Träna på att hålla stabil placering med blicken långt fram",
@@ -1281,11 +1283,11 @@
       "parentId": null,
       "category": "INTERSECTIONS",
       "name": "Väjningsregler",
-      "description": "Väjningsplikt, stopplikt och högerregeln. Grunden för att ta sig säkert genom korsningar.",
+      "description": "Vem som väjer i en korsning: skylten, stopplikten eller högerregeln.",
       "goals": [
-        "Känna igen vägmärkena för väjningsplikt och stopplikt, och veta att stopplikt kräver att du stannar helt",
-        "Veta att du har väjningsplikt mot fordon som närmar sig från höger där ingen skylt eller signal anger annat — en plikt som åligger dig, inte en rättighet någon annan har",
-        "Känna undantagen: du har alltid väjningsplikt när du kör in på en väg från parkeringsplats, fastighet, stig, ägoväg, cykelbana, gågata, gångfartsområde, cykelgata eller terräng, samt efter att ha korsat gång- eller cykelbana"
+        "Eleven stannar helt vid stopplikt, varje gång.",
+        "Eleven väjer för trafik från höger när skylt saknas — en plikt, inte en gåva.",
+        "Eleven väjer alltid vid utfart från parkering, tomt, cykelbana eller liknande."
       ],
       "practiceSteps": [
         "Identifiera vägmärken för väjningsplikt och stopplikt vid korsningar",
@@ -1326,11 +1328,11 @@
       "parentId": "INT-01",
       "category": "INTERSECTIONS",
       "name": "Oreglerad korsning med högerregel",
-      "description": "Högerregeln gäller där ingen skylt eller signal anger annat. Kräver tidig upptäckt, sänkt fart och att du söker aktivt med blicken.",
+      "description": "Högerregeln gäller där ingen skylt eller signal säger annat.",
       "goals": [
-        "Identifiera oreglerade korsningar i tid och sänka farten så att du har tid att reagera",
-        "Söka efter trafik från alla håll",
-        "Tillämpa högerregeln rätt — se momentet Väjningsregler för undantagen"
+        "Eleven ser den oreglerade korsningen i tid och sänker farten.",
+        "Eleven söker efter trafik från alla håll.",
+        "Eleven tillämpar högerregeln rätt, undantagen inräknade."
       ],
       "practiceSteps": [
         "Upptäck korsningen tidigt — ingen skylt betyder högerregel",
@@ -1380,11 +1382,11 @@
       "parentId": "INT-01",
       "category": "INTERSECTIONS",
       "name": "Stopplikt",
-      "description": "Stopplikt betyder att bilen ska stå helt stilla: vid stopplinjen, eller vid märket när linjen saknas. Där du måste stanna är sällan där du ser — därför följs stoppet oftast av ett andra stopp längre fram.",
+      "description": "Stopplikt betyder att bilen står helt stilla — vid stopplinjen, annars vid märket.",
       "goals": [
-        "Stanna helt vid stopplinjen, eller vid märket när stopplinje saknas",
-        "Stanna även när korsningen ser tom ut. Stopplikten gäller oavsett om det kommer något",
-        "Söka av båda hållen från en punkt där du faktiskt ser, och rulla fram dit i etapper när sikten är skymd"
+        "Eleven stannar helt vid stopplinjen, eller vid märket när linjen saknas.",
+        "Eleven stannar även när korsningen ser tom ut.",
+        "Eleven rullar fram i etapper tills sikten räcker åt båda håll."
       ],
       "practiceSteps": [
         "Närma dig korsningen med stopplikt med sänkt fart",
@@ -1427,11 +1429,11 @@
       "parentId": "INT-01",
       "category": "INTERSECTIONS",
       "name": "Sväng i korsning",
-      "description": "Att svänga är en manöver som ska vara färdigbeslutad innan den börjar: tecken, fart och placering först, ratten sist. Du får svänga endast om det kan ske utan fara eller onödigt hinder för andra som färdas i samma riktning.",
+      "description": "Svängen är färdigbeslutad innan den börjar: tecken, fart och placering först, ratten sist.",
       "goals": [
-        "Ge tecken i god tid före svängen och släcka det när manövern är avslutad — men veta att tecknet inte ger dig rätten",
-        "Placera fordonet i god tid: nära högra kanten för högersväng, nära körbanans mitt för vänstersväng, och lämna korsningen till höger på den körbana du kör in på",
-        "Förvissa dig om att svängen går utan hinder för mötande och för dem på vägen du kör in på — och efter svängen: väjningsplikt mot gående vid övergångsställe, låg fart förbi obevakad cykelpassage"
+        "Eleven förvissar sig om att svängen går utan hinder för mötande.",
+        "Placering i god tid: höger kant vid högersväng, mitten vid vänstersväng.",
+        "Efter svängen: väjningsplikt mot gående vid övergångsstället, låg fart förbi obevakad cykelpassage."
       ],
       "practiceSteps": [
         "Bestäm svängen innan korsningen syns — vilken väg, vilket körfält",
@@ -1498,11 +1500,11 @@
       "parentId": "INT-01",
       "category": "INTERSECTIONS",
       "name": "Trafiksignaler och polismans tecken",
-      "description": "Signalen säger när du får köra, inte att vägen är fri. Över signalen står polismannen: hans eller hennes anvisning gäller framför både trafikreglerna och märken och signaler.",
+      "description": "Signalen säger när du får köra — polismannens tecken gäller framför allt annat.",
       "goals": [
-        "Röd: stopp före stopplinjen. Röd och gul tillsammans betyder fortfarande stopp — det är ingen startsignal. Gul: stanna, om du inte hunnit så långt fram att du inte kan stanna utan fara. Blinkande gul: särskild försiktighet",
-        "Grönt befriar dig inte från gående. Vid ett bevakat övergångsställe ska du lämna gående som gått ut möjlighet att passera, och efter en sväng gäller väjningsplikt mot gående och cyklande",
-        "Polismans tecken P1 stopp gäller den som kommer framifrån eller bakifrån. För den som kommer från sidan betyder samma tecken att vägen är fri"
+        "Rött och gult tillsammans betyder fortfarande stopp, inte start.",
+        "Eleven stannar på gult, om det kan ske utan fara.",
+        "Grönt befriar inte från gående som gått ut på övergångsstället."
       ],
       "practiceSteps": [
         "Sök signalen tidigt. Den står före stopplinjen och upprepas oftast på andra sidan korsningen",
@@ -1565,11 +1567,11 @@
       "parentId": "INT-01",
       "category": "ROUNDABOUTS",
       "name": "Cirkulationsplats",
-      "description": "Planera infart, körfält och utfart. Väjningsplikten mot dem som redan är i cirkulationen följer av lagen — inte av att ett vägmärke råkar sitta uppe.",
+      "description": "Väjningsplikten mot dem som är i cirkulationen följer av lagen, inte av skylten.",
       "goals": [
-        "I en cirkulationsplats har du väjningsplikt mot alla fordon som redan är i cirkulationen",
-        "Välja rätt körfält vid infarten, och veta vilken utfart du ska ta redan då",
-        "Att lämna cirkulationen från ett inre körfält är ett körfältsbyte: spegel, tecken, axelblick och en lucka, inte bara blinkers. Ge tecken höger vid utfart och sök efter cyklister"
+        "Eleven väjer för alla fordon som redan är i cirkulationen.",
+        "Eleven väljer körfält vid infarten och vet redan då sin utfart.",
+        "Att lämna cirkulationen inifrån är ett körfältsbyte, inte bara blinkers."
       ],
       "practiceSteps": [
         "Läs skyltar och markering innan infarten — de avgör körfältsvalet, inte en tumregel",
@@ -1624,11 +1626,11 @@
       "parentId": "OBS-02",
       "category": "LANE_CHANGE",
       "name": "Körfältsbyte",
-      "description": "Säkert byte av körfält med spegel, tecken och axelblick — i den ordningen — och en bedömning av luckan.",
+      "description": "Spegel, tecken, axelblick — och en lucka som räcker.",
       "goals": [
-        "Kolla spegeln, ge tecken i god tid och gör axelblicken sist, innan bytet",
-        "Välja en tillräckligt stor lucka och byta mjukt utan att tvinga andra att bromsa",
-        "Byta i god tid. Att skjuta upp bytet tills det blir bråttom är ett vanligare fel än att byta för tidigt"
+        "Eleven tar spegel, tecken och axelblick, i den ordningen.",
+        "Luckan räcker — ingen bakom behöver bromsa.",
+        "Eleven byter i god tid, inte när det börjar bli bråttom."
       ],
       "practiceSteps": [
         "Bestäm att du ska byta fält — planera tidigt",
@@ -1674,11 +1676,11 @@
       "parentId": "LANE-02",
       "category": "LANE_CHANGE",
       "name": "Omkörning",
-      "description": "En omkörning ska vara färdigplanerad innan den påbörjas. Grundvillkoret är kort: du får köra om endast om det kan ske utan fara.",
+      "description": "Du får köra om bara om det kan ske utan fara.",
       "goals": [
-        "Köra om endast när det kan ske utan fara — inte om någon bakom redan har påbörjat en omkörning, och inte om den framförvarande gett tecken om att köra om eller föra sitt fordon åt vänster",
-        "Köra om till vänster med betryggande avstånd i sidled, kontrollera att körfältet är fritt tillräckligt långt, och hålla till höger igen så snart det kan ske utan fara eller olägenhet",
-        "Känna omkörningsförbuden: strax före eller i vägkorsning och plankorsning, vid backkrön eller i kurva med skymd sikt, samt strax före eller på obevakat övergångsställe, obevakad cykelpassage eller cykelöverfart"
+        "Eleven kör inte om när någon bakom redan påbörjat sin omkörning.",
+        "Eleven kör om till vänster med betryggande avstånd — och bara när körfältet är fritt tillräckligt långt.",
+        "Eleven kör inte om vid vägkorsning, plankorsning, backkrön, skymd kurva, obevakat övergångsställe, obevakad cykelpassage eller cykelöverfart."
       ],
       "practiceSteps": [
         "Börja på landsväg med god sikt och lite trafik — aldrig som första omkörning i kö eller i skymd sikt",
@@ -1745,11 +1747,11 @@
       "parentId": "LANE-02",
       "category": "LANE_CHANGE",
       "name": "Körfältsbortfall och sammanflätning",
-      "description": "Två körfält blir ett — vid ett vägarbete, efter en omkörningssträcka, vid en avsmalning. Lagen säger att förarna ska anpassa sig till de nya förhållandena under ömsesidigt hänsynstagande.",
+      "description": "Två körfält blir ett — lagen kräver ömsesidigt hänsynstagande, ingen turordning.",
       "goals": [
-        "Veta vad regeln faktiskt kräver: ömsesidigt hänsynstagande. Den föreskriver ingen turordning, och den säger inte varannan bil — den lägger ansvaret på båda att anpassa sig",
-        "Uppmärksammar du att någon avser att köra in i ditt körfält ska du anpassa hastigheten så att inkörningen underlättas. Det är en skyldighet för dig som redan ligger rätt",
-        "Skilja sammanflätningen från påfarten. Där ett accelerationsfält leder ut på en motorväg gäller en annan regel, och den lär du dig i påfartsmomentet"
+        "Regeln kräver ömsesidigt hänsynstagande, inte varannan bil.",
+        "Eleven anpassar farten så att den som vill in kommer in.",
+        "Påfarten på motorvägen är en annan sak, med en annan regel."
       ],
       "practiceSteps": [
         "Läs skyltningen tidigt. Vet du att fältet tar slut kan du lägga dig rätt utan att någon behöver bromsa",
@@ -1804,11 +1806,11 @@
       "parentId": "OBS-04",
       "category": "URBAN",
       "name": "Spårvagn i blandtrafik",
-      "description": "Där spårvagn går i blandtrafik gäller egna regler för fri väg, möte och omkörning. Spåren själva påverkar dessutom greppet och styr hur cyklister rör sig.",
+      "description": "Spårvagn i blandtrafik: egna regler för fri väg, möte och omkörning.",
       "goals": [
-        "Lämna fri väg för järnvägståg eller spårvagn, om inte spårvagnsföraren har väjningsplikt som är utmärkt genom vägmärke",
-        "Hålla till höger vid möte, och köra om en spårvagn som går i körbanan till höger",
-        "Veta att en markerad hållplats inte får användas för att stanna eller parkera, annat än för på- eller avstigning som kan ske utan hinder för trafiken"
+        "Fri väg för tåg och spårvagn — om inte spårvagnen har väjningsplikt enligt märke.",
+        "En spårvagn som går i körbanan körs om till höger.",
+        "Hållplatsen används bara för på- och avstigning utan hinder."
       ],
       "practiceSteps": [
         "Läs var spåren går innan du väljer körfält",
@@ -1858,11 +1860,11 @@
       "parentId": null,
       "category": "URBAN",
       "name": "Gågata och gångfartsområde",
-      "description": "På en gågata och i ett gångfartsområde gäller tre regler som ändrar körningen i grunden: högst gångfart, förbud mot att parkera, och väjningsplikt mot gående. Ytan är de gåendes, och du är gäst på den.",
+      "description": "Ytan är de gåendes och du är gäst: gångfart, väjningsplikt och inget parkerande.",
       "goals": [
-        "Hålla högst gångfart, väja för gående oavsett var på ytan de går, och inte parkera",
-        "Veta att motordrivna fordon på en gågata bara får föras för att korsa den — undantagen är varuleveranser, transport av gods eller boende, hotellgäster samt sjuka eller rörelsehindrade, till eller från adress vid gatan",
-        "Skilja cykelgata från de två: där gäller högst 30 km/h, parkering endast på anordnade platser, och väjningsplikt för den som kör in på cykelgatan"
+        "Eleven håller gångfart, väjer för gående och parkerar inte.",
+        "På gågata körs bilen bara för att korsa den, med få undantag.",
+        "På cykelgata: högst 30 km/h och väjningsplikt vid infart."
       ],
       "practiceSteps": [
         "Läs skylten vid infarten. Gångfartsområde och gågata ser lika ut på marken men har olika regler för när du alls får köra där",
@@ -1917,11 +1919,11 @@
       "parentId": "SPD-02",
       "category": "RURAL",
       "name": "Infart på landsväg",
-      "description": "Accelerera till trafikhastigheten och anslut säkert till flödet utan att tvinga andra att bromsa.",
+      "description": "Accelerera till trafikens fart och anslut utan att någon behöver bromsa.",
       "goals": [
-        "Läsa skyltningen vid anslutningen — är det en utfartsväg har du väjningsplikt",
-        "Bedöma en lucka som räcker och accelerera så att hastigheten matchar flödet",
-        "Använda en lucka som räcker. Att vänta bort lucka efter lucka är också ett fel — men det är ingen uppmaning att chansa: bestäm dig medan luckan är framför dig"
+        "Eleven läser skyltningen — är det en utfartsväg gäller väjningsplikt.",
+        "Eleven väljer en lucka som räcker och accelererar upp i flödet.",
+        "Eleven bestämmer sig medan luckan finns framför bilen."
       ],
       "practiceSteps": [
         "Läs skyltning vid anslutningen: väjningsplikt, stopplikt, huvudled",
@@ -1959,11 +1961,11 @@
       "parentId": "SPD-02",
       "category": "RURAL",
       "name": "Landsvägshastighet och placering",
-      "description": "Högre hastighet kräver längre blick, tidigare planering och anpassning till kurvor och sikt.",
+      "description": "Högre fart kräver längre blick och tidigare beslut.",
       "goals": [
-        "Hålla lämplig hastighet och anpassa farten före kurvor och krön",
-        "Hålla högerplacering med marginal till sidorna",
-        "Planera långt fram"
+        "Eleven sänker farten före kurvan och krönet, inte i dem.",
+        "Eleven håller höger med marginal till sidorna.",
+        "Blicken ligger långt fram, där bilen snart är."
       ],
       "practiceSteps": [
         "Titta så långt fram att du hinner planera, inte bara reagera",
@@ -2010,11 +2012,11 @@
       "parentId": "RUR-02",
       "category": "RURAL",
       "name": "Möte på smal väg",
-      "description": "På smal väg avgörs mötet av fart och placering långt innan fordonen är framme vid varandra. Vid möte ska fordon hållas till höger och förarna lämna betryggande avstånd i sidled.",
+      "description": "Mötet avgörs av fart och placering långt innan bilarna är framme.",
       "goals": [
-        "Hålla till höger vid möte och lämna betryggande avstånd i sidled",
-        "Veta att den förare som har ett hinder på sin sida ska stanna, om det är nödvändigt för att den mötande ska kunna passera — lagen säger stanna vid behov",
-        "Ta ned farten före mötet i stället för att lösa det med ratten i sista stund"
+        "Eleven håller till höger och lämnar betryggande avstånd i sidled.",
+        "Ligger hindret på elevens sida stannar eleven om det behövs.",
+        "Farten tas ned före mötet, inte med ratten i sista stund."
       ],
       "practiceSteps": [
         "Sök mötande tidigt — på smal väg avgörs mötet långt innan det sker",
@@ -2069,11 +2071,11 @@
       "parentId": "INT-04",
       "category": "RURAL",
       "name": "Vänstersväng på landsväg",
-      "description": "Här ska du korsa mötande trafik i hög fart samtidigt som de bakom dig inte väntar sig en inbromsning. Någon uttrycklig väjningsplikt mot mötande finns inte — skyldigheten är att du själv ska förvissa dig om att svängen kan ske utan hinder för mötande och för dem på vägen du kör in på.",
+      "description": "Ingen väjningsplikt mot mötande — men du ska förvissa dig om att svängen går.",
       "goals": [
-        "Förvissa dig om att svängen kan ske utan hinder för mötande trafik eller för trafikanterna på den körbana du kör in på — det är skyldigheten, inte en väjningsplikt",
-        "Rikta särskild uppmärksamhet på den bakomvarande trafiken före inbromsningen, och ge tecken i god tid",
-        "Föra fordonet så nära körbanans mitt som möjligt. Svängen görs aldrig från vägrenen"
+        "Eleven förvissar sig om att mötande och korsande inte hindras.",
+        "Eleven kollar bakåt före inbromsningen och ger tecken i god tid.",
+        "Svängen görs från körbanans mitt, aldrig från vägrenen."
       ],
       "practiceSteps": [
         "Bestäm svängen långt innan. I landsvägsfart är \"i god tid\" betydligt längre än i tätort",
@@ -2136,11 +2138,11 @@
       "parentId": "RUR-01",
       "category": "HIGHWAY",
       "name": "Påfart motorväg",
-      "description": "Accelerera till motorvägshastighet i accelerationsfältet och fläta in dig när luckan är tillräckligt stor.",
+      "description": "Med accelerationsfält gäller ingen väjningsplikt — du anpassar farten och flyttar över.",
       "goals": [
-        "Med accelerationsfält gäller inte väjningsplikt — du ska anpassa farten till trafiken i körfältet och flytta över när det kan ske utan fara eller onödigt hinder. Saknas accelerationsfält har du väjningsplikt",
-        "Accelerera så att hastigheten matchar flödet innan accelerationsfältet tar slut, och fläta in dig mjukt",
-        "Fatta beslutet innan fältet tar slut. Att tveka bort en lucka och komma ut i slutet av fältet i för låg fart är farligare än att använda luckan"
+        "Eleven flyttar över när det går utan fara eller onödigt hinder.",
+        "Saknas accelerationsfält har eleven väjningsplikt.",
+        "Farten matchar flödet innan accelerationsfältet tar slut."
       ],
       "practiceSteps": [
         "Sök trafik på motorvägen tidigt",
@@ -2186,11 +2188,11 @@
       "parentId": "HWY-01",
       "category": "HIGHWAY",
       "name": "Avfart från motorväg",
-      "description": "Att lämna motorvägen kräver att beslutet är fattat i förväg och att farten tas ned i retardationsfältet.",
+      "description": "Beslutet är fattat i förväg, och farten tas ned i retardationsfältet.",
       "goals": [
-        "Planera avfarten i god tid och ligga i höger körfält långt innan den kommer",
-        "Ta ned farten i retardationsfältet i stället för i det genomgående körfältet — det är körteknik, inte en regel — och ha farten nere innan avfartskurvan börjar",
-        "Veta att det är förbjudet att vända och backa, och att du inte får stanna annat än på utmärkt parkerings- eller rastplats. Missar du avfarten kör du till nästa"
+        "Eleven ligger i höger körfält långt före avfarten.",
+        "Farten är nere innan avfartskurvan börjar.",
+        "Missad avfart betyder nästa avfart — att vända och backa är förbjudet."
       ],
       "practiceSteps": [
         "Bestäm avfarten innan ni är framme — läs vägvisningen på avstånd",
@@ -2241,11 +2243,11 @@
       "parentId": "HWY-01",
       "category": "HIGHWAY",
       "name": "Motortrafikled",
-      "description": "Motortrafikled ser ut som motorväg och lyder under nästan samma regler — men saknar kravet på två åtskilda körbanor och den högre hastighetsgränsen. Det är en verklig skillnad, inte en detalj.",
+      "description": "Ser ut som motorväg, men saknar kravet på två skilda körbanor.",
       "goals": [
-        "Veta att det mesta som gäller på motorväg gäller även här: bara motorfordon som får framföras med minst 40 km/h, in- och utfart bara vid vägens början eller slut eller på på- och avfartsväg, förbud mot att vända och backa, och förbud mot att stanna annat än på utmärkt parkerings- eller rastplats",
-        "Veta vad som skiljer: 110 km/h gäller bara motorväg. På motortrafikled gäller skyltad hastighet, annars bashastigheten",
-        "Förstå vad skillnaden betyder i praktiken: på en motortrafikled utan mittseparering kan du möta trafik"
+        "Som på motorväg: bara fordon som får köras minst 40 km/h, inget vändande eller backande.",
+        "110 km/h gäller bara motorväg — här gäller skylten, annars bashastigheten.",
+        "Utan mittseparering kan eleven möta trafik."
       ],
       "practiceSteps": [
         "Läs skylten vid infarten — motorväg och motortrafikled har olika vägmärken",
@@ -2292,11 +2294,11 @@
       "parentId": "OBS-01",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Fotgängare",
-      "description": "Upptäcka fotgängare tidigt och ge dem marginal — särskilt vid övergångsställen.",
+      "description": "Upptäck fotgängare tidigt och ge dem marginal, också där de inte korsar.",
       "goals": [
-        "Upptäcka fotgängare tidigt och ge marginal även när de inte korsar",
-        "Vara extra uppmärksam på barn, äldre och personer med funktionsnedsättning",
-        "Vid ett obevakat övergångsställe har du väjningsplikt mot gående som gått ut på eller ska just gå ut på övergångsstället"
+        "Eleven ser fotgängare tidigt och ger marginal.",
+        "Eleven är extra vaksam på barn, äldre och personer med funktionsnedsättning.",
+        "Vid obevakat övergångsställe väjer eleven för gående som gått ut eller ska gå ut."
       ],
       "practiceSteps": [
         "Sök aktivt efter fotgängare — mellan parkerade bilar, vid hållplatser, utanför butiker",
@@ -2341,11 +2343,11 @@
       "parentId": "OBS-02",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Cyklister",
-      "description": "Cyklister är svåra att upptäcka och hamnar lätt i döda vinkeln.",
+      "description": "Cyklister är svåra att se och hamnar lätt i döda vinkeln.",
       "goals": [
-        "Söka efter cyklister aktivt och aldrig missa en i döda vinkeln",
-        "Ge god sidomarginal vid omkörning",
-        "Skilja cykelpassage från cykelöverfart: vid cykelpassage ska du anpassa hastigheten så att fara inte uppstår, vid cykelöverfart har du väjningsplikt mot cyklande och förare av moped klass II"
+        "Eleven söker aktivt efter cyklister, också i döda vinkeln.",
+        "Eleven ger god sidomarginal vid omkörning.",
+        "Cykelpassage: anpassad fart. Cykelöverfart: väjningsplikt."
       ],
       "practiceSteps": [
         "Sök efter cyklister i speglar och döda vinkeln",
@@ -2388,11 +2390,11 @@
       "parentId": "SPD-02",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Barn och skolor",
-      "description": "Barn rör sig oförutsägbart och skyms av det som står parkerat. Det som avslöjar dem är oftast något annat än barnet självt: bollen, cykeln, den bil som stannat tvärt.",
+      "description": "Barn skyms av det som står parkerat, och avslöjas oftast av något annat.",
       "goals": [
-        "Läsa klockan: strax före skoldagens början och strax efter dess slut är det som tätast kring en skola",
-        "Känna igen förvarningarna — en boll som rullar ut i gatan, en cykel eller sparkcykel som ligger på trottoaren, en bil som bromsat in tvärt och stannat halvt i körbanan",
-        "Sänka farten där parkerade bilar skymmer sikten in mot trottoaren, även när inget barn syns"
+        "Eleven sänker farten kring skolan strax före och efter skoldagen.",
+        "Bollen, cykeln eller bilen som stannat tvärt är förvarningen.",
+        "Eleven sänker farten där parkerade bilar skymmer trottoaren."
       ],
       "practiceSteps": [
         "Kör förbi samma skola två gånger: en gång strax före skoldagens start och en gång mitt på dagen. Sätt ord på skillnaden",
@@ -2439,11 +2441,11 @@
       "parentId": "OBS-01",
       "category": "VULNERABLE_ROAD_USERS",
       "name": "Buss, skolskjuts och hållplats",
-      "description": "Passagerare kan gå av och gå över vägen. Sänk farten vid buss som står vid hållplats.",
+      "description": "Passagerare kliver av och går över vägen — sänk farten vid hållplatsen.",
       "goals": [
-        "Hålla tillräckligt låg fart när du närmar dig en spårvagn, en buss eller en skolskjuts som stannat för på- eller avstigning, och räkna med passagerare som går över vägen",
-        "Sänka farten och vara beredd att stanna",
-        "Ge en buss möjlighet att lämna hållplatsen där hastigheten är högst 50 km/h: sakta ner när föraren ger tecken för att starta, och stanna om det behövs"
+        "Eleven håller låg fart förbi buss, spårvagn eller skolskjuts som stannat.",
+        "Eleven räknar med passagerare som går över vägen.",
+        "Där gränsen är 50 släpper eleven ut bussen som ger tecken för att starta."
       ],
       "practiceSteps": [
         "Sök efter busshållplatser",
@@ -2493,11 +2495,11 @@
       "parentId": "OBS-01",
       "category": "SPECIAL_CONDITIONS",
       "name": "Vägarbete och anvisningar",
-      "description": "Tillfällig skyltning, vakt och ändrad vägbild — läs situationen på plats i stället för att köra på vana. En anvisning som innebär en avvikelse från en trafikregel gäller framför regeln.",
+      "description": "Vid vägarbete gäller anvisningen framför trafikregeln — läs situationen, kör inte på vana.",
       "goals": [
-        "Identifiera vägarbete i tid och anpassa fart och placering",
-        "Följa anvisning genom vägmärke, vägmarkering, signal eller tecken av vakt — anvisningen gäller framför trafikregeln, och en polismans anvisning gäller framför både reglerna och märkena",
-        "Känna igen vaktens tecken: V1 Stopp gäller den trafikant vakten är vänd mot och ges i mörker med rött ljus, V2 Kör fram ges med en vinkande rörelse i färdriktningen"
+        "Eleven ser vägarbetet i tid och anpassar fart och placering.",
+        "Eleven följer märke, markering, signal eller vaktens tecken.",
+        "Vaktens V1 är stopp, V2 en vinkande rörelse i färdriktningen."
       ],
       "practiceSteps": [
         "Sök efter varningsmärken och tecken på arbete: skyltvagn, koner, ljuspil, arbetsfordon",
@@ -2544,11 +2546,11 @@
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
       "name": "Mörkerkörning",
-      "description": "Sämre sikt kräver anpassad fart och extra uppmärksamhet.",
+      "description": "Sämre sikt kräver lägre fart och mer uppmärksamhet.",
       "goals": [
-        "Anpassa farten till sikten i mörker",
-        "Använda rätt ljus: halvljus normalt, helljus när synfältet annars är otillräckligt, dimljus får ersätta halvljus i dimma, dimbakljus endast i dimma eller kraftig nederbörd",
-        "Förstå att fotgängare och cyklister är svårare att se"
+        "Eleven anpassar farten till sikten i mörker.",
+        "Halvljus normalt, helljus när synfältet annars inte räcker, dimbakljus bara i dimma eller kraftig nederbörd.",
+        "Eleven räknar med fotgängare och cyklister som syns sent."
       ],
       "practiceSteps": [
         "Först när grundkompetens finns: träna i skymning",
@@ -2598,11 +2600,11 @@
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
       "name": "Regn och vattenplaning",
-      "description": "Regn tar både grepp och sikt, och vid tillräcklig fart över tillräckligt mycket vatten tappar däcket kontakten med vägen helt. Vattenplaning är körteknik, inte en regel — det finns ingen bestämmelse om den.",
+      "description": "Regn tar både grepp och sikt — och tillräckligt med vatten lyfter däcket.",
       "goals": [
-        "Anpassa farten till väglag och sikt: du ska behålla kontrollen och kunna stanna på den vägsträcka du överblickar. Håll tillräckligt låg fart när sikten är nedsatt av vädret och när väglaget är halt",
-        "Veta vad som gör vattenplaning troligare — hög fart, stående vatten i hjulspår, och lite mönster kvar på däcken. Det är teknik, inte en regel",
-        "Kunna vad du gör när det händer: släpp gasen, håll ratten stilla och rakt, bromsa inte hårt, och vänta ut de sekunder det tar innan däcken tar igen"
+        "Eleven håller farten låg nog att stanna inom sikten.",
+        "Hög fart, stående vatten och lite mönster gör vattenplaning troligare.",
+        "Händer det: släpp gasen, håll ratten rak, bromsa inte hårt."
       ],
       "practiceSteps": [
         "Sök vattnet innan du är i det: hjulspår, vägkanten, sänkor och ställen där vattnet blir stående",
@@ -2649,11 +2651,11 @@
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
       "name": "Halt väglag och vinterförhållanden",
-      "description": "Halt underlag kräver mjuka rörelser på ratt, gas och broms, längre avstånd och lägre fart. Ersätter aldrig riskutbildning del 2, där halkmomentet ingår.",
+      "description": "Halka kräver mjuka rörelser, längre avstånd och lägre fart.",
       "goals": [
-        "Identifiera halt väglag — frosthalka kommer först på broar, i skugga och på morgonen efter en klar natt. Det är erfarenhet, inte en regel",
-        "Sänka farten rejält och undvika plötsliga rörelser på ratt, gas och broms",
-        "Känna vinterdäckskravet: 1 december–31 mars när vinterväglag råder. Dubbdäck är tillåtna 1 oktober–15 april och därutöver vid vinterväglag, och minsta mönsterdjup för vinterdäck på personbil är 3 mm"
+        "Eleven väntar sig halka på broar, i skugga och tidiga morgnar.",
+        "Eleven sänker farten och undviker plötsliga rörelser på ratt, gas och broms.",
+        "Vinterdäck 1 december–31 mars vid vinterväglag, minst 3 mm mönster."
       ],
       "practiceSteps": [
         "Endast när grundkompetens finns och förhållandena är lämpliga. Diskutera riskerna innan ni ger er ut",
@@ -2712,11 +2714,11 @@
       "parentId": "OBS-04",
       "category": "SPECIAL_CONDITIONS",
       "name": "Järnvägs- och spårvägskorsning",
-      "description": "Vid en plankorsning ska du vara särskilt försiktig och uppmärksam på om ett tåg eller en spårvagn närmar sig, anpassa farten så att bilen kan stannas före korsningen, och passera utan onödigt dröjsmål.",
+      "description": "Vid en plankorsning gäller särskild försiktighet — och att passera utan onödigt dröjsmål.",
       "goals": [
-        "Anpassa hastigheten så att bilen kan stannas före korsningen, och passera utan onödigt dröjsmål",
-        "Inte köra in om ett tåg eller en spårvagn närmar sig, om en signal visar rött, en ljudsignal ljuder eller en bom fälls, är fälld eller reses — eller om du riskerar att bli stående i korsningen",
-        "Stanna på betryggande avstånd från korsningen och före signaler eller bommar"
+        "Eleven håller farten låg nog att stanna före korsningen.",
+        "Eleven kör inte in vid rött, ljudsignal, bom eller annalkande tåg.",
+        "Eleven kör inte in om bilen kan bli stående i korsningen."
       ],
       "practiceSteps": [
         "Sök efter märken, kryssmärke, bommar och signaler i god tid",
@@ -2771,11 +2773,11 @@
       "parentId": "OBS-04",
       "category": "SPECIAL_CONDITIONS",
       "name": "Vilt och djur på vägen",
-      "description": "Det finns ingen väjningsplikt mot djur — före olyckan gäller den allmänna aktsamhetsregeln. Efter en sammanstötning finns däremot tydliga skyldigheter.",
+      "description": "Det finns ingen väjningsplikt mot djur — men efter en sammanstötning finns skyldigheter.",
       "goals": [
-        "Anpassa körningen i viltrika områden: iaktta den omsorg och varsamhet som omständigheterna kräver. Håll tillräckligt låg fart när du närmar dig kreatur på vägen — och för den som rider eller driver kreatur gäller reglerna om trafik med fordon i tillämpliga delar",
-        "Efter sammanstötning med björn, varg, järv, lo, älg, hjort, rådjur, utter, vildsvin, mufflonfår eller örn: snarast möjligt märka ut olycksplatsen och underrätta Polismyndigheten. Två åtgärder, och de gäller även om djuret verkar oskadat",
-        "Veta att ren, hund, katt, får och nöt är tamdjur och inte omfattas av den regeln — då gäller att stanna kvar, hjälpa skadade, lämna uppgifter och underrätta den som lidit skada eller Polismyndigheten"
+        "Eleven sänker farten i viltrika områden och nära kreatur på vägen.",
+        "Efter sammanstötning med björn, varg, järv, lo, älg, hjort, rådjur, utter, vildsvin, mufflonfår eller örn: märk ut platsen och underrätta Polismyndigheten.",
+        "Hund, katt och andra tamdjur omfattas inte — då gäller olycksreglerna."
       ],
       "practiceSteps": [
         "Läs terrängen: skogsbryn, åkerkant, dike med öppen sikt in i skogen, och ställen där viltstängslet tar slut",
@@ -2830,11 +2832,11 @@
       "parentId": null,
       "category": "SPECIAL_CONDITIONS",
       "name": "Vägtunnel",
-      "description": "Tunneln har inga egna trafikregler utöver dem som gäller på vägen i övrigt. Det som gör den svår är ljusomställningen, ljudet och att det inte finns någon vägren att ta sig till.",
+      "description": "Tunneln har inga egna regler — det svåra är ljuset, ljudet och den saknade vägrenen.",
       "goals": [
-        "Ha halvljuset tänt, och veta att fordon inte får stannas eller parkeras i en vägport eller tunnel",
-        "Läsa körfältssignaler: rött kryss betyder att körfältet inte får användas, gul pil att du ska byta körfält i pilens riktning, grön pil att körfältet får användas",
-        "Veta att rött blinkande ljus vid tunnel betyder stopp — passera inte stopplinjen eller, om den saknas, signalen"
+        "Eleven kör med halvljus och stannar inte i tunneln.",
+        "Rött kryss betyder stängt körfält, gul pil byt fält, grön pil öppet.",
+        "Rött blinkande ljus vid tunneln betyder stopp."
       ],
       "practiceSteps": [
         "Ta av solglasögonen före infarten. Ögonen behöver några sekunder på sig i mörkret — körteknik, inte en regel",
@@ -2889,11 +2891,11 @@
       "parentId": "SPD-02",
       "category": "SPECIAL_CONDITIONS",
       "name": "Långa upp- och nedförsbackar",
-      "description": "En lång backe är en egen trafikmiljö, inte en detalj i bromsmomentet. Nedför växer farten av sig själv och bromsarna blir varma om de ligger an hela vägen; uppför tappar bilen fart och kön bakom blir längre.",
+      "description": "En lång backe är en egen trafikmiljö — nedför växer farten, uppför försvinner den.",
       "goals": [
-        "Anpassa hastigheten så att du behåller kontrollen och kan stanna på den vägsträcka du överblickar, även när backen skymmer",
-        "Välja växel före nedförsbacken och öka avståndet framåt, så att bromsarna får vila. En broms som ligger an länge blir varm och tar sämre — det är körteknik, inte en regel",
-        "Uppför: växla ner i tid och håll farten jämn, så att du inte blir ett onödigt hinder"
+        "Eleven kan stanna inom sikten, även när krönet skymmer.",
+        "Växeln väljs före nedförsbacken, så att bromsarna får vila.",
+        "Uppför växlar eleven ner i tid och blir inte ett hinder."
       ],
       "practiceSteps": [
         "Läs backen innan du är i den: hur lång, hur brant, syns slutet?",
@@ -2956,11 +2958,11 @@
       "parentId": null,
       "category": "ECO_DRIVING",
       "name": "Sparsam och miljöanpassad körning",
-      "description": "Förmågan att köra med låg bränsleförbrukning bedöms särskilt på körprovet. Det mesta av tekniken är samma sak som god planering: den som slipper bromsa slipper också gasa igen.",
+      "description": "Den som slipper bromsa slipper också gasa igen — och det bedöms på körprovet.",
       "goals": [
-        "Använda en körteknik som medför låg bränsleförbrukning, och kunna förklara sambandet mellan körsätt och miljöpåverkan",
-        "Motorbromsa, och välja den högsta växel som motorn går jämnt på",
-        "Veta att sparsam körning handlar om jämnhet, inte om låg fart — att bli ett hinder för andra är varken säkert eller sparsamt"
+        "Eleven kör så att bränsleförbrukningen blir låg.",
+        "Eleven motorbromsar och kör på den högsta växel motorn går jämnt på.",
+        "Sparsamt är jämnt, inte långsamt — ett hinder är varken säkert eller sparsamt."
       ],
       "practiceSteps": [
         "Titta så långt fram att du ser nästa inbromsning innan den blir nödvändig",
@@ -3015,11 +3017,11 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Alkohol och droger",
-      "description": "Förstå att alkohol och droger kraftigt försämrar körförmågan.",
+      "description": "Alkohol och droger försämrar körförmågan kraftigt — även små mängder påverkar.",
       "goals": [
-        "Veta att alkohol och droger försämrar reaktion, omdöme och koordination — och att även små mängder påverkar",
-        "Känna till att rattfylleri inträffar vid minst 0,2 promille i blodet eller 0,10 mg/l i utandningsluften, och att grovt rattfylleri särskilt beaktas vid minst 1,0 promille eller 0,50 mg/l",
-        "Förstå att den juridiska gränsen inte anger vad som är säkert — den enda säkra hållningen är att inte dricka alls"
+        "Eleven kör inte efter att ha druckit, inte heller små mängder.",
+        "Rattfylleri börjar vid 0,2 promille, grovt rattfylleri särskilt vid 1,0.",
+        "Den juridiska gränsen säger inte vad som är säkert."
       ],
       "practiceSteps": [
         "Diskutera hur alkohol och droger påverkar",
@@ -3054,11 +3056,10 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Läkemedel",
-      "description": "Vissa läkemedel påverkar körförmågan. Kontrollera bipacksedeln.",
+      "description": "Läkemedel kan påverka körningen — receptbelagt betyder inte ofarligt.",
       "goals": [
-        "Veta att även receptbelagda läkemedel kan påverka",
-        "Kontrollera bipacksedel",
-        "Avstå från körning vid tvivel"
+        "Eleven läser bipacksedeln före passet, inte i bilen.",
+        "Är det oklart: fråga apoteket, och kör inte."
       ],
       "practiceSteps": [
         "Ta fram bipacksedeln till ett läkemedel eleven faktiskt använder och läs stycket om trafik och maskiner högt",
@@ -3092,11 +3093,10 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Trötthet",
-      "description": "Trötthet försämrar reaktion och omdöme. Pausa eller avstå.",
+      "description": "Trötthet försämrar reaktion och omdöme — bara sömn hjälper.",
       "goals": [
-        "Känna igen tecken på trötthet",
-        "Veta att det enda som hjälper är sömn",
-        "Kunna avbryta eller avstå"
+        "Eleven säger till när tröttheten kommer.",
+        "Eleven avbryter passet eller avstår, i stället för att fortsätta."
       ],
       "practiceSteps": [
         "Diskutera tecken på trötthet",
@@ -3127,11 +3127,11 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Stress och känslor",
-      "description": "Starka känslor påverkar omdöme och uppmärksamhet. Pausa när det behövs.",
+      "description": "Starka känslor tar uppmärksamhet — pausa när de tar över.",
       "goals": [
-        "Känna igen när känslor påverkar körningen",
-        "Kunna pausa eller avstå",
-        "Förstå att det är okej att inte köra"
+        "Eleven märker när känslorna påverkar körningen.",
+        "Eleven pausar eller avstår när det behövs.",
+        "Att avstå är ett tillåtet val."
       ],
       "practiceSteps": [
         "Säg före varje pass hur dagen varit, på en skala ni bestämt själva. Under en viss siffra körs det inte",
@@ -3166,11 +3166,11 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Grupptryck",
-      "description": "Passagerare kan påverka risknivån. Stå emot press att köra farligt.",
+      "description": "Passagerare kan höja risknivån — gränsen är förarens.",
       "goals": [
-        "Förstå att passagerare kan påverka beteendet",
-        "Kunna säga nej till farlig körning",
-        "Formulera egen gräns"
+        "Eleven märker när passagerarna ändrar körsättet.",
+        "Eleven säger nej till farlig körning, också inför kompisar.",
+        "Eleven har en egen gräns formulerad före passet."
       ],
       "practiceSteps": [
         "Lista de situationer som faktiskt kommer: en till i bilen än det finns bälten, \"kör lite fortare\", sent på kvällen, någon som vill bli skjutsad en bit till",
@@ -3205,11 +3205,11 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Impulsivitet och spänningssökande",
-      "description": "Ökad kompetens kan leda till högre risk om den används fel. Här räcker det inte att känna igen mekanismen hos andra — du ska värdera din egen förmåga att motstå impulsen.",
+      "description": "Mer skicklighet kan bli mer risk — momentet är förmågan att motstå impulsen.",
       "goals": [
-        "Förstå att skicklighet inte är samma sak som säkerhet",
-        "Värdera sin egen förmåga att motstå impulsiva handlingar och sökandet efter spänning",
-        "Namnge konkreta strategier för att inte använda bilen som spänningskälla"
+        "Eleven skiljer skicklighet från säkerhet.",
+        "Eleven värderar sin egen förmåga att motstå impulsen.",
+        "Eleven namnger strategier för att inte söka spänning i bilen."
       ],
       "practiceSteps": [
         "Diskutera mekanismen: \"Jag kan, därför vågar jag\"",
@@ -3247,11 +3247,11 @@
       "parentId": null,
       "category": "RISK_AWARENESS",
       "name": "Distraktion under körning",
-      "description": "De andra riskmomenten handlar om vad du bär med dig in i bilen. Det här handlar om det som tar din uppmärksamhet medan du kör: telefonen, skärmen, passagerarna, maten, musiken.",
+      "description": "De andra riskmomenten följer med in i bilen — det här uppstår under körningen.",
       "goals": [
-        "Du får ägna dig åt mobiltelefon och annan kommunikationsutrustning bara om det inte inverkar menligt på förandet av fordonet — och du får aldrig hålla utrustningen i handen",
-        "Veta att regeln gäller mer än telefonen: allt som stör körningen är otillåtet, även det som inte är kommunikationsutrustning",
-        "Skilja tillåtet från ofarligt. Ett handsfree-samtal är tillåtet och belastar ändå uppmärksamheten"
+        "Eleven håller aldrig telefonen i handen under färd.",
+        "Allt som stör körningen är otillåtet, inte bara telefonen.",
+        "Ett handsfree-samtal är tillåtet och tar ändå uppmärksamhet."
       ],
       "practiceSteps": [
         "Gör klart allt innan bilen rullar: mål i navigatorn, musik, temperatur, telefonen undanlagd",
@@ -3284,11 +3284,11 @@
       "parentId": "OBS-02",
       "category": "EMERGENCY",
       "name": "Utryckningsfordon",
-      "description": "Du ska lämna fri väg för utryckningsfordon som avger signal med föreskriven larmanordning — och stanna om det är nödvändigt.",
+      "description": "Du ska lämna fri väg för utryckningsfordon som ger signal — och stanna om det behövs.",
       "goals": [
-        "Upptäcka utryckningsfordon tidigt — det hörs oftast innan det syns",
-        "Lämna fri väg, och stanna om det är nödvändigt",
-        "Lämna fri väg utan att skapa en ny fara: sänk farten och skapa plats där det finns plats, i stället för att tvärbromsa eller köra upp på gång- eller cykelbana"
+        "Eleven upptäcker utryckningsfordonet tidigt — oftast hörs det före det syns.",
+        "Eleven lämnar fri väg, och stannar om det är nödvändigt.",
+        "Eleven skapar plats där det finns plats, utan att tvärbromsa."
       ],
       "practiceSteps": [
         "Träna på att lyssna: sänk musiken och håll ljudbilden öppen — sirenen hörs långt innan blåljuset syns",
@@ -3335,11 +3335,11 @@
       "parentId": null,
       "category": "EMERGENCY",
       "name": "Åtgärder vid trafikolycka",
-      "description": "Har du haft del i en trafikolycka, med eller utan egen skuld, ska du stanna kvar på platsen och i mån av förmåga hjälpa skadade. Momentet handlar om vad du gör och i vilken ordning — själva omhändertagandet av skadade lär du dig på en riktig första hjälpen-utbildning, inte här.",
+      "description": "Har du varit med i en olycka stannar du kvar och hjälper till, skuld eller inte.",
       "goals": [
-        "Stanna kvar på platsen, hjälpa skadade i mån av förmåga, och på begäran lämna namn, adress och upplysningar om händelsen",
-        "Varna annan trafik, och underrätta Polismyndigheten när någon skadats och skadan inte är obetydlig — eller den som lidit skada när egendom skadats utan att någon är där som kan ta emot uppgifter",
-        "Veta var din kunskap tar slut. Första hjälpen hämtar du från en första hjälpen-utbildning"
+        "Eleven stannar kvar och hjälper skadade i mån av förmåga.",
+        "Eleven lämnar namn, adress och upplysningar på begäran.",
+        "Eleven varnar trafiken och underrättar polisen när någon skadats mer än obetydligt."
       ],
       "practiceSteps": [
         "Öva inte det här på en olycksplats. Passerar ni en: håll tillräckligt låg fart förbi, stanna inte för att titta, och prata igenom ordningen efteråt — stanna, se efter skadade, varna, larma",
@@ -3382,11 +3382,11 @@
       "parentId": null,
       "category": "TRIP_PLANNING",
       "name": "Resplanering och resval",
-      "description": "Att planera sitt resande: vart, när, hur och varför en resa görs. Privat övningskörning har ett övningsläge trafikskolan saknar — varje pass börjar med att någon bestämmer vart ni ska, och det ska vara eleven.",
+      "description": "Varje pass börjar med att eleven bestämmer vart ni ska.",
       "goals": [
-        "Redogöra för hur val av färdmedel, ressällskap och färdväg påverkar trafiksäkerhet och miljö",
-        "Redogöra för hur bilkörning vid olika tidpunkter på dygnet påverkar förarbeteende och trafiksäkerhet",
-        "Kunna svara på varför just den här resan görs med bil"
+        "Eleven säger hur färdmedel, sällskap och färdväg påverkar säkerhet och miljö.",
+        "Eleven säger hur tiden på dygnet påverkar körningen.",
+        "Eleven svarar på varför just den här resan görs med bil."
       ],
       "practiceSteps": [
         "Bestäm färdvägen innan ni sätter er i bilen, inte i korsningen",
@@ -3429,11 +3429,11 @@
       "parentId": null,
       "category": "SELF_ASSESSMENT",
       "name": "Självbedömning",
-      "description": "Bedöma sin egen förmåga realistiskt — inte för högt, inte för lågt. Det gäller både den vanliga körningen och en krissituation du ännu inte har övat.",
+      "description": "Bedöma sin förmåga realistiskt — varken för högt eller för lågt.",
       "goals": [
-        "Kunna bedöma egen förmåga och säga vad bedömningen bygger på",
-        "Bedöma sin förmåga att klara en uppkommen krissituation — undanmanöver, sladd, plötsligt hinder",
-        "Bedöma sin förmåga att upptäcka risker som hör ihop med fordonets funktion och manövrering"
+        "Eleven säger vad bedömningen av den egna förmågan bygger på.",
+        "Eleven bedömer sin förmåga vid sladd eller plötsligt hinder.",
+        "Eleven bedömer sin förmåga att se risker i fordonet självt."
       ],
       "practiceSteps": [
         "Diskutera skillnaden mellan \"känns bra\" och \"är bra\"",
@@ -3471,11 +3471,11 @@
       "parentId": "SELF-01",
       "category": "SELF_ASSESSMENT",
       "name": "Lärandemål",
-      "description": "Sätta konkreta, rimliga mål för varje pass — inte för många samtidigt.",
+      "description": "Ett huvudmål per pass, konkret nog att gå att pricka av.",
       "goals": [
-        "Sätta ett huvudmål per pass",
-        "Göra målet konkret och mätbart",
-        "Undvika för många mål samtidigt"
+        "Eleven sätter ett huvudmål före passet.",
+        "Målet är konkret och går att mäta.",
+        "Eleven tar inte fler mål än passet rymmer."
       ],
       "practiceSteps": [
         "Sätt målet innan bilen startar, och skriv ner det i en enda mening",
@@ -3512,11 +3512,11 @@
       "parentId": "OBS-01",
       "category": "SELF_ASSESSMENT",
       "name": "Självständig riskhantering",
-      "description": "Planera och hantera risk utan att vänta på handledaren. Riskerna finns både i trafiken och i bilen.",
+      "description": "Risken finns både i trafiken och i bilen — och eleven agerar utan att bli tillsagd.",
       "goals": [
-        "Identifiera risk och planera åtgärd själv, utan att vänta på handledaren",
-        "Identifiera risker som följer av fordonet självt — bromsverkan som avtar, slitna däck, sikt som skyms, last som flyttar sig",
-        "Se sitt eget sätt att manövrera som en riskkälla, inte bara omgivningen"
+        "Eleven ser risken och gör något åt den, utan uppmaning.",
+        "Eleven pekar ut risker i bilen: bromsar, däck, sikt eller last.",
+        "Eleven ser sitt eget körsätt som en riskkälla."
       ],
       "practiceSteps": [
         "Börja passet med elevens egen genomgång: vad i bilen och vad i dagens körning är riskerna?",
@@ -3553,11 +3553,11 @@
       "parentId": "SELF-01",
       "category": "SELF_ASSESSMENT",
       "name": "Personliga förutsättningar",
-      "description": "Förarbeteende och olycksrisk hänger ihop med viljan att följa regler och med faktorer som ålder, personlighet, attityd, livsstil och grupptillhörighet. Poängen är inte att sortera in sig i en grupp, utan att se sina egna förutsättningar tillräckligt tydligt för att ta hänsyn till dem.",
+      "description": "Ålder, personlighet och livsstil påverkar körningen — se dina egna tillräckligt tydligt.",
       "goals": [
-        "Återge hur personliga förutsättningar som kön, ålder, personlighet, attityd, livsstil och grupptillhörighet påverkar trafiksäkerheten",
-        "Sätta ord på sina egna förutsättningar utan att göra dem till ursäkter",
-        "Peka ut vilka av de egna förutsättningarna som går att ta hänsyn till redan i planeringen av en körning"
+        "Eleven återger hur ålder, personlighet och livsstil påverkar trafiksäkerheten.",
+        "Eleven sätter ord på sina egna förutsättningar utan att ursäkta sig.",
+        "Eleven pekar ut vilka av dem som går att planera för."
       ],
       "practiceSteps": [
         "Låt eleven beskriva sig själv som förare i tre meningar, och handledaren göra samma sak",
@@ -3600,11 +3600,11 @@
       "parentId": "SELF-01",
       "category": "SELF_ASSESSMENT",
       "name": "Viljan att följa regler",
-      "description": "Appen lär ut vad reglerna säger; det här momentet handlar om något annat, nämligen viljan att följa dem. Att kunna en regel och att vilja följa den är två olika saker, och de kräver olika åtgärder.",
+      "description": "Att kunna en regel och att vilja följa den är två olika saker.",
       "goals": [
-        "Kunna förklara syftet bakom en regel, inte bara dess innehåll",
-        "Känna igen sina egna undantag — de regler man tycker gäller andra",
-        "Skilja på att inte kunna en regel och att inte vilja följa den"
+        "Eleven förklarar syftet bakom regeln, inte bara innehållet.",
+        "Eleven pekar ut sina egna undantag — reglerna som gäller andra.",
+        "Eleven skiljer att inte kunna från att inte vilja."
       ],
       "practiceSteps": [
         "Välj en regel eleven tycker är onödig och gräv i varför den finns",
@@ -3647,11 +3647,11 @@
       "parentId": null,
       "category": "NAVIGATION",
       "name": "Övergång mellan trafikmiljöer",
-      "description": "Mycket händer i skarven mellan trafikmiljöer: landsväg in i tätort, motorväg ut på lokalgata, tätort ut på landsväg. Skylten talar om att miljön har bytts — men det är du som ska byta körsätt.",
+      "description": "Skylten säger att miljön har bytts — körsättet byter du själv.",
       "goals": [
-        "Upptäcka att miljön håller på att byta innan skylten kommer: bebyggelse, gatubelysning, trottoarer, hållplatser, tätare korsningar",
-        "Ha rätt hastighet när skylten passeras, inte hundra meter efter — och anpassa farten till vad trafiksäkerheten kräver även när skylten tillåter mer",
-        "Flytta blicken närmare när miljön blir tätare och längre fram när den öppnar sig, och byta väjningsbild: i bostadsområdet kan högerregeln gälla i varje korsning"
+        "Eleven ser bebyggelse, trottoarer och hållplatser innan skylten kommer.",
+        "Farten är rätt när skylten passeras, inte hundra meter senare.",
+        "I bostadsområdet räknar eleven med högerregeln i varje korsning."
       ],
       "practiceSteps": [
         "Planera en runda som passerar minst tre miljöbyten och kör den två gånger",
@@ -3714,11 +3714,11 @@
       "parentId": "NAV-01",
       "category": "NAVIGATION",
       "name": "Självständig körning mot mål",
-      "description": "Allt annat i appen övas med en handledare som säger vad som ska hända härnäst. Här tas rösten bort: eleven får ett mål och kör dit utan löpande instruktioner.",
+      "description": "Handledarens röst tas bort: eleven får ett mål och kör dit.",
       "goals": [
-        "Köra till ett bestämt mål utan löpande instruktioner, och följa vägvisning på egen hand",
-        "Hålla kvar körsättet när uppmärksamheten går åt att navigera: fart, placering, tecken och sökande ska inte försämras",
-        "Upptäcka själv att du kört fel och fortsätta mot målet — utan att vända eller backa där det inte kan ske utan fara eller hinder för andra"
+        "Eleven kör till målet och följer vägvisningen på egen hand.",
+        "Fart, placering och sökande försämras inte av navigerandet.",
+        "Eleven upptäcker felkörningen själv — vänder och backar bara utan fara eller hinder."
       ],
       "practiceSteps": [
         "Börja kort: ett mål i en känd miljö, tio minuter, inga instruktioner",
@@ -4929,6 +4929,6 @@
       "sourceVersion": "2026.09.03"
     }
   ],
-  "exportedAt": "2026-09-05T19:27:05.977Z",
+  "exportedAt": "2026-09-08T17:20:19.036Z",
   "databaseVersion": "1.0"
 }
