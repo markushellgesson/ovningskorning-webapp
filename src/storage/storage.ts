@@ -20,6 +20,7 @@ import type {
   Passposition,
   Passpost,
 } from './types';
+import type { PassSteg } from '@/components/pass/typer';
 
 const VERSION = 'v1';
 const PREFIX = `ovningskorning:${VERSION}`;
@@ -228,9 +229,67 @@ export function clearAllData(): boolean {
   }
 }
 
-// Aktuellt pass
+// Passloggen
 
-const FÖRSTA_PASSET: Passposition = { steg: 1, grupp: 0 };
+/** Alla genomförda pass, äldst först. Tom lista om lagringen inte går att läsa. */
+export function getPasslogg(): Passpost[] {
+  const v = safeGet<unknown>('passlogg', []);
+  return Array.isArray(v) ? (v as Passpost[]) : [];
+}
+
+/** Historiska "redan"-markeringar visar framsteg, men är inga körda pass. */
+export function getKördaPass(): Passpost[] {
+  return getPasslogg().filter((post) => post.utfall !== 'redan');
+}
+
+export function loggaPass(post: Passpost): boolean {
+  return safeSet('passlogg', [...getPasslogg(), post]);
+}
+
+/** Ett "ta om" är en anteckning om ett försök, inte ett avslut på passet. */
+export function ärAvslutat(steg: number, grupp: number): boolean {
+  return getPasslogg().some(
+    (post) => post.steg === steg && post.grupp === grupp && post.utfall !== 'taom',
+  );
+}
+
+/** Ett kört pass väger tyngre än en historisk markering på stegsidan. */
+export function avslutandePasspost(steg: number, grupp: number): Passpost | null {
+  const poster = getPasslogg()
+    .filter((post) => post.steg === steg && post.grupp === grupp)
+    .reverse();
+  return (
+    poster.find((post) => post.utfall === 'bra' || post.utfall === 'sadar') ??
+    poster.find((post) => post.utfall === 'redan') ??
+    null
+  );
+}
+
+export function markeraGjort(steg: number, grupp: number, momentIds: string[]): boolean {
+  return loggaPass({
+    datum: new Date().toISOString(),
+    steg,
+    grupp,
+    momentIds,
+    utfall: 'redan',
+    nastaGang: null,
+  });
+}
+
+export function avmarkeraGjort(steg: number, grupp: number): boolean {
+  const logg = getPasslogg();
+  let index = -1;
+  for (let i = logg.length - 1; i >= 0; i -= 1) {
+    const post = logg[i];
+    if (post.steg === steg && post.grupp === grupp && post.utfall === 'redan') {
+      index = i;
+      break;
+    }
+  }
+  return index === -1
+    ? false
+    : safeSet('passlogg', [...logg.slice(0, index), ...logg.slice(index + 1)]);
+}
 
 function ärPosition(v: unknown): v is Passposition {
   return (
@@ -244,54 +303,82 @@ function ärPosition(v: unknown): v is Passposition {
 }
 
 /**
- * Var paret är: steg och grupp. Gruppen är passet.
- *
- * Det här är appens tillstånd. Startsidan visar det passet och inget annat,
- * och svaret på "Hur gick det?" för det vidare. Utan lagrat värde är svaret
- * första passet — ingen onboarding, ingen fråga.
- *
- * Lagringen hette en dag `currentStep` och var ett heltal, innan passet
- * blev enheten. Ett sådant värde läses som "första passet i det steget", så
- * ingen tappar sin plats av att appen bytte enhet.
- *
- * `null` betyder att lagringen inte gick att läsa (privat läge, blockerade
- * kakor, full kvot). Det skiljer sig från "har inte börjat än": anroparen
- * ska visa första passet i båda fallen, men bara säga till om sparandet i
- * det första. Därför går skillnaden inte att slå ihop.
+ * Flyttar den gamla lagrade positionen till historik innan den tolkas som
+ * framsteg. Det gör övergången en gång och lämnar därefter en enda källa till
+ * sanningen: passloggen.
  */
-export function getCurrentPass(): Passposition | null {
+function migreraGammalPosition(steg: PassSteg[]): void {
   try {
-    const raw = localStorage.getItem(`${PREFIX}:currentPass`);
-    if (raw !== null) {
-      const v: unknown = JSON.parse(raw);
-      return ärPosition(v) ? v : FÖRSTA_PASSET;
+    const currentPass = localStorage.getItem(`${PREFIX}:currentPass`);
+    const currentStep = localStorage.getItem(`${PREFIX}:currentStep`);
+    if (currentPass === null && currentStep === null) return;
+
+    let position: Passposition | null = null;
+    if (currentPass !== null) {
+      const parsed: unknown = JSON.parse(currentPass);
+      position = ärPosition(parsed) ? parsed : null;
     }
-    const gammalt = localStorage.getItem(`${PREFIX}:currentStep`);
-    if (gammalt !== null) {
-      const steg = Number(JSON.parse(gammalt));
-      return Number.isInteger(steg) && steg >= 1 ? { steg, grupp: 0 } : FÖRSTA_PASSET;
+    if (position === null && currentStep !== null) {
+      const parsed: unknown = JSON.parse(currentStep);
+      const nummer = Number(parsed);
+      position = Number.isInteger(nummer) && nummer >= 1 ? { steg: nummer, grupp: 0 } : null;
     }
-    return FÖRSTA_PASSET;
+
+    if (position !== null) {
+      const logg = getPasslogg();
+      const redanAvslutade = new Set(
+        logg.filter((post) => post.utfall !== 'taom').map((post) => `${post.steg}:${post.grupp}`),
+      );
+      const datum = new Date().toISOString();
+      const migrerade = steg.flatMap((ettSteg) =>
+        ettSteg.grupper.flatMap((grupp, gruppIndex) => {
+          const förePositionen =
+            ettSteg.nummer < position.steg ||
+            (ettSteg.nummer === position.steg && gruppIndex < position.grupp);
+          const nyckel = `${ettSteg.nummer}:${gruppIndex}`;
+          return förePositionen && !redanAvslutade.has(nyckel)
+            ? [
+                {
+                  datum,
+                  steg: ettSteg.nummer,
+                  grupp: gruppIndex,
+                  momentIds: grupp.moment.map((moment) => moment.id),
+                  utfall: 'redan' as const,
+                  nastaGang: null,
+                },
+              ]
+            : [];
+        }),
+      );
+      if (migrerade.length > 0 && !safeSet('passlogg', [...logg, ...migrerade])) return;
+    }
+
+    safeRemove('currentPass');
+    safeRemove('currentStep');
   } catch (error) {
-    console.warn('Failed to read currentPass from localStorage:', error);
-    return null;
+    console.warn('Failed to migrate currentPass from localStorage:', error);
   }
 }
 
-export function saveCurrentPass(position: Passposition): boolean {
-  return safeSet('currentPass', position);
-}
+/**
+ * Var paret är härleds ur första passet i ordningen som inte avslutats.
+ *
+ * När allt är avslutat blir positionen steget efter planen. Passvyn använder
+ * det för att visa att hela sträckan är passerad.
+ */
+export function härledPosition(steg: PassSteg[]): Passposition {
+  migreraGammalPosition(steg);
+  const logg = getPasslogg();
+  const avslutade = new Set(
+    logg.filter((post) => post.utfall !== 'taom').map((post) => `${post.steg}:${post.grupp}`),
+  );
 
-// Passloggen
-
-/** Alla genomförda pass, äldst först. Tom lista om lagringen inte går att läsa. */
-export function getPasslogg(): Passpost[] {
-  const v = safeGet<unknown>('passlogg', []);
-  return Array.isArray(v) ? (v as Passpost[]) : [];
-}
-
-export function loggaPass(post: Passpost): boolean {
-  return safeSet('passlogg', [...getPasslogg(), post]);
+  for (const ettSteg of steg) {
+    for (let grupp = 0; grupp < ettSteg.grupper.length; grupp += 1) {
+      if (!avslutade.has(`${ettSteg.nummer}:${grupp}`)) return { steg: ettSteg.nummer, grupp };
+    }
+  }
+  return { steg: steg.length + 1, grupp: 0 };
 }
 
 /**

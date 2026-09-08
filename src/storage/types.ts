@@ -58,7 +58,7 @@ export interface Passposition {
   grupp: number;
 }
 
-export type Passutfall = 'bra' | 'sadar' | 'taom';
+export type Passutfall = 'bra' | 'sadar' | 'taom' | 'redan';
 
 /**
  * Ett genomfört pass. En rad per pass, aldrig mer.

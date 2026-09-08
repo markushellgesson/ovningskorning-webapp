@@ -6,13 +6,16 @@ import {
   saveSession,
   getSession,
   clearAllData,
-  getCurrentPass,
-  saveCurrentPass,
+  avmarkeraGjort,
+  härledPosition,
+  getKördaPass,
   getPasslogg,
   loggaPass,
+  markeraGjort,
   uppdateraNastaGang,
 } from './storage';
-import type { Profile, DrivingSession } from './types';
+import type { Profile, DrivingSession, Passutfall } from './types';
+import type { PassSteg } from '@/components/pass/typer';
 
 // Mock localStorage för tester
 const localStorageMock = (() => {
@@ -93,42 +96,99 @@ describe('localStorage repository', () => {
   });
 });
 
-describe('aktuellt pass', () => {
+const passSteg: PassSteg[] = [
+  {
+    nummer: 1,
+    titel: 'Första steget',
+    grupper: [
+      { id: '1-0', moment: [{ id: 'M-1', namn: 'Ett', continuous: false, fragor: [] }] },
+      { id: '1-1', moment: [{ id: 'M-2', namn: 'Två', continuous: false, fragor: [] }] },
+    ],
+  },
+  {
+    nummer: 2,
+    titel: 'Andra steget',
+    grupper: [{ id: '2-0', moment: [{ id: 'M-3', namn: 'Tre', continuous: false, fragor: [] }] }],
+  },
+];
+
+const sjuSteg: PassSteg[] = Array.from({ length: 7 }, (_, index) => ({
+  nummer: index + 1,
+  titel: `Steg ${index + 1}`,
+  grupper: [
+    {
+      id: `${index + 1}-0`,
+      moment: [
+        { id: `M-${index + 1}`, namn: `Moment ${index + 1}`, continuous: false, fragor: [] },
+      ],
+    },
+  ],
+}));
+
+const passPost = (
+  steg: number,
+  grupp: number,
+  utfall: Passutfall,
+  nastaGang: string | null = null,
+) => ({
+  datum: '2026-09-08T10:00:00.000Z',
+  steg,
+  grupp,
+  momentIds: [`M-${steg}-${grupp}`],
+  utfall,
+  nastaGang,
+});
+
+describe('härledd position', () => {
   beforeEach(() => localStorage.clear());
 
-  it('är första passet utan lagrat värde', () => {
-    expect(getCurrentPass()).toEqual({ steg: 1, grupp: 0 });
+  it('börjar på första passet med tom logg', () => {
+    expect(härledPosition(passSteg)).toEqual({ steg: 1, grupp: 0 });
   });
 
-  it('läser ett gammalt currentStep som första passet i det steget', () => {
-    // Appen bytte enhet från steg till pass. Ingen ska tappa sin plats.
+  it('går vidare efter ett avslutat pass men inte efter ta om', () => {
+    loggaPass(passPost(1, 0, 'bra'));
+    expect(härledPosition(passSteg)).toEqual({ steg: 1, grupp: 1 });
+    loggaPass(passPost(1, 1, 'taom'));
+    expect(härledPosition(passSteg)).toEqual({ steg: 1, grupp: 1 });
+  });
+
+  it('går till steget efter planen när alla pass är avslutade', () => {
+    loggaPass(passPost(1, 0, 'bra'));
+    loggaPass(passPost(1, 1, 'sadar'));
+    loggaPass(passPost(2, 0, 'redan'));
+    expect(härledPosition(passSteg)).toEqual({ steg: 3, grupp: 0 });
+  });
+
+  it('migrerar currentStep till redan-poster och tar bort nyckeln', () => {
     localStorage.setItem('ovningskorning:v1:currentStep', '7');
-    expect(getCurrentPass()).toEqual({ steg: 7, grupp: 0 });
+    expect(härledPosition(sjuSteg)).toEqual({ steg: 7, grupp: 0 });
+    expect(getPasslogg().map((p) => [p.steg, p.grupp, p.utfall])).toEqual([
+      [1, 0, 'redan'],
+      [2, 0, 'redan'],
+      [3, 0, 'redan'],
+      [4, 0, 'redan'],
+      [5, 0, 'redan'],
+      [6, 0, 'redan'],
+    ]);
+    expect(localStorage.getItem('ovningskorning:v1:currentStep')).toBeNull();
   });
 
-  it('föredrar currentPass framför det gamla värdet', () => {
-    localStorage.setItem('ovningskorning:v1:currentStep', '7');
-    saveCurrentPass({ steg: 3, grupp: 2 });
-    expect(getCurrentPass()).toEqual({ steg: 3, grupp: 2 });
-  });
-
-  it('faller tillbaka på första passet vid trasigt värde', () => {
-    localStorage.setItem('ovningskorning:v1:currentPass', '{"steg":"x"}');
-    expect(getCurrentPass()).toEqual({ steg: 1, grupp: 0 });
+  it('migrerar currentPass före det äldre currentStep och tar bort båda nycklarna', () => {
+    localStorage.setItem('ovningskorning:v1:currentPass', JSON.stringify({ steg: 1, grupp: 1 }));
+    localStorage.setItem('ovningskorning:v1:currentStep', '2');
+    expect(härledPosition(passSteg)).toEqual({ steg: 1, grupp: 1 });
+    expect(getPasslogg().map((p) => [p.steg, p.grupp, p.utfall])).toEqual([[1, 0, 'redan']]);
+    expect(localStorage.getItem('ovningskorning:v1:currentPass')).toBeNull();
+    expect(localStorage.getItem('ovningskorning:v1:currentStep')).toBeNull();
   });
 });
 
 describe('passloggen', () => {
   beforeEach(() => localStorage.clear());
 
-  const post = (utfall: 'bra' | 'sadar' | 'taom', nastaGang: string | null = null) => ({
-    datum: '2026-09-08T10:00:00.000Z',
-    steg: 2,
-    grupp: 0,
-    momentIds: ['MAN-01'],
-    utfall,
-    nastaGang,
-  });
+  const post = (utfall: Passutfall, nastaGang: string | null = null) =>
+    passPost(2, 0, utfall, nastaGang);
 
   it('är tom från början', () => {
     expect(getPasslogg()).toEqual([]);
@@ -139,6 +199,22 @@ describe('passloggen', () => {
     loggaPass(post('taom', 'backningen igen'));
     expect(getPasslogg().map((p) => p.utfall)).toEqual(['bra', 'taom']);
     expect(getPasslogg()[1].nastaGang).toBe('backningen igen');
+  });
+
+  it('markerar ett pass som redan gjort och avmarkerar bara den posten', () => {
+    loggaPass(post('bra'));
+    markeraGjort(2, 0, ['MAN-01']);
+    markeraGjort(2, 0, ['MAN-01']);
+    expect(getPasslogg().map((p) => p.utfall)).toEqual(['bra', 'redan', 'redan']);
+    expect(avmarkeraGjort(2, 0)).toBe(true);
+    expect(getPasslogg().map((p) => p.utfall)).toEqual(['bra', 'redan']);
+  });
+
+  it('räknar inte redan-poster som körda pass på Ordning', () => {
+    markeraGjort(1, 0, ['M-1']);
+    expect(getKördaPass()).toEqual([]);
+    loggaPass(passPost(1, 1, 'taom'));
+    expect(getKördaPass().map((p) => p.utfall)).toEqual(['taom']);
   });
 
   it('ändrar "Nästa gång" bara på det senaste passet', () => {

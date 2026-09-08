@@ -29,6 +29,10 @@ import {
   VandningDiagram,
   JarnvagskorsningDiagram,
   AvfartMotorvagDiagram,
+  GrundplaceringDiagram,
+  KorfaltsbyteDiagram,
+  InfartLandsvagDiagram,
+  KobildningKorsningDiagram,
 } from './index';
 
 /**
@@ -99,6 +103,18 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
 
   // Järnvägskorsning — stopplats, siktlinje längs spåret, bommar — 2 kap 7 §
   'SPEC-05': () => <JarnvagskorsningDiagram />,
+
+  // Grundplacering förbi parkerade bilar — dörrzonen och marginalen, ingen regel
+  'POS-01': () => <GrundplaceringDiagram />,
+
+  // Körfältsbyte — spegel, tecken, axelblick i den ordningen; döda vinkeln
+  'LANE-02': () => <KorfaltsbyteDiagram />,
+
+  // Infart på landsväg — väjningsplikten vid utfarten, luckan och fartuppbyggnaden
+  'RUR-01': () => <InfartLandsvagDiagram />,
+
+  // Köbildning — kör inte in i korsningen utan plats på andra sidan
+  'SPD-04': () => <KobildningKorsningDiagram />,
 
   // Avfart från motorväg — retardationsfältet, motstycke till HWY-01
   'HWY-02': () => <AvfartMotorvagDiagram />,

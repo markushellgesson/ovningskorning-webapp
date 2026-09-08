@@ -3,18 +3,12 @@ import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { RowLink } from '@/components/ui/list-row';
 import { Hopfallbart } from '@/components/ui/section';
 import { OrdningLista, type OrdningSteg } from '@/components/pass/ordning-lista';
-import {
-  skills,
-  progressionMap,
-  continuousByCategory,
-  countSkillsInLevel,
-  stepTitle,
-} from './plan-data';
+import { skills, progressionMap, continuousByCategory, passSteg, stepTitle } from './plan-data';
 
 const steg: OrdningSteg[] = progressionMap.levels.map((level, index) => ({
   nummer: index + 1,
   titel: stepTitle(level),
-  antalMoment: countSkillsInLevel(level),
+  antalPass: passSteg[index].grupper.length,
 }));
 
 const antalLopande = [...continuousByCategory.values()].reduce((n, v) => n + v.length, 0);
@@ -55,7 +49,7 @@ export const metadata = {
  *
  * Progress ritas nu, till skillnad från förut. Beslutet att låta bli
  * (designsprak.md 10) byggde på att appen saknade status att visa. Den har
- * en nu: knappen på Nästa pass sätter vilket steg paret är på, och den är
+ * en nu: avslutade poster i passloggen härleder nästa pass, och den är
  * därför sann och inte påhittad. Stolparna bär den — passerat grönt med
  * bock, nästa med grön bård.
  */
@@ -74,7 +68,7 @@ export default function PlanPage() {
             Femton steg. Öva klart ett innan ni går vidare.
           </p>
 
-          <OrdningLista steg={steg} />
+          <OrdningLista steg={steg} passSteg={passSteg} />
         </div>
 
         {/* Hopfälld: 32 momentnamn i tio kategorier är en lista man slår

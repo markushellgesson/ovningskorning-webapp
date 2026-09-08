@@ -5,10 +5,12 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { RowLink } from '@/components/ui/list-row';
 import { Stolpe } from '@/components/ui/stolpe';
 import {
-  getCurrentPass,
+  avslutandePasspost,
+  avmarkeraGjort,
   getPasslogg,
+  härledPosition,
   loggaPass,
-  saveCurrentPass,
+  markeraGjort,
   uppdateraNastaGang,
 } from '@/storage/storage';
 import type { Passposition, Passutfall } from '@/storage/types';
@@ -37,9 +39,7 @@ interface PassProps {
 }
 
 /** Innan lagringen lästs vet vi inte vilket pass som gäller. */
-type Läge =
-  | { status: 'laddar' }
-  | { status: 'klar' | 'ingen-lagring'; pos: Passposition; nastaGang: string | null };
+type Läge = { status: 'laddar' } | { status: 'klar'; pos: Passposition; nastaGang: string | null };
 
 /** Längsta anteckning: en rad, inte en dagbok. */
 const MAX_ANTECKNING = 140;
@@ -53,10 +53,10 @@ const MAX_ANTECKNING = 140;
  * samma kväll. Steget är stolpen vägen passerar; föräldern räknar i pass.
  *
  * Efter knappen kommer en fråga, "Hur gick det?", med tre svar och en
- * frivillig rad, "Nästa gång". Svaret för paret vidare (eller låter dem ta
- * om), och raden står överst nästa gång de öppnar appen. Det är hela
- * loggen: ett tryck, och en rad om man vill. Bocken på vägen betyder nu
- * något, eftersom "ta om" finns.
+ * frivillig rad, "Nästa gång". Svaret avslutar passet (eller låter dem ta
+ * om), och nästa pass härleds därefter ur passloggen. Det är hela loggen:
+ * ett tryck, och en rad om man vill. Bocken på vägen betyder nu något,
+ * eftersom "ta om" finns.
  *
  * Att vyn är en klientkomponent följer av att appen är statiskt exporterad
  * (ADR 0013). Var paret är kan inte avgöras vid bygget, så alla stegen
@@ -67,24 +67,18 @@ const MAX_ANTECKNING = 140;
  * öppnar appen, och det är just det ögonblick appen finns till för.
  */
 export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassProps) {
-  const [läge, setLäge] = useState<Läge>(
-    fastSteg
-      ? { status: 'klar', pos: { steg: fastSteg, grupp: 0 }, nastaGang: null }
-      : { status: 'laddar' },
-  );
+  const [läge, setLäge] = useState<Läge>({ status: 'laddar' });
   const [fas, setFas] = useState<'pass' | 'efter'>('pass');
+  // localStorage kastar i privat läge och när kvoten är full. Appen fungerar
+  // ändå — men den minns inte, och det ska den säga i stället för att tiga.
+  const [sparfel, setSparfel] = useState(false);
 
   useEffect(() => {
-    if (fastSteg) return;
-    const pos = getCurrentPass();
+    const pos = härledPosition(steg);
     const logg = getPasslogg();
     const nastaGang = logg.length > 0 ? logg[logg.length - 1].nastaGang : null;
-    setLäge(
-      pos === null
-        ? { status: 'ingen-lagring', pos: { steg: 1, grupp: 0 }, nastaGang }
-        : { status: 'klar', pos, nastaGang },
-    );
-  }, [fastSteg]);
+    setLäge({ status: 'klar', pos, nastaGang });
+  }, [steg]);
 
   // Höjden hålls av innehållet som kommer, så sidan inte hoppar när
   // lagringen svarat. En spinner hade varit mer synlig än väntan är lång.
@@ -98,7 +92,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   const totalt = steg.length;
   const Rubrik = rubrikNivå;
 
-  if (läge.pos.steg > totalt) {
+  if (!fastSteg && läge.pos.steg > totalt) {
     return (
       <div className="space-y-6">
         <p className="text-xl text-ink">Alla femton steg är passerade.</p>
@@ -109,21 +103,15 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
     );
   }
 
-  const aktuelltSteg = steg[läge.pos.steg - 1];
-  const grupp = Math.min(läge.pos.grupp, aktuelltSteg.grupper.length - 1);
-  const pos = { steg: läge.pos.steg, grupp };
+  const stegnummer = fastSteg ?? läge.pos.steg;
+  const aktuelltSteg = steg[stegnummer - 1];
+  const grupp = fastSteg ? 0 : Math.min(läge.pos.grupp, aktuelltSteg.grupper.length - 1);
+  const pos = { steg: stegnummer, grupp };
   const passet = aktuelltSteg.grupper[grupp];
-
-  /** Nästa pass: nästa grupp i steget, annars första gruppen i nästa steg. */
-  function nästaPosition(p: Passposition): Passposition {
-    return p.grupp + 1 < steg[p.steg - 1].grupper.length
-      ? { steg: p.steg, grupp: p.grupp + 1 }
-      : { steg: p.steg + 1, grupp: 0 };
-  }
 
   function svara(utfall: Passutfall, nastaGang: string) {
     const text = nastaGang.trim() || null;
-    loggaPass({
+    const sparat = loggaPass({
       datum: new Date().toISOString(),
       steg: pos.steg,
       grupp: pos.grupp,
@@ -131,18 +119,23 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       utfall,
       nastaGang: text,
     });
-    // "Ta om" lämnar passet kvar. Raden överst säger då varför.
-    const ny = utfall === 'taom' ? pos : nästaPosition(pos);
-    saveCurrentPass(ny);
-    setLäge({ status, pos: ny, nastaGang: text });
+    setSparfel(!sparat);
+    // "Ta om" lämnar passet kvar eftersom det inte är en avslutande post.
+    setLäge({ status, pos: härledPosition(steg), nastaGang: text });
     setFas('pass');
     window.scrollTo({ top: 0 });
   }
 
-  function börjaHär() {
-    const ny = { steg: pos.steg, grupp: 0 };
-    saveCurrentPass(ny);
-    setLäge({ status, pos: ny, nastaGang });
+  function ändraGjort(grupp: number, momentIds: string[]) {
+    const post = avslutandePasspost(stegnummer, grupp);
+    let sparat = true;
+    if (post?.utfall === 'redan') {
+      sparat = avmarkeraGjort(stegnummer, grupp);
+    } else if (post === null) {
+      sparat = markeraGjort(stegnummer, grupp, momentIds);
+    }
+    setSparfel(!sparat);
+    setLäge({ status, pos: härledPosition(steg), nastaGang });
   }
 
   function ändraNastaGang(text: string) {
@@ -184,29 +177,55 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       {/* Momentnamn, ett per rad, inga beskrivningar. På stegsidan står alla
           stegets pass, skilda av en kraftigare linje och ett passnummer. */}
       <div className="divide-y divide-line-strong border-y border-line">
-        {grupperAttVisa.map((g, i) => (
-          <div key={g.id}>
-            {fastSteg && antalPass > 1 && (
-              <p className="pt-3 text-sm font-semibold tracking-wide text-ink-3 uppercase">
-                Pass {i + 1}
-              </p>
-            )}
-            <ul className="divide-y divide-line">
-              {g.moment.map((moment) => (
-                <li key={moment.id}>
-                  <RowLink href={`/skills/${moment.id}`}>
-                    <span className="min-w-0 flex-1 text-base font-semibold text-ink">
-                      {moment.namn}
-                    </span>
-                    {moment.continuous && (
-                      <span className="shrink-0 text-sm text-ink-3">Tränas löpande</span>
-                    )}
-                  </RowLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {grupperAttVisa.map((g, i) => {
+          const gruppnummer = fastSteg ? i : grupp;
+          const avslut = fastSteg ? avslutandePasspost(stegnummer, gruppnummer) : null;
+          const ärNästa =
+            fastSteg && läge.pos.steg === stegnummer && läge.pos.grupp === gruppnummer;
+          const etikett = avslut ? 'Gjort' : ärNästa ? 'Nästa' : null;
+
+          return (
+            <div key={g.id}>
+              {fastSteg && (
+                <p className="pt-3 text-sm font-semibold tracking-wide text-ink-3 uppercase">
+                  {`Pass ${i + 1}${etikett ? ` · ${etikett}` : ''}`}
+                </p>
+              )}
+              <ul className="divide-y divide-line">
+                {g.moment.map((moment) => (
+                  <li key={moment.id}>
+                    <RowLink href={`/skills/${moment.id}`}>
+                      <span className="min-w-0 flex-1 text-base font-semibold text-ink">
+                        {moment.namn}
+                      </span>
+                      {moment.continuous && (
+                        <span className="shrink-0 text-sm text-ink-3">Tränas löpande</span>
+                      )}
+                    </RowLink>
+                  </li>
+                ))}
+              </ul>
+              {fastSteg && (
+                <div className="py-3">
+                  {avslut?.utfall === 'bra' || avslut?.utfall === 'sadar' ? (
+                    <p className="text-base font-semibold text-ink-3">Gjort ✓</p>
+                  ) : (
+                    <SekundarKnapp
+                      onClick={() =>
+                        ändraGjort(
+                          gruppnummer,
+                          g.moment.map((moment) => moment.id),
+                        )
+                      }
+                    >
+                      {avslut?.utfall === 'redan' ? 'Gjort ✓' : 'Markera som gjort'}
+                    </SekundarKnapp>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Hela "Före"-avsnittet från den borttagna Upplägg-sidan, kokat till
@@ -217,15 +236,11 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
         en snabb koll av bilen.
       </p>
 
-      {status === 'ingen-lagring' && (
+      {sparfel && (
         <p className="text-base text-ink-2">Kunde inte spara framsteget i den här webbläsaren.</p>
       )}
 
-      {fastSteg ? (
-        <Knapp onClick={börjaHär}>Börja här</Knapp>
-      ) : (
-        <Knapp onClick={() => setFas('efter')}>Vi har övat det här</Knapp>
-      )}
+      {!fastSteg && <Knapp onClick={() => setFas('efter')}>Vi har övat det här</Knapp>}
 
       {!fastSteg && (
         <p className="flex gap-6">
@@ -238,6 +253,19 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
         </p>
       )}
     </div>
+  );
+}
+
+/** Samma lugna kontroll som svaren efter passet, för historik som går att rätta. */
+function SekundarKnapp({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="min-h-12 shrink-0 rounded-[var(--radius-sm)] border border-line-strong bg-surface px-3 text-base font-semibold normal-case text-ink transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+    >
+      {children}
+    </button>
   );
 }
 

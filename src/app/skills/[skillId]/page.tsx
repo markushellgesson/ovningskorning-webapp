@@ -62,6 +62,11 @@ export async function generateMetadata(props: SkillPageProps): Promise<Metadata>
  * egen 26 px-kolumn så att texten radbryts mot en rak vänsterkant. Kulören
  * sitter på strecket och markören — aldrig på rubriktexten, aldrig på
  * brödtexten.
+ *
+ * När diagrammet finns hör övningsstegen till bilden: de blir dess
+ * figcaption i stället för ett eget avsnitt. Utan diagram ligger de kvar som
+ * det första synliga avsnittet, så att ingen momentsida tappar sin väg in i
+ * övningen.
  */
 
 // Avsnittens linje, luft och rubrik kommer från components/ui/section.tsx,
@@ -89,6 +94,22 @@ export default async function SkillPage({ params }: SkillPageProps) {
 
   const children = skills.filter((s) => s.parentId === skill.id);
   const diagram = getDiagramForSkill(skillId);
+
+  const practiceList = (
+    <ol className={LIST}>
+      {skill.practiceSteps.map((step, i) => (
+        <li key={i} className={LIST_ITEM}>
+          {/* Stolpsiffra i den lilla stolpen (26 × 28): siffran står aldrig
+              naken i löpande text, den är något man passerar.
+              tabular-nums håller kolumnen i lod förbi tio steg. */}
+          <span className={MARKER}>
+            <Stolpe number={i + 1} size="sm" />
+          </span>
+          <span>{step}</span>
+        </li>
+      ))}
+    </ol>
+  );
 
   // Fraser med skillId: null är allmänna mönster, inte knutna till just
   // detta moment — de visas inte här (se content/types.ts).
@@ -151,25 +172,21 @@ export default async function SkillPage({ params }: SkillPageProps) {
         {diagram && (
           <figure className="-mx-5 rounded-none border border-x-0 border-line-strong bg-surface px-2 py-6 sm:mx-0 sm:rounded-[var(--radius-md)] sm:border-x sm:px-6">
             {diagram}
+            {skill.practiceSteps.length > 0 && (
+              <figcaption className="mt-5 px-3 sm:px-0">
+                <p className="text-sm font-semibold tracking-wide text-ink-3 uppercase">
+                  Hur ni övar
+                </p>
+                {practiceList}
+              </figcaption>
+            )}
           </figure>
         )}
 
-        {skill.practiceSteps.length > 0 && (
+        {!diagram && skill.practiceSteps.length > 0 && (
           <Section>
             <SectionTitle accent="var(--sign-blue)">Hur ni övar</SectionTitle>
-            <ol className={LIST}>
-              {skill.practiceSteps.map((step, i) => (
-                <li key={i} className={LIST_ITEM}>
-                  {/* Stolpsiffra i den lilla stolpen (26 × 28): siffran står
-                      aldrig naken i löpande text, den är något man passerar.
-                      tabular-nums håller kolumnen i lod förbi tio steg. */}
-                  <span className={MARKER}>
-                    <Stolpe number={i + 1} size="sm" />
-                  </span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
+            {practiceList}
           </Section>
         )}
 

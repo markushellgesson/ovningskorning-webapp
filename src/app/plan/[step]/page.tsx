@@ -60,8 +60,8 @@ function Strackindikator({ step, total }: { step: number; total: number }) {
  *
  * Den delar komponent med "Nästa pass" i stället för att ha en egen
  * uppställning: det är samma slags skärm, och två varianter hade drivit isär
- * dem. Skillnaden är knappen — här står "Börja här", som flyttar paret hit
- * — och att sträckindikatorn syns.
+ * dem. Här syns alla stegets pass och de kan markeras som gjorda, medan
+ * startsidan visar ett enda härlett nästa pass. Sträckindikatorn syns bara här.
  *
  * Momentbeskrivningarna och "Bygger på"-raderna är borta. De renderades här
  * utöver på momentsidan och i listan; nu står de på ett ställe, där man är

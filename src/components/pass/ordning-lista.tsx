@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { Stolpe } from '@/components/ui/stolpe';
 import { Vag, Vagstation } from '@/components/ui/asfaltband';
 import { Meta } from '@/components/ui/section';
-import { getCurrentPass, getPasslogg } from '@/storage/storage';
+import { ärAvslutat, getKördaPass, härledPosition } from '@/storage/storage';
+import type { PassSteg } from './typer';
 
 export interface OrdningSteg {
   nummer: number;
   titel: string;
-  antalMoment: number;
+  antalPass: number;
 }
 
 /**
@@ -19,7 +20,8 @@ export interface OrdningSteg {
  * Stolparna säger var paret är: passerade steg är gröna med en bock, nästa
  * steg har grön bård, resten är blå. Det var ett beslut som en gång valdes
  * bort med motiveringen att det inte fanns någon status att visa — nu finns
- * det en, och den är sann, för "Hur gick det?" sätter den och "Ta om" finns.
+ * det en, och den är sann, eftersom nästa pass härleds ur avslutade poster
+ * medan "Ta om" låter passet ligga kvar.
  *
  * Ovanför vägen står hur många pass paret kört och sedan när. Inte "är vi
  * i tid" — det kan appen inte veta — men en känsla för tid, som femton
@@ -30,21 +32,30 @@ export interface OrdningSteg {
  * blå, vilket är exakt vad som gäller för den som inte börjat — ingen
  * blinkning, bara en stolpe som grönas när lagringen svarat.
  */
-export function OrdningLista({ steg }: { steg: OrdningSteg[] }) {
+export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg: PassSteg[] }) {
   const [aktuellt, setAktuellt] = useState<number | null>(null);
+  const [gjorda, setGjorda] = useState<Record<number, number>>({});
   const [räkning, setRäkning] = useState<{ antal: number; sedan: string } | null>(null);
 
   useEffect(() => {
-    setAktuellt(getCurrentPass()?.steg ?? null);
-    const logg = getPasslogg();
-    if (logg.length > 0) {
-      const första = new Date(logg[0].datum);
+    setAktuellt(härledPosition(passSteg).steg);
+    setGjorda(
+      Object.fromEntries(
+        passSteg.map((ettSteg) => [
+          ettSteg.nummer,
+          ettSteg.grupper.filter((_, grupp) => ärAvslutat(ettSteg.nummer, grupp)).length,
+        ]),
+      ),
+    );
+    const körda = getKördaPass();
+    if (körda.length > 0) {
+      const första = new Date(körda[0].datum);
       setRäkning({
-        antal: logg.length,
+        antal: körda.length,
         sedan: första.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' }),
       });
     }
-  }, []);
+  }, [passSteg]);
 
   return (
     <>
@@ -56,10 +67,11 @@ export function OrdningLista({ steg }: { steg: OrdningSteg[] }) {
       <Vag className="mt-6">
         <ol>
           {steg.map((s) => {
+            const antalGjorda = gjorda[s.nummer] ?? 0;
             const status =
               aktuellt === null
                 ? undefined
-                : s.nummer < aktuellt
+                : antalGjorda === s.antalPass
                   ? ('passerat' as const)
                   : s.nummer === aktuellt
                     ? ('nasta' as const)
@@ -85,7 +97,10 @@ export function OrdningLista({ steg }: { steg: OrdningSteg[] }) {
                     <span className="block text-lg leading-[1.3] font-semibold text-ink">
                       {s.titel}
                     </span>
-                    <Meta>{s.antalMoment} moment</Meta>
+                    <Meta>
+                      {s.antalPass} pass
+                      {antalGjorda > 0 && ` · ${antalGjorda} gjorda`}
+                    </Meta>
                   </span>
                 </Link>
               </Vagstation>

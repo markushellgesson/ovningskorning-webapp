@@ -23,3 +23,7 @@ export { AvfartMotorvagDiagram } from './avfart-motorvag';
 export { TrafiksignalerPolismanDiagram } from './trafiksignaler-polisman';
 export { VanstersvangLandsvagDiagram } from './vanstersvang-landsvag';
 export { StartFranVagkantDiagram } from './start-fran-vagkant';
+export { GrundplaceringDiagram } from './grundplacering';
+export { KorfaltsbyteDiagram } from './korfaltsbyte';
+export { InfartLandsvagDiagram } from './infart-landsvag';
+export { KobildningKorsningDiagram } from './kobildning-korsning';
