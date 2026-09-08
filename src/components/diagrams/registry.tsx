@@ -33,6 +33,8 @@ import {
   KorfaltsbyteDiagram,
   InfartLandsvagDiagram,
   KobildningKorsningDiagram,
+  HogersvangCyklistDiagram,
+  SakerhetsavstandDiagram,
 } from './index';
 
 /**
@@ -115,6 +117,12 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
 
   // Köbildning — kör inte in i korsningen utan plats på andra sidan
   'SPD-04': () => <KobildningKorsningDiagram />,
+
+  // Högersväng över cykelfältet — cyklisten rakt fram, vänta tills hen passerat
+  'VRU-02': () => <HogersvangCyklistDiagram />,
+
+  // Säkerhetsavstånd — vid press bakifrån: öka luckan framåt, inte farten
+  'SPD-03': () => <SakerhetsavstandDiagram />,
 
   // Avfart från motorväg — retardationsfältet, motstycke till HWY-01
   'HWY-02': () => <AvfartMotorvagDiagram />,

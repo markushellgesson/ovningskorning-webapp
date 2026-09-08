@@ -74,9 +74,34 @@ function Car({ cx, cy, width, length, heading, fill, stroke }: CarProps) {
         <rect x={-hw - 3} y={hl - 14} width="5" height="9" rx="1.5" />
         <rect x={hw - 2} y={hl - 14} width="5" height="9" rx="1.5" />
       </g>
-      <rect x={-hw} y={-hl} width={width} height={length} rx="4" fill={fill} className={stroke} strokeWidth="2" />
-      <rect x={-hw + 5} y={-hl + 6} width={width - 10} height="7" rx="2" className={glass} strokeWidth="1" />
-      <rect x={-hw + 5} y={hl - 10} width={width - 10} height="5" rx="2" className={glass} strokeWidth="1" />
+      <rect
+        x={-hw}
+        y={-hl}
+        width={width}
+        height={length}
+        rx="4"
+        fill={fill}
+        className={stroke}
+        strokeWidth="2"
+      />
+      <rect
+        x={-hw + 5}
+        y={-hl + 6}
+        width={width - 10}
+        height="7"
+        rx="2"
+        className={glass}
+        strokeWidth="1"
+      />
+      <rect
+        x={-hw + 5}
+        y={hl - 10}
+        width={width - 10}
+        height="5"
+        rx="2"
+        className={glass}
+        strokeWidth="1"
+      />
     </g>
   );
 }
@@ -86,7 +111,12 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
+      <text
+        x={x}
+        y={y + 5}
+        textAnchor="middle"
+        className="fill-surface-base text-[14px] font-semibold"
+      >
         {n}
       </text>
     </g>
@@ -104,7 +134,19 @@ function Pointer({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: n
 }
 
 /** Lodrät måttmarkering utan tal: luckan du styr över. */
-function GapBar({ x, y1, y2, w = 6, sw = 2.5 }: { x: number; y1: number; y2: number; w?: number; sw?: number }) {
+function GapBar({
+  x,
+  y1,
+  y2,
+  w = 6,
+  sw = 2.5,
+}: {
+  x: number;
+  y1: number;
+  y2: number;
+  w?: number;
+  sw?: number;
+}) {
   return (
     <g className="stroke-progress-600" strokeWidth={sw} strokeLinecap="round">
       <line x1={x} y1={y1} x2={x} y2={y2} />
@@ -142,7 +184,15 @@ function Cross({ x, y }: { x: number; y: number }) {
  * kör uppåt. Bilen framför står på samma lokala plats i båda panelerna, så
  * skillnaden mellan panelerna är enbart luckan framåt.
  */
-function MiniScen({ x, y, variant }: { x: number; y: number; variant: 'okar-luckan' | 'okar-farten' }) {
+function MiniScen({
+  x,
+  y,
+  variant,
+}: {
+  x: number;
+  y: number;
+  variant: 'okar-luckan' | 'okar-farten';
+}) {
   const roomy = variant === 'okar-luckan';
   const you = roomy ? 40 : -10;
   const youFront = you - 22;
@@ -160,45 +210,90 @@ function MiniScen({ x, y, variant }: { x: number; y: number; variant: 'okar-luck
       {roomy ? (
         <GapBar x={48} y1={-60} y2={youFront} w={11} sw={5} />
       ) : (
-        <rect x="-22" y="-60" width="44" height={youFront + 60} fill="url(#sav-hatch)" className="stroke-safety-600" strokeWidth="3" />
+        <rect
+          x="-22"
+          y="-60"
+          width="44"
+          height={youFront + 60}
+          fill="url(#sav-hatch)"
+          className="stroke-safety-600"
+          strokeWidth="3"
+        />
       )}
 
       {/* Luckan bakåt: lika tät i båda panelerna */}
-      <rect x="-22" y={youRear} width="44" height="14" fill="url(#sav-hatch)" className="stroke-safety-600" strokeWidth="3" />
+      <rect
+        x="-22"
+        y={youRear}
+        width="44"
+        height="14"
+        fill="url(#sav-hatch)"
+        className="stroke-safety-600"
+        strokeWidth="3"
+      />
 
       {/* Bilen framför — samma läge i båda panelerna */}
-      <Car cx={0} cy={-82} width={26} length={44} heading="up" fill="url(#sav-stripes)" stroke="stroke-primary-600" />
+      <Car
+        cx={0}
+        cy={-82}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#sav-stripes)"
+        stroke="stroke-primary-600"
+      />
       {/* Du */}
-      <Car cx={0} cy={you} width={26} length={44} heading="up" fill="url(#sav-dots)" stroke="stroke-attention-600" />
+      <Car
+        cx={0}
+        cy={you}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#sav-dots)"
+        stroke="stroke-attention-600"
+      />
       {/* Den som ligger tätt bakom */}
-      <Car cx={0} cy={follower} width={26} length={44} heading="up" fill="url(#sav-stripes)" stroke="stroke-primary-600" />
+      <Car
+        cx={0}
+        cy={follower}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#sav-stripes)"
+        stroke="stroke-primary-600"
+      />
     </g>
   );
 }
 
 export function SakerhetsavstandDiagram() {
   return (
-    <svg viewBox="0 0 440 1080" className="w-full max-w-md mx-auto" role="img" aria-labelledby="sav-title sav-desc">
+    <svg
+      viewBox="0 0 440 1080"
+      className="w-full max-w-md mx-auto"
+      role="img"
+      aria-labelledby="sav-title sav-desc"
+    >
       <title id="sav-title">Säkerhetsavstånd framåt och bakåt</title>
       <desc id="sav-desc">
         Tvåfältig väg sedd uppifrån med streckad mittlinje. Tre bilar kör åt samma håll, uppåt i
         bilden, alla i höger körfält; det vänstra körfältet är tomt. Överst en bil med diagonala
-        ränder, bilen framför dig. I mitten din bil, fylld med prickmönster. Direkt bakom din bil
-        en tredje bil med diagonala ränder som ligger mycket tätt: mellanrummet mellan er är bara
-        en smal remsa, markerad med krysskraffering för att visa att avståndet är för kort.
+        ränder, bilen framför dig. I mitten din bil, fylld med prickmönster. Direkt bakom din bil en
+        tredje bil med diagonala ränder som ligger mycket tätt: mellanrummet mellan er är bara en
+        smal remsa, markerad med krysskraffering för att visa att avståndet är för kort.
         Mellanrummet framför din bil är däremot stort och markeras i högermarginalen med en grön
         måttmarkering utan tal. Korta pilar vid sidan av varje bil visar att alla tre rör sig
         framåt. Markering ett pekar på bilen bakom: hur nära den ligger väljer inte du. Markering
-        två pekar på måttmarkeringen framåt: luckan framåt är din tid att reagera, och det är den
-        du kan öka. Markering tre pekar på din egen bil: farten väljer du, inte den bakomvarande.
-        Inga mått anges — inga meter, inga sekunder, inga multiplar; de två mellanrummen ska
-        jämföras med varandra, inte mätas. En ruta längst ned visar samma vägsträcka två gånger
-        med bilen framför på exakt samma plats i båda panelerna, markerad med en gemensam streckad
-        referenslinje. I vänstra panelen håller du farten och låter luckan framåt växa, markerat
-        med en grön måttmarkering och en bock. I högra panelen ökar du farten i stället, luckan
-        framåt krymper till en krysskrafferad remsa, markerat med ett kryss. I båda panelerna
-        ligger bilen bakom exakt lika tätt: att öka farten flyttar inte den som ligger bakom, det
-        tar bara bort ditt eget utrymme framåt.
+        två pekar på måttmarkeringen framåt: luckan framåt är din tid att reagera, och det är den du
+        kan öka. Markering tre pekar på din egen bil: farten väljer du, inte den bakomvarande. Inga
+        mått anges — inga meter, inga sekunder, inga multiplar; de två mellanrummen ska jämföras med
+        varandra, inte mätas. En ruta längst ned visar samma vägsträcka två gånger med bilen framför
+        på exakt samma plats i båda panelerna, markerad med en gemensam streckad referenslinje. I
+        vänstra panelen håller du farten och låter luckan framåt växa, markerat med en grön
+        måttmarkering och en bock. I högra panelen ökar du farten i stället, luckan framåt krymper
+        till en krysskrafferad remsa, markerat med ett kryss. I båda panelerna ligger bilen bakom
+        exakt lika tätt: att öka farten flyttar inte den som ligger bakom, det tar bara bort ditt
+        eget utrymme framåt.
       </desc>
 
       <defs>
@@ -206,12 +301,24 @@ export function SakerhetsavstandDiagram() {
           <circle cx="4" cy="4" r="1.6" className="fill-attention-600" />
         </pattern>
         <pattern id="sav-stripes" patternUnits="userSpaceOnUse" width="8" height="8">
-          <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" className="stroke-primary-600" strokeWidth="2" />
+          <path
+            d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4"
+            className="stroke-primary-600"
+            strokeWidth="2"
+          />
         </pattern>
         <pattern id="sav-hatch" patternUnits="userSpaceOnUse" width="10" height="10">
           <path d="M0,10 l10,-10 M0,0 l10,10" className="stroke-safety-600" strokeWidth="1.3" />
         </pattern>
-        <marker id="sav-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <marker
+          id="sav-arrow"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
         </marker>
       </defs>
@@ -230,10 +337,26 @@ export function SakerhetsavstandDiagram() {
         <line x1="160" y1="92" x2="160" y2="540" />
         <line x1="280" y1="92" x2="280" y2="540" />
       </g>
-      <line x1="220" y1="92" x2="220" y2="540" className="stroke-diagram-marking" strokeWidth="2" strokeDasharray="16 12" />
+      <line
+        x1="220"
+        y1="92"
+        x2="220"
+        y2="540"
+        className="stroke-diagram-marking"
+        strokeWidth="2"
+        strokeDasharray="16 12"
+      />
 
       {/* Teckenförklaring för linjespråket, i vänstermarginalen */}
-      <line x1="20" y1="116" x2="44" y2="116" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#sav-arrow)" />
+      <line
+        x1="20"
+        y1="116"
+        x2="44"
+        y2="116"
+        className="stroke-primary-600"
+        strokeWidth="3"
+        markerEnd="url(#sav-arrow)"
+      />
       <text x="56" y="121" className="fill-text-secondary text-[14px]">
         Rör sig nu
       </text>
@@ -246,15 +369,47 @@ export function SakerhetsavstandDiagram() {
       </g>
 
       {/* Luckan bakåt: för kort */}
-      <rect x="228" y="422" width="44" height="16" fill="url(#sav-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
+      <rect
+        x="228"
+        y="422"
+        width="44"
+        height="16"
+        fill="url(#sav-hatch)"
+        className="stroke-safety-600"
+        strokeWidth="1.5"
+      />
 
       {/* Luckan framåt: måttmarkering utan tal, i högermarginalen */}
       <GapBar x={292} y1={202} y2={378} />
 
       {/* Fordonen */}
-      <Car cx={250} cy={180} width={26} length={44} heading="up" fill="url(#sav-stripes)" stroke="stroke-primary-600" />
-      <Car cx={250} cy={400} width={26} length={44} heading="up" fill="url(#sav-dots)" stroke="stroke-attention-600" />
-      <Car cx={250} cy={460} width={26} length={44} heading="up" fill="url(#sav-stripes)" stroke="stroke-primary-600" />
+      <Car
+        cx={250}
+        cy={180}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#sav-stripes)"
+        stroke="stroke-primary-600"
+      />
+      <Car
+        cx={250}
+        cy={400}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#sav-dots)"
+        stroke="stroke-attention-600"
+      />
+      <Car
+        cx={250}
+        cy={460}
+        width={26}
+        length={44}
+        heading="up"
+        fill="url(#sav-stripes)"
+        stroke="stroke-primary-600"
+      />
 
       {/* Etikett: bilen framför */}
       <text x="296" y="150" className="fill-text-primary text-[14px] font-semibold">
@@ -314,10 +469,20 @@ export function SakerhetsavstandDiagram() {
       <Pointer x1={150} y1={500} x2={234} y2={466} />
 
       {/* Vad bilden lär ut */}
-      <text x="220" y="580" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+      <text
+        x="220"
+        y="580"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-medium"
+      >
         Ligger någon tätt bakom: öka avståndet framåt,
       </text>
-      <text x="220" y="598" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+      <text
+        x="220"
+        y="598"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-medium"
+      >
         inte farten.
       </text>
       <text x="220" y="624" textAnchor="middle" className="fill-text-secondary text-[13px]">
@@ -331,15 +496,42 @@ export function SakerhetsavstandDiagram() {
       </text>
 
       {/* Mönsterförklaring, två rader */}
-      <rect x="30" y="686" width="22" height="14" rx="2" fill="url(#sav-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+      <rect
+        x="30"
+        y="686"
+        width="22"
+        height="14"
+        rx="2"
+        fill="url(#sav-dots)"
+        className="stroke-attention-600"
+        strokeWidth="1.5"
+      />
       <text x="58" y="698" className="fill-text-tertiary text-[13px]">
         Du
       </text>
-      <rect x="120" y="686" width="22" height="14" rx="2" fill="url(#sav-stripes)" className="stroke-primary-600" strokeWidth="1.5" />
+      <rect
+        x="120"
+        y="686"
+        width="22"
+        height="14"
+        rx="2"
+        fill="url(#sav-stripes)"
+        className="stroke-primary-600"
+        strokeWidth="1.5"
+      />
       <text x="148" y="698" className="fill-text-tertiary text-[13px]">
         Annat fordon
       </text>
-      <rect x="30" y="710" width="22" height="14" rx="2" fill="url(#sav-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
+      <rect
+        x="30"
+        y="710"
+        width="22"
+        height="14"
+        rx="2"
+        fill="url(#sav-hatch)"
+        className="stroke-safety-600"
+        strokeWidth="1.5"
+      />
       <text x="58" y="722" className="fill-text-tertiary text-[13px]">
         För kort avstånd
       </text>
@@ -349,11 +541,27 @@ export function SakerhetsavstandDiagram() {
       </text>
 
       {/* ---- Förklaringsruta ---- */}
-      <rect x="20" y="748" width="400" height="312" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <rect
+        x="20"
+        y="748"
+        width="400"
+        height="312"
+        rx="6"
+        className="fill-none stroke-border-default"
+        strokeWidth="1.5"
+      />
       <text x="34" y="772" className="fill-text-primary text-[14px] font-semibold">
         Två sätt att svara på pressen bakifrån:
       </text>
-      <line x1="220" y1="788" x2="220" y2="1044" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
+      <line
+        x1="220"
+        y1="788"
+        x2="220"
+        y2="1044"
+        className="stroke-border-default"
+        strokeWidth="1.5"
+        strokeDasharray="6 4"
+      />
 
       {/* Gemensam referenslinje: bilen framför står lika i båda panelerna */}
       <text x="26" y="842" className="fill-text-secondary text-[14px]">
@@ -376,8 +584,13 @@ export function SakerhetsavstandDiagram() {
       <MiniScen x={118} y={880} variant="okar-luckan" />
       <MiniScen x={322} y={880} variant="okar-farten" />
 
-      <text x="118" y="968" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
-        Du håller farten
+      <text
+        x="118"
+        y="968"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-semibold"
+      >
+        Du lättar på gasen
       </text>
       <text x="118" y="986" textAnchor="middle" className="fill-text-secondary text-[14px]">
         luckan framåt växer
@@ -387,7 +600,12 @@ export function SakerhetsavstandDiagram() {
       </text>
       <Check x={118} y={1030} />
 
-      <text x="322" y="968" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
+      <text
+        x="322"
+        y="968"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-semibold"
+      >
         Du ökar farten
       </text>
       <text x="322" y="986" textAnchor="middle" className="fill-text-secondary text-[14px]">

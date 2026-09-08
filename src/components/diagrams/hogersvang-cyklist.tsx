@@ -1,5 +1,5 @@
 /**
- * Högersväng över cyklist (VRU-02) — cyklisten som fortsätter rakt fram.
+ * Högersväng över cykelfältet (VRU-02) — cyklisten som fortsätter rakt fram.
  *
  * Vad bilden lär ut: en cyklist i cykelfältet till höger om dig fortsätter
  * rakt fram när du ska svänga av. Ligger hen vid bilens högra sida syns hen
@@ -150,7 +150,12 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <g>
       <circle cx={x} cy={y} r="11" className="fill-text-primary" />
-      <text x={x} y={y + 5} textAnchor="middle" className="fill-surface-base text-[14px] font-semibold">
+      <text
+        x={x}
+        y={y + 5}
+        textAnchor="middle"
+        className="fill-surface-base text-[14px] font-semibold"
+      >
         {n}
       </text>
     </g>
@@ -182,13 +187,44 @@ function MiniSvang({ x, y, variant }: { x: number; y: number; variant: 'ratt' | 
       <rect x="232" y="70" width="58" height="84" className="fill-diagram-road" />
       <rect x="232" y="60" width="14" height="10" className="fill-diagram-edge" opacity="0.3" />
       <rect x="232" y="154" width="14" height="106" className="fill-diagram-edge" opacity="0.3" />
-      <line x1="162" y1="60" x2="162" y2="260" className="stroke-diagram-marking" strokeWidth="2.5" strokeDasharray="10 8" />
+      <line
+        x1="162"
+        y1="60"
+        x2="162"
+        y2="260"
+        className="stroke-diagram-marking"
+        strokeWidth="2.5"
+        strokeDasharray="10 8"
+      />
       <line x1="204" y1="60" x2="204" y2="120" className="stroke-diagram-marking" strokeWidth="3" />
-      <line x1="204" y1="120" x2="204" y2="154" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="8 8" />
-      <line x1="204" y1="154" x2="204" y2="260" className="stroke-diagram-marking" strokeWidth="3" />
+      <line
+        x1="204"
+        y1="120"
+        x2="204"
+        y2="154"
+        className="stroke-diagram-marking"
+        strokeWidth="3"
+        strokeDasharray="8 8"
+      />
+      <line
+        x1="204"
+        y1="154"
+        x2="204"
+        y2="260"
+        className="stroke-diagram-marking"
+        strokeWidth="3"
+      />
       <line x1="232" y1="60" x2="232" y2="70" className="stroke-diagram-edge" strokeWidth="2.5" />
       <line x1="232" y1="154" x2="232" y2="260" className="stroke-diagram-edge" strokeWidth="2.5" />
-      <line x1="246" y1="112" x2="290" y2="112" className="stroke-diagram-marking" strokeWidth="2.5" strokeDasharray="10 8" />
+      <line
+        x1="246"
+        y1="112"
+        x2="290"
+        y2="112"
+        className="stroke-diagram-marking"
+        strokeWidth="2.5"
+        strokeDasharray="10 8"
+      />
 
       {/* Konfliktytan: där svängen korsar cykelfältet */}
       <rect
@@ -205,7 +241,15 @@ function MiniSvang({ x, y, variant }: { x: number; y: number; variant: 'ratt' | 
         <g>
           {/* Cyklisten har passerat konfliktytan (y 79–101, ytan börjar 120) */}
           <Cyklist cx={218} cy={90} />
-          <line x1="218" y1="75" x2="218" y2="66" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#hc-arrow-cyclist)" />
+          <line
+            x1="218"
+            y1="75"
+            x2="218"
+            y2="66"
+            className="stroke-primary-600"
+            strokeWidth="3"
+            markerEnd="url(#hc-arrow-cyclist)"
+          />
           <Bil cx={183} cy={208} />
           {/* Planerad sväng: bågen från framkanten, nu fri */}
           <path
@@ -228,7 +272,15 @@ function MiniSvang({ x, y, variant }: { x: number; y: number; variant: 'ratt' | 
           <Bil cx={189.4} cy={157} rot={30} />
           {/* Cyklisten kommer rakt fram, in i bilens väg */}
           <Cyklist cx={218} cy={166} />
-          <line x1="218" y1="151" x2="218" y2="128" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#hc-arrow-cyclist)" />
+          <line
+            x1="218"
+            y1="151"
+            x2="218"
+            y2="128"
+            className="stroke-primary-600"
+            strokeWidth="3"
+            markerEnd="url(#hc-arrow-cyclist)"
+          />
         </g>
       )}
     </g>
@@ -250,22 +302,23 @@ export function HogersvangCyklistDiagram() {
         cykelsymboler. Åt höger går en sidogata som du ska svänga in på; cykelfältets linje är
         streckad tvärs infarten, vilket visar att cykelfältet fortsätter förbi den. Elevens bil är
         fylld med prickmönster och har högerblinkers markerade som två små fyllda rutor på höger
-        sida. Bilen står stilla i sitt eget körfält med nosen uppåt, strax före infarten. En streckad
-        pil från bilens framkant visar den planerade svängen: den bågnar åt höger och går rakt över
-        cykelfältet. Där svängen korsar cykelfältet ligger en yta med snedskraffering och kraftig
-        kontur — konfliktytan. En cyklist, ritad med kryssmönster, kommer bakifrån i cykelfältet vid
-        bilens högra sida; en heldragen pil framför cyklisten visar att hen fortsätter rakt fram, rakt
-        genom konfliktytan. Runt cyklisten ligger en streckad fyrhörning utan fyllning som börjar vid
-        bilens högra ytterspegel och vidgar sig bakåt: det är området som inte syns i spegeln.
-        Cyklisten ligger helt inne i det området. En prickad linje från förarplatsen ut till cyklisten
-        visar blicken åt höger, den kontroll som når dit spegeln inte når. Fyra hänvisningar i
-        marginalerna: 1 pekar på cyklisten och gäller att hen kör rakt fram i sitt eget fält, 2 pekar
-        på området utanför spegeln, 3 pekar på konfliktytan och gäller att du väntar, och en
-        onumrerad etikett pekar på den streckade cykelfältslinjen tvärs infarten. Längst ned en ruta
-        som jämför två tidpunkter med samma gata, samma bil och samma färdriktningar. Till vänster,
-        märkt med en grön bock: cyklisten har passerat konfliktytan, bilen står kvar och den planerade
-        svängen är fri. Till höger, märkt med ett rött kryss: bilen har börjat svänga och ligger snett
-        över cykelfältet medan cyklisten kommer rakt fram in i konfliktytan.
+        sida. Bilen står stilla i sitt eget körfält med nosen uppåt, strax före infarten. En
+        streckad pil från bilens framkant visar den planerade svängen: den bågnar åt höger och går
+        rakt över cykelfältet. Där svängen korsar cykelfältet ligger en yta med snedskraffering och
+        kraftig kontur — konfliktytan. En cyklist, ritad med kryssmönster, kommer bakifrån i
+        cykelfältet vid bilens högra sida; en heldragen pil framför cyklisten visar att hen
+        fortsätter rakt fram, rakt genom konfliktytan. Runt cyklisten ligger en streckad fyrhörning
+        utan fyllning som börjar vid bilens högra ytterspegel och vidgar sig bakåt: det är området
+        som inte syns i spegeln. Cyklisten ligger helt inne i det området. En prickad linje från
+        förarplatsen ut till cyklisten visar blicken åt höger, den kontroll som når dit spegeln inte
+        når. Fyra hänvisningar i marginalerna: 1 pekar på cyklisten och gäller att hen kör rakt fram
+        i sitt eget fält, 2 pekar på området utanför spegeln, 3 pekar på konfliktytan och gäller att
+        du väntar, och en onumrerad etikett pekar på den streckade cykelfältslinjen tvärs infarten.
+        Längst ned en ruta som jämför två tidpunkter med samma gata, samma bil och samma
+        färdriktningar. Till vänster, märkt med en grön bock: cyklisten har passerat konfliktytan,
+        bilen står kvar och den planerade svängen är fri. Till höger, märkt med ett rött kryss:
+        bilen har börjat svänga och ligger snett över cykelfältet medan cyklisten kommer rakt fram
+        in i konfliktytan.
       </desc>
 
       <defs>
@@ -276,25 +329,61 @@ export function HogersvangCyklistDiagram() {
           <path d="M0,0 l7,7 M7,0 l-7,7" className="stroke-primary-600" strokeWidth="1.6" />
         </pattern>
         <pattern id="hc-hatch" patternUnits="userSpaceOnUse" width="7" height="7">
-          <path d="M-2,2 l4,-4 M0,7 l7,-7 M5,9 l4,-4" className="stroke-safety-600" strokeWidth="1.8" />
+          <path
+            d="M-2,2 l4,-4 M0,7 l7,-7 M5,9 l4,-4"
+            className="stroke-safety-600"
+            strokeWidth="1.8"
+          />
         </pattern>
-        <marker id="hc-arrow-cyclist" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <marker
+          id="hc-arrow-cyclist"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-primary-600" />
         </marker>
-        <marker id="hc-arrow-plan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <marker
+          id="hc-arrow-plan"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-progress-600" />
         </marker>
-        <marker id="hc-arrow-car" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <marker
+          id="hc-arrow-car"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-attention-600" />
         </marker>
-        <marker id="hc-arrow-look" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <marker
+          id="hc-arrow-look"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto"
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-primary" />
         </marker>
       </defs>
 
       {/* Rubrik */}
       <text x="20" y="28" className="fill-text-primary text-[17px] font-semibold">
-        Högersväng över cyklist
+        Högersväng över cykelfältet
       </text>
       <text x="20" y="48" className="fill-text-secondary text-[14px]">
         Vänta tills cyklisten har passerat
@@ -310,17 +399,62 @@ export function HogersvangCyklistDiagram() {
         <rect x="232" y="154" width="14" height="266" className="fill-diagram-edge" opacity="0.3" />
 
         <line x1="120" y1="0" x2="120" y2="420" className="stroke-diagram-edge" strokeWidth="2.5" />
-        <line x1="162" y1="0" x2="162" y2="420" className="stroke-diagram-marking" strokeWidth="2.5" strokeDasharray="10 8" />
+        <line
+          x1="162"
+          y1="0"
+          x2="162"
+          y2="420"
+          className="stroke-diagram-marking"
+          strokeWidth="2.5"
+          strokeDasharray="10 8"
+        />
         {/* Cykelfältslinjen: heldragen längs gatan, streckad tvärs infarten */}
-        <line x1="204" y1="0" x2="204" y2="120" className="stroke-diagram-marking" strokeWidth="3" />
-        <line x1="204" y1="120" x2="204" y2="154" className="stroke-diagram-marking" strokeWidth="3" strokeDasharray="8 8" />
-        <line x1="204" y1="154" x2="204" y2="420" className="stroke-diagram-marking" strokeWidth="3" />
+        <line
+          x1="204"
+          y1="0"
+          x2="204"
+          y2="120"
+          className="stroke-diagram-marking"
+          strokeWidth="3"
+        />
+        <line
+          x1="204"
+          y1="120"
+          x2="204"
+          y2="154"
+          className="stroke-diagram-marking"
+          strokeWidth="3"
+          strokeDasharray="8 8"
+        />
+        <line
+          x1="204"
+          y1="154"
+          x2="204"
+          y2="420"
+          className="stroke-diagram-marking"
+          strokeWidth="3"
+        />
         <line x1="232" y1="0" x2="232" y2="70" className="stroke-diagram-edge" strokeWidth="3" />
         <line x1="232" y1="154" x2="232" y2="420" className="stroke-diagram-edge" strokeWidth="3" />
         {/* Sidogatans kanter och mittlinje */}
         <line x1="246" y1="70" x2="400" y2="70" className="stroke-diagram-edge" strokeWidth="2.5" />
-        <line x1="246" y1="154" x2="400" y2="154" className="stroke-diagram-edge" strokeWidth="2.5" />
-        <line x1="252" y1="112" x2="400" y2="112" className="stroke-diagram-marking" strokeWidth="2.5" strokeDasharray="10 8" />
+        <line
+          x1="246"
+          y1="154"
+          x2="400"
+          y2="154"
+          className="stroke-diagram-edge"
+          strokeWidth="2.5"
+        />
+        <line
+          x1="252"
+          y1="112"
+          x2="400"
+          y2="112"
+          className="stroke-diagram-marking"
+          strokeWidth="2.5"
+          strokeDasharray="10 8"
+        />
 
         <Cykelsymbol cx={218} cy={30} />
         <Cykelsymbol cx={218} cy={320} />
@@ -372,7 +506,15 @@ export function HogersvangCyklistDiagram() {
 
         {/* 1. Cyklisten rakt fram, vid bilens högra sida */}
         <Cyklist cx={218} cy={228} />
-        <line x1="218" y1="213" x2="218" y2="98" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#hc-arrow-cyclist)" />
+        <line
+          x1="218"
+          y1="213"
+          x2="218"
+          y2="98"
+          className="stroke-primary-600"
+          strokeWidth="3"
+          markerEnd="url(#hc-arrow-cyclist)"
+        />
 
         {/* Etikett: cykelfältet fortsätter förbi infarten */}
         <text x="252" y="26" className="fill-text-primary text-[14px] font-semibold">
@@ -458,7 +600,15 @@ export function HogersvangCyklistDiagram() {
 
       {/* Teckenförklaring */}
       <g>
-        <line x1="24" y1="512" x2="52" y2="512" className="stroke-primary-600" strokeWidth="3" markerEnd="url(#hc-arrow-cyclist)" />
+        <line
+          x1="24"
+          y1="512"
+          x2="52"
+          y2="512"
+          className="stroke-primary-600"
+          strokeWidth="3"
+          markerEnd="url(#hc-arrow-cyclist)"
+        />
         <text x="60" y="517" className="fill-text-secondary text-[14px]">
           Rör sig nu
         </text>
@@ -488,7 +638,15 @@ export function HogersvangCyklistDiagram() {
         <text x="60" y="543" className="fill-text-secondary text-[14px]">
           Blicken åt höger
         </text>
-        <rect x="206" y="531" width="28" height="14" fill="url(#hc-hatch)" className="stroke-safety-600" strokeWidth="1.5" />
+        <rect
+          x="206"
+          y="531"
+          width="28"
+          height="14"
+          fill="url(#hc-hatch)"
+          className="stroke-safety-600"
+          strokeWidth="1.5"
+        />
         <text x="242" y="543" className="fill-text-secondary text-[14px]">
           Vägarna korsas
         </text>
@@ -507,13 +665,28 @@ export function HogersvangCyklistDiagram() {
       </g>
 
       {/* Vad du gör */}
-      <text x="200" y="606" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+      <text
+        x="200"
+        y="606"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-medium"
+      >
         Innan du svänger höger: titta åt höger
       </text>
-      <text x="200" y="626" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+      <text
+        x="200"
+        y="626"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-medium"
+      >
         och bakåt efter cyklister, och vänta
       </text>
-      <text x="200" y="646" textAnchor="middle" className="fill-text-primary text-[14px] font-medium">
+      <text
+        x="200"
+        y="646"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-medium"
+      >
         tills cyklisten har passerat.
       </text>
       <text x="200" y="670" textAnchor="middle" className="fill-text-secondary text-[14px]">
@@ -528,22 +701,56 @@ export function HogersvangCyklistDiagram() {
 
       {/* Mönsterförklaring */}
       <g>
-        <rect x="86" y="726" width="22" height="14" rx="2" fill="url(#hc-dots)" className="stroke-attention-600" strokeWidth="1.5" />
+        <rect
+          x="86"
+          y="726"
+          width="22"
+          height="14"
+          rx="2"
+          fill="url(#hc-dots)"
+          className="stroke-attention-600"
+          strokeWidth="1.5"
+        />
         <text x="114" y="738" className="fill-text-tertiary text-[14px]">
           Du
         </text>
-        <rect x="190" y="726" width="22" height="14" rx="2" fill="url(#hc-cross)" className="stroke-primary-600" strokeWidth="1.5" />
+        <rect
+          x="190"
+          y="726"
+          width="22"
+          height="14"
+          rx="2"
+          fill="url(#hc-cross)"
+          className="stroke-primary-600"
+          strokeWidth="1.5"
+        />
         <text x="218" y="738" className="fill-text-tertiary text-[14px]">
           Cyklist
         </text>
       </g>
 
       {/* Förklaringsruta: samma gata, samma bil — bara tidpunkten skiljer */}
-      <rect x="20" y="754" width="360" height="256" rx="6" className="fill-none stroke-border-default" strokeWidth="1.5" />
+      <rect
+        x="20"
+        y="754"
+        width="360"
+        height="256"
+        rx="6"
+        className="fill-none stroke-border-default"
+        strokeWidth="1.5"
+      />
       <text x="34" y="778" className="fill-text-primary text-[14px] font-semibold">
         Vad tidpunkten avgör:
       </text>
-      <line x1="200" y1="790" x2="200" y2="998" className="stroke-border-default" strokeWidth="1.5" strokeDasharray="6 4" />
+      <line
+        x1="200"
+        y1="790"
+        x2="200"
+        y2="998"
+        className="stroke-border-default"
+        strokeWidth="1.5"
+        strokeDasharray="6 4"
+      />
 
       {/* Rätt: bock, cyklisten har passerat, svängen fri */}
       <path
@@ -557,7 +764,12 @@ export function HogersvangCyklistDiagram() {
         Rätt
       </text>
       <MiniSvang x={44} y={820} variant="ratt" />
-      <text x="84" y="962" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
+      <text
+        x="84"
+        y="962"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-semibold"
+      >
         Du väntar in cyklisten
       </text>
       <text x="84" y="980" textAnchor="middle" className="fill-text-secondary text-[14px]">
@@ -576,7 +788,12 @@ export function HogersvangCyklistDiagram() {
         Fel
       </text>
       <MiniSvang x={226} y={820} variant="fel" />
-      <text x="266" y="962" textAnchor="middle" className="fill-text-primary text-[14px] font-semibold">
+      <text
+        x="266"
+        y="962"
+        textAnchor="middle"
+        className="fill-text-primary text-[14px] font-semibold"
+      >
         Du svänger ändå
       </text>
       <text x="266" y="980" textAnchor="middle" className="fill-text-secondary text-[14px]">

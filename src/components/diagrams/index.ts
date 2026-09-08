@@ -27,3 +27,5 @@ export { GrundplaceringDiagram } from './grundplacering';
 export { KorfaltsbyteDiagram } from './korfaltsbyte';
 export { InfartLandsvagDiagram } from './infart-landsvag';
 export { KobildningKorsningDiagram } from './kobildning-korsning';
+export { HogersvangCyklistDiagram } from './hogersvang-cyklist';
+export { SakerhetsavstandDiagram } from './sakerhetsavstand';
