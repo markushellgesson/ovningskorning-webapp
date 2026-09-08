@@ -39,6 +39,9 @@ import {
   BarnSkolaDiagram,
   BussHallplatsDiagram,
   SvangIKorsningDiagram,
+  SammanflatningDiagram,
+  SparvagnBlandtrafikDiagram,
+  VagarbeteVaktDiagram,
 } from './index';
 
 /**
@@ -139,6 +142,15 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
 
   // Vänstersväng — svängen slutar i högra körfältet på den nya vägen
   'INT-04': () => <SvangIKorsningDiagram />,
+
+  // Sammanflätning — två körfält blir ett under ömsesidigt hänsyn, ingen turordning
+  'LANE-04': () => <SammanflatningDiagram />,
+
+  // Spårvagn i blandtrafik — omkörning sker till höger, aldrig vänster
+  'URB-01': () => <SparvagnBlandtrafikDiagram />,
+
+  // Vägarbete med vakt — vaktens tecken går före märke, markering och signal
+  'SPEC-01': () => <VagarbeteVaktDiagram />,
 
   // Avfart från motorväg — retardationsfältet, motstycke till HWY-01
   'HWY-02': () => <AvfartMotorvagDiagram />,

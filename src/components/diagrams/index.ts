@@ -33,3 +33,6 @@ export { UrstigningCyklistDiagram } from './urstigning-cyklist';
 export { BarnSkolaDiagram } from './barn-skola';
 export { BussHallplatsDiagram } from './buss-hallplats';
 export { SvangIKorsningDiagram } from './svang-i-korsning';
+export { SammanflatningDiagram } from './sammanflatning';
+export { SparvagnBlandtrafikDiagram } from './sparvagn-blandtrafik';
+export { VagarbeteVaktDiagram } from './vagarbete-vakt';
