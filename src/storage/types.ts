@@ -6,19 +6,10 @@ export type ExperienceLevel = 'NEW' | 'BEGINNER' | 'REGULAR' | 'EXPERIENCED';
 export type DesiredCadence = 'MULTIPLE_WEEKLY' | 'WEEKLY' | 'OCCASIONAL' | 'UNKNOWN';
 
 export type SessionStatus =
-  | 'PLANNED'
-  | 'READY'
-  | 'IN_PROGRESS'
-  | 'COMPLETED'
-  | 'REFLECTED'
-  | 'CANCELLED';
+  'PLANNED' | 'READY' | 'IN_PROGRESS' | 'COMPLETED' | 'REFLECTED' | 'CANCELLED';
 
 export type ProgressState =
-  | 'NOT_STARTED'
-  | 'INTRODUCED'
-  | 'PRACTICING'
-  | 'INDEPENDENT'
-  | 'CONSOLIDATED';
+  'NOT_STARTED' | 'INTRODUCED' | 'PRACTICING' | 'INDEPENDENT' | 'CONSOLIDATED';
 
 export type SupportLevel = 'FULL_INSTRUCTION' | 'PROMPTED' | 'MINIMAL_CUE' | 'INDEPENDENT';
 export type SafetyFlag = 'NONE' | 'ATTENTION' | 'CRITICAL';
@@ -51,6 +42,39 @@ export interface DrivingSession {
   trafficLoad: string | null;
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * Var paret är: ett steg i ordningen och en grupp i steget.
+ *
+ * Gruppen är passet. Grupperna "hör ihop, kan tränas i samma pass" är
+ * redan den granskade indelningen av ett steg i kvällar, och de är den
+ * enhet föräldern räknar i. Steget är bara stolpen vägen passerar.
+ */
+export interface Passposition {
+  /** 1-baserat, som stolpen. */
+  steg: number;
+  /** 0-baserat index i stegets grupper. */
+  grupp: number;
+}
+
+export type Passutfall = 'bra' | 'sadar' | 'taom';
+
+/**
+ * Ett genomfört pass. En rad per pass, aldrig mer.
+ *
+ * `nastaGang` är den enda fritexten i appen: det föräldern tänkte vid
+ * köksbordet och behöver i uppfarten nästa söndag. Den hör till passet den
+ * skrevs efter, så historiken blir en rad per pass med datum, utfall och
+ * vad man tänkte — och flyttar med till servern som ett fält på passet.
+ */
+export interface Passpost {
+  datum: string;
+  steg: number;
+  grupp: number;
+  momentIds: string[];
+  utfall: Passutfall;
+  nastaGang: string | null;
 }
 
 export interface SessionSkill {

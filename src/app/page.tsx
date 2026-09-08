@@ -1,33 +1,12 @@
 import { Asfaltband } from '@/components/ui/asfaltband';
 import { PageShell } from '@/components/ui/page-shell';
 import { Skylt } from '@/components/ui/skylt';
-import { Pass, type PassSteg } from '@/components/pass/pass';
-import { progressionMap, skillsById, stepTitle } from './plan/plan-data';
+import { Pass } from '@/components/pass/pass';
+import { passSteg } from './plan/plan-data';
 
 export const metadata = {
   title: 'Nästa pass',
 };
-
-/**
- * Stegen förberedda vid bygget. Sidan är statiskt exporterad, så vilket steg
- * som är aktuellt kan bara avgöras i webbläsaren — men VAD varje steg
- * innehåller är känt här, och skickas med som data.
- *
- * Bara namn och två flaggor per moment. Beskrivningarna ligger kvar på
- * momentsidan; att skriva ut dem här igen var en av de tre platser samma
- * text renderades.
- */
-const steg: PassSteg[] = progressionMap.levels.map((level, index) => ({
-  nummer: index + 1,
-  titel: stepTitle(level),
-  grupper: level.groups.map((group) => ({
-    id: group.id,
-    moment: group.skillIds
-      .map((id) => skillsById.get(id))
-      .filter((skill) => skill !== undefined)
-      .map((skill) => ({ id: skill.id, namn: skill.name, continuous: skill.continuous })),
-  })),
-}));
 
 /**
  * Startsidan — läget "Nästa pass".
@@ -61,7 +40,7 @@ export default function Home() {
 
       <div className="mt-8">
         <h1 className="sr-only">Nästa pass</h1>
-        <Pass steg={steg} />
+        <Pass steg={passSteg} />
       </div>
     </PageShell>
   );

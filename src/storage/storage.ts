@@ -17,6 +17,8 @@ import type {
   SkillProgressObservation,
   Goal,
   Recommendation,
+  Passposition,
+  Passpost,
 } from './types';
 
 const VERSION = 'v1';
@@ -226,34 +228,82 @@ export function clearAllData(): boolean {
   }
 }
 
-// Aktuellt steg
+// Aktuellt pass
+
+const FÖRSTA_PASSET: Passposition = { steg: 1, grupp: 0 };
+
+function ärPosition(v: unknown): v is Passposition {
+  return (
+    typeof v === 'object' &&
+    v !== null &&
+    Number.isInteger((v as Passposition).steg) &&
+    (v as Passposition).steg >= 1 &&
+    Number.isInteger((v as Passposition).grupp) &&
+    (v as Passposition).grupp >= 0
+  );
+}
 
 /**
- * Vilket av de femton stegen paret övar på just nu.
+ * Var paret är: steg och grupp. Gruppen är passet.
  *
- * Det här är hela appens tillstånd. Startsidan visar det steget och inget
- * annat, och knappen "Vi har övat det här" räknar upp det. Utan lagrat
- * värde är svaret steg 1 — ingen onboarding, ingen fråga.
+ * Det här är appens tillstånd. Startsidan visar det passet och inget annat,
+ * och svaret på "Hur gick det?" för det vidare. Utan lagrat värde är svaret
+ * första passet — ingen onboarding, ingen fråga.
+ *
+ * Lagringen hette en dag `currentStep` och var ett heltal, innan passet
+ * blev enheten. Ett sådant värde läses som "första passet i det steget", så
+ * ingen tappar sin plats av att appen bytte enhet.
  *
  * `null` betyder att lagringen inte gick att läsa (privat läge, blockerade
  * kakor, full kvot). Det skiljer sig från "har inte börjat än": anroparen
- * ska visa steg 1 i båda fallen, men bara säga till om sparandet i det
- * första. Därför går skillnaden inte att slå ihop.
+ * ska visa första passet i båda fallen, men bara säga till om sparandet i
+ * det första. Därför går skillnaden inte att slå ihop.
  */
-export function getCurrentStep(): number | null {
+export function getCurrentPass(): Passposition | null {
   try {
-    const raw = localStorage.getItem(`${PREFIX}:currentStep`);
-    if (raw === null) return 1;
-    const step = Number(JSON.parse(raw));
-    return Number.isInteger(step) && step >= 1 ? step : 1;
+    const raw = localStorage.getItem(`${PREFIX}:currentPass`);
+    if (raw !== null) {
+      const v: unknown = JSON.parse(raw);
+      return ärPosition(v) ? v : FÖRSTA_PASSET;
+    }
+    const gammalt = localStorage.getItem(`${PREFIX}:currentStep`);
+    if (gammalt !== null) {
+      const steg = Number(JSON.parse(gammalt));
+      return Number.isInteger(steg) && steg >= 1 ? { steg, grupp: 0 } : FÖRSTA_PASSET;
+    }
+    return FÖRSTA_PASSET;
   } catch (error) {
-    console.warn('Failed to read currentStep from localStorage:', error);
+    console.warn('Failed to read currentPass from localStorage:', error);
     return null;
   }
 }
 
-export function saveCurrentStep(step: number): boolean {
-  return safeSet('currentStep', step);
+export function saveCurrentPass(position: Passposition): boolean {
+  return safeSet('currentPass', position);
+}
+
+// Passloggen
+
+/** Alla genomförda pass, äldst först. Tom lista om lagringen inte går att läsa. */
+export function getPasslogg(): Passpost[] {
+  const v = safeGet<unknown>('passlogg', []);
+  return Array.isArray(v) ? (v as Passpost[]) : [];
+}
+
+export function loggaPass(post: Passpost): boolean {
+  return safeSet('passlogg', [...getPasslogg(), post]);
+}
+
+/**
+ * Ändrar "Nästa gång" på det senaste passet — det är den rad som står överst
+ * på nästa pass, och den ändras i uppfarten när planen ändras. Finns inget
+ * pass finns ingen rad att ändra.
+ */
+export function uppdateraNastaGang(text: string | null): boolean {
+  const logg = getPasslogg();
+  if (logg.length === 0) return false;
+  const sista = { ...logg[logg.length - 1], nastaGang: text };
+  return safeSet('passlogg', [...logg.slice(0, -1), sista]);
 }
 
 export function exportData(): Record<string, any> {

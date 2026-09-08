@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { BackLink, PageBody, PageShell } from '@/components/ui/page-shell';
 import { Vagvisare } from '@/components/ui/vagvisare';
-import { Pass, type PassSteg } from '@/components/pass/pass';
-import { skillsById, progressionMap, stepTitle } from '../plan-data';
+import { Pass } from '@/components/pass/pass';
+import { passSteg, progressionMap, stepTitle } from '../plan-data';
 
 export async function generateStaticParams() {
   return progressionMap.levels.map((_, index) => ({
@@ -14,19 +14,6 @@ export async function generateStaticParams() {
 interface PlanStepPageProps {
   params: Promise<{ step: string }>;
 }
-
-/** Samma data som startsidan får — stegsidan visar bara ett bestämt av dem. */
-const steg: PassSteg[] = progressionMap.levels.map((level, index) => ({
-  nummer: index + 1,
-  titel: stepTitle(level),
-  grupper: level.groups.map((group) => ({
-    id: group.id,
-    moment: group.skillIds
-      .map((id) => skillsById.get(id))
-      .filter((skill) => skill !== undefined)
-      .map((skill) => ({ id: skill.id, namn: skill.name, continuous: skill.continuous })),
-  })),
-}));
 
 function levelForParam(step: string) {
   const stepNumber = Number(step);
@@ -103,7 +90,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
 
       <PageBody>
         <Pass
-          steg={steg}
+          steg={passSteg}
           fastSteg={stepNumber}
           rubrikNivå="h1"
           underRubrik={<Strackindikator step={stepNumber} total={totalSteps} />}

@@ -3,6 +3,7 @@ import type { Skill } from '@/content/types';
 import { CATEGORY_LABELS } from '@/content/category-labels';
 import { buildProgressionMap } from '@/domain/progression-map/build-map';
 import type { SkillMapLevel } from '@/domain/progression-map/build-map';
+import type { PassSteg } from '@/components/pass/typer';
 
 export const skills = content.skills;
 export const skillsById = new Map(skills.map((skill) => [skill.id, skill]));
@@ -207,3 +208,32 @@ const stepTitles = new Map<string, string>();
 export function stepTitle(level: SkillMapLevel): string {
   return stepTitles.get(level.id) ?? 'Steg';
 }
+
+/**
+ * Stegen som passvyn får dem: titel, grupper, momentnamn och handledarens
+ * frågor. Byggs en gång här och delas av startsidan och stegsidan — de två
+ * hade var sin kopia av samma uträkning.
+ *
+ * Sist i filen med avsikt: den anropar stepTitle vid modulladdning, och
+ * stepTitles-kartan måste finnas då. Högre upp gav det en temporal dead
+ * zone som bara syntes i bygget.
+ *
+ * Bara det skärmen visar. Beskrivningarna ligger kvar på momentsidan; att
+ * skicka med dem här var en av tre platser samma text renderades.
+ */
+export const passSteg: PassSteg[] = progressionMap.levels.map((level, index) => ({
+  nummer: index + 1,
+  titel: stepTitle(level),
+  grupper: level.groups.map((group) => ({
+    id: group.id,
+    moment: group.skillIds
+      .map((id) => skillsById.get(id))
+      .filter((skill): skill is Skill => skill !== undefined)
+      .map((skill) => ({
+        id: skill.id,
+        namn: skill.name,
+        continuous: skill.continuous,
+        fragor: skill.supervisorObservations,
+      })),
+  })),
+}));
