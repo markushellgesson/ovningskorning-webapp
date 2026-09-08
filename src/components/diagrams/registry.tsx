@@ -42,6 +42,8 @@ import {
   SammanflatningDiagram,
   SparvagnBlandtrafikDiagram,
   VagarbeteVaktDiagram,
+  SituationsanpassadHastighetDiagram,
+  ViltPaVagenDiagram,
 } from './index';
 
 /**
@@ -151,6 +153,12 @@ export const diagramRegistry: Record<string, () => ReactNode> = {
 
   // Vägarbete med vakt — vaktens tecken går före märke, markering och signal
   'SPEC-01': () => <VagarbeteVaktDiagram />,
+
+  // Situationsanpassad hastighet — stoppsträckan ska rymmas inom siktsträckan, inte skylten
+  'SPD-02': () => <SituationsanpassadHastighetDiagram />,
+
+  // Vilt på vägen — bromsa rakt, ingen väjningsplikt mot djur
+  'SPEC-06': () => <ViltPaVagenDiagram />,
 
   // Avfart från motorväg — retardationsfältet, motstycke till HWY-01
   'HWY-02': () => <AvfartMotorvagDiagram />,
