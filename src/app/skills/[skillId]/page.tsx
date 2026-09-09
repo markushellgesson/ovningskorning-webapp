@@ -37,7 +37,7 @@ export async function generateMetadata(props: SkillPageProps): Promise<Metadata>
   const { skillId } = await props.params;
   const skill = skills.find((s) => s.id === skillId);
   return {
-    title: skill?.name || 'Träningsmoment',
+    title: skill?.name || 'Moment',
   };
 }
 
@@ -118,7 +118,7 @@ export default async function SkillPage({ params }: SkillPageProps) {
   return (
     <PageShell>
       <PageHeader
-        back={{ href: '/skills', label: 'Alla moment' }}
+        back={{ href: '/skills', label: 'Moment' }}
         title={skill.name}
         lead={skill.description}
       >

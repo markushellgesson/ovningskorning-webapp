@@ -86,7 +86,7 @@ export default async function PlanStepPage({ params }: PlanStepPageProps) {
 
   return (
     <PageShell>
-      <BackLink href="/plan">Alla steg</BackLink>
+      <BackLink href="/plan">Ordning</BackLink>
 
       <PageBody>
         <Pass

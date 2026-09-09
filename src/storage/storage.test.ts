@@ -12,6 +12,7 @@ import {
   getPasslogg,
   loggaPass,
   markeraGjort,
+  senasteNastaGang,
   uppdateraNastaGang,
 } from './storage';
 import type { Profile, DrivingSession, Passutfall } from './types';
@@ -217,11 +218,26 @@ describe('passloggen', () => {
     expect(getKördaPass().map((p) => p.utfall)).toEqual(['taom']);
   });
 
-  it('ändrar "Nästa gång" bara på det senaste passet', () => {
+  it('ändrar "Nästa gång" på det senaste körda passet', () => {
     loggaPass(post('bra', 'första'));
     loggaPass(post('sadar', 'andra'));
+    markeraGjort(1, 0, ['M-1']);
     expect(uppdateraNastaGang('ta Lundavägen')).toBe(true);
-    expect(getPasslogg().map((p) => p.nastaGang)).toEqual(['första', 'ta Lundavägen']);
+    expect(getPasslogg().map((p) => p.nastaGang)).toEqual(['första', 'ta Lundavägen', null]);
+  });
+
+  it('behåller den senaste anteckningen när ett senare pass saknar text', () => {
+    loggaPass(passPost(3, 0, 'bra', 'backa in på parkeringen'));
+    loggaPass(passPost(4, 0, 'sadar'));
+    expect(senasteNastaGang()).toBe('backa in på parkeringen');
+    loggaPass(passPost(5, 0, 'bra', 'öva rondell igen'));
+    expect(senasteNastaGang()).toBe('öva rondell igen');
+  });
+
+  it('låter en markering som gjord vara utan påverkan på nästa gång', () => {
+    loggaPass(post('bra', 'titta längre fram'));
+    markeraGjort(1, 0, ['M-1']);
+    expect(senasteNastaGang()).toBe('titta längre fram');
   });
 
   it('kan inte ändra en rad som inte finns', () => {

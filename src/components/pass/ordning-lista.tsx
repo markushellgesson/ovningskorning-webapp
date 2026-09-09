@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Stolpe } from '@/components/ui/stolpe';
 import { Vag, Vagstation } from '@/components/ui/asfaltband';
-import { Meta } from '@/components/ui/section';
-import { ärAvslutat, getKördaPass, härledPosition } from '@/storage/storage';
+import { Meta, Section, SectionTitle } from '@/components/ui/section';
+import { ärAvslutat, getKördaPass, getPasslogg, härledPosition } from '@/storage/storage';
+import type { Passpost } from '@/storage/types';
 import type { PassSteg } from './typer';
 
 export interface OrdningSteg {
@@ -35,7 +36,13 @@ export interface OrdningSteg {
 export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg: PassSteg[] }) {
   const [aktuellt, setAktuellt] = useState<number | null>(null);
   const [gjorda, setGjorda] = useState<Record<number, number>>({});
-  const [räkning, setRäkning] = useState<{ antal: number; sedan: string } | null>(null);
+  const [räkning, setRäkning] = useState<{
+    körda: number;
+    gjorda: number;
+    sedan: string;
+    harRedan: boolean;
+  } | null>(null);
+  const [attTaOm, setAttTaOm] = useState<Passpost[]>([]);
 
   useEffect(() => {
     setAktuellt(härledPosition(passSteg).steg);
@@ -47,21 +54,37 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
         ]),
       ),
     );
+    const logg = getPasslogg();
     const körda = getKördaPass();
     if (körda.length > 0) {
       const första = new Date(körda[0].datum);
       setRäkning({
-        antal: körda.length,
+        körda: körda.length,
+        gjorda: new Set(
+          logg
+            .filter((post) => post.utfall !== 'taom')
+            .map((post) => `${post.steg}:${post.grupp}`),
+        ).size,
         sedan: första.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' }),
+        harRedan: logg.some((post) => post.utfall === 'redan'),
       });
     }
+    const senasteKörda = new Map<string, Passpost>();
+    körda.forEach((post) => senasteKörda.set(`${post.steg}:${post.grupp}`, post));
+    setAttTaOm(
+      [...senasteKörda.values()]
+        .filter((post) => post.utfall === 'sadar' || post.utfall === 'taom')
+        .sort((a, b) => a.steg - b.steg || a.grupp - b.grupp),
+    );
   }, [passSteg]);
 
   return (
     <>
       {räkning && (
         <p className="mt-3 text-base text-ink-2">
-          {räkning.antal} {räkning.antal === 1 ? 'pass' : 'pass'} sedan {räkning.sedan}
+          {räkning.harRedan
+            ? `${räkning.gjorda} pass gjorda · ${räkning.körda} körda med appen sedan ${räkning.sedan}`
+            : `${räkning.körda} pass sedan ${räkning.sedan}`}
         </p>
       )}
       <Vag className="mt-6">
@@ -99,7 +122,7 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
                     </span>
                     <Meta>
                       {s.antalPass} pass
-                      {antalGjorda > 0 && ` · ${antalGjorda} gjorda`}
+                      {antalGjorda > 0 && ` · ${antalGjorda} ${antalGjorda === 1 ? 'gjort' : 'gjorda'}`}
                     </Meta>
                   </span>
                 </Link>
@@ -108,6 +131,42 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
           })}
         </ol>
       </Vag>
+
+      {attTaOm.length > 0 && (
+        <Section>
+          <SectionTitle accent="var(--sign-yellow)" accentBorder>
+            Att ta om
+          </SectionTitle>
+          <ul className="mt-[18px] max-w-[var(--measure)] divide-y divide-line">
+            {attTaOm.map((post) => {
+              const grupp = passSteg.find((ettSteg) => ettSteg.nummer === post.steg)?.grupper[post.grupp];
+              if (!grupp) return null;
+              return (
+                <li key={`${post.steg}:${post.grupp}`}>
+                  <Link
+                    href={`/plan/${post.steg}`}
+                    className="flex min-h-14 items-center gap-3 py-2 text-base transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+                  >
+                    <Stolpe number={post.steg} size="sm" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-semibold text-ink">
+                        {grupp.moment.map((moment) => moment.namn).join(', ')}
+                      </span>
+                      <span className="block text-sm text-ink-3">
+                        {post.utfall === 'sadar' ? 'Sådär' : 'Ta om'} · {formatDatum(post.datum)}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </Section>
+      )}
     </>
   );
+}
+
+function formatDatum(datum: string) {
+  return new Date(datum).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' });
 }

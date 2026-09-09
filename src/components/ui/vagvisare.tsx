@@ -26,7 +26,7 @@ const TIP = 26;
  * betyder "vi" (skylten); blått betyder "riktning", och därför är alla
  * vägvisare blå — även när de pekar mot tre olika destinationer. Tre olika
  * skyltkulörer för de tre destinationerna prövades och valdes bort: det gör
- * kulörerna till dekor, och Ordning är inte mer "grön" än Träningsmoment.
+ * kulörerna till dekor, och Ordning är inte mer "grön" än Moment.
  *
  * Spetsen är en egen SVG med `preserveAspectRatio="none"`, absolut placerad
  * utanför fältets kortsida och sträckt till 100 % höjd. Det är det som gör

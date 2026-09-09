@@ -57,7 +57,7 @@ export default function PlanPage() {
   return (
     <PageShell>
       <PageHeader
-        back={{ href: '/', label: 'Tillbaka' }}
+        back={{ href: '/', label: 'Nästa pass' }}
         title="Ordning"
         lead={`En möjlig ordning genom de ${skills.length} momenten`}
       />

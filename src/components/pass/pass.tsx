@@ -11,6 +11,7 @@ import {
   härledPosition,
   loggaPass,
   markeraGjort,
+  senasteNastaGang,
   uppdateraNastaGang,
 } from '@/storage/storage';
 import type { Passposition, Passutfall } from '@/storage/types';
@@ -75,8 +76,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
 
   useEffect(() => {
     const pos = härledPosition(steg);
-    const logg = getPasslogg();
-    const nastaGang = logg.length > 0 ? logg[logg.length - 1].nastaGang : null;
+    const nastaGang = senasteNastaGang();
     setLäge({ status: 'klar', pos, nastaGang });
   }, [steg]);
 
@@ -97,7 +97,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       <div className="space-y-6">
         <p className="text-xl text-ink">Alla femton steg är passerade.</p>
         <Link href="/plan" className="inline-block text-lg font-semibold text-blue-text">
-          Alla steg →
+          Ordning →
         </Link>
       </div>
     );
@@ -108,6 +108,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   const grupp = fastSteg ? 0 : Math.min(läge.pos.grupp, aktuelltSteg.grupper.length - 1);
   const pos = { steg: stegnummer, grupp };
   const passet = aktuelltSteg.grupper[grupp];
+  const föregåendeUtfall = !fastSteg ? tidigareUtfall(pos, getPasslogg()) : null;
 
   function svara(utfall: Passutfall, nastaGang: string) {
     const text = nastaGang.trim() || null;
@@ -121,7 +122,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
     });
     setSparfel(!sparat);
     // "Ta om" lämnar passet kvar eftersom det inte är en avslutande post.
-    setLäge({ status, pos: härledPosition(steg), nastaGang: text });
+    setLäge({ status, pos: härledPosition(steg), nastaGang: senasteNastaGang() });
     setFas('pass');
     window.scrollTo({ top: 0 });
   }
@@ -135,13 +136,14 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       sparat = markeraGjort(stegnummer, grupp, momentIds);
     }
     setSparfel(!sparat);
-    setLäge({ status, pos: härledPosition(steg), nastaGang });
+    setLäge({ status, pos: härledPosition(steg), nastaGang: senasteNastaGang() });
   }
 
   function ändraNastaGang(text: string) {
     const t = text.trim() || null;
-    uppdateraNastaGang(t);
-    setLäge({ status, pos, nastaGang: t });
+    const sparat = uppdateraNastaGang(t);
+    setSparfel(!sparat);
+    setLäge({ status, pos, nastaGang: senasteNastaGang() });
   }
 
   if (fas === 'efter') {
@@ -155,6 +157,13 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   return (
     <div className="space-y-7">
       {nastaGang !== null && !fastSteg && <NastaGang text={nastaGang} onÄndra={ändraNastaGang} />}
+
+      {föregåendeUtfall && (
+        <p className="text-base text-ink-2">
+          Förra gången: {föregåendeUtfall.utfall === 'sadar' ? 'sådär' : 'ta om'} ·{' '}
+          {formatDatum(föregåendeUtfall.datum)}
+        </p>
+      )}
 
       <div>
         <p className="flex items-center gap-3">
@@ -245,15 +254,30 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       {!fastSteg && (
         <p className="flex gap-6">
           <Link href="/plan" className="text-base font-semibold text-blue-text">
-            Alla steg →
+            Ordning →
           </Link>
           <Link href="/skills" className="text-base font-semibold text-blue-text">
-            Alla moment →
+            Moment →
           </Link>
         </p>
       )}
     </div>
   );
+}
+
+function tidigareUtfall(pos: Passposition, logg: ReturnType<typeof getPasslogg>) {
+  return [...logg]
+    .reverse()
+    .find(
+      (post) =>
+        post.steg === pos.steg &&
+        post.grupp === pos.grupp &&
+        (post.utfall === 'sadar' || post.utfall === 'taom'),
+    );
+}
+
+function formatDatum(datum: string) {
+  return new Date(datum).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' });
 }
 
 /** Samma lugna kontroll som svaren efter passet, för historik som går att rätta. */

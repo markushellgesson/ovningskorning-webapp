@@ -6,7 +6,7 @@
  * 75 moment, 15 steg, 6 moment i kategorin. Så länge den skillnaden håller
  * går varje siffra i appen att läsa utan sammanhang.
  *
- * Kategoribanden på Träningsmoment bar tidigare en stolpe med antalet, och
+ * Kategoribanden på Moment bar tidigare en stolpe med antalet, och
  * den som kom från Ordning läste "6" på Fordonskännedom som steg 6. Därför
  * finns komponenten: föremålet ska sitta på ett ställe, inte återskapas per
  * sida med snarlika klasser.

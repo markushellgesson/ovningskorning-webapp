@@ -1,0 +1,1 @@
+- [Riskutbildning och "sent i utbildningen"](domain-riskutbildning-sent.md) — sentkravet gäller del 2, inte del 1 och inte förälderns riskssamtal

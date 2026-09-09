@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { familjenGrotesk } from './fonts';
 import { BottomNav } from '@/components/nav/bottom-nav';
+import { Svep } from '@/components/nav/svep';
 import { ServiceWorkerRegister } from '@/components/pwa/service-worker-register';
 import { BASE_PATH } from '@/lib/base-path';
 
@@ -47,7 +48,7 @@ export default function RootLayout({
     <html lang="sv" className={`${familjenGrotesk.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <ServiceWorkerRegister />
-        <div className="flex flex-1 flex-col">{children}</div>
+        <Svep>{children}</Svep>
         <BottomNav />
       </body>
     </html>

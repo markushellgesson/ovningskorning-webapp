@@ -242,6 +242,14 @@ export function getKördaPass(): Passpost[] {
   return getPasslogg().filter((post) => post.utfall !== 'redan');
 }
 
+/** Den senaste sparade planen hör till ett kört pass, aldrig en historisk markering. */
+export function senasteNastaGang(): string | null {
+  const post = [...getKördaPass()]
+    .reverse()
+    .find((pass) => pass.nastaGang !== null && pass.nastaGang.trim().length > 0);
+  return post?.nastaGang ?? null;
+}
+
 export function loggaPass(post: Passpost): boolean {
   return safeSet('passlogg', [...getPasslogg(), post]);
 }
@@ -382,15 +390,21 @@ export function härledPosition(steg: PassSteg[]): Passposition {
 }
 
 /**
- * Ändrar "Nästa gång" på det senaste passet — det är den rad som står överst
- * på nästa pass, och den ändras i uppfarten när planen ändras. Finns inget
- * pass finns ingen rad att ändra.
+ * Ändrar "Nästa gång" på det senaste körda passet. Historiska markeringar
+ * får aldrig ta över parets egen plan för nästa gång.
  */
 export function uppdateraNastaGang(text: string | null): boolean {
   const logg = getPasslogg();
-  if (logg.length === 0) return false;
-  const sista = { ...logg[logg.length - 1], nastaGang: text };
-  return safeSet('passlogg', [...logg.slice(0, -1), sista]);
+  let index = -1;
+  for (let i = logg.length - 1; i >= 0; i -= 1) {
+    if (logg[i].utfall !== 'redan') {
+      index = i;
+      break;
+    }
+  }
+  if (index === -1) return false;
+  const senaste = { ...logg[index], nastaGang: text };
+  return safeSet('passlogg', [...logg.slice(0, index), senaste, ...logg.slice(index + 1)]);
 }
 
 export function exportData(): Record<string, any> {

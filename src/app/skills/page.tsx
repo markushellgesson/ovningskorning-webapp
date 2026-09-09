@@ -42,11 +42,11 @@ const categoryNames: Record<string, string> = {
 };
 
 export const metadata = {
-  title: 'Träningsmoment',
+  title: 'Moment',
 };
 
 /**
- * Träningsmoment — skyltar man passerar (docs/designsprak.md 7.2, 8).
+ * Moment — skyltar man passerar (docs/designsprak.md 7.2, 8).
  *
  * Det livfulla på den här sidan är kategoribanden. Varje kategorirubrik är
  * ett smalt asfaltband som går kant i kant över sidskalets marginaler, med
@@ -66,8 +66,8 @@ export default function SkillsPage() {
   return (
     <PageShell>
       <PageHeader
-        back={{ href: '/', label: 'Tillbaka' }}
-        title="Träningsmoment"
+        back={{ href: '/', label: 'Nästa pass' }}
+        title="Moment"
         lead={`${skills.length} moment ordnade efter område. Tryck på ett moment för att läsa om det.`}
       />
 
