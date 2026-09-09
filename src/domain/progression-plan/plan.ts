@@ -17,22 +17,29 @@
  * 2. Lugn plats med lite trafik — enkla korsningar, låg fart.
  * 3. Ökande svårighet i trafik, med teorin gången i förväg.
  * 4. Alla trafikmiljöer och övergångarna mellan dem.
- * 5. Besvärliga förhållanden — sist, och bara när vädret ger.
+ * 5. Besvärliga förhållanden — sist, och bara när eleven klarar kraven.
  * 6. Självständig körning mot ett mål.
  *
  * Två slags pass. Ett KÖRPASS görs i bilen. Ett SAMTAL görs vid
  * köksbordet — alkohol, grupptryck, självbedömning, resplanering — och
- * ligger i den fas där samtalet hör hemma, inte där förkunskapsgrafen
- * råkade lägga det. Ett samtalspass ska aldrig mötas av "skylten på, en
- * snabb koll av bilen".
+ * ligger i den fas där samtalet hör hemma. Alkohol och läkemedel kommer
+ * tidigt: det är riskutbildningens del 1, utan krav på att ligga sent, och
+ * eleven är passagerare i andras bilar långt före körkortet. "Sent i
+ * utbildningen" gäller del 2, halkan. Ett samtalspass ska aldrig mötas av
+ * "skylten på, en snabb koll av bilen".
  *
  * Förkunskaperna gäller fortfarande. Byggaren (build-from-plan.ts) vägrar
  * bygga om ett moment ligger före något det bygger på. Inom ett pass räcker
  * det att förkunskapen står först i listan — momenten övas i ordning.
  *
- * Passen är avsiktligt små: två–fyra moment, sällan ett. Ett pass med ett
- * enda moment finns bara där momentet är en hel kväll (mörker, halka) —
- * och då säger `notering` varför.
+ * Passen är avsiktligt små: två–fyra moment. Ett pass med ett enda moment
+ * finns bara där momentet är en hel kväll — mörker, halka, omkörning, den
+ * långa turen genom alla miljöer — och då säger `notering` varför.
+ *
+ * Planen granskades av domain-guardian 2026-09-09
+ * (docs/research/plan-granskning-2026-09-09.md); sexton förslag, alla
+ * införda utom att samtalen fått egna steg — de bär i stället sin egen form
+ * i passvyn.
  */
 
 export type Passtyp = 'kor' | 'samtal';
@@ -52,6 +59,8 @@ export interface PlanSteg {
   titel: string;
   /** Vilken av de sex faserna steget hör till. Visas som mellanrubrik på Ordning. */
   fas: string;
+  /** En rad under stegets rubrik på Ordning, t.ex. om riskutbildningen. */
+  notering?: string;
   pass: PlanPass[];
 }
 
@@ -64,13 +73,26 @@ export const FASER = [
   'Självständig körning',
 ] as const;
 
+/**
+ * Raden ovanför vägen på Ordning. Utan den läses planen som en kalender,
+ * och paret får ett falskt tempo — ett pass tas om tills det går utan
+ * hjälp (5.1 råd 4), och manövreringen övas längre än nödvändigt (5.2).
+ */
+export const PLAN_INGRESS =
+  'Ett pass tas om tills det går utan hjälp. Trettio pass är inte trettio kvällar.';
+
 export const PLAN: PlanSteg[] = [
   {
     id: 's1',
     titel: 'Bilen och de första metrarna',
     fas: 'Avstängd yta',
     pass: [
-      { id: 's1p1', typ: 'kor', momentIds: ['VEH-01', 'VEH-02', 'VEH-04', 'MAN-01'] },
+      {
+        id: 's1p1',
+        typ: 'kor',
+        notering: 'En del av säkerhetskontrollen först — hela kommer nästa pass',
+        momentIds: ['VEH-01', 'VEH-02', 'VEH-04', 'MAN-01'],
+      },
       { id: 's1p2', typ: 'kor', momentIds: ['VEH-03', 'VEH-06', 'VEH-05', 'MAN-02'] },
       { id: 's1p3', typ: 'kor', momentIds: ['MAN-03', 'MAN-04', 'MAN-06'] },
     ],
@@ -80,14 +102,19 @@ export const PLAN: PlanSteg[] = [
     titel: 'Manövrering — längre än nödvändigt',
     fas: 'Avstängd yta',
     pass: [
-      { id: 's2p1', typ: 'kor', momentIds: ['OBS-02', 'MAN-05', 'MAN-07'] },
+      {
+        id: 's2p1',
+        typ: 'kor',
+        notering: 'En lång, tom yta med fri sikt bakåt',
+        momentIds: ['OBS-02', 'MAN-07'],
+      },
       { id: 's2p2', typ: 'kor', momentIds: ['MAN-08', 'OBS-03'] },
       { id: 's2p3', typ: 'kor', momentIds: ['MAN-09', 'MAN-10'] },
       {
         id: 's2p4',
         typ: 'samtal',
-        notering: 'Hur ni två ska jobba ihop — innan trafiken börjar',
-        momentIds: ['SELF-01', 'SELF-02', 'SELF-04'],
+        notering: 'Hur ni två ska jobba ihop — och hur varje pass börjar',
+        momentIds: ['SELF-01', 'SELF-02', 'SELF-04', 'TRIP-01'],
       },
     ],
   },
@@ -97,12 +124,17 @@ export const PLAN: PlanSteg[] = [
     fas: 'Lugn plats med lite trafik',
     pass: [
       { id: 's3p1', typ: 'kor', momentIds: ['OBS-01', 'POS-01', 'SPD-01'] },
-      { id: 's3p2', typ: 'kor', momentIds: ['MAN-11', 'INT-01', 'INT-03'] },
+      {
+        id: 's3p2',
+        typ: 'kor',
+        notering: 'Välj gator med en backe',
+        momentIds: ['MAN-11', 'MAN-05', 'INT-01', 'INT-03'],
+      },
       {
         id: 's3p3',
         typ: 'samtal',
-        notering: 'Det som stör: trötthet, stress, telefonen',
-        momentIds: ['RISK-03', 'RISK-04', 'RISK-07'],
+        notering: 'Om det går fel — och det som stör: trötthet, telefonen',
+        momentIds: ['EMR-02', 'RISK-03', 'RISK-07'],
       },
     ],
   },
@@ -110,20 +142,31 @@ export const PLAN: PlanSteg[] = [
     id: 's4',
     titel: 'Fart, avstånd och de som rör sig',
     fas: 'Lugn plats med lite trafik',
+    notering: 'Riskutbildning del 1 hör hit — boka den nu',
     pass: [
-      { id: 's4p1', typ: 'kor', momentIds: ['SPD-02', 'SPD-03', 'OBS-04'] },
-      { id: 's4p2', typ: 'kor', momentIds: ['VRU-02', 'VRU-01', 'VRU-04'] },
+      { id: 's4p1', typ: 'kor', momentIds: ['SPD-02', 'SPD-03', 'OBS-04', 'ECO-01'] },
+      { id: 's4p2', typ: 'kor', momentIds: ['VRU-02', 'VRU-01', 'VRU-04', 'VRU-03'] },
       { id: 's4p3', typ: 'kor', momentIds: ['INT-02', 'INT-04'] },
+      {
+        id: 's4p4',
+        typ: 'samtal',
+        notering: 'Alkohol, läkemedel, stress — det gäller redan, också som passagerare',
+        momentIds: ['RISK-01', 'RISK-02', 'RISK-04'],
+      },
     ],
   },
   {
     id: 's5',
-    titel: 'Korsningar och cirkulationsplatser',
+    titel: 'Korsningar och stad',
     fas: 'Ökande svårighet i trafik',
     pass: [
       { id: 's5p1', typ: 'kor', momentIds: ['INT-05', 'RAB-01'] },
-      { id: 's5p2', typ: 'kor', momentIds: ['LANE-02', 'OBS-05'] },
-      { id: 's5p3', typ: 'kor', momentIds: ['VRU-03', 'URB-02', 'EMR-01'] },
+      {
+        id: 's5p2',
+        typ: 'kor',
+        notering: 'Spårvagnen bara där den finns',
+        momentIds: ['LANE-02', 'OBS-05', 'URB-02', 'URB-01'],
+      },
     ],
   },
   {
@@ -134,12 +177,6 @@ export const PLAN: PlanSteg[] = [
       { id: 's6p1', typ: 'kor', momentIds: ['SPD-04', 'LANE-04'] },
       {
         id: 's6p2',
-        typ: 'kor',
-        notering: 'Spårvagnen bara där den finns',
-        momentIds: ['ECO-01', 'URB-01'],
-      },
-      {
-        id: 's6p3',
         typ: 'samtal',
         notering: 'Kompisarna i bilen',
         momentIds: ['RISK-05', 'RISK-06'],
@@ -151,23 +188,33 @@ export const PLAN: PlanSteg[] = [
     titel: 'Landsväg',
     fas: 'Alla trafikmiljöer',
     pass: [
-      { id: 's7p1', typ: 'kor', momentIds: ['RUR-02', 'RUR-01'] },
-      { id: 's7p2', typ: 'kor', momentIds: ['RUR-03', 'RUR-04'] },
-      { id: 's7p3', typ: 'kor', momentIds: ['LANE-03', 'SPEC-06'] },
+      { id: 's7p1', typ: 'kor', momentIds: ['RUR-02', 'RUR-01', 'SPEC-05'] },
+      { id: 's7p2', typ: 'kor', momentIds: ['RUR-03', 'RUR-04', 'SPEC-08'] },
+      {
+        id: 's7p3',
+        typ: 'kor',
+        notering: 'Den mest riskfyllda manövern — en hel kväll',
+        momentIds: ['LANE-03'],
+      },
     ],
   },
   {
     id: 's8',
-    titel: 'Motorväg — på och av samma kväll',
+    titel: 'Motorväg — och övergångarna',
     fas: 'Alla trafikmiljöer',
     pass: [
-      { id: 's8p1', typ: 'kor', momentIds: ['HWY-01', 'HWY-02'] },
-      { id: 's8p2', typ: 'kor', momentIds: ['HWY-03', 'NAV-01'] },
+      {
+        id: 's8p1',
+        typ: 'kor',
+        notering: 'På och av samma kväll',
+        momentIds: ['HWY-01', 'HWY-02'],
+      },
+      { id: 's8p2', typ: 'kor', notering: 'En kortare kväll', momentIds: ['HWY-03'] },
       {
         id: 's8p3',
-        typ: 'samtal',
-        notering: 'Alkohol och läkemedel — innan hen kör själv',
-        momentIds: ['RISK-01', 'RISK-02'],
+        typ: 'kor',
+        notering: 'En längre tur genom alla miljöer',
+        momentIds: ['NAV-01'],
       },
     ],
   },
@@ -175,15 +222,31 @@ export const PLAN: PlanSteg[] = [
     id: 's9',
     titel: 'När vädret och ljuset ger',
     fas: 'Besvärliga förhållanden',
+    notering: 'Riskutbildning del 2 tas sent — när grunderna sitter',
     pass: [
-      { id: 's9p1', typ: 'kor', notering: 'När det är mörkt', momentIds: ['SPEC-02'] },
-      { id: 's9p2', typ: 'kor', notering: 'När det regnar', momentIds: ['SPEC-03'] },
-      { id: 's9p3', typ: 'kor', notering: 'När det är halt — inte förr', momentIds: ['SPEC-04'] },
+      {
+        id: 's9p1',
+        typ: 'kor',
+        notering: 'När det är mörkt — och grundkörningen sitter',
+        momentIds: ['SPEC-02'],
+      },
+      {
+        id: 's9p2',
+        typ: 'kor',
+        notering: 'När det regnar — och grunderna sitter',
+        momentIds: ['SPEC-03'],
+      },
+      {
+        id: 's9p3',
+        typ: 'kor',
+        notering: 'När hen klarar de speciella kraven — inte för att det blivit vinter',
+        momentIds: ['SPEC-04'],
+      },
       {
         id: 's9p4',
         typ: 'kor',
-        notering: 'Där de finns på er väg',
-        momentIds: ['SPEC-01', 'SPEC-05', 'SPEC-07', 'SPEC-08'],
+        notering: 'När det dyker upp: vägarbete, tunnel, vilt, utryckning',
+        momentIds: ['SPEC-01', 'SPEC-07', 'SPEC-06', 'EMR-01'],
       },
     ],
   },
@@ -196,8 +259,8 @@ export const PLAN: PlanSteg[] = [
       {
         id: 's10p2',
         typ: 'samtal',
-        notering: 'Innan hen kör själv',
-        momentIds: ['SELF-05', 'TRIP-01', 'EMR-02'],
+        notering: 'När hen snart kör utan dig bredvid',
+        momentIds: ['SELF-05'],
       },
     ],
   },

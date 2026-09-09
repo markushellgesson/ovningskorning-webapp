@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { SkillMapInput } from '../progression-map/build-map';
-import { buildMapFromPlan, validatePlan } from './build-from-plan';
+import { buildMapFromPlan, validatePlan, type SkillMapInput } from './build-from-plan';
 import type { PlanSteg } from './plan';
 
 const skill = (id: string, kräver: string[] = [], continuous = false): SkillMapInput => ({

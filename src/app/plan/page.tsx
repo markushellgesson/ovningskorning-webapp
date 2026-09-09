@@ -3,12 +3,15 @@ import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { RowLink } from '@/components/ui/list-row';
 import { Hopfallbart } from '@/components/ui/section';
 import { OrdningLista, type OrdningSteg } from '@/components/pass/ordning-lista';
+import { PLAN_INGRESS } from '@/domain/progression-plan/plan';
 import { skills, progressionMap, continuousByCategory, passSteg, stepTitle } from './plan-data';
 
 const steg: OrdningSteg[] = progressionMap.levels.map((level, index) => ({
   nummer: index + 1,
   titel: stepTitle(level),
   antalPass: passSteg[index].grupper.length,
+  fas: passSteg[index].fas,
+  notering: passSteg[index].notering,
 }));
 
 const antalLopande = [...continuousByCategory.values()].reduce((n, v) => n + v.length, 0);
@@ -22,7 +25,7 @@ export const metadata = {
  *
  * Det livfulla är VÄGEN: ett lodrätt asfaltband 28 px brett, 20 px in från
  * vänsterkanten, med streckad mittlinje, som börjar under ingressen och
- * slutar efter steg 15 med rundad ände. På bandet står femton stolpar.
+ * slutar efter sista steget med rundad ände. På bandet står en stolpe per steg.
  * Ordningen är en resa, inte en lista — och en räls av hårfina linjer sa
  * "katalog" där bandet säger "sträcka".
  *
@@ -64,9 +67,7 @@ export default function PlanPage() {
 
       <PageBody>
         <div>
-          <p className="max-w-[var(--measure)] text-lg text-ink">
-            Femton steg. Öva klart ett innan ni går vidare.
-          </p>
+          <p className="max-w-[var(--measure)] text-lg text-ink">{PLAN_INGRESS}</p>
 
           <OrdningLista steg={steg} passSteg={passSteg} />
         </div>

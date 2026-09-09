@@ -32,13 +32,13 @@ export async function generateMetadata(props: PlanStepPageProps): Promise<Metada
 /**
  * Sträckindikatorn (docs/designsprak.md 7.4) — vägsträckan sedd uppifrån.
  *
- * Femton korta streck i rad, 4 px höga med radius 2, där det aktuella är
+ * Ett kort streck per steg, 4 px högt med radius 2, där det aktuella är
  * --sign-blue och de andra --line-strong. Den säger var i följden man är
  * utan att räkna, och den är det enda stället på sidan där stegets nummer
  * finns som form i stället för som siffra.
  *
  * Dekorativ: stolpen och "av 15" ovanför säger redan samma sak i text, och
- * femton likadana streck i en skärmläsare är brus.
+ * många likadana streck i en skärmläsare är brus.
  */
 function Strackindikator({ step, total }: { step: number; total: number }) {
   return (

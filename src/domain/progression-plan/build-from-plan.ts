@@ -1,5 +1,7 @@
-import type { ProgressionMap, SkillMapInput, SkillMapLevel } from '../progression-map/build-map';
 import type { PlanSteg } from './plan';
+import type { ProgressionMap, SkillMapInput, SkillMapLevel } from './typer';
+
+export type { ProgressionMap, SkillMapInput, SkillMapLevel } from './typer';
 
 /**
  * Gör den handskrivna planen till samma form som den uträknade kartan hade,

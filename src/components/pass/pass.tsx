@@ -50,7 +50,7 @@ const MAX_ANTECKNING = 140;
  *
  * Appen hade tre dörrar och ingen första handling. Den här vyn ersatte dem:
  * man öppnar appen och ser passet man är på, momenten som ingår, och en
- * knapp. Passet är en GRUPP i ett steg — momenten som hör ihop och tränas
+ * knapp. Passet är en planerad grupp i ett steg — momenten som hör ihop och tränas
  * samma kväll. Steget är stolpen vägen passerar; föräldern räknar i pass.
  *
  * Efter knappen kommer en fråga, "Hur gick det?", med tre svar och en
@@ -95,7 +95,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   if (!fastSteg && läge.pos.steg > totalt) {
     return (
       <div className="space-y-6">
-        <p className="text-xl text-ink">Alla femton steg är passerade.</p>
+        <p className="text-xl text-ink">Alla steg är passerade.</p>
         <Link href="/plan" className="inline-block text-lg font-semibold text-blue-text">
           Ordning →
         </Link>
@@ -108,7 +108,12 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   const grupp = fastSteg ? 0 : Math.min(läge.pos.grupp, aktuelltSteg.grupper.length - 1);
   const pos = { steg: stegnummer, grupp };
   const passet = aktuelltSteg.grupper[grupp];
-  const föregåendeUtfall = !fastSteg ? tidigareUtfall(pos, getPasslogg()) : null;
+  const föregåendeUtfall = !fastSteg
+    ? tidigareUtfall(
+        passet.moment.map((moment) => moment.id),
+        getPasslogg(),
+      )
+    : null;
 
   function svara(utfall: Passutfall, nastaGang: string) {
     const text = nastaGang.trim() || null;
@@ -128,10 +133,10 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   }
 
   function ändraGjort(grupp: number, momentIds: string[]) {
-    const post = avslutandePasspost(stegnummer, grupp);
+    const post = avslutandePasspost(momentIds);
     let sparat = true;
     if (post?.utfall === 'redan') {
-      sparat = avmarkeraGjort(stegnummer, grupp);
+      sparat = avmarkeraGjort(momentIds);
     } else if (post === null) {
       sparat = markeraGjort(stegnummer, grupp, momentIds);
     }
@@ -180,6 +185,9 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
             Pass {grupp + 1} av {antalPass} i det här steget
           </p>
         )}
+        {!fastSteg && passet.notering && (
+          <p className="mt-1 text-base text-ink-2">{passet.notering}</p>
+        )}
         {underRubrik && <div className="mt-4">{underRubrik}</div>}
       </div>
 
@@ -188,7 +196,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       <div className="divide-y divide-line-strong border-y border-line">
         {grupperAttVisa.map((g, i) => {
           const gruppnummer = fastSteg ? i : grupp;
-          const avslut = fastSteg ? avslutandePasspost(stegnummer, gruppnummer) : null;
+          const avslut = fastSteg ? avslutandePasspost(g.moment.map((moment) => moment.id)) : null;
           const ärNästa =
             fastSteg && läge.pos.steg === stegnummer && läge.pos.grupp === gruppnummer;
           const etikett = avslut ? 'Gjort' : ärNästa ? 'Nästa' : null;
@@ -196,8 +204,16 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
           return (
             <div key={g.id}>
               {fastSteg && (
+                <div className="pt-3">
+                  <p className="text-sm font-semibold tracking-wide text-ink-3 uppercase">
+                    {`Pass ${i + 1}${etikett ? ` · ${etikett}` : ''}`}
+                  </p>
+                  {g.notering && <p className="mt-1 text-base text-ink-2">{g.notering}</p>}
+                </div>
+              )}
+              {g.typ === 'samtal' && (
                 <p className="pt-3 text-sm font-semibold tracking-wide text-ink-3 uppercase">
-                  {`Pass ${i + 1}${etikett ? ` · ${etikett}` : ''}`}
+                  Samtal — vid köksbordet
                 </p>
               )}
               <ul className="divide-y divide-line">
@@ -240,16 +256,22 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       {/* Hela "Före"-avsnittet från den borttagna Upplägg-sidan, kokat till
           sina fem sakuppgifter. Det är det enda på skärmen som förklarar
           något, och det förklarar bara vad som ska ligga i bilen. */}
-      <p className="max-w-[var(--measure)] text-base text-ink-2">
-        Innan ni kör: körkortstillstånd, legitimation och handledargodkännande i bilen, skylten på,
-        en snabb koll av bilen.
-      </p>
+      {passet.typ === 'kor' && (
+        <p className="max-w-[var(--measure)] text-base text-ink-2">
+          Innan ni kör: körkortstillstånd, legitimation och handledargodkännande i bilen, skylten
+          på, en snabb koll av bilen.
+        </p>
+      )}
 
       {sparfel && (
         <p className="text-base text-ink-2">Kunde inte spara framsteget i den här webbläsaren.</p>
       )}
 
-      {!fastSteg && <Knapp onClick={() => setFas('efter')}>Vi har övat det här</Knapp>}
+      {!fastSteg && (
+        <Knapp onClick={() => setFas('efter')}>
+          {passet.typ === 'samtal' ? 'Vi har pratat om det här' : 'Vi har övat det här'}
+        </Knapp>
+      )}
 
       {!fastSteg && (
         <p className="flex gap-6">
@@ -265,13 +287,12 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   );
 }
 
-function tidigareUtfall(pos: Passposition, logg: ReturnType<typeof getPasslogg>) {
+function tidigareUtfall(momentIds: string[], logg: ReturnType<typeof getPasslogg>) {
   return [...logg]
     .reverse()
     .find(
       (post) =>
-        post.steg === pos.steg &&
-        post.grupp === pos.grupp &&
+        momentIds.every((id) => post.momentIds.includes(id)) &&
         (post.utfall === 'sadar' || post.utfall === 'taom'),
     );
 }

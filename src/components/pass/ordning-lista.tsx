@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Stolpe } from '@/components/ui/stolpe';
 import { Vag, Vagstation } from '@/components/ui/asfaltband';
 import { Meta, Section, SectionTitle } from '@/components/ui/section';
-import { ärAvslutat, getKördaPass, getPasslogg, härledPosition } from '@/storage/storage';
+import { ärPassAvslutat, getKördaPass, getPasslogg, härledPosition } from '@/storage/storage';
 import type { Passpost } from '@/storage/types';
 import type { PassSteg } from './typer';
 
@@ -13,6 +13,14 @@ export interface OrdningSteg {
   nummer: number;
   titel: string;
   antalPass: number;
+  fas: string;
+  notering?: string;
+}
+
+interface AttTaOm {
+  steg: number;
+  grupp: number;
+  post: Passpost;
 }
 
 /**
@@ -25,8 +33,8 @@ export interface OrdningSteg {
  * medan "Ta om" låter passet ligga kvar.
  *
  * Ovanför vägen står hur många pass paret kört och sedan när. Inte "är vi
- * i tid" — det kan appen inte veta — men en känsla för tid, som femton
- * steg inte ger.
+ * i tid" — det kan appen inte veta — men en känsla för tid, som antal steg
+ * aldrig ger.
  *
  * Klientkomponent av samma skäl som passvyn: appen är statiskt exporterad
  * och framsteget bor i webbläsaren. Under första renderingen är alla stolpar
@@ -42,7 +50,7 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
     sedan: string;
     harRedan: boolean;
   } | null>(null);
-  const [attTaOm, setAttTaOm] = useState<Passpost[]>([]);
+  const [attTaOm, setAttTaOm] = useState<AttTaOm[]>([]);
 
   useEffect(() => {
     setAktuellt(härledPosition(passSteg).steg);
@@ -50,7 +58,8 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
       Object.fromEntries(
         passSteg.map((ettSteg) => [
           ettSteg.nummer,
-          ettSteg.grupper.filter((_, grupp) => ärAvslutat(ettSteg.nummer, grupp)).length,
+          ettSteg.grupper.filter((grupp) => ärPassAvslutat(grupp.moment.map((moment) => moment.id)))
+            .length,
         ]),
       ),
     );
@@ -60,21 +69,29 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
       const första = new Date(körda[0].datum);
       setRäkning({
         körda: körda.length,
-        gjorda: new Set(
-          logg
-            .filter((post) => post.utfall !== 'taom')
-            .map((post) => `${post.steg}:${post.grupp}`),
-        ).size,
+        gjorda: passSteg.reduce(
+          (antal, ettSteg) =>
+            antal +
+            ettSteg.grupper.filter((grupp) =>
+              ärPassAvslutat(grupp.moment.map((moment) => moment.id)),
+            ).length,
+          0,
+        ),
         sedan: första.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' }),
         harRedan: logg.some((post) => post.utfall === 'redan'),
       });
     }
-    const senasteKörda = new Map<string, Passpost>();
-    körda.forEach((post) => senasteKörda.set(`${post.steg}:${post.grupp}`, post));
     setAttTaOm(
-      [...senasteKörda.values()]
-        .filter((post) => post.utfall === 'sadar' || post.utfall === 'taom')
-        .sort((a, b) => a.steg - b.steg || a.grupp - b.grupp),
+      passSteg.flatMap((ettSteg) =>
+        ettSteg.grupper.flatMap((grupp, gruppnummer) => {
+          const senaste = [...körda]
+            .reverse()
+            .find((post) => grupp.moment.every((moment) => post.momentIds.includes(moment.id)));
+          return senaste?.utfall === 'sadar' || senaste?.utfall === 'taom'
+            ? [{ steg: ettSteg.nummer, grupp: gruppnummer, post: senaste }]
+            : [];
+        }),
+      ),
     );
   }, [passSteg]);
 
@@ -89,8 +106,9 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
       )}
       <Vag className="mt-6">
         <ol>
-          {steg.map((s) => {
+          {steg.map((s, index) => {
             const antalGjorda = gjorda[s.nummer] ?? 0;
+            const visaFas = index === 0 || steg[index - 1].fas !== s.fas;
             const status =
               aktuellt === null
                 ? undefined
@@ -117,13 +135,20 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
                   <span className="relative min-w-0 flex-1">
                     {/* Stolpen är dekor, så steget och dess läge sägs här. */}
                     <span className="sr-only">{`Steg ${s.nummer}${läge}. `}</span>
+                    {visaFas && (
+                      <span className="block text-sm font-semibold tracking-wide text-ink-3 uppercase">
+                        {s.fas}
+                      </span>
+                    )}
                     <span className="block text-lg leading-[1.3] font-semibold text-ink">
                       {s.titel}
                     </span>
                     <Meta>
                       {s.antalPass} pass
-                      {antalGjorda > 0 && ` · ${antalGjorda} ${antalGjorda === 1 ? 'gjort' : 'gjorda'}`}
+                      {antalGjorda > 0 &&
+                        ` · ${antalGjorda} ${antalGjorda === 1 ? 'gjort' : 'gjorda'}`}
                     </Meta>
+                    {s.notering && <span className="block text-sm text-ink-3">{s.notering}</span>}
                   </span>
                 </Link>
               </Vagstation>
@@ -138,16 +163,18 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
             Att ta om
           </SectionTitle>
           <ul className="mt-[18px] max-w-[var(--measure)] divide-y divide-line">
-            {attTaOm.map((post) => {
-              const grupp = passSteg.find((ettSteg) => ettSteg.nummer === post.steg)?.grupper[post.grupp];
+            {attTaOm.map(({ steg, grupp: gruppnummer, post }) => {
+              const grupp = passSteg.find((ettSteg) => ettSteg.nummer === steg)?.grupper[
+                gruppnummer
+              ];
               if (!grupp) return null;
               return (
-                <li key={`${post.steg}:${post.grupp}`}>
+                <li key={grupp.id}>
                   <Link
-                    href={`/plan/${post.steg}`}
+                    href={`/plan/${steg}`}
                     className="flex min-h-14 items-center gap-3 py-2 text-base transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
                   >
-                    <Stolpe number={post.steg} size="sm" />
+                    <Stolpe number={steg} size="sm" />
                     <span className="min-w-0 flex-1">
                       <span className="block font-semibold text-ink">
                         {grupp.moment.map((moment) => moment.namn).join(', ')}

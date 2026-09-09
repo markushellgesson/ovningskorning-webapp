@@ -6,7 +6,9 @@ import {
   saveSession,
   getSession,
   clearAllData,
+  ärPassAvslutat,
   avmarkeraGjort,
+  avslutandePasspost,
   härledPosition,
   getKördaPass,
   getPasslogg,
@@ -101,24 +103,42 @@ const passSteg: PassSteg[] = [
   {
     nummer: 1,
     titel: 'Första steget',
+    fas: 'Fas',
     grupper: [
-      { id: '1-0', moment: [{ id: 'M-1', namn: 'Ett', continuous: false, fragor: [] }] },
-      { id: '1-1', moment: [{ id: 'M-2', namn: 'Två', continuous: false, fragor: [] }] },
+      {
+        id: '1-0',
+        typ: 'kor',
+        moment: [{ id: 'M-1', namn: 'Ett', continuous: false, fragor: [] }],
+      },
+      {
+        id: '1-1',
+        typ: 'kor',
+        moment: [{ id: 'M-2', namn: 'Två', continuous: false, fragor: [] }],
+      },
     ],
   },
   {
     nummer: 2,
     titel: 'Andra steget',
-    grupper: [{ id: '2-0', moment: [{ id: 'M-3', namn: 'Tre', continuous: false, fragor: [] }] }],
+    fas: 'Fas',
+    grupper: [
+      {
+        id: '2-0',
+        typ: 'kor',
+        moment: [{ id: 'M-3', namn: 'Tre', continuous: false, fragor: [] }],
+      },
+    ],
   },
 ];
 
 const sjuSteg: PassSteg[] = Array.from({ length: 7 }, (_, index) => ({
   nummer: index + 1,
   titel: `Steg ${index + 1}`,
+  fas: 'Fas',
   grupper: [
     {
       id: `${index + 1}-0`,
+      typ: 'kor',
       moment: [
         { id: `M-${index + 1}`, namn: `Moment ${index + 1}`, continuous: false, fragor: [] },
       ],
@@ -131,11 +151,14 @@ const passPost = (
   grupp: number,
   utfall: Passutfall,
   nastaGang: string | null = null,
+  momentIds = passSteg[steg - 1]?.grupper[grupp]?.moment.map((moment) => moment.id) ?? [
+    `M-${steg}-${grupp}`,
+  ],
 ) => ({
   datum: '2026-09-08T10:00:00.000Z',
   steg,
   grupp,
-  momentIds: [`M-${steg}-${grupp}`],
+  momentIds,
   utfall,
   nastaGang,
 });
@@ -207,7 +230,7 @@ describe('passloggen', () => {
     markeraGjort(2, 0, ['MAN-01']);
     markeraGjort(2, 0, ['MAN-01']);
     expect(getPasslogg().map((p) => p.utfall)).toEqual(['bra', 'redan', 'redan']);
-    expect(avmarkeraGjort(2, 0)).toBe(true);
+    expect(avmarkeraGjort(['MAN-01'])).toBe(true);
     expect(getPasslogg().map((p) => p.utfall)).toEqual(['bra', 'redan']);
   });
 
@@ -242,5 +265,111 @@ describe('passloggen', () => {
 
   it('kan inte ändra en rad som inte finns', () => {
     expect(uppdateraNastaGang('x')).toBe(false);
+  });
+
+  it('låter en större post avsluta ett pass med några av dess moment', () => {
+    loggaPass(passPost(8, 3, 'bra', null, ['A', 'B', 'C', 'D']));
+    expect(ärPassAvslutat(['A', 'B', 'C'])).toBe(true);
+  });
+
+  it('låter flera poster tillsammans avsluta ett pass', () => {
+    loggaPass(passPost(8, 3, 'bra', null, ['A', 'B']));
+    loggaPass(passPost(8, 4, 'sadar', null, ['C']));
+    expect(ärPassAvslutat(['A', 'B', 'C'])).toBe(true);
+  });
+
+  it('låter inte ta om täcka ett moment', () => {
+    loggaPass(passPost(8, 3, 'taom', null, ['A', 'B', 'C']));
+    expect(ärPassAvslutat(['A', 'B', 'C'])).toBe(false);
+  });
+
+  it('behåller avslutet när passet fått ett nytt steg och gruppnummer', () => {
+    loggaPass(passPost(3, 0, 'bra', null, ['X', 'Y']));
+    const omnumreradPlan: PassSteg[] = [
+      {
+        nummer: 1,
+        titel: 'Nytt steg',
+        fas: 'Fas',
+        grupper: [
+          {
+            id: 'nytt-0',
+            typ: 'kor',
+            moment: [{ id: 'A', namn: 'A', continuous: false, fragor: [] }],
+          },
+          {
+            id: 'nytt-1',
+            typ: 'kor',
+            moment: [{ id: 'B', namn: 'B', continuous: false, fragor: [] }],
+          },
+          {
+            id: 'nytt-2',
+            typ: 'kor',
+            moment: [
+              { id: 'X', namn: 'X', continuous: false, fragor: [] },
+              { id: 'Y', namn: 'Y', continuous: false, fragor: [] },
+            ],
+          },
+        ],
+      },
+    ];
+    loggaPass(passPost(1, 0, 'redan', null, ['A']));
+    loggaPass(passPost(1, 1, 'redan', null, ['B']));
+    expect(härledPosition(omnumreradPlan)).toEqual({ steg: 2, grupp: 0 });
+  });
+
+  it('avmarkerar bara den senaste redan-posten med exakt samma momentmängd', () => {
+    markeraGjort(1, 0, ['A', 'B']);
+    markeraGjort(1, 1, ['A', 'B', 'C']);
+    markeraGjort(1, 2, ['B', 'A']);
+    expect(avmarkeraGjort(['A', 'B'])).toBe(true);
+    expect(getPasslogg().map((post) => post.momentIds)).toEqual([
+      ['A', 'B'],
+      ['A', 'B', 'C'],
+    ]);
+  });
+});
+
+describe('avslutandePasspost — samma definition av gjort som positionen', () => {
+  beforeEach(() => localStorage.clear());
+  const post = (
+    momentIds: string[],
+    utfall: 'bra' | 'sadar' | 'taom' | 'redan',
+    datum: string,
+  ) => ({
+    datum,
+    steg: 1,
+    grupp: 0,
+    momentIds,
+    utfall,
+    nastaGang: null,
+  });
+
+  it('räknar ett pass som kört när flera körda poster täcker det tillsammans', () => {
+    // Gammal numrering: momenten låg i två olika pass. Positionen går vidare —
+    // stegsidan ska säga samma sak, inte "Markera som gjort".
+    loggaPass(post(['A', 'B'], 'bra', '2026-08-01T10:00:00Z'));
+    loggaPass(post(['C', 'D'], 'sadar', '2026-08-08T10:00:00Z'));
+    const p = avslutandePasspost(['A', 'C']);
+    expect(p?.utfall).toBe('sadar');
+    expect(p?.datum).toBe('2026-08-08T10:00:00Z');
+  });
+
+  it('ger redan när bara historiska markeringar täcker passet', () => {
+    loggaPass(post(['A'], 'redan', '2026-08-01T10:00:00Z'));
+    loggaPass(post(['B'], 'redan', '2026-08-02T10:00:00Z'));
+    expect(avslutandePasspost(['A', 'B'])?.utfall).toBe('redan');
+  });
+
+  it('låter ett kört pass väga tyngre än en historisk markering', () => {
+    loggaPass(post(['A', 'B'], 'redan', '2026-08-01T10:00:00Z'));
+    loggaPass(post(['A', 'B'], 'bra', '2026-08-02T10:00:00Z'));
+    expect(avslutandePasspost(['A', 'B'])?.utfall).toBe('bra');
+  });
+
+  it('räknar inte ta om, och inte ett pass som bara delvis täcks', () => {
+    loggaPass(post(['A', 'B'], 'taom', '2026-08-01T10:00:00Z'));
+    expect(avslutandePasspost(['A', 'B'])).toBeNull();
+    loggaPass(post(['A'], 'bra', '2026-08-02T10:00:00Z'));
+    expect(avslutandePasspost(['A', 'B'])).toBeNull();
   });
 });

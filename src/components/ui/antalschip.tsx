@@ -3,7 +3,7 @@
  *
  * Appen har två sifferföremål och de betyder olika saker. **Stolpen** är ett
  * ordningstal: steg 6 av 15, moment 3 i övningen. **Chippet** är ett antal:
- * 75 moment, 15 steg, 6 moment i kategorin. Så länge den skillnaden håller
+ * 75 moment, ett antal steg, 6 moment i kategorin. Så länge den skillnaden håller
  * går varje siffra i appen att läsa utan sammanhang.
  *
  * Kategoribanden på Moment bar tidigare en stolpe med antalet, och

@@ -9,7 +9,7 @@ interface StepMarkerProps {
 }
 
 /**
- * Stegnummer i en cirkel. Konturerad, inte fylld: femton fyllda mörka
+ * Stegnummer i en cirkel. Konturerad, inte fylld: många fyllda mörka
  * cirklar i rad väger mer än rubrikerna de sitter bredvid. Konturen i
  * primärfärg klarar 3:1 mot båda ytorna i båda färglägena.
  */

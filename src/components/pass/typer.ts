@@ -18,11 +18,15 @@ export interface PassMoment {
 /** En grupp är ett pass: momenten som hör ihop och tränas samma kväll. */
 export interface PassGrupp {
   id: string;
+  typ: 'kor' | 'samtal';
+  notering?: string;
   moment: PassMoment[];
 }
 
 export interface PassSteg {
   nummer: number;
   titel: string;
+  fas: string;
+  notering?: string;
   grupper: PassGrupp[];
 }

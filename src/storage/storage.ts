@@ -254,22 +254,47 @@ export function loggaPass(post: Passpost): boolean {
   return safeSet('passlogg', [...getPasslogg(), post]);
 }
 
-/** Ett "ta om" är en anteckning om ett försök, inte ett avslut på passet. */
-export function ärAvslutat(steg: number, grupp: number): boolean {
-  return getPasslogg().some(
-    (post) => post.steg === steg && post.grupp === grupp && post.utfall !== 'taom',
+function täckerMoment(post: Passpost, momentIds: string[]): boolean {
+  const täckta = new Set(post.momentIds);
+  return momentIds.every((id) => täckta.has(id));
+}
+
+function sammaMoment(post: Passpost, momentIds: string[]): boolean {
+  const postMoment = new Set(post.momentIds);
+  return postMoment.size === new Set(momentIds).size && momentIds.every((id) => postMoment.has(id));
+}
+
+function täcksAvPoster(momentIds: string[], poster: Passpost[]): boolean {
+  const täckta = new Set(poster.flatMap((post) => post.momentIds));
+  return momentIds.every((id) => täckta.has(id));
+}
+
+/** Ett pass är avslutat först när varje moment täcks av en avslutande post. */
+export function ärPassAvslutat(momentIds: string[]): boolean {
+  return täcksAvPoster(
+    momentIds,
+    getPasslogg().filter((post) => post.utfall !== 'taom'),
   );
 }
 
 /** Ett kört pass väger tyngre än en historisk markering på stegsidan. */
-export function avslutandePasspost(steg: number, grupp: number): Passpost | null {
-  const poster = getPasslogg()
-    .filter((post) => post.steg === steg && post.grupp === grupp)
-    .reverse();
+export function avslutandePasspost(momentIds: string[]): Passpost | null {
+  // Samma definition av "gjort" som positionen har: momenten täcks av
+  // posterna tillsammans, inte nödvändigtvis av en enda. Ett par som körde
+  // under den gamla numreringen har sina moment spridda över flera poster,
+  // och positionen gick vidare — då ska stegsidan säga samma sak.
+  const logg = getPasslogg();
+  const körda = logg.filter((post) => post.utfall === 'bra' || post.utfall === 'sadar');
+  if (täcksAvPoster(momentIds, körda)) {
+    return [...körda]
+      .reverse()
+      .find((post) => post.momentIds.some((id) => momentIds.includes(id)))!;
+  }
+  const avslutande = logg.filter((post) => post.utfall !== 'taom');
+  if (!täcksAvPoster(momentIds, avslutande)) return null;
+  const redan = avslutande.filter((post) => post.utfall === 'redan');
   return (
-    poster.find((post) => post.utfall === 'bra' || post.utfall === 'sadar') ??
-    poster.find((post) => post.utfall === 'redan') ??
-    null
+    [...redan].reverse().find((post) => post.momentIds.some((id) => momentIds.includes(id))) ?? null
   );
 }
 
@@ -284,12 +309,12 @@ export function markeraGjort(steg: number, grupp: number, momentIds: string[]): 
   });
 }
 
-export function avmarkeraGjort(steg: number, grupp: number): boolean {
+export function avmarkeraGjort(momentIds: string[]): boolean {
   const logg = getPasslogg();
   let index = -1;
   for (let i = logg.length - 1; i >= 0; i -= 1) {
     const post = logg[i];
-    if (post.steg === steg && post.grupp === grupp && post.utfall === 'redan') {
+    if (post.utfall === 'redan' && sammaMoment(post, momentIds)) {
       index = i;
       break;
     }
@@ -334,23 +359,20 @@ function migreraGammalPosition(steg: PassSteg[]): void {
 
     if (position !== null) {
       const logg = getPasslogg();
-      const redanAvslutade = new Set(
-        logg.filter((post) => post.utfall !== 'taom').map((post) => `${post.steg}:${post.grupp}`),
-      );
       const datum = new Date().toISOString();
       const migrerade = steg.flatMap((ettSteg) =>
         ettSteg.grupper.flatMap((grupp, gruppIndex) => {
           const förePositionen =
             ettSteg.nummer < position.steg ||
             (ettSteg.nummer === position.steg && gruppIndex < position.grupp);
-          const nyckel = `${ettSteg.nummer}:${gruppIndex}`;
-          return förePositionen && !redanAvslutade.has(nyckel)
+          const momentIds = grupp.moment.map((moment) => moment.id);
+          return förePositionen && !ärPassAvslutat(momentIds)
             ? [
                 {
                   datum,
                   steg: ettSteg.nummer,
                   grupp: gruppIndex,
-                  momentIds: grupp.moment.map((moment) => moment.id),
+                  momentIds,
                   utfall: 'redan' as const,
                   nastaGang: null,
                 },
@@ -376,14 +398,11 @@ function migreraGammalPosition(steg: PassSteg[]): void {
  */
 export function härledPosition(steg: PassSteg[]): Passposition {
   migreraGammalPosition(steg);
-  const logg = getPasslogg();
-  const avslutade = new Set(
-    logg.filter((post) => post.utfall !== 'taom').map((post) => `${post.steg}:${post.grupp}`),
-  );
 
   for (const ettSteg of steg) {
     for (let grupp = 0; grupp < ettSteg.grupper.length; grupp += 1) {
-      if (!avslutade.has(`${ettSteg.nummer}:${grupp}`)) return { steg: ettSteg.nummer, grupp };
+      const momentIds = ettSteg.grupper[grupp].moment.map((moment) => moment.id);
+      if (!ärPassAvslutat(momentIds)) return { steg: ettSteg.nummer, grupp };
     }
   }
   return { steg: steg.length + 1, grupp: 0 };

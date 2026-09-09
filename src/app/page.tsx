@@ -11,7 +11,7 @@ export const metadata = {
 /**
  * Startsidan — läget "Nästa pass".
  *
- * Sidan hade tre vägvisare till 75 moment, 15 steg och en sida på tusen ord
+ * Sidan hade tre vägvisare till 75 moment, ordningens steg och en sida på tusen ord
  * om upplägg. Ingen av dem sa "gör det här nu", och det var det som gjorde
  * appen till ett uppslagsverk i stället för ett verktyg. Nu öppnar appen på
  * det steg paret faktiskt är på, med en knapp som för dem vidare.
