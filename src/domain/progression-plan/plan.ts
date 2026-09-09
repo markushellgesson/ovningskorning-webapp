@@ -79,7 +79,7 @@ export const FASER = [
  * hjälp (5.1 råd 4), och manövreringen övas längre än nödvändigt (5.2).
  */
 export const PLAN_INGRESS =
-  'Ett pass tas om tills det går utan hjälp. Trettio pass är inte trettio kvällar.';
+  'Ett pass tas om tills det går utan hjälp. Trettio pass är inte trettio kvällar. Minuterna gäller övningen, inte utbildningen — timmarna i bilen blir många fler.';
 
 export const PLAN: PlanSteg[] = [
   {
@@ -90,7 +90,7 @@ export const PLAN: PlanSteg[] = [
       {
         id: 's1p1',
         typ: 'kor',
-        notering: 'En del av säkerhetskontrollen först — hela kommer nästa pass',
+        notering: 'Stolen och speglarna först — hela säkerhetskontrollen nästa pass',
         momentIds: ['VEH-01', 'VEH-02', 'VEH-04', 'MAN-01'],
       },
       { id: 's1p2', typ: 'kor', momentIds: ['VEH-03', 'VEH-06', 'VEH-05', 'MAN-02'] },

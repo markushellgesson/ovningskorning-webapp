@@ -19,6 +19,7 @@ import type {
   Recommendation,
   Passposition,
   Passpost,
+  Passutfall,
 } from './types';
 import type { PassSteg } from '@/components/pass/typer';
 
@@ -260,7 +261,21 @@ export function senasteNastaGang(): string | null {
 }
 
 export function loggaPass(post: Passpost): boolean {
-  return safeSet('passlogg', [...getPasslogg(), post]);
+  const sparat = safeSet('passlogg', [...getPasslogg(), post]);
+  const rensatUppskjutet = safeSet('uppskjutet', [] as string[]);
+  return sparat && rensatUppskjutet;
+}
+
+/** Ett uppskjutet samtal ligger bara åt sidan tills nästa pass har körts. */
+export function skjutUppSamtal(momentIds: string[]): boolean {
+  return safeSet('uppskjutet', momentIds);
+}
+
+function getUppskjutet(): string[] {
+  const uppskjutet = safeGet<unknown>('uppskjutet', []);
+  return Array.isArray(uppskjutet) && uppskjutet.every((id) => typeof id === 'string')
+    ? uppskjutet
+    : [];
 }
 
 function täckerMoment(post: Passpost, momentIds: string[]): boolean {
@@ -268,9 +283,14 @@ function täckerMoment(post: Passpost, momentIds: string[]): boolean {
   return momentIds.every((id) => täckta.has(id));
 }
 
-function sammaMoment(post: Passpost, momentIds: string[]): boolean {
-  const postMoment = new Set(post.momentIds);
-  return postMoment.size === new Set(momentIds).size && momentIds.every((id) => postMoment.has(id));
+function sammaMoment(första: string[], andra: string[]): boolean {
+  const postMoment = new Set(första);
+  return postMoment.size === new Set(andra).size && andra.every((id) => postMoment.has(id));
+}
+
+/** Senaste körda passet säger om en tidigare "Sådär" fortfarande gäller. */
+export function senasteUtfallFör(momentIds: string[]): Passpost | null {
+  return [...getKördaPass()].reverse().find((post) => täckerMoment(post, momentIds)) ?? null;
 }
 
 function täcksAvPoster(momentIds: string[], poster: Passpost[]): boolean {
@@ -323,7 +343,7 @@ export function avmarkeraGjort(momentIds: string[]): boolean {
   let index = -1;
   for (let i = logg.length - 1; i >= 0; i -= 1) {
     const post = logg[i];
-    if (post.utfall === 'redan' && sammaMoment(post, momentIds)) {
+    if (post.utfall === 'redan' && sammaMoment(post.momentIds, momentIds)) {
       index = i;
       break;
     }
@@ -408,11 +428,26 @@ function migreraGammalPosition(steg: PassSteg[]): void {
 export function härledPosition(steg: PassSteg[]): Passposition {
   migreraGammalPosition(steg);
 
-  for (const ettSteg of steg) {
-    for (let grupp = 0; grupp < ettSteg.grupper.length; grupp += 1) {
-      const momentIds = ettSteg.grupper[grupp].moment.map((moment) => moment.id);
-      if (!ärPassAvslutat(momentIds)) return { steg: ettSteg.nummer, grupp };
+  const pass = steg.flatMap((ettSteg) =>
+    ettSteg.grupper.map((grupp, gruppnummer) => ({
+      steg: ettSteg.nummer,
+      grupp: gruppnummer,
+      momentIds: grupp.moment.map((moment) => moment.id),
+    })),
+  );
+  const uppskjutet = getUppskjutet();
+
+  for (let index = 0; index < pass.length; index += 1) {
+    const aktuellt = pass[index];
+    if (ärPassAvslutat(aktuellt.momentIds)) continue;
+
+    const finnsSenareOavslutatPass = pass
+      .slice(index + 1)
+      .some((senare) => !ärPassAvslutat(senare.momentIds));
+    if (sammaMoment(aktuellt.momentIds, uppskjutet) && finnsSenareOavslutatPass) {
+      continue;
     }
+    return { steg: aktuellt.steg, grupp: aktuellt.grupp };
   }
   return { steg: steg.length + 1, grupp: 0 };
 }
@@ -432,6 +467,21 @@ export function uppdateraNastaGang(text: string | null): boolean {
   }
   if (index === -1) return false;
   const senaste = { ...logg[index], nastaGang: text };
+  return safeSet('passlogg', [...logg.slice(0, index), senaste, ...logg.slice(index + 1)]);
+}
+
+/** Historiken får rätta det senaste körda passet, aldrig en äldre rad. */
+export function uppdateraUtfall(utfall: Passutfall): boolean {
+  const logg = getPasslogg();
+  let index = -1;
+  for (let i = logg.length - 1; i >= 0; i -= 1) {
+    if (logg[i].utfall !== 'redan') {
+      index = i;
+      break;
+    }
+  }
+  if (index === -1) return false;
+  const senaste = { ...logg[index], utfall };
   return safeSet('passlogg', [...logg.slice(0, index), senaste, ...logg.slice(index + 1)]);
 }
 

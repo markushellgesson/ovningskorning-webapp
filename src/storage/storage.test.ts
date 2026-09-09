@@ -14,8 +14,11 @@ import {
   getPasslogg,
   loggaPass,
   markeraGjort,
+  senasteUtfallFör,
   senasteNastaGang,
+  skjutUppSamtal,
   uppdateraNastaGang,
+  uppdateraUtfall,
   getValkomst,
   saveValkomst,
 } from './storage';
@@ -163,6 +166,26 @@ const sjuSteg: PassSteg[] = Array.from({ length: 7 }, (_, index) => ({
   ],
 }));
 
+const samtalsSteg: PassSteg[] = [
+  {
+    nummer: 1,
+    titel: 'Samtal först',
+    fas: 'Fas',
+    grupper: [
+      {
+        id: '1-0',
+        typ: 'samtal',
+        moment: [{ id: 'SAM-1', namn: 'Samtal', continuous: false, fragor: [] }],
+      },
+      {
+        id: '1-1',
+        typ: 'kor',
+        moment: [{ id: 'KOR-1', namn: 'Körning', continuous: false, fragor: [] }],
+      },
+    ],
+  },
+];
+
 const passPost = (
   steg: number,
   grupp: number,
@@ -199,6 +222,23 @@ describe('härledd position', () => {
     loggaPass(passPost(1, 1, 'sadar'));
     loggaPass(passPost(2, 0, 'redan'));
     expect(härledPosition(passSteg)).toEqual({ steg: 3, grupp: 0 });
+  });
+
+  it('hoppar över ett uppskjutet samtal när ett senare pass återstår', () => {
+    skjutUppSamtal(['SAM-1']);
+    expect(härledPosition(samtalsSteg)).toEqual({ steg: 1, grupp: 1 });
+  });
+
+  it('visar samtalet igen när nästa körpass har loggats', () => {
+    skjutUppSamtal(['SAM-1']);
+    loggaPass(passPost(1, 1, 'bra', null, ['KOR-1']));
+    expect(härledPosition(samtalsSteg)).toEqual({ steg: 1, grupp: 0 });
+  });
+
+  it('hoppar inte över planens sista oavslutade pass', () => {
+    skjutUppSamtal(['SAM-1']);
+    const baraSamtal = [{ ...samtalsSteg[0], grupper: [samtalsSteg[0].grupper[0]] }];
+    expect(härledPosition(baraSamtal)).toEqual({ steg: 1, grupp: 0 });
   });
 
   it('migrerar currentStep till redan-poster och tar bort nyckeln', () => {
@@ -264,6 +304,25 @@ describe('passloggen', () => {
     markeraGjort(1, 0, ['M-1']);
     expect(uppdateraNastaGang('ta Lundavägen')).toBe(true);
     expect(getPasslogg().map((p) => p.nastaGang)).toEqual(['första', 'ta Lundavägen', null]);
+  });
+
+  it('rättar utfallet på det senaste körda passet', () => {
+    loggaPass(post('bra'));
+    loggaPass(post('sadar'));
+    markeraGjort(1, 0, ['M-1']);
+    expect(uppdateraUtfall('taom')).toBe(true);
+    expect(getPasslogg().map((pass) => pass.utfall)).toEqual(['bra', 'taom', 'redan']);
+  });
+
+  it('kan inte rätta utfallet när loggen saknar körda pass', () => {
+    markeraGjort(1, 0, ['M-1']);
+    expect(uppdateraUtfall('bra')).toBe(false);
+  });
+
+  it('låter senaste utfallet tysta en äldre sådan-rad', () => {
+    loggaPass(passPost(1, 0, 'sadar', null, ['A', 'B']));
+    loggaPass(passPost(1, 0, 'bra', null, ['A', 'B']));
+    expect(senasteUtfallFör(['A', 'B'])?.utfall).toBe('bra');
   });
 
   it('behåller den senaste anteckningen när ett senare pass saknar text', () => {

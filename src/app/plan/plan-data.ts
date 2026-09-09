@@ -1,6 +1,6 @@
 import type { PassSteg } from '@/components/pass/typer';
 import content from '@/content';
-import type { EnvironmentType, Exercise, Skill, TrafficEnvironment } from '@/content/types';
+import type { Exercise, Skill } from '@/content/types';
 import { buildMapFromPlan, type SkillMapLevel } from '@/domain/progression-plan/build-from-plan';
 import { PLAN } from '@/domain/progression-plan/plan';
 
@@ -29,41 +29,24 @@ export function stepTitle(level: SkillMapLevel): string {
   return PLAN.find((steg) => steg.id === level.id)?.titel ?? 'Steg';
 }
 
-/** Gör datans minuter och miljö till den enda metaraden passvyn behöver. */
+/** Visar bara den tid och plats som planen och övningarna faktiskt säger. */
 export function beraknaPassTid(
   momentIds: string[],
+  fas: string,
+  typ: 'kor' | 'samtal',
   exercises: Exercise[] = content.exercises,
-  trafficEnvironments: TrafficEnvironment[] = content.trafficEnvironments,
 ): string | undefined {
+  if (typ === 'samtal' || momentIds.length === 0) return undefined;
+
   const passovningar = exercises.filter((exercise) => momentIds.includes(exercise.skillId));
-  if (passovningar.length === 0) return undefined;
+  const harMinuterFörVarjeMoment = momentIds.every((momentId) =>
+    passovningar.some((övning) => övning.skillId === momentId && övning.estimatedMinutes !== null),
+  );
+  if (!harMinuterFörVarjeMoment) return fas;
 
   const minuter = passovningar.reduce((sum, exercise) => sum + (exercise.estimatedMinutes ?? 0), 0);
   const avrundadeMinuter = Math.round(minuter / 5) * 5;
-  const miljöer = passovningar.flatMap((exercise) => exercise.requiredEnvironments);
-  const vanligasteMiljo = vanligaste(miljöer);
-  const miljöetikett = trafficEnvironments
-    .find((environment) => environment.type === vanligasteMiljo)
-    ?.description?.split(' — ')[0];
-
-  return `Cirka ${avrundadeMinuter} minuter${miljöetikett ? ` · ${miljöetikett}` : ''}`;
-}
-
-function vanligaste(miljöer: EnvironmentType[]): EnvironmentType | undefined {
-  const antal = new Map<EnvironmentType, number>();
-  let vanligasteMiljö: EnvironmentType | undefined;
-  let högstaAntal = 0;
-
-  for (const miljö of miljöer) {
-    const nyttAntal = (antal.get(miljö) ?? 0) + 1;
-    antal.set(miljö, nyttAntal);
-    if (nyttAntal > högstaAntal) {
-      vanligasteMiljö = miljö;
-      högstaAntal = nyttAntal;
-    }
-  }
-
-  return vanligasteMiljö;
+  return `Cirka ${avrundadeMinuter} minuter · ${fas}`;
 }
 
 /** Datan passvyn behöver, byggd från den validerade planen. */
@@ -80,7 +63,7 @@ export const passSteg: PassSteg[] = progressionMap.levels.map((level, index) => 
         id: group.id,
         typ: planPass.typ,
         notering: planPass.notering,
-        tid: beraknaPassTid(group.skillIds),
+        tid: beraknaPassTid(group.skillIds, planSteg.fas, planPass.typ),
         moment: group.skillIds
           .map((id) => skillsById.get(id))
           .filter((skill): skill is Skill => skill !== undefined)

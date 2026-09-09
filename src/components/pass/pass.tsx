@@ -8,11 +8,13 @@ import { Subheading } from '@/components/ui/section';
 import {
   avslutandePasspost,
   avmarkeraGjort,
-  getPasslogg,
   härledPosition,
   loggaPass,
   markeraGjort,
+  ärPassAvslutat,
+  senasteUtfallFör,
   senasteNastaGang,
+  skjutUppSamtal,
   uppdateraNastaGang,
 } from '@/storage/storage';
 import type { Passposition, Passutfall } from '@/storage/types';
@@ -110,12 +112,18 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   const grupp = fastSteg ? 0 : Math.min(läge.pos.grupp, aktuelltSteg.grupper.length - 1);
   const pos = { steg: stegnummer, grupp };
   const passet = aktuelltSteg.grupper[grupp];
-  const föregåendeUtfall = !fastSteg
-    ? tidigareUtfall(
-        passet.moment.map((moment) => moment.id),
-        getPasslogg(),
-      )
-    : null;
+  const momentIds = passet.moment.map((moment) => moment.id);
+  const föregåendeUtfall = !fastSteg ? senasteUtfallFör(momentIds) : null;
+  const kanSkjutaUppSamtal =
+    !fastSteg &&
+    passet.typ === 'samtal' &&
+    steg.some((ettSteg, stegIndex) =>
+      ettSteg.grupper.some(
+        (enGrupp, gruppIndex) =>
+          (stegIndex > pos.steg - 1 || (stegIndex === pos.steg - 1 && gruppIndex > pos.grupp)) &&
+          !ärPassAvslutat(enGrupp.moment.map((moment) => moment.id)),
+      ),
+    );
 
   function svara(utfall: Passutfall, nastaGang: string) {
     const text = nastaGang.trim() || null;
@@ -123,7 +131,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       datum: new Date().toISOString(),
       steg: pos.steg,
       grupp: pos.grupp,
-      momentIds: passet.moment.map((m) => m.id),
+      momentIds,
       utfall,
       nastaGang: text,
     });
@@ -132,6 +140,13 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
     // "Ta om" lämnar passet kvar eftersom det inte är en avslutande post.
     setLäge({ status, pos: härledPosition(steg), nastaGang: senasteNastaGang() });
     setFas('pass');
+    window.scrollTo({ top: 0 });
+  }
+
+  function skjutUpp() {
+    const sparat = skjutUppSamtal(momentIds);
+    setSparfel(!sparat);
+    setLäge({ status, pos: härledPosition(steg), nastaGang: senasteNastaGang() });
     window.scrollTo({ top: 0 });
   }
 
@@ -166,7 +181,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
     <div className="space-y-7">
       {nastaGang !== null && !fastSteg && <NastaGang text={nastaGang} onÄndra={ändraNastaGang} />}
 
-      {föregåendeUtfall && (
+      {(föregåendeUtfall?.utfall === 'sadar' || föregåendeUtfall?.utfall === 'taom') && (
         <p className="text-base text-ink-2">
           Förra gången: {föregåendeUtfall.utfall === 'sadar' ? 'sådär' : 'ta om'} ·{' '}
           {formatDatum(föregåendeUtfall.datum)}
@@ -269,9 +284,19 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       )}
 
       {!fastSteg && (
-        <Knapp onClick={() => setFas('efter')}>
-          {passet.typ === 'samtal' ? 'Vi har pratat om det här' : 'Vi har övat det här'}
-        </Knapp>
+        <div className="space-y-3">
+          <Knapp onClick={() => setFas('efter')}>
+            {passet.typ === 'samtal' ? 'Vi har pratat om det här' : 'Vi har övat det här'}
+          </Knapp>
+          {kanSkjutaUppSamtal && (
+            <SekundarKnapp
+              onClick={skjutUpp}
+              className="min-h-14 w-full justify-center text-center"
+            >
+              Inte nu — visa nästa körpass
+            </SekundarKnapp>
+          )}
+        </div>
       )}
 
       {!fastSteg && (
@@ -289,7 +314,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
 }
 
 function fragorForPass(passet: PassGrupp): string[] {
-  return passet.moment.flatMap((moment) => moment.fragor.slice(0, 1)).slice(0, 3);
+  return passet.moment.flatMap((moment) => moment.fragor.slice(0, 1));
 }
 
 function Fragelista({ fragor }: { fragor: string[] }) {
@@ -321,8 +346,8 @@ function Handledarfragor({ passet }: { passet: PassGrupp }) {
 
 const FÖRE_KONTROLLER = [
   'körkortstillstånd',
-  'legitimation',
-  'handledargodkännande',
+  'elevens legitimation',
+  'godkänd handledare',
   'skylten på',
   'en snabb koll av bilen',
 ];
@@ -367,27 +392,25 @@ function FöreKontrollera({
   );
 }
 
-function tidigareUtfall(momentIds: string[], logg: ReturnType<typeof getPasslogg>) {
-  return [...logg]
-    .reverse()
-    .find(
-      (post) =>
-        momentIds.every((id) => post.momentIds.includes(id)) &&
-        (post.utfall === 'sadar' || post.utfall === 'taom'),
-    );
-}
-
 function formatDatum(datum: string) {
   return new Date(datum).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' });
 }
 
 /** Samma lugna kontroll som svaren efter passet, för historik som går att rätta. */
-function SekundarKnapp({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+function SekundarKnapp({
+  children,
+  onClick,
+  className = '',
+}: {
+  children: ReactNode;
+  onClick: () => void;
+  className?: string;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="min-h-12 shrink-0 rounded-[var(--radius-sm)] border border-line-strong bg-surface px-3 text-base font-semibold normal-case text-ink transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+      className={`min-h-12 shrink-0 rounded-[var(--radius-sm)] border border-line-strong bg-surface px-3 text-base font-semibold normal-case text-ink transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none ${className}`}
     >
       {children}
     </button>
@@ -418,7 +441,7 @@ function Efter({
   onSvar: (utfall: Passutfall, nastaGang: string) => void;
 }) {
   const [text, setText] = useState('');
-  // En fråga per moment, högst tre. Fler blir en läxa i stället för ett samtal.
+  // En fråga per moment håller samtalet nära det paret just övade.
   const fragor = fragorForPass(passet);
 
   return (
@@ -444,9 +467,18 @@ function Efter({
       </label>
 
       <div className="space-y-3">
-        <Svar onClick={() => onSvar('bra', text)}>Gick bra</Svar>
-        <Svar onClick={() => onSvar('sadar', text)}>Sådär</Svar>
-        <Svar onClick={() => onSvar('taom', text)}>Ta om</Svar>
+        <div>
+          <Svar onClick={() => onSvar('bra', text)}>Gick bra</Svar>
+          <p className="mt-1 text-center text-sm text-ink-3">nästa pass</p>
+        </div>
+        <div>
+          <Svar onClick={() => onSvar('sadar', text)}>Sådär</Svar>
+          <p className="mt-1 text-center text-sm text-ink-3">vidare, men det kommer tillbaka</p>
+        </div>
+        <div>
+          <Svar onClick={() => onSvar('taom', text)}>Ta om</Svar>
+          <p className="mt-1 text-center text-sm text-ink-3">samma pass igen</p>
+        </div>
       </div>
     </div>
   );

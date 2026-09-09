@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Stolpe } from '@/components/ui/stolpe';
 import { Vag, Vagstation } from '@/components/ui/asfaltband';
 import { Meta, Section, SectionTitle } from '@/components/ui/section';
-import { ärPassAvslutat, getKördaPass, getPasslogg, härledPosition } from '@/storage/storage';
+import { ärPassAvslutat, getKördaPass, härledPosition } from '@/storage/storage';
 import type { Passpost } from '@/storage/types';
 import type { PassSteg } from './typer';
 
@@ -46,9 +46,7 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
   const [gjorda, setGjorda] = useState<Record<number, number>>({});
   const [räkning, setRäkning] = useState<{
     körda: number;
-    gjorda: number;
     sedan: string;
-    harRedan: boolean;
   } | null>(null);
   const [attTaOm, setAttTaOm] = useState<AttTaOm[]>([]);
 
@@ -63,22 +61,12 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
         ]),
       ),
     );
-    const logg = getPasslogg();
     const körda = getKördaPass();
     if (körda.length > 0) {
       const första = new Date(körda[0].datum);
       setRäkning({
         körda: körda.length,
-        gjorda: passSteg.reduce(
-          (antal, ettSteg) =>
-            antal +
-            ettSteg.grupper.filter((grupp) =>
-              ärPassAvslutat(grupp.moment.map((moment) => moment.id)),
-            ).length,
-          0,
-        ),
         sedan: första.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' }),
-        harRedan: logg.some((post) => post.utfall === 'redan'),
       });
     }
     setAttTaOm(
@@ -99,15 +87,20 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
     <>
       {räkning && (
         <Link href="/historik" className="mt-3 block text-base text-blue-text">
-          {räkning.harRedan
-            ? `${räkning.gjorda} pass gjorda · ${räkning.körda} körda med appen sedan ${räkning.sedan}`
-            : `${räkning.körda} pass sedan ${räkning.sedan}`}
+          {räkning.körda} {räkning.körda === 1 ? 'kväll' : 'kvällar'} sedan {räkning.sedan}
         </Link>
       )}
       <Vag className="mt-6">
         <ol>
           {steg.map((s, index) => {
             const antalGjorda = gjorda[s.nummer] ?? 0;
+            const antalSamtal = passSteg[index].grupper.filter(
+              (grupp) => grupp.typ === 'samtal',
+            ).length;
+            const passEtikett =
+              antalSamtal > 0
+                ? `${s.antalPass - antalSamtal} körpass · ${antalSamtal} samtal`
+                : `${s.antalPass} pass`;
             const visaFas = index === 0 || steg[index - 1].fas !== s.fas;
             const status =
               aktuellt === null
@@ -144,7 +137,7 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
                       {s.titel}
                     </span>
                     <Meta>
-                      {s.antalPass} pass
+                      {passEtikett}
                       {antalGjorda > 0 &&
                         ` · ${antalGjorda} ${antalGjorda === 1 ? 'gjort' : 'gjorda'}`}
                     </Meta>
@@ -159,9 +152,7 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
 
       {attTaOm.length > 0 && (
         <Section>
-          <SectionTitle accent="var(--sign-yellow)" accentBorder>
-            Att ta om
-          </SectionTitle>
+          <SectionTitle>Att ta om</SectionTitle>
           <ul className="mt-[18px] max-w-[var(--measure)] divide-y divide-line">
             {attTaOm.map(({ steg, grupp: gruppnummer, post }) => {
               const grupp = passSteg.find((ettSteg) => ettSteg.nummer === steg)?.grupper[
