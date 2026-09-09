@@ -2,6 +2,7 @@ import { Asfaltband } from '@/components/ui/asfaltband';
 import { PageShell } from '@/components/ui/page-shell';
 import { Skylt } from '@/components/ui/skylt';
 import { Pass } from '@/components/pass/pass';
+import { Valkomst } from '@/components/pass/valkomst';
 import { passSteg } from './plan/plan-data';
 
 export const metadata = {
@@ -39,8 +40,7 @@ export default function Home() {
       </Asfaltband>
 
       <div className="mt-8">
-        <h1 className="sr-only">Nästa pass</h1>
-        <Pass steg={passSteg} />
+        <Valkomst steg={passSteg} />
       </div>
     </PageShell>
   );

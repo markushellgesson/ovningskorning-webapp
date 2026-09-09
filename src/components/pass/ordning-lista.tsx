@@ -98,11 +98,11 @@ export function OrdningLista({ steg, passSteg }: { steg: OrdningSteg[]; passSteg
   return (
     <>
       {räkning && (
-        <p className="mt-3 text-base text-ink-2">
+        <Link href="/historik" className="mt-3 block text-base text-blue-text">
           {räkning.harRedan
             ? `${räkning.gjorda} pass gjorda · ${räkning.körda} körda med appen sedan ${räkning.sedan}`
             : `${räkning.körda} pass sedan ${räkning.sedan}`}
-        </p>
+        </Link>
       )}
       <Vag className="mt-6">
         <ol>

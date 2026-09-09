@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState, type ReactNode } from 'react';
 import { RowLink } from '@/components/ui/list-row';
 import { Stolpe } from '@/components/ui/stolpe';
+import { Subheading } from '@/components/ui/section';
 import {
   avslutandePasspost,
   avmarkeraGjort,
@@ -73,6 +74,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
   // localStorage kastar i privat läge och när kvoten är full. Appen fungerar
   // ändå — men den minns inte, och det ska den säga i stället för att tiga.
   const [sparfel, setSparfel] = useState(false);
+  const [föreKontroller, setFöreKontroller] = useState<string[]>([]);
 
   useEffect(() => {
     const pos = härledPosition(steg);
@@ -126,6 +128,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
       nastaGang: text,
     });
     setSparfel(!sparat);
+    setFöreKontroller([]);
     // "Ta om" lämnar passet kvar eftersom det inte är en avslutande post.
     setLäge({ status, pos: härledPosition(steg), nastaGang: senasteNastaGang() });
     setFas('pass');
@@ -188,6 +191,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
         {!fastSteg && passet.notering && (
           <p className="mt-1 text-base text-ink-2">{passet.notering}</p>
         )}
+        {!fastSteg && passet.tid && <p className="mt-1 text-sm text-ink-3">{passet.tid}</p>}
         {underRubrik && <div className="mt-4">{underRubrik}</div>}
       </div>
 
@@ -209,6 +213,7 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
                     {`Pass ${i + 1}${etikett ? ` · ${etikett}` : ''}`}
                   </p>
                   {g.notering && <p className="mt-1 text-base text-ink-2">{g.notering}</p>}
+                  {g.tid && <p className="mt-1 text-sm text-ink-3">{g.tid}</p>}
                 </div>
               )}
               {g.typ === 'samtal' && (
@@ -253,14 +258,10 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
         })}
       </div>
 
-      {/* Hela "Före"-avsnittet från den borttagna Upplägg-sidan, kokat till
-          sina fem sakuppgifter. Det är det enda på skärmen som förklarar
-          något, och det förklarar bara vad som ska ligga i bilen. */}
-      {passet.typ === 'kor' && (
-        <p className="max-w-[var(--measure)] text-base text-ink-2">
-          Innan ni kör: körkortstillstånd, legitimation och handledargodkännande i bilen, skylten
-          på, en snabb koll av bilen.
-        </p>
+      {!fastSteg && <Handledarfragor passet={passet} />}
+
+      {!fastSteg && passet.typ === 'kor' && (
+        <FöreKontrollera valda={föreKontroller} onAndra={setFöreKontroller} />
       )}
 
       {sparfel && (
@@ -283,6 +284,85 @@ export function Pass({ steg, fastSteg, underRubrik, rubrikNivå = 'h2' }: PassPr
           </Link>
         </p>
       )}
+    </div>
+  );
+}
+
+function fragorForPass(passet: PassGrupp): string[] {
+  return passet.moment.flatMap((moment) => moment.fragor.slice(0, 1)).slice(0, 3);
+}
+
+function Fragelista({ fragor }: { fragor: string[] }) {
+  return (
+    <ul className="max-w-[var(--measure)] space-y-3">
+      {fragor.map((fraga) => (
+        <li key={fraga} className="flex gap-3 text-lg text-ink">
+          <span aria-hidden="true" className="w-[26px] shrink-0 font-semibold text-blue-text">
+            →
+          </span>
+          <span>{fraga}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Handledarfragor({ passet }: { passet: PassGrupp }) {
+  const fragor = fragorForPass(passet);
+  if (fragor.length === 0) return null;
+
+  return (
+    <div className="space-y-3">
+      <Subheading as="p">{passet.typ === 'samtal' ? 'Att prata om' : 'Att titta efter'}</Subheading>
+      <Fragelista fragor={fragor} />
+    </div>
+  );
+}
+
+const FÖRE_KONTROLLER = [
+  'körkortstillstånd',
+  'legitimation',
+  'handledargodkännande',
+  'skylten på',
+  'en snabb koll av bilen',
+];
+
+function FöreKontrollera({
+  valda,
+  onAndra,
+}: {
+  valda: string[];
+  onAndra: (valda: string[]) => void;
+}) {
+  function andra(kontroll: string) {
+    onAndra(
+      valda.includes(kontroll) ? valda.filter((vald) => vald !== kontroll) : [...valda, kontroll],
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <Subheading as="p">Innan ni kör</Subheading>
+      <ul className="max-w-[var(--measure)] divide-y divide-line border-y border-line">
+        {FÖRE_KONTROLLER.map((kontroll) => {
+          const ärVald = valda.includes(kontroll);
+          return (
+            <li key={kontroll}>
+              <button
+                type="button"
+                aria-pressed={ärVald}
+                onClick={() => andra(kontroll)}
+                className="flex min-h-12 w-full items-center gap-3 py-2 text-left text-base text-ink transition-colors duration-150 active:bg-surface-sunken active:duration-0 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                <span aria-hidden="true" className="text-lg">
+                  {ärVald ? '☑' : '☐'}
+                </span>
+                {kontroll}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
@@ -339,7 +419,7 @@ function Efter({
 }) {
   const [text, setText] = useState('');
   // En fråga per moment, högst tre. Fler blir en läxa i stället för ett samtal.
-  const fragor = passet.moment.flatMap((m) => m.fragor.slice(0, 1)).slice(0, 3);
+  const fragor = fragorForPass(passet);
 
   return (
     <div className="space-y-7">
@@ -348,19 +428,7 @@ function Efter({
         <p className="mt-2 text-base text-ink-2">{passet.moment.map((m) => m.namn).join(' · ')}</p>
       </div>
 
-      {fragor.length > 0 && (
-        <ul className="max-w-[var(--measure)] space-y-3">
-          {fragor.map((f) => (
-            <li key={f} className="flex gap-3 text-lg text-ink">
-              {/* Pilar är typografiska — appen har inga ikoner. */}
-              <span aria-hidden="true" className="w-[26px] shrink-0 font-semibold text-blue-text">
-                →
-              </span>
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      {fragor.length > 0 && <Fragelista fragor={fragor} />}
 
       <label className="block">
         <span className="sr-only">Nästa gång</span>

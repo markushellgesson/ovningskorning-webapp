@@ -20,6 +20,7 @@ export interface PassGrupp {
   id: string;
   typ: 'kor' | 'samtal';
   notering?: string;
+  tid?: string;
   moment: PassMoment[];
 }
 

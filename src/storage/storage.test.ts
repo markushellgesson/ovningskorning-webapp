@@ -16,6 +16,8 @@ import {
   markeraGjort,
   senasteNastaGang,
   uppdateraNastaGang,
+  getValkomst,
+  saveValkomst,
 } from './storage';
 import type { Profile, DrivingSession, Passutfall } from './types';
 import type { PassSteg } from '@/components/pass/typer';
@@ -96,6 +98,21 @@ describe('localStorage repository', () => {
     // Ska returnera default-värde utan att krascha
     const profile = getProfile();
     expect(profile).toBeNull();
+  });
+});
+
+describe('välkomst', () => {
+  beforeEach(() => localStorage.clear());
+
+  it('är osedd tills den sparas', () => {
+    expect(getValkomst()).toBe(false);
+    expect(saveValkomst()).toBe(true);
+    expect(getValkomst()).toBe(true);
+  });
+
+  it('tolkar bara true som sedd', () => {
+    localStorage.setItem('ovningskorning:v1:valkomst', JSON.stringify('true'));
+    expect(getValkomst()).toBe(false);
   });
 });
 

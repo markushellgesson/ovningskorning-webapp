@@ -56,6 +56,15 @@ function safeRemove(key: string): boolean {
   }
 }
 
+/** Välkomsten är bara ett val, inte en del av parets framsteg. */
+export function getValkomst(): boolean {
+  return safeGet<unknown>('valkomst', false) === true;
+}
+
+export function saveValkomst(): boolean {
+  return safeSet('valkomst', true);
+}
+
 // Profile
 export function getProfile(): Profile | null {
   return safeGet<Profile | null>('profile', null);

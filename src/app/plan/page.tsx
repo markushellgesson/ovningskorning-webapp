@@ -3,6 +3,7 @@ import { PageBody, PageHeader, PageShell } from '@/components/ui/page-shell';
 import { RowLink } from '@/components/ui/list-row';
 import { Hopfallbart } from '@/components/ui/section';
 import { OrdningLista, type OrdningSteg } from '@/components/pass/ordning-lista';
+import { ValkomstRad } from '@/components/pass/valkomst';
 import { PLAN_INGRESS } from '@/domain/progression-plan/plan';
 import { skills, progressionMap, continuousByCategory, passSteg, stepTitle } from './plan-data';
 
@@ -67,6 +68,7 @@ export default function PlanPage() {
 
       <PageBody>
         <div>
+          <ValkomstRad />
           <p className="max-w-[var(--measure)] text-lg text-ink">{PLAN_INGRESS}</p>
 
           <OrdningLista steg={steg} passSteg={passSteg} />
@@ -112,10 +114,6 @@ export default function PlanPage() {
             Råd till handledaren — Transportstyrelsen → (öppnas på transportstyrelsen.se)
           </a>
         </p>
-
-        <footer className="border-t border-line pt-5">
-          <p className="text-sm text-ink-3">Framstegen sparas bara i den här webbläsaren.</p>
-        </footer>
       </PageBody>
     </PageShell>
   );

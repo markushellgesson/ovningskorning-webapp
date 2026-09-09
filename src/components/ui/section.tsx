@@ -106,7 +106,7 @@ export function Hopfallbart({
 interface SubheadingProps {
   children: ReactNode;
   /** h3 som standard; h2 där underrubriken är avsnittets enda rubrik. */
-  as?: 'h2' | 'h3';
+  as?: 'h2' | 'h3' | 'p';
 }
 
 /**
