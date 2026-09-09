@@ -44,6 +44,7 @@ import {
   VagarbeteVaktDiagram,
   SituationsanpassadHastighetDiagram,
   ViltPaVagenDiagram,
+  GrundlaggandeReglageDiagram,
 } from './index';
 
 /**
@@ -51,6 +52,9 @@ import {
  * Flera moment kan dela samma diagram om det är relevant för båda.
  */
 export const diagramRegistry: Record<string, () => ReactNode> = {
+  // Grundläggande reglage — var de sitter, blicken på vägen (körteknik, ingen paragraf)
+  'VEH-04': () => <GrundlaggandeReglageDiagram />,
+
   // Högerregeln — trafikförordningen 3 kap 18 §
   'INT-01': () => <HogerregelnDiagram />,
   'INT-02': () => <HogerregelnDiagram />,

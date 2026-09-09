@@ -38,3 +38,4 @@ export { SparvagnBlandtrafikDiagram } from './sparvagn-blandtrafik';
 export { VagarbeteVaktDiagram } from './vagarbete-vakt';
 export { SituationsanpassadHastighetDiagram } from './situationsanpassad-hastighet';
 export { ViltPaVagenDiagram } from './vilt-pa-vagen';
+export { GrundlaggandeReglageDiagram } from './grundlaggande-reglage';
