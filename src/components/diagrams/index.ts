@@ -39,3 +39,6 @@ export { VagarbeteVaktDiagram } from './vagarbete-vakt';
 export { SituationsanpassadHastighetDiagram } from './situationsanpassad-hastighet';
 export { ViltPaVagenDiagram } from './vilt-pa-vagen';
 export { GrundlaggandeReglageDiagram } from './grundlaggande-reglage';
+export { ForarstallningDiagram } from './forarstallning';
+export { SpegelrutinDiagram } from './spegelrutin';
+export { EffektivBromsningDiagram } from './effektiv-bromsning';

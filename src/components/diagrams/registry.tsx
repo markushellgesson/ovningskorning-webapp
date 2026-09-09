@@ -45,6 +45,9 @@ import {
   SituationsanpassadHastighetDiagram,
   ViltPaVagenDiagram,
   GrundlaggandeReglageDiagram,
+  ForarstallningDiagram,
+  SpegelrutinDiagram,
+  EffektivBromsningDiagram,
 } from './index';
 
 /**
@@ -54,6 +57,15 @@ import {
 export const diagramRegistry: Record<string, () => ReactNode> = {
   // Grundläggande reglage — var de sitter, blicken på vägen (körteknik, ingen paragraf)
   'VEH-04': () => <GrundlaggandeReglageDiagram />,
+
+  // Förarställning — lätt böjda leder, nackstödet i öronhöjd (ergonomi, ingen paragraf)
+  'VEH-01': () => <ForarstallningDiagram />,
+
+  // Spegelrutin — spegeln hör till ett beslut; spegel, tecken, axelblick före körfältsbyte
+  'OBS-02': () => <SpegelrutinDiagram />,
+
+  // Effektiv bromsning — full broms och styrning samtidigt; ABS-pulsering = håll kvar (körteknik)
+  'MAN-07': () => <EffektivBromsningDiagram />,
 
   // Högerregeln — trafikförordningen 3 kap 18 §
   'INT-01': () => <HogerregelnDiagram />,

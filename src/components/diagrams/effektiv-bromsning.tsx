@@ -1,5 +1,5 @@
 /**
- * Effektiv bromsning (MAN-07), vy uppifrån + en inzoomad sidovy av pedalen.
+ * Effektiv bromsning (MAN-07), vy uppifrån.
  *
  * Bildens enda poäng: när pedalen börjar pulsera har ABS gripit in — då håller
  * du kvar trycket och fortsätter styra. Full bromskraft och styrförmåga finns
@@ -49,19 +49,24 @@
  *   manövern. En KORT pil framför bilen (203,252 → 197,229) = det lilla som är
  *   kvar av farten. Skillnaden i pillängd är kvalitativ, inte ett mått.
  *
- * ---- INSETTEN (sidovy, x 366–496, y 104–320) ----
- * Egen ram med egen rubrik, helt utanför övningsytan (ytan slutar x 360), så
- * att de två perspektiven inte kan förväxlas: rutan zoomar in på foten, den
- * visar inte en annan plats. Pedalen är nedtryckt i botten, hälen står i golvet
- * (y 250) och foten ligger kvar på plattan. Pulseringen visas med en dubbelpil
- * längs pedalens rörelseriktning plus tre korta vibrationsstreck — form, inte
- * färg, bär betydelsen.
+ * ---- VAD BILDEN AVSTÅR FRÅN: pedalen i sidovy ----
+ * Uppdraget bad om en liten sidovy av bromspedalen med foten på. Den är
+ * struken. En pedal med en fot på i profil visar ingenting rumsligt som orden
+ * inte säger bättre — "pedalen pulserar, håll kvar trycket" är en mening, inte
+ * en bild. Det som BARA går att visa är det rumsliga: att bromsspåren kröker
+ * hela vägen, att hjulen är vridna medan bromsljusen lyser, och att manövern
+ * tar slut på olika ställen beroende på om trycket ligger kvar. Pulseringen
+ * bärs därför av bildtexten och av förklaringsrutans två utfall.
  *
  * ---- FÖRKLARINGSRUTAN (efterräknad, inte antagen) ----
  * Två miniscener i scale(0,45) av EXAKT samma lokala geometri som huvudscenen
  * (samma yta, samma kon på (280,340), samma spår), translate(−280, −385) före
- * skalningen. Gemensam referenslinje = bromspunkten, lokal y 588 →
- * 985 + 0,45·(588 − 385) = 1076 på duken, samma i båda panelerna.
+ * skalningen. Panelerna har mitt i x 164 och x 384, cy 995; deras ytor upptar
+ * x 110–200 och x 330–420 på duken (ytans referenspunkt är x 280, alltså
+ * −120·0,45 till vänster och +80·0,45 till höger), alltså ingen kontakt med etiketterna i
+ * rutans vänsterkant (som slutar vid x 100) och inte med skiljelinjen x 265.
+ * Gemensam referenslinje = bromspunkten, lokal y 588 →
+ * 995 + 0,45·(588 − 385) = 1086 på duken, samma i båda panelerna.
  *   Panel A (rätt): trycket kvar. Spåren är kraftiga hela vägen, bilen står i
  *     (210,3, 278,8) — samma läge som i huvudbilden — och den korta pilen visar
  *     att farten nästan är borta. Grön bock.
@@ -70,12 +75,12 @@
  *     i samma riktning till (208,4, 229,5) / (187,2, 235,3) och bilen står
  *     längre fram, i (192,1, 211,2), med en betydligt längre rörelsepil: farten
  *     är kvar. Karossens hörn (174,193) (199,187) (210,229) (185,236) ligger
- *     inom panelens yta (lokalt x 160–360, y 150–636). Rött kryss.
+ *     inom panelens yta (lokalt x 160–360, y 150–620). Rött kryss.
  *   Ingen kollision ritas och ingen sträcka anges — skillnaden mellan panelerna
  *   är att bromsverkan avtar, ingenting annat påstås.
  *
  * ---- MÖNSTER OCH ROLLER (inget mönster betyder två saker) ----
- *   prickar               = du (din bil och din fot)
+ *   prickar               = du (elevens bil)
  *   grovt grått band      = bromsspår, däckens väg
  *   tunn röd streckad     = svagare bromsverkan (bara i förklaringsrutan)
  *   heldragen ambergul pil = bilen rör sig nu; längden = hur mycket fart
@@ -102,7 +107,17 @@ interface CarProps {
 }
 
 /** Bil med fronten uppåt före rotation. Karossen upptar (cx ± width/2, cy ± length/2). */
-function Car({ cx, cy, width, length, rot, turn = 0, brakeLights = false, fill, stroke }: CarProps) {
+function Car({
+  cx,
+  cy,
+  width,
+  length,
+  rot,
+  turn = 0,
+  brakeLights = false,
+  fill,
+  stroke,
+}: CarProps) {
   const hw = width / 2;
   const hl = length / 2;
   const glass = `fill-diagram-marking ${stroke}`;
@@ -253,12 +268,12 @@ function MiniScen({ x, y, variant }: { x: number; y: number; variant: 'kvar' | '
   const kvar = variant === 'kvar';
   return (
     <g transform={`translate(${x} ${y}) scale(0.45) translate(-280 -385)`}>
-      <rect x="160" y="150" width="200" height="486" className="fill-diagram-road" />
+      <rect x="160" y="150" width="200" height="470" className="fill-diagram-road" />
       <rect
         x="160"
         y="150"
         width="200"
-        height="486"
+        height="470"
         className="fill-none stroke-diagram-edge"
         strokeWidth="4"
       />
@@ -367,19 +382,18 @@ export function EffektivBromsningDiagram() {
         styr i samma manöver i stället för att först bromsa rakt och sedan svänga. Din bil står
         förbi hindret med framhjulen tydligt vridna och röda bromsljus vid bakkanten, och framför
         den finns bara en kort ambergul pil: farten är nästan borta men styrningen finns kvar. En
-        egen inramad ruta uppe till höger, tydligt utanför övningsytan, zoomar in på foten sedd från
-        sidan: bromspedalen är nedtryckt i botten, hälen står i golvet och foten ligger kvar på
-        pedalen. En dubbelriktad pil längs pedalens rörelseriktning och tre korta vibrationsstreck
-        visar att pedalen pulserar när ABS griper in. Markering ett pekar på konen, hindret du både
-        bromsar och styr förbi. Markering två pekar på pedalen i insetten: den pulserar, och trycket
-        ska ligga kvar. Markering tre pekar på de krökta bromsspåren: bromskraft och styrförmåga
-        finns samtidigt. Inga mått anges — ingen bromssträcka, ingen hastighet och ingen tid. Längst
-        ned jämför en ruta samma manöver två gånger, med en gemensam streckad referenslinje vid
-        bromspunkten. I vänstra panelen ligger trycket kvar: spåren är kraftiga hela vägen, bilen
-        har nästan stannat strax förbi konen, markerat med en grön bock. I högra panelen lättar
-        foten när pedalen börjar pulsera: spåren blir tunna och streckade efter den punkten,
-        manövern fortsätter längre fram och bilen är kvar i klar rörelse med en lång pil, markerat
-        med ett rött kryss. Ingen kollision visas — det enda som skiljer panelerna är att
+        teckenförklaring uppe i högermarginalen namnger de tre linjetyperna: grovt grått band för
+        bromsspår, ambergul pil för att bilen rör sig, och tre tvärstreck för fart. Markering ett
+        pekar på konen, hindret du både bromsar och styr förbi. Markering två pekar på bilens vridna
+        framhjul medan bromsljusen lyser: full broms och full styrning i samma ögonblick. Markering
+        tre pekar på de krökta bromsspåren, som kröker under hela bromssträckan i stället för att gå
+        rakt först och svänga sedan. Inga mått anges — ingen bromssträcka, ingen hastighet och ingen
+        tid. Längst ned jämför en ruta samma manöver två gånger, med en gemensam streckad
+        referenslinje vid bromspunkten. I vänstra panelen ligger trycket kvar: spåren är kraftiga
+        hela vägen, bilen har nästan stannat strax förbi konen, markerat med en grön bock. I högra
+        panelen lättar foten när pedalen börjar pulsera: spåren blir tunna och streckade efter den
+        punkten, manövern fortsätter längre fram och bilen är kvar i klar rörelse med en lång pil,
+        markerat med ett rött kryss. Ingen kollision visas — det enda som skiljer panelerna är att
         bromsverkan avtar.
       </desc>
 
@@ -398,17 +412,6 @@ export function EffektivBromsningDiagram() {
         >
           <path d="M 0 0 L 10 5 L 0 10 z" className="fill-attention-600" />
         </marker>
-        <marker
-          id="eb-arrow-dark"
-          viewBox="0 0 10 10"
-          refX="9"
-          refY="5"
-          markerWidth="5"
-          markerHeight="5"
-          orient="auto"
-        >
-          <path d="M 0 0 L 10 5 L 0 10 z" className="fill-text-primary" />
-        </marker>
       </defs>
 
       {/* Rubrik */}
@@ -416,7 +419,7 @@ export function EffektivBromsningDiagram() {
         Bromsa hårt — och styr samtidigt
       </text>
       <text x="20" y="48" className="fill-text-secondary text-[14px]">
-        Avstängd, trafikfri yta. Inga mått anges i bilden.
+        Avstängd, trafikfri yta.
       </text>
 
       {/* ---- Övningsytan: x 160–360, y 96–636, inga körfältslinjer ---- */}
@@ -486,89 +489,38 @@ export function EffektivBromsningDiagram() {
         markerEnd="url(#eb-arrow)"
       />
 
-      {/* ---- Inset: pedalen i sidovy, egen ram utanför ytan ---- */}
-      <rect
-        x="366"
-        y="104"
-        width="130"
-        height="216"
-        rx="6"
-        className="fill-none stroke-border-default"
-        strokeWidth="1.5"
-      />
-      <Callout x={382} y={124} n={2} />
-      <text x="398" y="129" className="fill-text-primary text-[14px] font-semibold">
-        Pedalen
-      </text>
-
-      {/* Golv */}
+      {/* ---- Teckenförklaring, uppe i den fria högermarginalen ---- */}
       <line
-        x1="376"
-        y1="250"
-        x2="486"
-        y2="250"
-        className="stroke-text-primary"
-        strokeWidth="2.5"
+        x1="368"
+        y1="126"
+        x2="396"
+        y2="126"
+        className="stroke-text-tertiary"
+        strokeWidth="9"
         strokeLinecap="round"
       />
-      {/* Pedalarm och nedtryckt platta */}
+      <text x="404" y="131" className="fill-text-tertiary text-[14px]">
+        Bromsspår
+      </text>
       <line
-        x1="392"
+        x1="368"
         y1="156"
-        x2="424"
-        y2="232"
-        className="stroke-text-primary"
+        x2="394"
+        y2="156"
+        className="stroke-attention-600"
         strokeWidth="4"
-        strokeLinecap="round"
+        markerEnd="url(#eb-arrow)"
       />
-      <line
-        x1="412"
-        y1="237"
-        x2="436"
-        y2="227"
-        className="stroke-text-primary"
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-      {/* Foten ligger kvar, hälen i golvet */}
-      <path
-        d="M 410 231 L 464 249 L 474 236 L 438 211 L 422 217 Z"
-        fill="url(#eb-dots)"
-        className="stroke-attention-600"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M 438 211 L 474 236 L 486 202 L 458 186 Z"
-        fill="url(#eb-dots)"
-        className="stroke-attention-600"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      {/* Pulsering: dubbelpil längs pedalens rörelse + vibrationsstreck */}
-      <line
-        x1="402"
-        y1="226"
-        x2="412"
-        y2="250"
-        className="stroke-text-primary"
-        strokeWidth="2.5"
-        markerStart="url(#eb-arrow-dark)"
-        markerEnd="url(#eb-arrow-dark)"
-      />
-      <g className="stroke-text-primary" strokeWidth="2.5" strokeLinecap="round">
-        <line x1="384" y1="222" x2="394" y2="218" />
-        <line x1="382" y1="230" x2="392" y2="226" />
-        <line x1="380" y1="238" x2="390" y2="234" />
+      <text x="404" y="161" className="fill-text-tertiary text-[14px]">
+        Bilen rör sig
+      </text>
+      <g className="stroke-text-primary" strokeWidth="3" strokeLinecap="round">
+        <line x1="368" y1="180" x2="392" y2="180" />
+        <line x1="371" y1="186" x2="389" y2="186" />
+        <line x1="374" y1="192" x2="386" y2="192" />
       </g>
-      <text x="374" y="276" className="fill-text-primary text-[14px] font-semibold">
-        Den pulserar
-      </text>
-      <text x="374" y="294" className="fill-text-secondary text-[14px]">
-        när ABS griper in.
-      </text>
-      <text x="374" y="312" className="fill-text-secondary text-[14px]">
-        Håll kvar trycket.
+      <text x="404" y="191" className="fill-text-tertiary text-[14px]">
+        Fart
       </text>
 
       {/* ---- Etiketter i marginalerna ---- */}
@@ -582,6 +534,25 @@ export function EffektivBromsningDiagram() {
         styrningen kvar
       </text>
       <Pointer x1={152} y1={240} x2={194} y2={266} />
+
+      {/* 2. Hjulen vridna medan bromsljusen lyser */}
+      <Callout x={382} y={227} n={2} />
+      <text x="398" y="232" className="fill-text-primary text-[14px] font-semibold">
+        Hjulen vridna
+      </text>
+      <text x="368" y="252" className="fill-text-secondary text-[14px]">
+        medan bromsljusen
+      </text>
+      <text x="368" y="270" className="fill-text-secondary text-[14px]">
+        lyser — full broms
+      </text>
+      <text x="368" y="288" className="fill-text-secondary text-[14px]">
+        och full styrning
+      </text>
+      <text x="368" y="306" className="fill-text-secondary text-[14px]">
+        i samma ögonblick
+      </text>
+      <Pointer x1={366} y1={242} x2={224} y2={259} />
 
       {/* 1. Hindret */}
       <Callout x={382} y={352} n={1} />
@@ -651,45 +622,11 @@ export function EffektivBromsningDiagram() {
         du behöver inte välja mellan att bromsa hårt och att styra undan.
       </text>
 
-      {/* ---- Teckenförklaring och mönster ---- */}
-      <g>
-        <line
-          x1="24"
-          y1="772"
-          x2="52"
-          y2="772"
-          className="stroke-text-tertiary"
-          strokeWidth="9"
-          strokeLinecap="round"
-        />
-        <text x="60" y="777" className="fill-text-tertiary text-[14px]">
-          Bromsspår
-        </text>
-        <line
-          x1="190"
-          y1="772"
-          x2="216"
-          y2="772"
-          className="stroke-attention-600"
-          strokeWidth="4"
-          markerEnd="url(#eb-arrow)"
-        />
-        <text x="228" y="777" className="fill-text-tertiary text-[14px]">
-          Bilen rör sig
-        </text>
-        <g className="stroke-text-primary" strokeWidth="3" strokeLinecap="round">
-          <line x1="340" y1="766" x2="360" y2="766" />
-          <line x1="343" y1="772" x2="357" y2="772" />
-          <line x1="346" y1="778" x2="354" y2="778" />
-        </g>
-        <text x="370" y="777" className="fill-text-tertiary text-[14px]">
-          Fart
-        </text>
-      </g>
+      {/* ---- Mönsterförklaring ---- */}
       <g>
         <rect
           x="24"
-          y="791"
+          y="774"
           width="28"
           height="14"
           rx="2"
@@ -697,26 +634,26 @@ export function EffektivBromsningDiagram() {
           className="stroke-attention-600"
           strokeWidth="1.5"
         />
-        <text x="60" y="803" className="fill-text-tertiary text-[14px]">
-          Du — bil och fot
+        <text x="60" y="786" className="fill-text-tertiary text-[14px]">
+          Din bil
         </text>
         <line
-          x1="190"
-          y1="798"
-          x2="216"
-          y2="798"
+          x1="160"
+          y1="781"
+          x2="186"
+          y2="781"
           className="stroke-safety-600"
           strokeWidth="4"
           strokeDasharray="7 6"
         />
-        <text x="228" y="803" className="fill-text-tertiary text-[14px]">
+        <text x="196" y="786" className="fill-text-tertiary text-[14px]">
           Svagare broms
         </text>
         <g className="fill-safety-600">
-          <rect x="340" y="793" width="9" height="5" rx="1.5" />
-          <rect x="353" y="793" width="9" height="5" rx="1.5" />
+          <rect x="330" y="776" width="9" height="5" rx="1.5" />
+          <rect x="343" y="776" width="9" height="5" rx="1.5" />
         </g>
-        <text x="370" y="803" className="fill-text-tertiary text-[14px]">
+        <text x="362" y="786" className="fill-text-tertiary text-[14px]">
           Bromsljus
         </text>
       </g>
@@ -735,9 +672,9 @@ export function EffektivBromsningDiagram() {
         När pedalen börjar pulsera:
       </text>
       <line
-        x1="250"
+        x1="265"
         y1="858"
-        x2="250"
+        x2="265"
         y2="1168"
         className="stroke-border-default"
         strokeWidth="1.5"
@@ -745,55 +682,55 @@ export function EffektivBromsningDiagram() {
       />
 
       <text
-        x="140"
-        y="880"
+        x="164"
+        y="874"
         textAnchor="middle"
         className="fill-text-primary text-[14px] font-semibold"
       >
         Trycket ligger kvar
       </text>
       <text
-        x="368"
-        y="880"
+        x="384"
+        y="874"
         textAnchor="middle"
         className="fill-text-primary text-[14px] font-semibold"
       >
         Foten lättar
       </text>
 
+      <MiniScen x={164} y={995} variant="kvar" />
+      <MiniScen x={384} y={995} variant="lattar" />
+
       {/* Gemensam referenslinje: bromspunkten, lokal y 588 → duk y 1076 */}
-      <text x="26" y="1072" className="fill-text-secondary text-[14px]">
+      <text x="26" y="1082" className="fill-text-secondary text-[14px]">
         Bromspunkt
       </text>
       <line
-        x1="104"
-        y1="1076"
-        x2="430"
-        y2="1076"
+        x1="112"
+        y1="1086"
+        x2="446"
+        y2="1086"
         className="stroke-text-tertiary"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeDasharray="0.5 5"
       />
 
-      <MiniScen x={140} y={985} variant="kvar" />
-      <MiniScen x={368} y={985} variant="lattar" />
-
-      <text x="140" y="1116" textAnchor="middle" className="fill-text-secondary text-[14px]">
+      <text x="164" y="1124" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Bromsen arbetar hela
       </text>
-      <text x="140" y="1134" textAnchor="middle" className="fill-text-secondary text-[14px]">
+      <text x="164" y="1142" textAnchor="middle" className="fill-text-secondary text-[14px]">
         vägen, du styr förbi
       </text>
-      <Check x={140} y={1158} />
+      <Check x={164} y={1166} />
 
-      <text x="368" y="1116" textAnchor="middle" className="fill-text-secondary text-[14px]">
+      <text x="384" y="1124" textAnchor="middle" className="fill-text-secondary text-[14px]">
         Bromsverkan avtar mitt
       </text>
-      <text x="368" y="1134" textAnchor="middle" className="fill-text-secondary text-[14px]">
+      <text x="384" y="1142" textAnchor="middle" className="fill-text-secondary text-[14px]">
         i manövern — fart kvar
       </text>
-      <Cross x={368} y={1158} />
+      <Cross x={384} y={1166} />
     </svg>
   );
 }
